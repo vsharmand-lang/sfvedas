@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tutorials — SFVedas</title>
+  <meta name="description" content="Deep Salesforce tutorials for tech leaders and delivery managers."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+</head>
+<body class="light-mode">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="courses.html" class="nav-link nav-cta">Premium Courses</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="tutorials.html" class="nav-link">Tutorials</a>
+      <a href="learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="courses.html" class="nav-link">Premium Courses</a>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">All Tutorials</span>
+      <h1 class="section-title">Deep knowledge.<br/><em>Hard questions.</em></h1>
+      <p class="section-desc">Not for beginners. For the people who need to understand Salesforce at the architectural, strategic and delivery level.</p>
+    </div>
+  </section>
+
+  <section style="padding: 60px 0 100px;">
+    <div class="container">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-tag="all">All Topics</button>
+        <button class="filter-btn" data-tag="architecture">Architecture</button>
+        <button class="filter-btn" data-tag="delivery">Delivery</button>
+        <button class="filter-btn" data-tag="strategy">Strategy</button>
+      </div>
+      <div class="tutorials-grid">
+        <article class="tutorial-card tutorial-card--featured" data-tag="architecture">
+          <div class="card-meta">
+            <span class="card-tag">Architecture</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">25 min</span>
+          </div>
+          <h3 class="card-title">If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture?</h3>
+          <p class="card-excerpt">An honest exploration of cloud architecture evolution, microservices, Kubernetes, serverless — and whether multi-tenancy is still the smartest choice in 2026.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/multi-tenant.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="strategy">
+          <div class="card-meta">
+            <span class="card-tag">Strategy</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">28 min</span>
+          </div>
+          <h3 class="card-title">Salesforce 360 — A Thoughtful Decision or the Only Way Forward?</h3>
+          <p class="card-excerpt">Is Customer 360 a genuinely strategic decision or has the market already made the choice for you? A deep analysis for tech leaders.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-360.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="architecture">
+          <div class="card-meta">
+            <span class="card-tag">Architecture</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">24 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Einstein and Agentforce — Genuine AI Capability or Expensive Marketing?</h3>
+          <p class="card-excerpt">Einstein and Agentforce look impressive in demos. A hard-nosed look at where the AI capability is genuine and where it is expensive marketing.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-ai.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="architecture">
+          <div class="card-meta">
+            <span class="card-tag">Architecture</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">27 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Data Model Design — The Decisions That Haunt Enterprises for a Decade</h3>
+          <p class="card-excerpt">The data model decisions made in year one haunt enterprises for a decade. The design principles that prevent technical debt before it becomes structural.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-data-model.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="architecture">
+          <div class="card-meta">
+            <span class="card-tag">Architecture</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">26 min</span>
+          </div>
+          <h3 class="card-title">Is Salesforce Truly Agile-Ready, or Are We Forcing Agile onto a Waterfall Platform?</h3>
+          <p class="card-excerpt">Salesforce releases are quarterly, orgs are shared, and metadata conflicts are real. An honest assessment of where Agile works and where it creates illusions.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-agile.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="architecture">
+          <div class="card-meta">
+            <span class="card-tag">Architecture</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">21 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Platform Events — Why Event-Driven Architecture Belongs at the Centre of Your Design</h3>
+          <p class="card-excerpt">Event-driven architecture is not a pattern for edge cases — it belongs at the centre of your Salesforce design. Why, and how to get there from where you are.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-platform-events.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="architecture">
+          <div class="card-meta">
+            <span class="card-tag">Architecture</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">19 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Experience Cloud — Portal Strategy That Leaders Must Interrogate Before Committing</h3>
+          <p class="card-excerpt">Experience Cloud looks like the obvious portal solution. The architectural commitments it forces — and the questions leaders must ask before signing.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-experience-cloud.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="architecture">
+          <div class="card-meta">
+            <span class="card-tag">Architecture</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">20 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Testing Strategy — Why 75% Code Coverage Is the Floor, Not the Target</h3>
+          <p class="card-excerpt">75% code coverage is a compliance floor, not a quality signal. What a real Salesforce testing strategy looks like at the architectural level.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-test-strategy.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="architecture">
+          <div class="card-meta">
+            <span class="card-tag">Architecture</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">20 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Release Management — Building a Delivery Pipeline That Does Not Break Production</h3>
+          <p class="card-excerpt">Most Salesforce delivery pipelines break production eventually. The release management architecture that prevents it — and why most organisations build it too late.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-release-management.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="delivery">
+          <div class="card-meta">
+            <span class="card-tag">Delivery</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">25 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Integration Architecture — MuleSoft, APIs or Point-to-Point: What Leaders Must Understand</h3>
+          <p class="card-excerpt">MuleSoft vs point-to-point vs custom APIs — the integration decision that shapes your architecture for years. What tech leaders must know before they commit.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-integration.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="delivery">
+          <div class="card-meta">
+            <span class="card-tag">Delivery</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">21 min</span>
+          </div>
+          <h3 class="card-title">Building a Salesforce Centre of Excellence — Why Most Fail and What the Successful Ones Do Differently</h3>
+          <p class="card-excerpt">Most Salesforce Centres of Excellence fail within two years. An honest post-mortem on why — and what the ones that succeed do differently.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-coe.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="delivery">
+          <div class="card-meta">
+            <span class="card-tag">Delivery</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">20 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Insource vs Outsource — The Decision That Shapes Your Entire Programme</h3>
+          <p class="card-excerpt">The insource vs outsource decision shapes your programme's agility, cost, and risk profile for years. A framework for making it deliberately rather than by default.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-outsourcing.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="delivery">
+          <div class="card-meta">
+            <span class="card-tag">Delivery</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">18 min</span>
+          </div>
+          <h3 class="card-title">Flow vs Apex — The Decision Framework Every Salesforce Architect Needs</h3>
+          <p class="card-excerpt">The Flow vs Apex debate is the wrong framing. A decision framework that tech leaders can use to make the choice deliberately and defend it under scrutiny.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-flow-apex.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="delivery">
+          <div class="card-meta">
+            <span class="card-tag">Delivery</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">23 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Security Architecture — The Decisions That Keep CISOs Awake at Night</h3>
+          <p class="card-excerpt">Profiles, permission sets, sharing rules, field-level security — the Salesforce security model is deep and its failure modes are expensive. What CISOs need to understand.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-security.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="delivery">
+          <div class="card-meta">
+            <span class="card-tag">Delivery</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">21 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Technical Debt — The Invisible Risk That Destroys Delivery Velocity</h3>
+          <p class="card-excerpt">Technical debt in Salesforce is invisible until it stops delivery. How it accumulates, how to measure it, and how to address it without halting the programme.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-technical-debt.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="strategy">
+          <div class="card-meta">
+            <span class="card-tag">Strategy</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">23 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Data Cloud — The Most Important Product in the Portfolio That Most Organisations Are Not Ready For</h3>
+          <p class="card-excerpt">Data Cloud is Salesforce's most strategically important product. It is also the one most organisations are not technically or organisationally ready to adopt.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-data-cloud.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="strategy">
+          <div class="card-meta">
+            <span class="card-tag">Strategy</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">20 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Licence Strategy — How Sophisticated Buyers Pay 30-40% Less Than Naive Ones</h3>
+          <p class="card-excerpt">The commercial levers that sophisticated buyers use to reduce Salesforce spend by 30-40%. What most organisations never learn until it is too late to negotiate.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-licence-strategy.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="strategy">
+          <div class="card-meta">
+            <span class="card-tag">Strategy</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">22 min</span>
+          </div>
+          <h3 class="card-title">Measuring True Salesforce ROI — Why Most Business Cases Are Wrong Before They Start</h3>
+          <p class="card-excerpt">Most Salesforce business cases are wrong before the ink dries. The measurement framework that gives you an honest picture of what the platform is actually delivering.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-roi.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="strategy">
+          <div class="card-meta">
+            <span class="card-tag">Strategy</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">19 min</span>
+          </div>
+          <h3 class="card-title">Salesforce Hyperforce — What Tech Leaders Must Understand Before It Becomes Mandatory</h3>
+          <p class="card-excerpt">Hyperforce is coming for every enterprise customer. What it means architecturally, commercially, and operationally — before it becomes mandatory.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-hyperforce.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="strategy">
+          <div class="card-meta">
+            <span class="card-tag">Strategy</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">22 min</span>
+          </div>
+          <h3 class="card-title">Why 70% of Salesforce Failures Are Not Technology Failures — They Are Change Failures</h3>
+          <p class="card-excerpt">Technology is rarely why Salesforce programmes fail. A clear-eyed analysis of the change management decisions that separate successful adoptions from expensive rollouts.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-change-management.html" class="card-link">Read →</a>
+          </div>
+        </article>
+
+        <article class="tutorial-card" data-tag="strategy">
+          <div class="card-meta">
+            <span class="card-tag">Strategy</span>
+            <span class="card-tag card-tag--free">Free</span>
+            <span class="card-read">22 min</span>
+          </div>
+          <h3 class="card-title">Single Org vs Multi-Org Salesforce Strategy — The Decision That Defines Your Enterprise Architecture</h3>
+          <p class="card-excerpt">Single org vs multi-org is not a technical decision — it is an enterprise architecture decision with decade-long consequences. The framework for getting it right.</p>
+          <div class="card-footer">
+            <div class="card-author"><div class="author-avatar">VS</div><span>Vishal Sharma</span></div>
+            <a href="../tutorials/salesforce-org-strategy.html" class="card-link">Read →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="tutorials.html">All Tutorials</a><a href="learning-paths.html">Learning Paths</a><a href="courses.html">Premium Courses</a></div>
+          <div class="footer-col"><h4>About</h4><a href="about.html">Our Story</a><a href="about.html#vishal">Vishal Sharma</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="tutorials.html">Architecture</a><a href="tutorials.html">Delivery</a><a href="tutorials.html">Strategy</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

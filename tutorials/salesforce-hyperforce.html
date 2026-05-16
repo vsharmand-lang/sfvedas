@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salesforce Hyperforce — What Tech Leaders Must Understand Before It Becomes Mandatory — SFVedas</title>
+  <meta name="description" content="Hyperforce is Salesforce's re-architecture of the platform on public cloud infrastructure. For most organisations it will eventually be mandatory. Understanding what it changes — and what it does not — is essential for platform strategy in 2026."/>
+  <meta name="author" content="Vishal Sharma"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+</head>
+<body class="light-mode">
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+        <li><a href="../pages/courses.html" class="nav-link nav-cta">Premium Courses</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+      <a href="../pages/courses.html" class="nav-link">Premium Courses</a>
+    </div>
+  </nav>
+
+  <section class="tutorial-hero">
+    <div class="container">
+      <p class="tutorial-breadcrumb"><a href="../pages/tutorials.html">Tutorials</a> &rsaquo; h2</p>
+      <div class="tutorial-meta">
+        <span class="card-tag">h2</span>
+        <span class="card-tag">Strategy</span>
+        <span class="card-tag card-tag--free">Free</span>
+      </div>
+      <h1 class="tutorial-title">Salesforce Hyperforce — What Tech Leaders Must Understand Before It Becomes Mandatory</h1>
+      <p class="tutorial-excerpt">Hyperforce is Salesforce's re-architecture of the platform on public cloud infrastructure. For most organisations it will eventually be mandatory. Understanding what it changes — and what it does not — is essential for platform strategy in 2026.</p>
+      <div class="tutorial-info">
+        <span class="tinfo-item"><span class="tinfo-icon">👤</span> Vishal Sharma</span>
+        <span class="tinfo-item"><span class="tinfo-icon">⏱</span> 19 min read</span>
+        <span class="tinfo-item"><span class="tinfo-icon">📅</span> 2026</span>
+        <span class="tinfo-item"><span class="tinfo-icon">🎯</span> CTOs, Solution Architects, Tech Leaders</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="padding:0 24px;">
+    <div class="tutorial-layout" style="max-width:1160px;margin:0 auto;">
+      <article class="tutorial-body">
+        <div class="tutorial-callout">
+          <p><strong>Why this matters now:</strong> Hyperforce is not a distant roadmap item. Salesforce is actively migrating customers and has made clear that Hyperforce is the future infrastructure direction for all clouds. Tech leaders who do not understand what Hyperforce changes — and what it does not — are not equipped to advise their organisations on the migration decision.</p>
+        </div>
+
+        <h2 id="what-hyperforce">What Hyperforce Actually Is</h2>
+<p>Hyperforce is Salesforce's re-architecture of its platform infrastructure to run on major public cloud providers — Amazon Web Services, Microsoft Azure, and Google Cloud Platform — rather than on Salesforce's proprietary data centres. The application layer (Salesforce's code, the Apex runtime, the Lightning platform) remains Salesforce-managed. What changes is where that application runs and where the data is stored.</p><p>From a user experience perspective, Hyperforce Salesforce looks and works identically to traditional Salesforce. The difference is architectural — the underlying compute and storage infrastructure is now cloud-native, containerised, and deployed on hyperscaler infrastructure rather than on Salesforce-owned hardware.</p>
+
+        <h2 id="architecture-change">What Changes Architecturally</h2>
+<p>Several significant architectural capabilities become available on Hyperforce that are not possible on the traditional Salesforce infrastructure:</p><ul><li><strong>Geographic flexibility</strong> — data can be stored in specific geographic regions to meet data residency requirements, with more region options than were available on traditional infrastructure</li><li><strong>Elastic scaling</strong> — cloud-native infrastructure enables more dynamic scaling to handle traffic spikes without the capacity planning constraints of owned hardware</li><li><strong>Faster product delivery</strong> — containerised deployment of Salesforce's own application enables Salesforce to release updates and new features more frequently and with less risk than traditional infrastructure allowed</li><li><strong>Closer integration with hyperscaler services</strong> — Salesforce products running on AWS can more directly leverage AWS services (S3, Bedrock, etc.) than was possible with proprietary infrastructure</li></ul>
+
+        <h2 id="data-residency">Data Residency — The Primary Driver</h2>
+<p>For the majority of enterprises currently migrating to Hyperforce, data residency compliance is the primary driver. Regulations including GDPR in Europe, data localisation requirements in India, China's PIPL, and sector-specific regulations in financial services and healthcare require that customer data be stored within specific geographic boundaries.</p><p>Traditional Salesforce infrastructure offered limited geographic options for data storage. Hyperforce, running on hyperscaler infrastructure with data centres in dozens of regions globally, enables Salesforce to offer data residency guarantees that were previously not feasible — including specific country-level storage for markets like Germany, France, India and others with strict localisation requirements.</p><div class="tutorial-callout"><p><strong>The compliance question:</strong> Before evaluating Hyperforce as a technical decision, evaluate it as a compliance decision. If your regulatory environment requires data residency that your current Salesforce pod does not provide, Hyperforce migration may be a compliance requirement, not an architectural choice.</p></div>
+
+        <h2 id="performance">Performance Implications</h2>
+<p>Hyperforce performance characteristics differ from traditional Salesforce infrastructure in several ways that tech leaders should understand:</p><p><strong>Latency</strong> — for users co-located with the Hyperforce region, performance is comparable or better than traditional infrastructure. For users geographically distant from the Hyperforce region, additional latency may be introduced. Organisations with globally distributed user bases should carefully evaluate regional performance before committing to a specific Hyperforce region.</p><p><strong>Integration performance</strong> — integrations connecting Salesforce to other cloud services running in the same cloud provider region (e.g., Salesforce on AWS connecting to a data warehouse on AWS Redshift) benefit from lower latency and higher throughput than cross-infrastructure connections.</p>
+
+        <h2 id="migration">The Migration Decision</h2>
+<p>Salesforce is managing Hyperforce migration as a phased programme, with some customer migrations being voluntary and others being coordinated by Salesforce based on infrastructure capacity and compliance requirements. The practical considerations for migration planning:</p><ul><li><strong>Testing requirements</strong> — while Hyperforce is architecturally compatible with existing customisations, enterprise orgs with complex custom code, integrations and managed packages should plan for thorough regression testing post-migration</li><li><strong>Timeline</strong> — enterprise org migrations typically require 6-12 months of planning and execution, including stakeholder communication, testing and cutover planning</li><li><strong>IP address changes</strong> — Hyperforce uses different IP address ranges than traditional Salesforce infrastructure, requiring network firewall and allowlist updates for organisations with IP-restricted access</li><li><strong>Connected App review</strong> — the migration is an appropriate opportunity to audit and rationalise Connected Apps and integrations</li></ul>
+
+        <h2 id="limitations">What Hyperforce Does Not Solve</h2>
+<p>It is important to be clear about what Hyperforce does not change, to prevent inflated expectations:</p><ul><li><strong>Governor limits remain</strong> — Hyperforce does not eliminate or significantly raise Salesforce's governor limits. The multi-tenant architecture constraints that governor limits implement persist on Hyperforce</li><li><strong>Customisation constraints remain</strong> — the limits of what can be built on Salesforce without managed packages or external compute do not change with Hyperforce</li><li><strong>Licence costs do not decrease</strong> — Hyperforce migration does not reduce Salesforce licensing costs. In some cases, additional Data Cloud or Hyperforce-specific licences may be required</li><li><strong>Integration complexity does not reduce</strong> — existing integrations require update for new IP addresses and potentially new authentication patterns, adding short-term complexity before any long-term benefit</li></ul>
+
+
+        <div class="quiz-section">
+          <h2>Test Your Understanding</h2>
+          <div class="quiz-form">
+
+            <div class="quiz-question" data-correct="b">
+              <p>1. On what infrastructure does Hyperforce run?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Salesforce's proprietary data centres</div>
+                <div class="quiz-option" data-value="b">Amazon Web Services, Microsoft Azure and Google Cloud Platform</div>
+                <div class="quiz-option" data-value="c">IBM Cloud and Oracle Cloud</div>
+                <div class="quiz-option" data-value="d">A combination of on-premise and colocation data centres</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>2. What is the primary driver for most enterprise Hyperforce migrations?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Lower licensing costs</div>
+                <div class="quiz-option" data-value="b">Elimination of governor limits</div>
+                <div class="quiz-option" data-value="c">Data residency compliance with geographic data storage requirements</div>
+                <div class="quiz-option" data-value="d">Improved performance for all users globally</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>3. What network configuration change is required for all Hyperforce migrations?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Complete firewall replacement</div>
+                <div class="quiz-option" data-value="b">Updated IP address allowlists as Hyperforce uses different IP ranges than traditional Salesforce</div>
+                <div class="quiz-option" data-value="c">New VPN configuration for all users</div>
+                <div class="quiz-option" data-value="d">DNS migration to Salesforce-managed nameservers</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="c">
+              <p>4. What does Hyperforce NOT change about the Salesforce platform?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">The geographic options for data storage</div>
+                <div class="quiz-option" data-value="b">The underlying infrastructure provider</div>
+                <div class="quiz-option" data-value="c">Governor limits and multi-tenant architecture constraints</div>
+                <div class="quiz-option" data-value="d">The speed of Salesforce's own product release cycles</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>5. For what type of Salesforce integration does Hyperforce offer the greatest performance benefit?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">All integrations regardless of architecture</div>
+                <div class="quiz-option" data-value="b">Integrations connecting to other cloud services in the same cloud provider region</div>
+                <div class="quiz-option" data-value="c">Integrations using legacy SOAP APIs</div>
+                <div class="quiz-option" data-value="d">Integrations with on-premise systems</div>
+              </div>
+            </div>
+            <button class="quiz-submit">Check My Answers</button>
+            <div class="quiz-result"></div>
+          </div>
+        </div>
+        <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--border);">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+            <a href="salesforce-technical-debt.html" class="btn btn-ghost">← Salesforce Technical Debt</a><a href="salesforce-licence-strategy.html" class="btn btn-outline">Salesforce Licence Strategy →</a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#what-hyperforce">What Hyperforce Actually Is</a></li>
+            <li><a href="#architecture-change">What Changes Architecturally</a></li>
+            <li><a href="#data-residency">Data Residency — The Primary Driver</a></li>
+            <li><a href="#performance">Performance Implications</a></li>
+            <li><a href="#migration">The Migration Decision</a></li>
+            <li><a href="#limitations">What Hyperforce Does Not Solve</a></li>
+          </ul>
+        </div>
+        <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;margin-bottom:24px;">
+          <h4 style="font-family:var(--font-ui);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:14px;">Key Takeaways</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Hyperforce runs on AWS, Azure and GCP — not Salesforce's own data centres.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Data residency compliance is the primary driver for most enterprise migrations.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Hyperforce does not eliminate governor limits.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Migration is not instant — plan 6-12 months for enterprise orgs.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Hyperforce enables faster Salesforce product innovation through cloud-native architecture.</span>
+            </li>
+          </ul>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;margin-bottom:24px;">
+          <h4 style="font-family:var(--font-ui);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:14px;">Related</h4>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="salesforce-technical-debt.html" style="font-family:var(--font-ui);font-size:0.82rem;color:var(--text-secondary);line-height:1.5;padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);display:block;transition:all 0.25s;" onmouseover="this.style.borderColor='var(--saffron)';this.style.color='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)';this.style.color=''">← Salesforce Technical Debt</a>
+            <a href="../pages/tutorials.html" style="font-family:var(--font-ui);font-size:0.82rem;color:var(--text-secondary);padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);display:block;transition:all 0.25s;" onmouseover="this.style.borderColor='var(--saffron)';this.style.color='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)';this.style.color=''">All Tutorials →</a>
+          </div>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Go Deeper</h4>
+          <p>Explore our premium courses — structured deep-dives with frameworks, case studies and certificates.</p>
+          <a href="../pages/courses.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:12px;">View Courses</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a><a href="../pages/courses.html">Premium Courses</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a><a href="../pages/about.html#vishal">Vishal Sharma</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a><a href="../pages/tutorials.html">Strategy</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

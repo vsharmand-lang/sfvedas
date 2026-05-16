@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Single Org vs Multi-Org Salesforce Strategy — The Decision That Defines Your Enterprise Architecture — SFVedas</title>
+  <meta name="description" content="Should your enterprise run one Salesforce org or many? This is one of the most consequential and least reversible decisions in enterprise Salesforce architecture. A rigorous framework for getting it right."/>
+  <meta name="author" content="Vishal Sharma"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+</head>
+<body class="light-mode">
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+        <li><a href="../pages/courses.html" class="nav-link nav-cta">Premium Courses</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+      <a href="../pages/courses.html" class="nav-link">Premium Courses</a>
+    </div>
+  </nav>
+
+  <section class="tutorial-hero">
+    <div class="container">
+      <p class="tutorial-breadcrumb"><a href="../pages/tutorials.html">Tutorials</a> &rsaquo; h2</p>
+      <div class="tutorial-meta">
+        <span class="card-tag">h2</span>
+        <span class="card-tag">Strategy</span>
+        <span class="card-tag card-tag--free">Free</span>
+      </div>
+      <h1 class="tutorial-title">Single Org vs Multi-Org Salesforce Strategy — The Decision That Defines Your Enterprise Architecture</h1>
+      <p class="tutorial-excerpt">Should your enterprise run one Salesforce org or many? This is one of the most consequential and least reversible decisions in enterprise Salesforce architecture. A rigorous framework for getting it right.</p>
+      <div class="tutorial-info">
+        <span class="tinfo-item"><span class="tinfo-icon">👤</span> Vishal Sharma</span>
+        <span class="tinfo-item"><span class="tinfo-icon">⏱</span> 22 min read</span>
+        <span class="tinfo-item"><span class="tinfo-icon">📅</span> 2026</span>
+        <span class="tinfo-item"><span class="tinfo-icon">🎯</span> Enterprise Architects, CTOs, Solution Architects</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="padding:0 24px;">
+    <div class="tutorial-layout" style="max-width:1160px;margin:0 auto;">
+      <article class="tutorial-body">
+        <div class="tutorial-callout">
+          <p><strong>The stakes:</strong> The org strategy decision determines data sharing boundaries, integration architecture, licence efficiency, administrative overhead and development complexity for the entire lifetime of the Salesforce investment. Made incorrectly, it costs tens of millions to remediate. Made deliberately, it aligns the platform architecture with the organisation's operating model.</p>
+        </div>
+
+        <h2 id="case-single">The Case for a Single Org</h2>
+<p>A single Salesforce org is the architectural baseline that Salesforce is designed to deliver against. Every native feature — sharing rules, role hierarchy, cross-object reporting, unified customer records, Data Cloud unification — is designed to work within a single org boundary. Multi-org architectures work around these design assumptions at significant cost.</p><p>The single org advantages are substantial:</p><ul><li><strong>Native data sharing</strong> — any record can be shared with any user without integration complexity</li><li><strong>Unified reporting</strong> — all data is available in a single reporting layer without the complexity of cross-org data consolidation</li><li><strong>Lower administrative overhead</strong> — one team manages one set of user profiles, permission sets, sharing rules and configuration</li><li><strong>Licence efficiency</strong> — users who need access to data across business units do not require licences in multiple orgs</li><li><strong>Data Cloud compatibility</strong> — Data Cloud is designed to unify data across a single org's touchpoints; multi-org scenarios add significant complexity to the unification story</li></ul>
+
+        <h2 id="case-multi">The Case for Multiple Orgs</h2>
+<p>There are legitimate architectural reasons for multiple Salesforce orgs, and there are illegitimate reasons that are frequently used to justify a multi-org decision that will eventually be regretted.</p><p><strong>Legitimate reasons:</strong></p><ul><li>Regulatory data isolation requirements that mandate that specific regional or business unit data cannot be stored in a shared environment accessible to users outside that boundary</li><li>Post-merger and acquisition scenarios where separate businesses with separate operating models need to run on Salesforce before integration is feasible</li><li>Genuinely separate business units with no shared customers, no shared data requirements and no need for cross-unit reporting</li></ul><p><strong>Illegitimate reasons (that frequently drive multi-org decisions):</strong></p><ul><li>Business units that want autonomy and don't want to share a platform — an organisational preference, not an architectural requirement</li><li>Different Salesforce editions needed for different teams — solvable within a single org through profiles and permission sets</li><li>Fear of complexity — single org governance challenges are real but less expensive than multi-org integration complexity</li></ul>
+
+        <h2 id="when-multi">When Multiple Orgs Are Actually Required</h2>
+<p>After filtering out the illegitimate drivers, the scenarios that genuinely require multiple Salesforce orgs are narrower than most multi-org decisions reflect:</p><p><strong>Hard regulatory isolation.</strong> Financial services regulators in some jurisdictions require that different regulated entities operate on separate systems with no shared access. Healthcare organisations with distinct HIPAA entities. Government contractors with different classification requirements. These are genuine requirements that cannot be met within a single org.</p><p><strong>Truly separate businesses.</strong> A conglomerate that owns a retail business and an insurance business with entirely different customer bases, different business processes and no strategic intent to share customer data has limited argument for a single org. The integration cost within one org may exceed the integration cost between two orgs.</p><p><strong>M&A interim architecture.</strong> Acquiring a company that runs Salesforce independently creates a temporary multi-org scenario. The target is almost always eventual consolidation, but the timeline depends on integration feasibility.</p>
+
+        <h2 id="governance">Governance Complexity Scales with Org Count</h2>
+<p>Every additional Salesforce org multiplies governance complexity in ways that are frequently underestimated at the point of the multi-org decision:</p><ul><li><strong>Release management</strong> — every release must be deployed to every org independently. Change sets, release schedules and rollback plans multiply with org count</li><li><strong>User management</strong> — users who need access across orgs require provisioning, deprovisioning and access reviews in each org independently</li><li><strong>Security governance</strong> — security configuration, MFA enforcement, IP restrictions and Connected App governance must be maintained across every org</li><li><strong>Platform release management</strong> — each Salesforce release must be assessed for impact across every org in the estate</li><li><strong>Managed package upgrades</strong> — AppExchange managed packages used across multiple orgs must be upgraded in each org, with testing in each context</li></ul>
+
+        <h2 id="data-sharing">Data Sharing Across Orgs</h2>
+<p>The architectural complexity that multi-org decisions most consistently underestimate is org-to-org data sharing. When a customer exists as a record in Org A and an interaction record in Org B, providing any user with a unified view of that customer requires one of:</p><ul><li><strong>Bi-directional data synchronisation</strong> — maintaining copies of records across orgs through an integration layer. Introduces data consistency challenges, conflict resolution complexity and integration maintenance cost</li><li><strong>Data virtualisation</strong> — presenting data from multiple orgs in a single interface without physical data movement. Technically complex and requires middleware that adds cost and latency</li><li><strong>Salesforce Connect and External Objects</strong> — exposing records from one org as External Objects in another. Limited query capability and performance characteristics that degrade at scale</li></ul><p>None of these options is straightforward. Each adds significant ongoing complexity and cost. Understanding this cost before making a multi-org decision is essential.</p>
+
+        <h2 id="decision">Making the Decision</h2>
+<p>The decision framework for org strategy:</p><ol><li><strong>Start with single org as the default.</strong> The burden of proof is on the case for multiple orgs, not on the case for a single org.</li><li><strong>Identify regulatory isolation requirements specifically.</strong> "We want separation" is not a regulatory requirement. A specific regulation that mandates data isolation between entities is.</li><li><strong>Model the integration cost honestly.</strong> If multiple orgs are required, model the cost of org-to-org integration for every data sharing scenario that the business will require. Include ongoing maintenance.</li><li><strong>Consider the operating model.</strong> A single enterprise with unified operations and shared customers has a strong argument for single org. Genuinely separate businesses do not.</li><li><strong>Plan for the endgame.</strong> If multiple orgs are chosen as an interim architecture (e.g., post-M&A), define the endgame and the migration plan at the point of the multi-org decision, not later.</li></ol>
+
+
+        <div class="quiz-section">
+          <h2>Test Your Understanding</h2>
+          <div class="quiz-form">
+
+            <div class="quiz-question" data-correct="b">
+              <p>1. What is the default architectural recommendation for enterprise Salesforce org strategy?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Multiple orgs for maximum flexibility</div>
+                <div class="quiz-option" data-value="b">Single org, with the burden of proof on the case for multiple orgs</div>
+                <div class="quiz-option" data-value="c">Two orgs — one for production, one for development</div>
+                <div class="quiz-option" data-value="d">Multiple orgs aligned to business units</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>2. Which of these is described as an ILLEGITIMATE reason for a multi-org decision?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Regulatory data isolation requirements</div>
+                <div class="quiz-option" data-value="b">Business units wanting platform autonomy without a genuine data isolation requirement</div>
+                <div class="quiz-option" data-value="c">Post-M&A interim architecture</div>
+                <div class="quiz-option" data-value="d">Genuinely separate businesses with no shared customer base</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>3. What is the most significant hidden cost of multi-org architecture?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Higher Salesforce licence costs</div>
+                <div class="quiz-option" data-value="b">The complexity and ongoing expense of org-to-org data sharing for users who need unified customer views</div>
+                <div class="quiz-option" data-value="c">Increased Salesforce release frequency</div>
+                <div class="quiz-option" data-value="d">More Salesforce certifications required for administrators</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>4. Which of these Salesforce capabilities is specifically designed for single-org environments and adds complexity in multi-org architectures?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Apex triggers</div>
+                <div class="quiz-option" data-value="b">Data Cloud identity resolution and Customer 360 unification</div>
+                <div class="quiz-option" data-value="c">Lightning Web Components</div>
+                <div class="quiz-option" data-value="d">Salesforce Flow</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>5. What should be defined AT THE TIME of choosing a multi-org interim architecture?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">The name of the integration middleware platform</div>
+                <div class="quiz-option" data-value="b">The endgame consolidation plan and migration timeline</div>
+                <div class="quiz-option" data-value="c">The number of Salesforce administrators required</div>
+                <div class="quiz-option" data-value="d">The list of AppExchange applications to be deployed</div>
+              </div>
+            </div>
+            <button class="quiz-submit">Check My Answers</button>
+            <div class="quiz-result"></div>
+          </div>
+        </div>
+        <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--border);">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+            <a href="salesforce-data-cloud.html" class="btn btn-ghost">← Salesforce Data Cloud</a><a href="salesforce-release-management.html" class="btn btn-outline">Salesforce Release Management →</a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#case-single">The Case for a Single Org</a></li>
+            <li><a href="#case-multi">The Case for Multiple Orgs</a></li>
+            <li><a href="#when-multi">When Multiple Orgs Are Actually Required</a></li>
+            <li><a href="#governance">Governance Complexity Scales with Org Count</a></li>
+            <li><a href="#data-sharing">Data Sharing Across Orgs</a></li>
+            <li><a href="#decision">Making the Decision</a></li>
+          </ul>
+        </div>
+        <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;margin-bottom:24px;">
+          <h4 style="font-family:var(--font-ui);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:14px;">Key Takeaways</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Single org is almost always preferable — the complexity of multi-org is underestimated.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Regulatory data isolation and M&A are the two legitimate drivers for multiple orgs.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Org-to-org integration is expensive and complex — design it deliberately.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Administrative overhead multiplies with every additional org.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Multi-org decisions are extremely difficult to reverse.</span>
+            </li>
+          </ul>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;margin-bottom:24px;">
+          <h4 style="font-family:var(--font-ui);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:14px;">Related</h4>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="salesforce-data-cloud.html" style="font-family:var(--font-ui);font-size:0.82rem;color:var(--text-secondary);line-height:1.5;padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);display:block;transition:all 0.25s;" onmouseover="this.style.borderColor='var(--saffron)';this.style.color='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)';this.style.color=''">← Salesforce Data Cloud</a>
+            <a href="../pages/tutorials.html" style="font-family:var(--font-ui);font-size:0.82rem;color:var(--text-secondary);padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);display:block;transition:all 0.25s;" onmouseover="this.style.borderColor='var(--saffron)';this.style.color='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)';this.style.color=''">All Tutorials →</a>
+          </div>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Go Deeper</h4>
+          <p>Explore our premium courses — structured deep-dives with frameworks, case studies and certificates.</p>
+          <a href="../pages/courses.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:12px;">View Courses</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a><a href="../pages/courses.html">Premium Courses</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a><a href="../pages/about.html#vishal">Vishal Sharma</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a><a href="../pages/tutorials.html">Strategy</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

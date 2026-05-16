@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salesforce Technical Debt — The Invisible Risk That Destroys Delivery Velocity — SFVedas</title>
+  <meta name="description" content="Technical debt in Salesforce is different from technical debt in custom software — it accumulates faster, is harder to see and is more disruptive to remediate. A framework for understanding, measuring and managing it before it controls you."/>
+  <meta name="author" content="Vishal Sharma"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+</head>
+<body class="light-mode">
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+        <li><a href="../pages/courses.html" class="nav-link nav-cta">Premium Courses</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+      <a href="../pages/courses.html" class="nav-link">Premium Courses</a>
+    </div>
+  </nav>
+
+  <section class="tutorial-hero">
+    <div class="container">
+      <p class="tutorial-breadcrumb"><a href="../pages/tutorials.html">Tutorials</a> &rsaquo; h2</p>
+      <div class="tutorial-meta">
+        <span class="card-tag">h2</span>
+        <span class="card-tag">Delivery</span>
+        <span class="card-tag card-tag--free">Free</span>
+      </div>
+      <h1 class="tutorial-title">Salesforce Technical Debt — The Invisible Risk That Destroys Delivery Velocity</h1>
+      <p class="tutorial-excerpt">Technical debt in Salesforce is different from technical debt in custom software — it accumulates faster, is harder to see and is more disruptive to remediate. A framework for understanding, measuring and managing it before it controls you.</p>
+      <div class="tutorial-info">
+        <span class="tinfo-item"><span class="tinfo-icon">👤</span> Vishal Sharma</span>
+        <span class="tinfo-item"><span class="tinfo-icon">⏱</span> 21 min read</span>
+        <span class="tinfo-item"><span class="tinfo-icon">📅</span> 2026</span>
+        <span class="tinfo-item"><span class="tinfo-icon">🎯</span> Tech Leads, Solution Architects, Delivery Managers</span>
+      </div>
+    </div>
+  </section>
+
+  <div style="padding:0 24px;">
+    <div class="tutorial-layout" style="max-width:1160px;margin:0 auto;">
+      <article class="tutorial-body">
+        <div class="tutorial-callout">
+          <p><strong>The defining characteristic of Salesforce technical debt:</strong> It is largely invisible until it becomes a crisis. Unlike custom code where technical debt is visible in the codebase, Salesforce technical debt accumulates in configuration, customisation, integration complexity, data quality and process exceptions — none of which show up in a code quality tool.</p>
+        </div>
+
+        <h2 id="types">Types of Salesforce Technical Debt</h2>
+<p>Salesforce technical debt manifests in several distinct categories, each with different remediation complexity and operational risk:</p><ul><li><strong>Automation debt</strong> — deprecated automation tools (Workflow Rules, Process Builder) that must be migrated to Flow; overlapping automations that create unpredictable behaviour; automations without test coverage</li><li><strong>Schema debt</strong> — unused custom fields accumulating on objects; overly complex custom objects that should have been standard; incorrect relationship types that constrain reporting</li><li><strong>Code debt</strong> — Apex classes without test coverage; hard-coded IDs in code; classes using deprecated APIs; code that bypasses security controls</li><li><strong>Integration debt</strong> — undocumented integration endpoints; integrations using deprecated authentication; integrations built around workarounds that never got cleaned up</li><li><strong>Data debt</strong> — duplicate records; incomplete required fields; stale records that should have been archived; data quality degradation from manual entry without validation</li></ul>
+
+        <h2 id="accumulation">How Debt Accumulates</h2>
+<p>Salesforce technical debt accumulates through predictable mechanisms that, once understood, can be managed proactively:</p><p><strong>Delivery pressure shortcuts.</strong> When sprint deadlines approach, the decision to implement a workaround rather than the correct solution is made dozens of times per programme. Each shortcut is a debt item. Without an explicit process for recording and scheduling remediation of these items, they accumulate indefinitely.</p><p><strong>Platform evolution without estate evolution.</strong> Salesforce deprecates and replaces capabilities over time. Workflow Rules became Process Builder became Flow. Organisations that implemented on older tools and never migrated carry an estate that is increasingly at risk as Salesforce phases out support for deprecated functionality.</p><p><strong>Undisciplined customisation.</strong> Every custom field, custom object and Apex class that is created but never cleaned up when requirements change adds to the schema and code complexity. Over a five-year implementation, this accumulation is substantial.</p>
+
+        <h2 id="measurement">Measuring Your Debt Load</h2>
+<p>Salesforce provides native tooling that gives a partial picture of technical debt:</p><ul><li><strong>Salesforce Health Check</strong> — assesses security configuration against Salesforce baseline standards. A starting point but limited in scope</li><li><strong>Optimizer</strong> — analyses org configuration and identifies unused features, deprecated tools and best practice violations. More comprehensive than Health Check for configuration debt</li><li><strong>Code coverage reporting</strong> — shows which Apex classes have insufficient test coverage. Available in the Developer Console and via tooling API</li></ul><p>These tools should be run quarterly and their outputs reviewed as a standing programme governance activity. The results should be translated into a technical debt backlog with items prioritised by operational risk — automations that could fail in production are higher priority than unused custom fields.</p>
+
+        <h2 id="automation-debt">Automation Debt — The Biggest Risk</h2>
+<p>The deprecation of Workflow Rules and Process Builder in favour of Flow represents the largest category of technical debt in mature Salesforce orgs. Salesforce has signalled the end-of-life timeline for these tools, meaning that organisations still running significant automation on deprecated platforms are accumulating operational risk with every passing quarter.</p><p>The migration from Process Builder to Flow is not technically complex — Flow is a more capable tool and many Process Builder automations can be migrated and improved simultaneously. The complexity is operational: identifying all Process Builder automations (including those created by managed packages), understanding their business logic, testing migrations thoroughly, and coordinating the migration with business teams who may not know these automations exist.</p><div class="tutorial-callout"><p><strong>The action item:</strong> Run a SOQL query today: <code>SELECT Id, MasterLabel, ProcessType, Status FROM Flow WHERE ProcessType = 'Workflow'</code>. The number of active records returned is your Process Builder debt inventory. If it is above 20, you have a programme of work that needs to start now.</p></div>
+
+        <h2 id="remediation">Remediation Strategy</h2>
+<p>Technical debt remediation is most effective when treated as a continuous programme activity rather than a periodic clean-up project. The "big bang" debt remediation approach — stopping feature development for a quarter to clean up technical debt — is rarely approved and rarely succeeds. The alternative is sustained, incremental remediation embedded in the regular delivery cadence.</p><p>A practical approach: dedicate 15-20% of every sprint to technical debt remediation. This is enough to make consistent progress without disrupting feature delivery. Prioritise items by operational risk — automations that could fail, security configurations that are non-compliant, integrations using deprecated authentication — rather than by ease of remediation.</p>
+
+        <h2 id="prevention">Prevention Over Cure</h2>
+<p>The most effective technical debt strategy is prevention. The practices that prevent accumulation:</p><ul><li><strong>Definition of Done</strong> that includes technical debt criteria — no story is complete if it introduces automation debt, uses deprecated APIs, or bypasses security controls</li><li><strong>Architecture review</strong> for every significant design decision — a lightweight review by a senior architect before build prevents the majority of debt-creating design choices</li><li><strong>Regular Optimizer runs</strong> with outputs reviewed in programme governance — making technical debt visible prevents it from accumulating invisibly</li><li><strong>Automated code quality gates</strong> in the CI/CD pipeline — PMD static analysis for Apex, minimum coverage thresholds, security scan results blocking deployment if violations are found</li></ul>
+
+
+        <div class="quiz-section">
+          <h2>Test Your Understanding</h2>
+          <div class="quiz-form">
+
+            <div class="quiz-question" data-correct="b">
+              <p>1. Which automation tool migration represents the most urgent technical debt for mature Salesforce orgs?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Lightning Web Components to Aura</div>
+                <div class="quiz-option" data-value="b">Process Builder to Flow</div>
+                <div class="quiz-option" data-value="c">Classic to Lightning Experience</div>
+                <div class="quiz-option" data-value="d">SOAP API to REST API</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="c">
+              <p>2. What percentage of sprint capacity does this tutorial recommend allocating to ongoing technical debt remediation?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">5%</div>
+                <div class="quiz-option" data-value="b">10%</div>
+                <div class="quiz-option" data-value="c">15-20%</div>
+                <div class="quiz-option" data-value="d">30%</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>3. Why is Salesforce technical debt particularly hard to see compared to custom software technical debt?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Salesforce does not have technical debt by definition</div>
+                <div class="quiz-option" data-value="b">It accumulates in configuration, automation complexity and data quality rather than in a codebase visible to quality tools</div>
+                <div class="quiz-option" data-value="c">Salesforce's tools always report technical debt accurately</div>
+                <div class="quiz-option" data-value="d">Technical debt only affects Apex code which is always visible</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="b">
+              <p>4. What Salesforce native tool provides the most comprehensive analysis of configuration debt and deprecated tool usage?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">Health Check</div>
+                <div class="quiz-option" data-value="b">Optimizer</div>
+                <div class="quiz-option" data-value="c">Developer Console</div>
+                <div class="quiz-option" data-value="d">Setup Audit Trail</div>
+              </div>
+            </div>
+            <div class="quiz-question" data-correct="c">
+              <p>5. What SOQL object type should you query to inventory your Process Builder debt?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" data-value="a">ProcessBuilder</div>
+                <div class="quiz-option" data-value="b">WorkflowRule</div>
+                <div class="quiz-option" data-value="c">Flow</div>
+                <div class="quiz-option" data-value="d">AutomationProcess</div>
+              </div>
+            </div>
+            <button class="quiz-submit">Check My Answers</button>
+            <div class="quiz-result"></div>
+          </div>
+        </div>
+        <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--border);">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+            <a href="salesforce-outsourcing.html" class="btn btn-ghost">← Insource vs Outsource on Salesforce</a><a href="salesforce-hyperforce.html" class="btn btn-outline">Salesforce Hyperforce — What Leaders Must Know →</a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#types">Types of Salesforce Technical Debt</a></li>
+            <li><a href="#accumulation">How Debt Accumulates</a></li>
+            <li><a href="#measurement">Measuring Your Debt Load</a></li>
+            <li><a href="#automation-debt">Automation Debt — The Biggest Risk</a></li>
+            <li><a href="#remediation">Remediation Strategy</a></li>
+            <li><a href="#prevention">Prevention Over Cure</a></li>
+          </ul>
+        </div>
+        <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;margin-bottom:24px;">
+          <h4 style="font-family:var(--font-ui);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:14px;">Key Takeaways</h4>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Process Builder is deprecated — migrating to Flow is urgent technical debt.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Automation debt is the highest-risk category for production incidents.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Technical debt must be budgeted as a standing programme cost, not a one-off project.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>The Health Check score is a starting point, not a complete picture.</span>
+            </li>
+            <li style="display:flex;gap:8px;font-family:var(--font-ui);font-size:0.8rem;color:var(--text-secondary);line-height:1.5;">
+              <span style="color:var(--saffron);flex-shrink:0;margin-top:2px;">✦</span>
+              <span>Every sprint should include a technical debt allocation of 15-20%.</span>
+            </li>
+          </ul>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px;margin-bottom:24px;">
+          <h4 style="font-family:var(--font-ui);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:14px;">Related</h4>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="salesforce-outsourcing.html" style="font-family:var(--font-ui);font-size:0.82rem;color:var(--text-secondary);line-height:1.5;padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);display:block;transition:all 0.25s;" onmouseover="this.style.borderColor='var(--saffron)';this.style.color='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)';this.style.color=''">← Insource vs Outsource on Salesforce</a>
+            <a href="../pages/tutorials.html" style="font-family:var(--font-ui);font-size:0.82rem;color:var(--text-secondary);padding:10px 12px;background:var(--bg-secondary);border-radius:var(--radius-sm);border:1px solid var(--border);display:block;transition:all 0.25s;" onmouseover="this.style.borderColor='var(--saffron)';this.style.color='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)';this.style.color=''">All Tutorials →</a>
+          </div>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Go Deeper</h4>
+          <p>Explore our premium courses — structured deep-dives with frameworks, case studies and certificates.</p>
+          <a href="../pages/courses.html" class="btn btn-gold" style="width:100%;justify-content:center;margin-top:12px;">View Courses</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a><a href="../pages/courses.html">Premium Courses</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a><a href="../pages/about.html#vishal">Vishal Sharma</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a><a href="../pages/tutorials.html">Strategy</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>

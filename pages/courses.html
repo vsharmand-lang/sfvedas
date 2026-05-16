@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Premium Courses — SFVedas</title>
+  <meta name="description" content="Premium Salesforce courses for tech leaders and delivery managers. Deep knowledge, structured learning."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+</head>
+<body class="light-mode">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
+        <li><a href="learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="courses.html" class="nav-link active nav-cta">Premium Courses</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="tutorials.html" class="nav-link">Tutorials</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="courses.html" class="nav-link">Premium Courses</a>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="section-label">Premium Courses</span>
+      <h1 class="section-title">Go beyond the<br/><em>free tutorials</em></h1>
+      <p class="section-desc">Structured, deep courses built for leaders who need the complete picture — not just a taste of the thinking.</p>
+    </div>
+  </section>
+
+  <!-- COMING SOON BANNER -->
+  <section style="padding: 32px 0; background: linear-gradient(to right, rgba(232,147,10,0.08), rgba(0,112,210,0.06));">
+    <div class="container" style="text-align: center;">
+      <span style="font-family: var(--font-ui); font-size: 0.85rem; color: var(--text-secondary);">
+        🚀 &nbsp; First premium courses launching soon. Join the waitlist below to get early access and founding member pricing.
+      </span>
+    </div>
+  </section>
+
+  <section style="padding: 80px 0 100px;">
+    <div class="container">
+
+      <!-- WAITLIST -->
+      <div style="max-width: 560px; margin: 0 auto 72px; text-align: center; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px 40px;">
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">📬</div>
+        <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">Join the Founding Members Waitlist</h2>
+        <p style="font-family: var(--font-ui); font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.7;">Get early access to SFVedas premium courses, founding member pricing (locked for life), and direct input into which courses we build first.</p>
+        <form onsubmit="handleNewsletter(event)" style="display: flex; gap: 12px; flex-direction: column;">
+          <input type="email" placeholder="your@email.com" required class="newsletter-input" style="width: 100%;"/>
+          <button type="submit" class="btn btn-primary" style="justify-content: center;">Join Waitlist — Free</button>
+        </form>
+        <p style="font-family: var(--font-ui); font-size: 0.75rem; color: var(--text-secondary); margin-top: 12px;">No spam. No selling your data. Unsubscribe any time.</p>
+      </div>
+
+      <!-- PLANNED COURSES -->
+      <div class="section-header" style="text-align: center;">
+        <span class="section-label">Planned Courses</span>
+        <h2 class="section-title">What's <em>coming</em></h2>
+      </div>
+
+      <div class="tutorials-grid">
+        <div class="course-card">
+          <div class="course-thumb">🏛️</div>
+          <div class="course-body">
+            <p class="course-price">Coming Soon <span>— Founding price TBC</span></p>
+            <h3 class="course-title">Salesforce Architecture for Tech Leaders</h3>
+            <p class="course-desc">The complete course on Salesforce platform architecture — multi-tenancy, governor limits, data model design, integration patterns and scaling strategies.</p>
+            <ul class="course-features">
+              <li>8 deep-dive video modules</li>
+              <li>Architecture decision frameworks</li>
+              <li>Real enterprise case studies</li>
+              <li>Quiz after every module</li>
+              <li>Completion certificate</li>
+              <li>Lifetime access</li>
+            </ul>
+            <a href="#waitlist" class="btn btn-outline" style="width: 100%; justify-content: center;">Join Waitlist →</a>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-thumb">🎯</div>
+          <div class="course-body">
+            <p class="course-price">Coming Soon <span>— Founding price TBC</span></p>
+            <h3 class="course-title">Salesforce Delivery Leadership</h3>
+            <p class="course-desc">For Delivery Managers leading Salesforce implementations — governance, risk management, team structure, stakeholder management and delivery at scale.</p>
+            <ul class="course-features">
+              <li>6 modules on delivery leadership</li>
+              <li>Governance frameworks & templates</li>
+              <li>Risk identification checklists</li>
+              <li>Quiz after every module</li>
+              <li>Completion certificate</li>
+              <li>Lifetime access</li>
+            </ul>
+            <a href="#waitlist" class="btn btn-outline" style="width: 100%; justify-content: center;">Join Waitlist →</a>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="course-thumb">🧭</div>
+          <div class="course-body">
+            <p class="course-price">Coming Soon <span>— Founding price TBC</span></p>
+            <h3 class="course-title">The Salesforce Strategy Playbook</h3>
+            <p class="course-desc">Should you build on Salesforce, buy Salesforce, or walk away? The complete strategic decision framework for executives and senior tech leaders.</p>
+            <ul class="course-features">
+              <li>5 strategic modules</li>
+              <li>TCO calculation templates</li>
+              <li>Vendor evaluation frameworks</li>
+              <li>Quiz after every module</li>
+              <li>Completion certificate</li>
+              <li>Lifetime access</li>
+            </ul>
+            <a href="#waitlist" class="btn btn-outline" style="width: 100%; justify-content: center;">Join Waitlist →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="tutorials.html">All Tutorials</a><a href="learning-paths.html">Learning Paths</a><a href="courses.html">Premium Courses</a></div>
+          <div class="footer-col"><h4>About</h4><a href="about.html">Our Story</a><a href="about.html#vishal">Vishal Sharma</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="tutorials.html">Architecture</a><a href="tutorials.html">Delivery</a><a href="tutorials.html">Strategy</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>
