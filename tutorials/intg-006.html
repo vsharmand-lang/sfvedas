@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-Time Integration Patterns: Platform Events, CDC, and Streaming API | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-006</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Real-Time Integration Patterns: Platform Events, CDC, and Streaming API
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Salesforce provides three distinct event-driven mechanisms for real-time integration. Each has different semantics, different limits, and different appropriate use cases. Choosing the wrong one — or mixing them without understanding the differences — is one of the most common integration architecture mistakes.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>Platform Events: what they are, when they fire, and their at-least-once delivery semantics</li>
+      <li>Change Data Capture (CDC): what it captures and how it differs from Platform Events</li>
+      <li>Streaming API (PushTopic): the legacy mechanism and why it is being deprecated</li>
+      <li>The Pub/Sub API: the modern gRPC-based alternative for high-throughput streaming</li>
+      <li>Event replay and durable subscriptions: how to handle subscriber downtime without missing events</li>
+      <li>The architectural decision tree: which mechanism to use for which integration scenario</li>
+    </ul>
+  </div>
+
+  <h2 id="s1">The Event-Driven Integration Landscape</h2>
+  <p>Salesforce's event-driven capabilities evolved over a decade from simple outbound messaging to a comprehensive event bus. The evolution matters because different mechanisms were built for different purposes and carry different architectural guarantees. Understanding the lineage prevents the common mistake of choosing a mechanism based on familiarity rather than fit.</p>
+  <p>The three current mechanisms are: Platform Events (custom event objects published by Apex, Flows, or the API, consumed by Apex triggers, Flows, or external subscribers), Change Data Capture (system-generated events that fire on every create/update/delete/undelete of tracked Salesforce objects, consumed by Apex triggers or external subscribers), and the Pub/Sub API (a modern gRPC-based streaming interface that consolidates Platform Events and CDC delivery for external consumers). The legacy PushTopic/Streaming API is deprecated and should not be used for new implementations.</p>
+
+  <div class="callout callout--insight">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Platform Events are not CDC and CDC is not Platform Events:</strong> Platform Events are developer-defined events with arbitrary payloads. CDC is system-generated and publishes the exact record changes with all changed field values. Use Platform Events when you want to explicitly signal a business event (Order Placed, Payment Received). Use CDC when you want to react to any data change on a Salesforce object.
+    </div>
+  </div>
+
+  <h2 id="s2">Platform Events in Depth</h2>
+  <p>A Platform Event is a custom metadata type — you define it in Setup with fields just like a custom object. Published events are stored on Salesforce's event bus and delivered to subscribers within seconds. The event bus retains events for 72 hours, enabling event replay for subscribers that were offline or missed events.</p>
+  <p>Publishing Platform Events is straightforward from Apex or Flows. The event is treated like a standard SObject insert — EventBus.publish() for synchronous publishing or inserting the Platform Event SObject through the standard DML path. External systems publish events via the REST API using the standard /sobjects/{EventName__e} endpoint. This bidirectional publishing model makes Platform Events the correct mechanism for cross-system event signalling in both directions.</p>
+
+  <pre><code>// Publishing a Platform Event from Apex
+Order_Shipped__e shipEvent = new Order_Shipped__e(
+    Order_Id__c = order.Id,
+    Tracking_Number__c = trackingNum,
+    Carrier__c = 'FedEx',
+    Ship_Date__c = Date.today()
+);
+Database.SaveResult result = EventBus.publish(shipEvent);
+if (!result.isSuccess()) {
+    // Handle publish failure
+    for (Database.Error err : result.getErrors()) {
+        System.debug('Platform Event publish error: ' + err.getMessage());
+    }
+}
+
+// Subscribing from Apex trigger (fired asynchronously)
+trigger OrderShippedHandler on Order_Shipped__e (after insert) {
+    for (Order_Shipped__e event : Trigger.new) {
+        // Process each shipped order event
+        System.debug('Order shipped: ' + event.Order_Id__c);
+    }
+}</code></pre>
+
+  <p>Platform Event delivery to external subscribers uses the CometD long-polling protocol (legacy) or the Pub/Sub API gRPC protocol (recommended). CometD clients connect to the /cometd/{version} endpoint and subscribe to /event/{EventName__e}. The client must maintain a persistent connection and handle reconnection logic. The Pub/Sub API provides a cleaner gRPC-based subscription that is more reliable at scale.</p>
+
+  <h2 id="s3">Change Data Capture Architecture</h2>
+  <p>Change Data Capture (CDC) publishes a change event for every create, update, delete, and undelete operation on CDC-enabled objects. Unlike Platform Events (which contain only the fields explicitly set in the event), CDC change events contain the header (change type, entity name, record ID, transaction ID, commit timestamp) and the changed field values — specifically the values that changed, not the entire record state. This delta-only payload is important for high-volume objects where transmitting the full record on every update would be prohibitive.</p>
+  <p>CDC must be enabled per object in Setup under Change Data Capture. Standard objects and custom objects can be enabled. The change event is published to a channel named /data/{ObjectName}ChangeEvent for specific objects (e.g., /data/AccountChangeEvent) or /data/ChangeEvents for all enabled objects. Subscribers choosing the wildcard channel receive all CDC events for all enabled objects on a single subscription.</p>
+  <p>CDC change events include a changedFields header that lists which fields were modified. Combined with the event payload, this allows the subscriber to build the full changed state without re-querying Salesforce — reducing the integration to pure event-driven, zero-poll architecture. For objects with high update frequency, this is significantly more efficient than polling-based change detection.</p>
+
+  <pre><code>// CDC event payload structure (JSON representation)
+{
+  "schema": "AccountChangeEvent",
+  "payload": {
+    "ChangeEventHeader": {
+      "entityName": "Account",
+      "recordIds": ["001XXXXXXXXXXXX"],
+      "changeType": "UPDATE",
+      "changedFields": ["AnnualRevenue", "Industry", "LastModifiedDate"],
+      "changeOrigin": "com/salesforce/api/rest/60.0",
+      "transactionKey": "000e4000-0a22-9a4f",
+      "sequenceNumber": 1,
+      "commitTimestamp": 1716134400000,
+      "commitUser": "005XXXXXXXXXXXX"
+    },
+    "AnnualRevenue": 5000000.0,
+    "Industry": "Technology"
+    // Only changed fields included — not the full record
+  }
+}</code></pre>
+
+  <h2 id="s4">The Pub/Sub API: Modern Streaming</h2>
+  <p>The Salesforce Pub/Sub API is a gRPC-based API introduced to replace the CometD-based Streaming API for external consumers. It supports subscribing to Platform Events, Change Data Capture events, and Monitoring events through a single gRPC interface. The Pub/Sub API uses Apache Avro for message serialisation, which is more compact and type-safe than the JSON used by the CometD streaming interface.</p>
+  <p>The Pub/Sub API supports event replay via a ReplayPreset in the subscribe request — LATEST (events from now forward), EARLIEST (earliest retained events, up to 72 hours back), or a custom replay ID for resuming from a specific position. The replay mechanism provides durable subscriptions — if a consumer goes offline for up to 72 hours, it can catch up on missed events without any missed events being unrecoverable.</p>
+  <p>For high-throughput scenarios — subscribing to CDC on high-volume objects like Case or Order on large orgs — the Pub/Sub API outperforms CometD significantly. CometD has throughput limits of approximately 200 events per second per channel; the Pub/Sub API scales to thousands of events per second. New integrations should always use the Pub/Sub API rather than CometD.</p>
+
+  <h2 id="s5">Event Replay and Durable Subscriptions</h2>
+  <p>The 72-hour event retention window is one of the most important architectural guarantees in Salesforce event-driven integration. It means that a subscriber that goes offline for up to 72 hours can resume from its last processed event ID and receive all events it missed, in order, without gaps. This is dramatically better than a polling-based architecture where a subscriber that misses a polling window permanently misses any changes that were overwritten before the next poll.</p>
+  <p>Replay ID tracking is the subscriber's responsibility. The subscriber must persist the ReplayId of the last successfully processed event. On restart, it provides this ReplayId in the subscribe request to resume from where it left off. A subscriber that does not persist the ReplayId (or stores it only in memory) will lose its position on restart and must choose between EARLIEST (reprocessing up to 72 hours of events) or LATEST (missing all events during downtime).</p>
+
+  <div class="callout callout--warning">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <strong>72-hour window is not a backup mechanism:</strong> If a subscriber is offline for more than 72 hours, events are lost permanently. The event bus is not a data store. Integrations with recovery time objectives longer than 72 hours must supplement event-driven architecture with a reconciliation mechanism — a periodic Bulk API query that reconstructs the full state of changed records since the last successful sync.
+    </div>
+  </div>
+
+  <h2 id="s6">Choosing the Right Mechanism</h2>
+  <p>The decision tree for selecting an event mechanism starts with directionality. If an external system needs to notify Salesforce of a business event, use Platform Events published via REST API. If Salesforce needs to notify an external system of a data change without the external system polling, use CDC (for object-level changes) or Platform Events published from Apex/Flow (for business-logic-defined events). If the need is internal Salesforce event-driven processing (decouple a trigger from its downstream actions), use Platform Events consumed by Apex trigger or Flow.</p>
+  <p>For the connection mechanism from external systems, always use the Pub/Sub API for new implementations. Use CometD only for legacy systems where migrating to gRPC is not feasible. Never implement a polling loop against the Salesforce REST API for change detection if the object supports CDC — the event-driven alternative is always more efficient, more reliable, and consumes fewer API calls.</p>
+
+  <div class="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>Platform Events are developer-defined with arbitrary payloads — use them for explicit business events (Order Placed, Payment Received) in both directions between Salesforce and external systems.</li>
+      <li>Change Data Capture is system-generated and publishes field-level changes for tracked objects — use it when an external system needs to react to any data modification on a Salesforce object without polling.</li>
+      <li>The Pub/Sub API (gRPC-based) is the modern external subscription mechanism — it replaces CometD/Streaming API and should be used for all new external integrations consuming Platform Events or CDC.</li>
+      <li>Event retention is 72 hours — subscribers must persist their ReplayId to resume after downtime. Gaps longer than 72 hours require a reconciliation query to recover missed changes.</li>
+      <li>CDC change events contain only changed fields (not the full record), identified via the changedFields header — this delta payload is what makes CDC efficient for high-update-volume objects.</li>
+      <li>Never use PushTopic/Streaming API for new implementations — it is deprecated. Platform Events via Pub/Sub API replaces all legacy streaming use cases.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. An external ERP system needs to receive a notification whenever a Salesforce Opportunity is moved to "Closed Won" stage. The ERP does not need to know about other Opportunity field changes. Which mechanism is most appropriate?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Change Data Capture on the Opportunity object — it will publish an event every time any Opportunity field changes, and the ERP filters for stage changes</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">A Platform Event published from an Apex trigger or Flow when the StageName changes to "Closed Won" — this sends a business-logic-defined event only when the specific condition is met, avoiding the noise of all other Opportunity field changes</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A Streaming API PushTopic query filtering on StageName = 'Closed Won'</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A CDC subscriber was offline for 80 hours due to a system outage. It resumes with EARLIEST replay preset. What data does it receive?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">All 80 hours of missed events — Salesforce retains CDC events indefinitely until consumed</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Only the last 72 hours of events — the 8 hours of events beyond the retention window are permanently lost. A reconciliation query is needed to recover the missing changes.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">No events — the subscriber's channel subscription was terminated after 24 hours of inactivity and must be re-created</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. A CDC change event for an Account update shows changedFields: ["AnnualRevenue"]. The subscriber needs the current value of the Name field to process the event. What should the subscriber do?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Discard the event — without the Name field in the change event, the event cannot be processed</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Query Salesforce for the current Account record to retrieve the Name field — CDC events only include changed fields, so unchanged fields must be retrieved separately if needed for processing context</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Request a new CDC event to be re-published with the full record snapshot including all fields</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="intg-007.html" class="related-card">
+              <span class="card-id">INTG-007</span>
+              <h4>Data Migration Strategy: The 6-Week vs 6-Month Debate</h4>
+            </a>
+            <a href="intg-005.html" class="related-card">
+              <span class="card-id">INTG-005</span>
+              <h4>API Rate Limits: The Integration Tax Nobody Budgets For</h4>
+            </a>
+            <a href="intg-008.html" class="related-card">
+              <span class="card-id">INTG-008</span>
+              <h4>Heroku Connect: When It's the Right Answer and When It Isn't</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Event-Driven Landscape</a></li>
+            <li><a href="#s2">Platform Events in Depth</a></li>
+            <li><a href="#s3">Change Data Capture Architecture</a></li>
+            <li><a href="#s4">The Pub/Sub API</a></li>
+            <li><a href="#s5">Event Replay and Durability</a></li>
+            <li><a href="#s6">Choosing the Right Mechanism</a></li>
+            <li><a href="#quiz">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="intg-007.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Data Migration Strategy →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

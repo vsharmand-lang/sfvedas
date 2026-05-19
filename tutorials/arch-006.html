@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lightning Web Components vs Aura: The Architecture Decision That Wasn't Made Well | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-006</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Technical Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Lightning Web Components vs Aura: The Architecture Decision That Wasn't Made Well
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Many organisations are running Aura components alongside LWC, often without understanding what they chose or why. This tutorial gives you the architectural context to make the decision clearly — and plan the migration path if needed.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn...</span>
+          <ul>
+            <li>The architectural differences between Aura and LWC — not just syntax, but runtime model</li>
+            <li>Why Salesforce built LWC and what problems it was designed to solve</li>
+            <li>Performance characteristics of each framework and where the differences come from</li>
+            <li>Interoperability rules: how Aura and LWC components can (and cannot) coexist</li>
+            <li>The migration strategy from Aura to LWC and how to prioritise components</li>
+            <li>When Aura is still acceptable and when it is a risk that must be addressed</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Why Salesforce Built a Second UI Framework</h2>
+        <p>Aura was a significant engineering achievement when it launched in 2014. It provided a component-based UI framework years before React popularised the concept in the broader web development world. But Aura was built on a proprietary event model, a custom JavaScript runtime, and abstractions that competed with rather than leveraged the evolving native browser capabilities.</p>
+        <p>By 2017-2018, web standards had matured dramatically. The browser itself supported components natively via Custom Elements (Web Components standard), ES6 modules, Promises, and async/await. Aura's proprietary approach — which required loading significant framework JavaScript, using custom event syntax, and working around browser APIs rather than with them — created performance overhead and developer experience friction that was increasingly hard to justify.</p>
+        <p>Lightning Web Components (LWC), introduced in Spring '19, was Salesforce's answer: a component framework built directly on Web Components standards, using native ES6 modules, standard JavaScript class syntax, and standard DOM event handling. The goal was to eliminate the proprietary framework layer and let the browser do what modern browsers are good at.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The honest message:</strong> When Salesforce introduced LWC, it was an implicit admission that Aura's architectural choices were not optimal for long-term maintainability and performance. That is worth acknowledging when you have an org full of Aura components and need to make a case for migration investment.
+          </div>
+        </div>
+
+        <h2 id="s2">The Architectural Differences That Matter</h2>
+        <p>The Aura vs LWC difference is not merely syntax. The runtime architecture is fundamentally different, and those differences produce real, measurable outcomes.</p>
+        <p><strong>JavaScript bundle size:</strong> Aura components require loading the Aura framework JavaScript — a substantial bundle that must be parsed and executed before any component renders. LWC components use native browser module loading, which is more efficient and results in smaller, more cacheable bundles. The framework overhead is one of the primary contributors to the 3-5x performance gap in comparable component scenarios.</p>
+        <p><strong>Rendering model:</strong> Aura uses a virtual rendering engine that manages component updates through its own change detection system. LWC uses a reactive property system based on tracked properties — when a tracked property changes, only the parts of the DOM that depend on it re-render. This granular reactivity is more performant than Aura's broader re-render cycle.</p>
+        <p><strong>Event handling:</strong> Aura has two event types (Component Events and Application Events) with a custom bubbling model. LWC uses standard DOM events and the standard browser event bubbling model. This means LWC skills transfer to non-Salesforce web development and vice versa — a significant advantage for recruiting and team development.</p>
+        <p><strong>Testing:</strong> LWC components are standard JavaScript classes with template rendering — they can be unit tested with Jest without a Salesforce server. Aura components require the full Aura framework to render and test, making unit testing significantly more complex. LWC's testability is a major advantage for teams with quality-focused development practices.</p>
+
+        <pre><code>// Aura component event (proprietary syntax)
+// component.evt (Aura markup)
+&lt;aura:registerEvent name="statusChange" type="c:StatusChangeEvent"/&gt;
+// Fire event
+var event = component.getEvent("statusChange");
+event.setParams({ status: "Active" });
+event.fire();
+
+// LWC equivalent (standard DOM custom event)
+// In the LWC JavaScript class:
+this.dispatchEvent(
+    new CustomEvent('statuschange', {
+        detail: { status: 'Active' },
+        bubbles: true,
+        composed: true
+    })
+);</code></pre>
+
+        <h2 id="s3">Interoperability: What Can and Cannot Be Mixed</h2>
+        <p>Most Salesforce orgs today have a mix of Aura and LWC components. Understanding the interoperability rules prevents architectural mistakes and migration planning errors.</p>
+        <p><strong>LWC inside Aura — allowed:</strong> An LWC component can be embedded inside an Aura component. This is the primary migration strategy — replace inner components with LWC while the parent Aura container is migrated later. LWC components in this context run with their LWC performance characteristics even when hosted by Aura.</p>
+        <p><strong>Aura inside LWC — not allowed:</strong> An LWC component cannot embed an Aura component as a child. The LWC rendering engine does not know how to instantiate Aura components. This is the constraint that makes bottom-up migration the required approach — migrate leaf components first, then work toward the container.</p>
+        <p><strong>Communication across the boundary:</strong> LWC and Aura components that need to communicate across the boundary must use either the LMS (Lightning Message Service) or Application Events (Aura). LMS is the recommended approach — it is framework-agnostic and works for LWC-to-LWC, Aura-to-Aura, and LWC-to-Aura communication.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Migration direction:</strong> Because Aura cannot host LWC as a container, migration must proceed bottom-up. Replace the smallest, innermost components with LWC equivalents first. As more children are LWC, Aura parent components become thinner wrappers that are easier to migrate and justify for migration.
+          </div>
+        </div>
+
+        <h2 id="s4">Performance Implications for Technical Leaders</h2>
+        <p>The performance difference between Aura and LWC is not uniform — it depends heavily on the complexity and usage pattern of the component. Understanding where the difference is most pronounced helps prioritise migration effort.</p>
+        <p><strong>High-impact scenarios:</strong> Components that render large datasets (custom list views, complex dashboards, table components with many rows), components with frequent re-renders (real-time status displays, live search), and components used on high-traffic pages (record page, home page, Experience Cloud site pages) show the most significant performance improvement from LWC migration.</p>
+        <p><strong>Lower-impact scenarios:</strong> Simple utility components (a single button with a label, a formatted currency display, a static information panel) show smaller absolute performance differences. The Aura framework overhead is present but less perceptible for components that do little.</p>
+        <p>Time-to-interactive (TTI) is the metric most affected by the framework choice. Because Aura requires the framework JavaScript to load before any component renders, pages heavy in Aura components have higher TTI — users see a loading state longer before they can interact with the page. LWC components can begin rendering earlier because they use native browser loading with no framework preload requirement.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Measuring before migrating:</strong> Use the Salesforce Performance Inspector (a Chrome extension) to profile specific Aura components before migrating them. Components with the highest render times in the profiler deliver the most return on migration investment. Migrate by measured impact, not by component count.
+          </div>
+        </div>
+
+        <h2 id="s5">The Migration Decision Framework</h2>
+        <p>For organisations with significant Aura component portfolios, the migration question is a legitimate investment decision. Here is the framework for making it rationally:</p>
+        <p><strong>Tier 1 — Migrate now:</strong> Components on high-traffic pages, components with reported performance complaints from users, components being actively developed (any active development should happen in LWC), and components used on mobile or low-bandwidth access scenarios. The ROI is clear and immediate.</p>
+        <p><strong>Tier 2 — Migrate with the next major release:</strong> Components used by moderate-traffic pages that are scheduled for enhancement in the next roadmap cycle. Combine the LWC migration with the feature work — the incremental cost is low when the component must be opened for development anyway.</p>
+        <p><strong>Tier 3 — Accept technical debt, track, and migrate on retirement:</strong> Components that are stable, rarely accessed, and have no planned roadmap work. The migration cost exceeds the performance benefit for users who rarely encounter them. Document them as technical debt and plan migration when those pages or features are sunset.</p>
+        <p>Aura will not be removed from the Salesforce platform imminently — Salesforce has committed to maintaining Aura while the migration is in progress. But "maintained" means security patches and critical bug fixes, not new features. New platform capabilities (new Lightning Data Service features, new access control APIs, new rendering capabilities) are built for LWC only. An Aura-heavy org is increasingly locked out of the latest platform capabilities.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>LWC was built because Aura's proprietary framework model created performance overhead and developer experience friction that native browser standards had made unnecessary by 2018.</li>
+            <li>The performance difference is structural: LWC uses native browser module loading and granular reactivity; Aura requires a framework preload and uses a custom rendering engine — producing 3-5x performance gaps in complex component scenarios.</li>
+            <li>Aura can host LWC child components, but LWC cannot host Aura children — migration must proceed bottom-up, replacing leaf components first.</li>
+            <li>Lightning Message Service (LMS) is the cross-framework communication mechanism, enabling LWC and Aura components to communicate while the migration is in progress.</li>
+            <li>Aura is in maintenance mode — no new features, only security patches. New platform capabilities are LWC-only, making Aura-heavy orgs progressively less able to adopt platform innovation.</li>
+            <li>Prioritise migration by measured performance impact and active development frequency, not by component count. Use the Salesforce Performance Inspector to identify high-value migration targets.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. Your team is migrating from Aura to LWC. They want to embed a new LWC component inside an existing Aura parent while the parent is migrated later. Is this allowed?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Yes — LWC components can be embedded inside Aura parents. This is the recommended bottom-up migration approach.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">No — LWC and Aura components cannot coexist in the same component tree under any circumstances</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Yes, but only if the Aura parent uses the c:container wrapper component provided by Salesforce</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. An architect argues that migrating stable, rarely-used Aura components should happen immediately to reduce technical debt. What is the most sound counter-argument?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Aura components will be automatically migrated by Salesforce in the next major release, so migration effort is wasted</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Migration cost exceeds performance benefit for rarely-accessed components; prioritise by measured impact — high-traffic, frequently-rendered components deliver the greatest ROI</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Aura is not actually in maintenance mode — it continues to receive new features alongside LWC</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. An LWC component on a high-traffic page needs to communicate with an Aura component in the same page layout. What mechanism should be used?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Aura Application Events — fire the event from LWC via Apex and consume it in the Aura component</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Standard DOM custom events — dispatch from LWC and capture with an Aura event handler attribute</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Lightning Message Service (LMS) — the framework-agnostic messaging channel that works for LWC-to-Aura, Aura-to-LWC, and LWC-to-LWC communication</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-007.html" class="related-card">
+              <span class="card-id">ARCH-007</span>
+              <h4>Apex Heap, CPU Limits, and the Art of Staying Within Bounds</h4>
+            </a>
+            <a href="arch-005.html" class="related-card">
+              <span class="card-id">ARCH-005</span>
+              <h4>Platform Events Architecture: Async by Design</h4>
+            </a>
+            <a href="arch-008.html" class="related-card">
+              <span class="card-id">ARCH-008</span>
+              <h4>Salesforce Shield: Architecture for Regulated Industries</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">Why Salesforce Built a Second UI Framework</a></li>
+            <li><a href="#">The Architectural Differences That Matter</a></li>
+            <li><a href="#">Interoperability: What Can and Cannot Be Mixed</a></li>
+            <li><a href="#">Performance Implications for Technical Leaders</a></li>
+            <li><a href="#">The Migration Decision Framework</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="arch-007.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Apex Heap, CPU Limits, and the Art of Staying Wit… →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

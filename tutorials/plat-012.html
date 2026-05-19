@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Platform Cache: Understanding Org, Session, and Partition Caches | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=platform-technical" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Platform &amp; Technical</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">PLAT-012</span>
+        <span class="card-tag" style="background:rgba(0,112,210,0.08);color:var(--sf-blue);border-color:rgba(0,112,210,0.2);">Platform &amp; Technical</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Platform Cache: Understanding Org, Session, and Partition Caches
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+    <div class="section-summary">
+      <h3>What You'll Learn</h3>
+      <p>The difference between Org Cache, Session Cache, and Partition Cache, the API for reading and writing cache values from Apex, appropriate caching patterns, invalidation strategies, and the common mistakes that lead to stale data bugs.</p>
+    </div>
+
+    <h2>Why Platform Cache Exists</h2>
+    <p>Salesforce governor limits mean that every SOQL query, every callout, and every computation counts against a per-transaction budget. Data that changes rarely — Custom Metadata configurations, product rate tables, org-wide settings, lookup picklist values — is queried repeatedly on every page load or trigger execution. Platform Cache lets you store this data in memory and skip the SOQL entirely on subsequent accesses.</p>
+    <p>The performance improvement is significant: a cached value returns in microseconds versus a SOQL query that takes 5-50 milliseconds. For high-volume orgs with hundreds of concurrent users, this difference matters for both user experience and Salesforce platform stability.</p>
+
+    <div class="callout callout--insight">
+      <strong>Insight</strong>
+      Platform Cache is an in-memory key-value store backed by Salesforce infrastructure. Unlike Static Variables (which are transaction-scoped and reset on every request), cached values persist across requests until their TTL expires or the cache is explicitly invalidated. This persistence is what makes it useful for expensive lookups.
+    </div>
+
+    <h2>Three Cache Tiers: Org, Session, and Partition</h2>
+    <p><strong>Org Cache</strong> stores data shared across all users in the org. A cached value written by User A is readable by User B. This makes it suitable for global configuration data, shared lookup tables, and org-wide computed values. Org Cache has a maximum TTL of 48 hours and a default capacity of 10 MB (expandable via Platform Cache licence add-on).</p>
+    <p><strong>Session Cache</strong> stores data scoped to a single user's Lightning session. Data written during one page load is available on the next page load for the same user, but other users cannot read it. This is appropriate for user-specific preferences, mid-flow state, or data that varies per user but is expensive to recompute.</p>
+    <p><strong>Partition Cache</strong> is the namespace concept within each tier. A partition is a named allocation within the Org or Session cache, created in Setup. Partitions allow packages and application components to manage their own cache space without colliding with other components' keys. Default partition names resolve to <code>local</code>.</p>
+
+    <div class="code-block">// Writing to Org Cache
+Cache.OrgPartition orgPart = Cache.Org.getPartition('local.myConfig');
+orgPart.put('productRateTable', rateTableData, 3600); // TTL: 1 hour
+
+// Reading from Org Cache
+Map&lt;String,Decimal&gt; rates =
+  (Map&lt;String,Decimal&gt;) orgPart.get('productRateTable');
+if (rates == null) {
+  // Cache miss — reload from SOQL
+  rates = loadRatesFromSoql();
+  orgPart.put('productRateTable', rates, 3600);
+}
+
+// Writing to Session Cache
+Cache.SessionPartition sessPart =
+  Cache.Session.getPartition('local.userPrefs');
+sessPart.put('dashboardLayout', layoutData, 1800);
+
+// Checking cache capacity
+Cache.OrgPartition p = Cache.Org.getPartition('local.myConfig');
+Long used = p.getNumKeys();
+Long capacity = p.getCapacity();</div>
+
+    <div class="callout callout--key">
+      <strong>Key Point</strong>
+      Cached values must implement the <code>Cache.CacheBuilder</code> interface OR be serialisable (primitive types, custom objects with no transient fields, standard Apex types). Classes with static variables, non-serialisable system types (HttpRequest, Database.QueryLocator), or inner classes with references to outer-class state cannot be cached.
+    </div>
+
+    <h2>The CacheBuilder Pattern</h2>
+    <p>The <code>Cache.CacheBuilder</code> interface provides a cleaner cache-or-load pattern that avoids the repetitive null-check boilerplate. Implement the interface, and the <code>Cache.Org.get()</code> method handles the miss automatically by calling your builder.</p>
+
+    <div class="code-block">// CacheBuilder pattern
+public class ProductRateCacheBuilder implements Cache.CacheBuilder {
+  public Object doLoad(String requestedKey) {
+    // requestedKey is the key passed to Cache.Org.get()
+    return [SELECT Id, Rate__c FROM ProductRate__c
+            WHERE ProductCode__c = :requestedKey LIMIT 1];
+  }
+}
+
+// Usage — automatically loads on cache miss
+ProductRate__c rate =
+  (ProductRate__c) Cache.Org.get(ProductRateCacheBuilder.class, 'PROD-001');
+
+// No null check needed — CacheBuilder guarantees a value or throws</div>
+
+    <h2>Invalidation Strategies</h2>
+    <p>Cache invalidation is the classic "hard problem" — data in cache goes stale when the underlying SOQL result changes. Three patterns handle this:</p>
+    <ul>
+      <li><strong>TTL expiry:</strong> Set the TTL to match the maximum acceptable staleness. For a rate table that is updated weekly, a 24-hour TTL is appropriate. Simple but imprecise — you may serve stale data for up to TTL duration.</li>
+      <li><strong>Trigger-based invalidation:</strong> Add a trigger on the source object that calls <code>orgPart.remove('productRateTable')</code> whenever the source data changes. The next cache read triggers a reload. Precise but adds trigger complexity.</li>
+      <li><strong>Version key pattern:</strong> Store a version number alongside the data. Increment the version when data changes. Cache keys incorporate the version number — stale keys simply expire unused. Useful when multiple callers cache derived views of the same source data.</li>
+    </ul>
+
+    <div class="callout callout--warning">
+      <strong>Warning</strong>
+      Never cache data that is security-sensitive in Org Cache. Because Org Cache is shared across all users, a record that User A should not see could be read from cache if User B had previously cached it. Use Org Cache only for data that is identical for all users (configuration, rate tables, metadata). User-specific data belongs in Session Cache.
+    </div>
+
+    <h2>Cache in Managed Packages and Sandboxes</h2>
+    <p>Platform Cache is cleared on sandbox refresh. Any warm-cache assumptions built into application code will fail immediately after a sandbox refresh. Design cache-miss paths to handle cold starts gracefully — the application must function correctly (slowly) when the cache is empty.</p>
+    <p>In managed packages, use namespaced partition names to avoid collision with customer org cache content. A partition named <code>mypackage.config</code> is isolated from the customer's <code>local.config</code> partition. Declare required partition sizes in the package's Feature Parameters so customers know what to allocate.</p>
+
+    <div class="callout callout--tip">
+      <strong>Tip</strong>
+      Instrument your cache hit rate in production. Log a custom Platform Event or increment an Org-wide Custom Setting counter on cache misses. If your hit rate drops below 80%, investigate whether TTLs are too short or data is changing too frequently for caching to be effective. A cache miss rate above 40% means you are adding complexity without meaningful performance benefit.
+    </div>
+
+    <div class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Org Cache is shared across all users — suitable for global configuration data but never for user-specific or security-sensitive data.</li>
+        <li>Session Cache is user-scoped — suitable for user preferences and per-user computed state.</li>
+        <li>Partitions are named namespaces within each cache tier — use them to prevent key collisions between packages and application components.</li>
+        <li>The CacheBuilder interface eliminates null-check boilerplate by handling cache miss and reload automatically.</li>
+        <li>Org Cache is cleared on sandbox refresh — always code for cold-start (cache-empty) operation.</li>
+        <li>Monitor cache hit rates in production — below 80% means the caching strategy needs revision.</li>
+      </ul>
+    </div>
+
+    <div class="quiz-section" id="quiz">
+      <h2>Check Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. You need to cache a product rate table that is identical for all users and updated once per day. Which cache tier is appropriate?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Org Cache with a 24-hour TTL</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Session Cache — rate data is user-specific</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Static variables — they persist across all transactions</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. What happens to Platform Cache content when a sandbox is refreshed?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Cache content is preserved and carries over to the refreshed sandbox</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Cache is cleared — application code must handle cold-start operation correctly</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Cache content migrates from production to the sandbox during the refresh process</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. Which approach provides the most precise cache invalidation when the source data changes?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Setting a very short TTL (e.g. 60 seconds) to minimise staleness window</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Trigger-based invalidation that calls orgPart.remove() when the source record changes</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Using the CacheBuilder pattern, which automatically invalidates stale data</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="plat-013.html" class="related-card">
+              <span class="card-id">PLAT-013</span>
+              <h4>Scheduled Apex vs Scheduled Flows: Tradeoffs at Scale</h4>
+            </a>
+            <a href="plat-011.html" class="related-card">
+              <span class="card-id">PLAT-011</span>
+              <h4>Change Data Capture: Event-Driven Integration Done Right</h4>
+            </a>
+            <a href="plat-014.html" class="related-card">
+              <span class="card-id">PLAT-014</span>
+              <h4>The Truth About No-Code Salesforce Development</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                                    <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">Why Platform Cache Exists</a></li>
+            <li><a href="#">Three Cache Tiers: Org, Session, and Partition</a></li>
+            <li><a href="#">The CacheBuilder Pattern</a></li>
+            <li><a href="#">Invalidation Strategies</a></li>
+            <li><a href="#">Cache in Managed Packages and Sandboxes</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="plat-013.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Scheduled Apex vs Scheduled Flows →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

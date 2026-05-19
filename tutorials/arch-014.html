@@ -1,0 +1,384 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARCH-014: Package Development Model vs Org Development Model — SFVedas</title>
+  <meta name="description" content="Package Development Model vs Org Development Model — a complete architectural comparison for Salesforce delivery leaders and architects."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-014</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Package Development Model vs Org Development Model
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>What the Org Development Model is, why it dominated for two decades, and why it still dominates</li>
+            <li>What the Package Development Model actually offers — and what it demands in return</li>
+            <li>How scratch orgs change the development workflow and why adoption has been slow</li>
+            <li>First-Generation vs Second-Generation Packages: the differences that matter for enterprise decisions</li>
+            <li>How to choose the right model for your programme and what a realistic migration looks like</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Two Models, One Platform</h2>
+
+        <p>For most of Salesforce's history, there was one way to build: you worked directly in a sandbox, deployed changes through change sets or the Metadata API, and your production org was the source of truth. This is the <strong>Org Development Model</strong> — and despite years of Salesforce pushing alternatives, the majority of enterprise teams still use it.</p>
+
+        <p>In 2017, Salesforce introduced Salesforce DX and, with it, the <strong>Package Development Model</strong>. The premise: your source code lives in version control, not in an org. Orgs become ephemeral environments — spun up for development and testing, discarded when done. Deployable units become packages with explicit version numbers. It's the model that ISVs and AppExchange publishers use, and Salesforce believes it should be how everyone builds.</p>
+
+        <p>Both models are real, supported, and used in production today. Understanding the genuine trade-offs — not the marketing version — is what this tutorial is for.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Why this matters for leaders</strong>
+            <p>The development model you choose shapes your entire DevOps pipeline, your team structure, your environment strategy, and your deployment risk profile. It's an architectural decision that's extremely expensive to reverse mid-programme. Most teams make it by default, not by design.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Org Development Model: How Most Teams Still Work</h2>
+
+        <p>In the Org Development Model, your production org (and its sandbox copies) is the system of record. Developers make changes in sandboxes, promote them through an environment hierarchy — typically Developer → Full Copy → UAT → Production — and the final state of the org is what you manage and protect.</p>
+
+        <p>This model is intuitive because it maps directly to how Salesforce presents itself: a system you configure through a browser. Adding a field, building a flow, writing an Apex class — all done in a live org, visible immediately, testable immediately. There's no build step, no compilation, no deployment pipeline to set up before you can start working.</p>
+
+        <h3>Why It Persists</h3>
+
+        <p>The Org Development Model persists because it works. For teams building business applications — as opposed to ISVs building products — the ability to see changes in context, test configurations against real data in sandbox, and promote them through a controlled hierarchy is genuinely effective. Change sets, while clunky, are understood by every Salesforce admin and developer in the market.</p>
+
+        <p>The model also requires no tooling investment beyond what Salesforce provides. No CLI configuration, no Git workflow for Salesforce metadata, no scratch org provisioning, no CI/CD pipeline. For teams without a DevOps function, this is a significant factor.</p>
+
+        <h3>The Problems That Emerge at Scale</h3>
+
+        <p>The failure modes of the Org Development Model all appear at scale. When multiple teams are making concurrent changes in the same sandbox, conflicts are discovered at deployment time, not at commit time. The production org becomes a complex, interconnected state that's difficult to reproduce cleanly. Rollback is nearly impossible — you can't undeploy a field that has data in it. And testing relies on the assumption that your sandbox accurately reflects production, which it often doesn't after months of divergence.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The Sandbox Drift Problem</strong>
+            <p>In large programmes, full copy sandboxes refresh cycles can be 29 days. In that time, production receives hotfixes, configuration changes, and data that the sandbox doesn't have. Testing in a sandbox that's 29 days behind production is not the same as testing against production state. This is the root cause of many post-deployment failures in org-development programmes.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">Package Development Model: The Promise</h2>
+
+        <p>The Package Development Model flips the source of truth. Version control — Git — holds the metadata. Orgs are generated from source, not the reverse. A scratch org is a temporary, purpose-built environment that reflects exactly what's in your repository. When work is done, the scratch org is deleted. The artifact you promote through environments is a <strong>package version</strong>, not a change set.</p>
+
+        <p>This aligns Salesforce development with how modern software teams work. Your CI/CD pipeline can create a scratch org, deploy your package to it, run tests, and discard the org — all in an automated pipeline. Branches in Git correspond to feature work, not environment states. Merge conflicts surface in code review, not at deployment time.</p>
+
+        <h3>What Scratch Orgs Actually Are</h3>
+
+        <p>A scratch org is a temporary Salesforce environment provisioned from a definition file. It has no historical state — it's built from your source code and whatever sample data you load. Scratch orgs have a maximum lifespan of 30 days (default 7). They're not sandbox copies; they're clean environments that prove your code works in isolation from any specific org's accumulated configuration history.</p>
+
+        <pre><code># Create a scratch org from a definition file
+sf org create scratch \
+  --definition-file config/project-scratch-def.json \
+  --alias my-feature-branch \
+  --duration-days 7
+
+# project-scratch-def.json
+{
+  "orgName": "SFVedas Feature Dev",
+  "edition": "Developer",
+  "features": ["EnableSetPasswordInApi"],
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    }
+  }
+}</code></pre>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>The Key Insight</strong>
+            <p>Scratch orgs make it possible to test that your metadata is complete and correct — not just that it works in the specific org where it was written. If your code deploys cleanly to a fresh scratch org and all tests pass, you have high confidence it will deploy cleanly anywhere. Org Development workflows can't provide this guarantee.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">First-Gen vs Second-Gen Packages: The Decision That Matters</h2>
+
+        <p>Salesforce packages come in two generations, and the distinction matters significantly for enterprise buyers and architects evaluating AppExchange products.</p>
+
+        <h3>First-Generation Packages (1GP)</h3>
+
+        <p>1GP packages were Salesforce's original packaging mechanism for ISVs. They're managed or unmanaged packages created in a specific org (called the packaging org) and installed into subscriber orgs. 1GP packages have significant limitations: they can't be version-controlled in the same way, their development model ties them to a specific packaging org's state, and upgrades are complex because field deletions and certain changes aren't allowed in managed packages.</p>
+
+        <h3>Second-Generation Packages (2GP)</h3>
+
+        <p>2GP packages are built using the DX model. Source lives in version control. Package versions are created via CLI commands, not through an org UI. 2GP supports multiple packages that can depend on each other (unlocked packages), proper semantic versioning, and a development workflow that integrates naturally with Git branching and CI/CD pipelines.</p>
+
+        <p>For new development, 2GP is categorically superior. For teams with existing 1GP packages, migration is possible but requires careful planning — particularly around namespace management and subscriber upgrade paths.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Unlocked Packages for Internal Teams</strong>
+            <p>You don't have to be an ISV to use packages. Unlocked packages are designed for internal enterprise development — no namespace required, no AppExchange listing. They give you package-based versioning, dependency management, and deployment atomicity for your own org's customisations. This is the Package Development Model for enterprise teams who aren't building products.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">The Reality of Migration</h2>
+
+        <p>Every Salesforce partner and most large enterprise teams have been told they should migrate to the Package Development Model. Far fewer have done it completely. The gap between the recommendation and the reality reveals genuine friction that deserves honest acknowledgement.</p>
+
+        <h3>The Tooling Learning Curve</h3>
+
+        <p>The Salesforce CLI (formerly SFDX CLI, now SF CLI) is the entry point to package-based development. It requires every developer and admin to work in a terminal, understand Git branches, and think in metadata files rather than org configurations. For teams where many contributors are declarative developers — admins using Flow Builder and the setup menu — this is a significant skill change, not just a tool change.</p>
+
+        <h3>The Org State Problem</h3>
+
+        <p>Most existing orgs contain years of accumulated metadata — some deployed intentionally, some the result of trials and experiments, some from AppExchange packages, some that nobody can explain. Migrating to source-driven development requires that your source code accurately reflects what's in the org. The process of achieving this — called "spidering" the org — is time-consuming and frequently surfaces surprises.</p>
+
+        <h3>Partial Adoption Is Common (and Acceptable)</h3>
+
+        <p>Many successful enterprise teams use a hybrid: new custom development uses the Package Development Model and unlocked packages, while legacy metadata that predates the migration remains managed via the Metadata API. This is not failure — it's pragmatic. The goal is directional, not binary.</p>
+
+        <h2 id="s6">Which Model Is Right for Your Programme?</h2>
+
+        <p>The honest answer depends on several factors that vary significantly between programmes.</p>
+
+        <p><strong>Choose Org Development Model if:</strong> your team is primarily declarative (flows, configuration), your programme is short-term (under 18 months), you don't have a DevOps function or Git-literate Salesforce team, or you're building on top of a heavily-customised legacy org where source retrieval is unreliable.</p>
+
+        <p><strong>Choose Package Development Model if:</strong> you're building a new org from scratch, you have multiple development teams working concurrently, you need the auditability and reproducibility of a modern software delivery pipeline, you're building something that will be maintained for 5+ years, or you're an ISV building a product.</p>
+
+        <p><strong>Choose Hybrid if:</strong> you have a significant existing org, some teams are ready for package-based development and others aren't, or you want to migrate incrementally without disrupting ongoing delivery.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The Test That Reveals Your Real Model</strong>
+            <p>Ask: "If we lost our production org today, how long would it take to rebuild it from scratch?" In a true Package Development Model, the answer is "a few hours — we'd deploy our packages to a new org." In an Org Development Model, the answer is often "we couldn't — the org state is the only record of what we've built." That answer tells you everything about your actual development model.</p>
+          </div>
+        </div>
+
+        <h2 id="s7">What Good Looks Like</h2>
+
+        <p>Regardless of which model you choose, certain practices separate programmes that control their Salesforce delivery from ones that are controlled by it.</p>
+
+        <p>In the Org Development Model: maintain a rigorous environment hierarchy, use a proper CI/CD tool (Gearset, Copado, or Flosum) rather than raw change sets, treat your full copy sandbox as a pre-production environment that matches production within 72 hours, and establish a clear policy for what changes require code review vs what can be self-deployed by admins.</p>
+
+        <p>In the Package Development Model: invest in developer onboarding to the CLI and Git workflow, define your package boundaries carefully before building (package refactoring is expensive), establish scratch org creation as part of every developer's daily workflow, and build automated test suites that run against scratch orgs in CI before any merge to main.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>The Org Development Model uses orgs as the source of truth; the Package Development Model uses version control — this fundamental difference shapes everything downstream</li>
+            <li>Org Development persists because it's accessible, intuitive, and works effectively for teams building business applications without complex concurrent development</li>
+            <li>Package Development's main advantages are reproducibility, concurrent development safety, and proper software delivery pipeline integration</li>
+            <li>Scratch orgs are the mechanism that makes package development work — they're proof that your metadata is complete and deployable, not just working in one specific org</li>
+            <li>2GP (Second-Generation Packages) is the current standard; 1GP should only be maintained, not used for new development</li>
+            <li>Unlocked packages are the Package Development Model for internal enterprise teams — no AppExchange listing required, no namespace required</li>
+            <li>Hybrid adoption (new development in packages, legacy in Metadata API) is a legitimate and common real-world pattern</li>
+            <li>The "can we rebuild from scratch?" test reveals which model you're actually using, regardless of which you intend to use</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Checkpoint: Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. What is the fundamental difference between the Org Development Model and the Package Development Model?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Package Development uses Apex while Org Development uses Flow</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. In Org Development, the org is the source of truth; in Package Development, version control is the source of truth</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Package Development is only for ISVs selling on AppExchange</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Org Development uses sandboxes while Package Development doesn't</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. What is an "unlocked package" in Salesforce DX?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. A package that can be modified after installation — the opposite of a managed package</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. A free-tier AppExchange package with no licence restrictions</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">C. A 2GP package for internal enterprise development — no AppExchange listing or namespace required, supporting package-based versioning for your own org's customisations</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. A legacy 1GP package that has been migrated to support DX tooling</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. A team asks: "If we lost production today, could we rebuild it?" The honest answer is: "We couldn't — the org is the only record." What does this reveal?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. The team needs better backup policies for their Salesforce data</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. The team's sandboxes are not refreshed frequently enough</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. Despite any intentions otherwise, the team is using the Org Development Model — the org state is the source of truth, not version control</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. The team should invest in a Salesforce Backup licence immediately</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-015.html" class="related-card">
+              <span class="card-id">ARCH-015</span>
+              <h4>Salesforce CLI and DevOps Architecture</h4>
+            </a>
+            <a href="arch-013.html" class="related-card">
+              <span class="card-id">ARCH-013</span>
+              <h4>The Truth About Salesforce Caching: What's Cached, What Isn't</h4>
+            </a>
+            <a href="arch-016.html" class="related-card">
+              <span class="card-id">ARCH-016</span>
+              <h4>Einstein Platform Architecture</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">Two Models, One Platform</a></li>
+            <li><a href="#">Org Development Model: How Most Teams Still Work</a></li>
+            <li><a href="#">Package Development Model: The Promise</a></li>
+            <li><a href="#">First-Gen vs Second-Gen Packages: The Decision That Matters</a></li>
+            <li><a href="#">The Reality of Migration</a></li>
+            <li><a href="#">Which Model Is Right for Your Programme?</a></li>
+            <li><a href="#">What Good Looks Like</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="arch-015.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Salesforce CLI and DevOps Architecture →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARCH-027: The Salesforce Trust Model — SFVedas</title>
+  <meta name="description" content="The Salesforce Trust Model: SLAs, Incidents, and What Leaders Should Know — for CTOs and programme directors making platform commitments."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-027</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: CTOs</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        The Salesforce Trust Model
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>What Salesforce's 99.9% SLA actually means in hours — and what is and isn't covered by it</li>
+            <li>How to read trust.salesforce.com proactively to detect degradation before your users report it</li>
+            <li>The three incident severity levels and what each means for your business response</li>
+            <li>How Salesforce's planned maintenance windows and tri-annual releases affect availability</li>
+            <li>How to build a business continuity plan that treats Salesforce outages as an expected architectural constraint</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">What Salesforce's Trust Model Actually Guarantees</h2>
+
+        <p>Salesforce's trust model is the set of commitments Salesforce makes about availability, data integrity, and incident transparency. It is codified in the Master Subscription Agreement (MSA) and the Salesforce Trust and Compliance Documentation. Most CTOs and programme directors know the headline number — 99.9% uptime — but haven't read what that number actually guarantees.</p>
+
+        <p>The 99.9% uptime SLA means Salesforce commits to no more than 0.1% unplanned unavailability per month. In hours, 99.9% monthly availability allows 43 minutes of unplanned downtime per month — or approximately 8.7 hours per year. This is not "always available." It is "available with acceptable brief interruptions." For business-critical workflows that run during market hours, a 45-minute outage on a Tuesday afternoon is a material business impact even if it's contractually within the SLA.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The SLA measures availability, not user impact</strong>
+            <p>Salesforce's SLA measurement is binary: the platform is either "available" (users can log in and transact) or "unavailable" (login is impossible). Degraded performance — slow page loads, timeouts on specific features, API response times exceeding 30 seconds — may not constitute "unavailability" under the SLA, but they absolutely constitute business impact. Real-world Salesforce reliability includes both outages (which the SLA covers) and degradation events (which the SLA typically doesn't). Track both in your operational metrics.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Reading the SLA: What 99.9% Really Means</h2>
+
+        <p>Several important exclusions and clarifications in Salesforce's SLA are worth understanding before presenting it to a board as a reliability commitment.</p>
+
+        <p><strong>Planned maintenance is excluded.</strong> Salesforce has planned maintenance windows (typically on weekends) that are not counted against the 99.9% SLA. These windows are scheduled months in advance and published on trust.salesforce.com. Depending on your organisation's operating schedule, weekend maintenance windows may or may not impact your users — but they represent real scheduled unavailability that your BCP should account for.</p>
+
+        <p><strong>The SLA applies to the standard platform — not all features.</strong> Some Salesforce features (certain Einstein capabilities, Heroku infrastructure, third-party AppExchange services) have separate SLAs or no SLA at all. If your critical business process depends on an Einstein AI feature, check whether that specific feature has an SLA commitment.</p>
+
+        <p><strong>Financial remedies are limited.</strong> Salesforce's SLA violation remedy is typically a service credit of a percentage of monthly fees — not compensation for business losses caused by the outage. A 4-hour outage that prevents order entry during a peak period is not compensated by the 5% monthly fee credit that the SLA may provide. Understand the financial remedy model when making business cases for continuity investment.</p>
+
+        <h2 id="s3">trust.salesforce.com: How to Read It</h2>
+
+        <p>trust.salesforce.com is Salesforce's real-time status dashboard. It shows per-instance (NA1, EU10, etc.) availability status, active incidents, maintenance windows, and historical incident data. Every Salesforce organisation is hosted on a specific instance, and your organisation's service status is on the row for that instance.</p>
+
+        <p>The dashboard displays five status levels: Operational (green), Degraded Performance (yellow), Partial Outage (orange), Service Disruption (red), and Under Maintenance (grey). Degraded Performance and Partial Outage statuses often precede Service Disruption — monitoring trust.salesforce.com proactively allows your operations team to begin contingency procedures before users report widespread problems.</p>
+
+        <pre><code>// trust.salesforce.com also provides a status API
+// Programmatic access to current instance status
+
+GET https://api.status.salesforce.com/v1/instances/NA64/status
+
+// Response structure (simplified):
+{
+  "key": "NA64",
+  "location": "North America",
+  "environment": "production",
+  "releaseVersion": "254.3.0",
+  "releaseNumber": "254.3",
+  "isActive": true,
+  "status": {
+    "key": "OK",
+    "message": "The service is available"
+  },
+  "incidents": []
+}
+
+// Automate monitoring: poll this API every 5 minutes
+// and send alerts to your ops channel when status != "OK"</code></pre>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Know Your Instance Before an Incident</strong>
+            <p>Find your organisation's instance now (Setup → Company Information → Instance) and subscribe to trust.salesforce.com notifications for that specific instance. During an active incident, trust.salesforce.com is the authoritative source — it's updated more frequently than Salesforce Support tickets and tells you whether a problem is platform-wide (everyone on your instance is affected) or specific to your org. This distinction matters for your incident response: platform-wide issues require waiting; org-specific issues require opening a Salesforce Support case.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Incident Severity Levels</h2>
+
+        <p>Salesforce classifies incidents into three severity levels, each with different response obligations and business impact profiles.</p>
+
+        <p><strong>P0 — Critical:</strong> Complete service unavailability. Users cannot log in. All functionality is inaccessible. Salesforce's commitment is immediate response and continuous updates until resolution. P0 incidents are rare but have occurred. Their business impact is total — every process that depends on Salesforce is down simultaneously.</p>
+
+        <p><strong>P1 — Major:</strong> Significant functionality is impaired but the service is accessible. Users can log in, but key features — report generation, approval processes, specific API endpoints — are degraded or unavailable. P1 incidents are more common than P0 and often affect specific features while others remain operational. Your BCP should identify which P1 scenarios are most likely to impact critical workflows.</p>
+
+        <p><strong>P2 — Minor:</strong> Limited impact on non-critical functionality. Users can perform most tasks with minimal degradation. P2 incidents may not even be visible to typical users. Salesforce publishes P2 incidents for transparency but they typically don't require business response.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>P1 Incidents Are Your Most Important BCP Scenario</strong>
+            <p>P0 is total outage — obvious, immediate, and everyone knows about it. P2 is minor — typically invisible. P1 is the dangerous middle: specific features fail while the platform appears functional. A P1 affecting the API endpoint your ERP uses for order sync may stop order processing without any visible error in the Salesforce UI. Users won't report it as a "Salesforce issue" — they'll report it as an "order processing issue." Train your operations team to check trust.salesforce.com as the first step in any unexplained business process failure.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">Planned Maintenance and Releases</h2>
+
+        <p>Salesforce's three annual releases (Spring, Summer, Winter) represent the most significant planned changes to the platform. Unlike typical SaaS updates, Salesforce releases upgrade all tenants simultaneously to the same version — there is no "opt out" of a major release (though some specific features can be enabled/disabled post-release). Releases introduce new features, deprecate old ones, and occasionally change default behaviour.</p>
+
+        <p>Releases are scheduled months in advance and sandboxes receive the release 4–6 weeks before production. This window exists specifically for organisations to test their customisations against the new platform version before production upgrade. The consequences of not testing in sandbox before a release: breaking changes discovered in production, automation failures, and layout changes that confuse users without warning.</p>
+
+        <p>Planned maintenance windows (distinct from releases) are shorter-duration activities: infrastructure updates, security patches, database maintenance. These are communicated 2–4 weeks in advance for standard maintenance and 7+ days for emergency security patches. Check the Maintenance Calendar on trust.salesforce.com at least monthly.</p>
+
+        <h2 id="s6">When Salesforce Goes Down: The Runbook Leaders Never Write</h2>
+
+        <p>Most Salesforce-dependent organisations have no documented runbook for Salesforce unavailability. The response during an incident is improvised: support tickets are raised, IT teams scramble, and business processes halt while waiting for restoration. This is preventable with a minimal runbook that doesn't require weeks to create.</p>
+
+        <p>A minimal Salesforce outage runbook covers: who is notified (the escalation chain), where to check status (trust.salesforce.com, instance), what manual fallbacks exist for the top 5 critical business processes, how long the manual fallback can be sustained before business impact is unacceptable, and when to escalate to a Salesforce Premier Support case vs waiting for the trust.salesforce.com resolution timeline.</p>
+
+        <p>The "top 5 critical business processes" is the most important part. Not every Salesforce process needs a manual fallback. Identify the 3–5 processes where Salesforce unavailability causes immediate, material business impact (order entry, customer service case creation, financial approval workflows) and document the manual alternative for each. This is 80% of the value of a BCP document in 20% of the work.</p>
+
+        <h2 id="s7">Building Business Continuity Around the Trust Model</h2>
+
+        <p>Mature Salesforce-dependent organisations treat platform availability as an architectural constraint, not an assumption. Business continuity planning for Salesforce is not about preventing outages (Salesforce controls that) — it's about designing business processes that can tolerate brief Salesforce unavailability without catastrophic business impact.</p>
+
+        <p>Practical continuity architecture: design offline capabilities for the most critical field-facing workflows (mobile offline via Briefcase), maintain fallback communication channels that don't depend on Salesforce (if your customer communications route through Service Cloud, have a direct email fallback), and ensure that critical integrations (order processing, payment capture) have a queue-based design that buffers transactions during Salesforce outages and replays them on restoration rather than losing them.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>The 15-Minute Test</strong>
+            <p>Once a year, simulate a Salesforce outage (in a controlled way — block Salesforce access for a small team, don't take production down): can your team identify what's affected within 5 minutes, communicate status within 10 minutes, and begin manual fallbacks within 15 minutes? If any of these fail, you have a BCP gap. The simulation reveals process knowledge gaps (who knows the manual order entry process?), tool gaps (does the email fallback template exist?), and escalation gaps (does anyone have the Salesforce Support Premier number saved?). These are cheap to discover in a simulation and expensive to discover in a real incident.</p>
+          </div>
+        </div>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Salesforce's 99.9% SLA permits 43 minutes of unplanned downtime per month — it is not a zero-downtime commitment, and planned maintenance and certain features are excluded from the guarantee</li>
+            <li>The SLA measures binary availability; degraded performance (slow pages, feature-specific failures) does not constitute "unavailability" but causes real business impact — track both in your operational metrics</li>
+            <li>trust.salesforce.com is the authoritative real-time status source — know your instance, subscribe to notifications, and train your operations team to check it before raising internal incidents</li>
+            <li>P1 (major, partial) incidents are the most important BCP scenario — platform appears accessible while specific features fail, often missed until downstream systems report errors</li>
+            <li>Salesforce's tri-annual releases are mandatory, simultaneous upgrades — testing in sandbox during the 4–6 week pre-production window is the only way to catch breaking changes before they affect users</li>
+            <li>A minimal outage runbook with the top 5 critical business processes and their manual fallbacks provides 80% of BCP value with 20% of the effort</li>
+            <li>Mature continuity architecture buffers transactions during outages (queue-based integrations, Briefcase offline) rather than failing hard — design for Salesforce unavailability as an expected constraint, not a surprise</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Checkpoint: Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. Salesforce's 99.9% monthly uptime SLA translates to approximately how much permitted unplanned downtime?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Zero — 99.9% means essentially continuous availability with no planned outages</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. 8.7 hours per year — but this includes planned maintenance windows</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">C. Approximately 43 minutes of unplanned downtime per month (8.7 hours per year) — planned maintenance is excluded from this calculation and is additional scheduled unavailability</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Less than 5 minutes per month — 99.9% is effectively indistinguishable from 100% for business purposes</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A P1 incident is posted on trust.salesforce.com while your ERP's order sync integration appears to have stopped. What should your operations team do first?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Open a Salesforce Support ticket immediately — P1 incidents require customer-reported cases to escalate resolution</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. Restart the integration middleware to determine if the problem is on the Salesforce side or the ERP side</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">C. Check trust.salesforce.com for the P1 details — if the incident affects the API endpoint your integration uses, the failure is platform-caused and waiting for Salesforce resolution is the appropriate response; activate the manual fallback or queue-based buffer if the impact duration is unacceptable</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Escalate immediately to the CTO because a P1 incident means Salesforce is completely down</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. Why is it critical to test your Salesforce customisations in a sandbox 4–6 weeks before a major Salesforce release?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Sandbox releases are different from production releases — customisations may behave differently and need separate testing</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Salesforce requires customers to complete a release validation test before production upgrade for compliance purposes</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. Salesforce releases all tenants simultaneously to the same platform version with no opt-out — the sandbox pre-release window is the only opportunity to discover breaking changes before they affect production users, preventing discovered-in-production failures</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. The sandbox release preview allows customers to vote on feature opt-ins before the production release locks them in</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-026.html" class="related-card">
+              <span class="card-id">ARCH-026</span>
+              <h4>Salesforce B2B Commerce Architecture: The Hidden Complexity</h4>
+            </a>
+            <a href="arch-025.html" class="related-card">
+              <span class="card-id">ARCH-025</span>
+              <h4>Tenant Isolation in Multi-Tenant Systems</h4>
+            </a>
+            <a href="arch-001.html" class="related-card">
+              <span class="card-id">ARCH-001</span>
+              <h4>Multi-Tenant Architecture</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">What Salesforce's Trust Model Actually Guarantees</a></li>
+            <li><a href="#">Reading the SLA: What 99.9% Really Means</a></li>
+            <li><a href="#">trust.salesforce.com: How to Read It</a></li>
+            <li><a href="#">Incident Severity Levels</a></li>
+            <li><a href="#">Planned Maintenance and Releases</a></li>
+            <li><a href="#">When Salesforce Goes Down: The Runbook Leaders Never Write</a></li>
+            <li><a href="#">Building Business Continuity Around the Trust Model</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Master Salesforce Architecture</h4>
+          <p>One of 27 architecture deep-dives — built for architects and senior tech leaders.</p>
+          <a href="../pages/tutorials.html?tag=architecture" class="btn btn-primary" style="width:100%;text-align:center;display:block;">View All Architecture Tutorials →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

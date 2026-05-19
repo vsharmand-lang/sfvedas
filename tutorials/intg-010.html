@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Master Data Management with Salesforce: The Myths vs Reality | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-010</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Master Data Management with Salesforce: The Myths vs Reality
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        MDM is one of the most expensive and frequently failed enterprise data initiatives. Salesforce is often positioned as the system of record for customer master data — but what that means architecturally, and what it requires operationally, is rarely discussed honestly.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>What MDM actually means and why most Salesforce implementations don't achieve it</li>
+      <li>The four MDM implementation styles and which one Salesforce best supports</li>
+      <li>The difference between Salesforce as a system of record vs a system of engagement</li>
+      <li>Golden record management: how to maintain master data quality across system boundaries</li>
+      <li>Data governance requirements that enable MDM — and why technology alone doesn't solve it</li>
+      <li>Practical patterns for customer MDM using Salesforce Account and Contact objects</li>
+    </ul>
+  </div>
+
+  <h2 id="s1">What MDM Actually Is</h2>
+  <p>Master Data Management (MDM) is the discipline of creating and maintaining a single, authoritative, reliable version of critical business data — customer records, product records, supplier records — across an enterprise's systems. True MDM means that when SAP, Salesforce, the e-commerce platform, and the customer service system all reference "Acme Corporation," they are all referencing the same golden record with consistent, authoritative attributes. This is significantly harder to achieve than most MDM project scopes acknowledge.</p>
+  <p>The MDM myth in Salesforce projects is that implementing Salesforce's duplicate management features constitutes implementing MDM. Salesforce's duplicate management (matching rules and duplicate rules) prevents obvious duplicates during data entry and identifies existing duplicates in the Salesforce org. This is important data hygiene, but it is not MDM — it only governs data within Salesforce, not across the enterprise landscape of systems that all have their own customer records.</p>
+  <p>True enterprise MDM requires: a canonical data model that all systems agree on, a golden record master that is authoritative, a data stewardship process for resolving conflicts and ambiguities, synchronisation mechanisms that propagate master data from the MDM system to all consuming systems, and governance processes that prevent systems from creating divergent copies. Most Salesforce implementations have pieces of this but not the whole picture.</p>
+
+  <div class="callout callout--insight">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>MDM is 20% technology and 80% process:</strong> Every failed MDM program has the technology. What it lacks is the data governance organisation — the stewards who resolve conflicting data between systems, the policies that define what "correct" looks like, and the executive sponsorship to enforce that Salesforce is the authority when SAP disagrees. Technology without governance produces a cleaner copy of the same dirty data.
+    </div>
+  </div>
+
+  <h2 id="s2">MDM Implementation Styles</h2>
+  <p><strong>Registry-style MDM</strong> maintains a central registry of entity identifiers without storing master attributes. Each system keeps its own record; the registry maps the IDs across systems (Salesforce Account ID 001xxx = SAP BP 10045 = Oracle Party ID 55123). The registry enables cross-system identity resolution without requiring all systems to synchronise all attributes. This is the lowest-disruption MDM style but provides limited data quality improvement — each system still maintains its own (potentially inconsistent) attributes.</p>
+  <p><strong>Consolidation-style MDM</strong> extracts data from all systems into a central MDM hub that creates a golden record, but the source systems are not updated from the hub — they continue operating independently. The hub provides a read-only consolidated view for analytics and reporting. This style is common and provides significant analytical value but does not improve operational data quality in the source systems.</p>
+  <p><strong>Coexistence-style MDM</strong> maintains master attributes in the hub and synchronises them back to source systems. When the MDM hub identifies that Salesforce and SAP have different addresses for Acme Corporation, the hub applies the golden record address to both systems. This is the first style that actually improves operational data quality but requires source systems to accept data writes from the hub — a political and technical challenge.</p>
+  <p><strong>Centralised-style MDM</strong> makes the MDM hub the authoritative system for all master data creation and updates. Systems no longer create or update customer records independently — they submit requests to the hub, which validates, deduplicates, and distributes the approved record. This is the highest-governance, highest-impact style and the hardest to implement because it requires all systems to relinquish their autonomy over master data creation.</p>
+
+  <h2 id="s3">Salesforce as System of Record — What It Actually Means</h2>
+  <p>When organisations declare "Salesforce is our system of record for customer data," they typically mean Salesforce is the most complete and most current source of customer information for their sales and service teams. This is true for a narrow definition of "system of record" — Salesforce is authoritative for the customer data that sales and service teams manage. But it is not automatically the case that SAP, billing systems, and the website treat Salesforce as the authority for customer data they manage in their own domains.</p>
+  <p>The Account object in Salesforce is a reasonable domain for customer master data if Salesforce is truly the first system updated when customer attributes change. The test: when a customer calls to update their billing address, does the call center representative update it in Salesforce first (with sync to SAP) or in SAP first (with sync to Salesforce)? The system updated first is the authoritative system. If the answer varies by situation or by team, there is no true system of record — there are two competing systems of record in conflict.</p>
+  <p>Making Salesforce the genuine system of record requires more than an architecture decision — it requires changing business processes. The billing address change process must route through Salesforce. The new customer onboarding process must start in Salesforce. The customer merge process (when two duplicate customers are identified) must be governed by Salesforce stewards. Technology implements the decisions; the decisions are organisational.</p>
+
+  <pre><code>// Querying potential duplicate accounts for stewardship review
+SELECT Id, Name, BillingCity, BillingCountry, Phone,
+       SAP_Customer_ID__c, External_ID__c,
+       CreatedDate, LastModifiedDate
+FROM Account
+WHERE SAP_Customer_ID__c != null
+  AND Id IN (
+    SELECT AccountId FROM DuplicateRecordItem
+    WHERE DuplicateRecordSetId IN (
+      SELECT Id FROM DuplicateRecordSet
+      WHERE DuplicateRule.DeveloperName = 'Account_MDM_Rule'
+    )
+  )
+ORDER BY Name, CreatedDate</code></pre>
+
+  <h2 id="s4">Golden Record Management Patterns</h2>
+  <p>A golden record is the authoritative version of a master data entity — the one record that all systems should consider correct. In Salesforce, the golden Account record for Acme Corporation should have the verified billing address, the correct legal entity name, the current primary contact, and the canonical customer ID that all systems reference. Maintaining golden records requires three things: a matching process to identify duplicates, a merge process to resolve duplicates into a single golden record, and a synchronisation process to propagate the golden record attributes to all consuming systems.</p>
+  <p>Salesforce's built-in duplicate management uses configurable matching rules (field-weighted fuzzy matching on name, address, email, phone) to identify potential duplicates at data entry time and as a batch scan of existing records. For production-scale MDM, the standard duplicate management is often insufficient — it lacks the probabilistic matching across cross-system identifiers that enterprise MDM requires. Organisations implementing serious MDM typically supplement with dedicated MDM tools (Informatica MDM, Reltio, Semarchy) that integrate with Salesforce as a consuming system.</p>
+  <p>When duplicate Accounts are identified and merged in Salesforce, the merge operation combines the two records into one, selecting field values from either source record and preserving all child records (Contacts, Opportunities, Cases) on the surviving record. The loser Account ID is permanently deleted. Any external system that holds the loser Account ID as a foreign key must be notified of the ID change — this is the integration coordination challenge that makes cross-system MDM complex.</p>
+
+  <h2 id="s5">Data Governance: The Non-Technical Requirement</h2>
+  <p>Data governance for MDM requires three organisational components that technology cannot substitute: data ownership, data stewardship, and data policies. Data ownership assigns accountability for master data quality to a specific business role — the VP of Sales owns the quality of Account master data, with that ownership embedded in their performance objectives. Without ownership, nobody is accountable when data quality degrades.</p>
+  <p>Data stewards are operational resources who manage the day-to-day data quality work: investigating potential duplicates, merging records, resolving conflicting data between systems, and approving new customer records created by non-standard channels. In practice, stewards spend most of their time on the exceptions that automated matching rules cannot resolve. The steward workload scales with the volume of system-generated potential duplicates — an active MDM program with 50,000 new customer records per month may require a full-time stewardship team of three to five people.</p>
+  <p>Data policies define the rules: what fields are required for a customer record to be "complete," what match confidence threshold triggers automatic merge vs steward review, what systems are authorised to create new customer records, and what the escalation path is when two systems disagree on a customer attribute. These policies must be formally documented, approved by data owners, and enforced technically (Salesforce validation rules) and operationally (process enforcement by managers).</p>
+
+  <div class="callout callout--tip">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Start with account hierarchy, not full MDM:</strong> Full enterprise MDM is a multi-year programme. A high-value entry point in Salesforce is establishing accurate Account hierarchy (parent-child Account relationships across subsidiaries and parent companies) with a clean External ID strategy that maps to the organisation's ERP party model. This foundation enables meaningful cross-system reporting without the full complexity of centralised MDM.
+    </div>
+  </div>
+
+  <div class="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>True MDM requires a canonical data model, golden record authority, data stewardship processes, cross-system synchronisation, and governance enforcement — not just Salesforce duplicate management configured in a single org.</li>
+      <li>The four MDM styles progress from low-disruption registry (ID mapping only) through consolidation (read-only hub) and coexistence (hub updates source systems) to centralised (hub is the only creation point). Salesforce fits naturally in coexistence style as the customer-domain authority.</li>
+      <li>Declaring Salesforce the "system of record" requires changing business processes — the test is which system is updated first when a customer attribute changes. Technology implements the decision; the decision is organisational.</li>
+      <li>Salesforce's built-in duplicate management is a starting point but not sufficient for enterprise MDM. High-volume organisations supplement with dedicated MDM tools (Informatica MDM, Reltio) that integrate with Salesforce.</li>
+      <li>Account merges in Salesforce delete the loser Account ID permanently — external systems holding the loser ID as a foreign key must be notified. The integration coordination for cross-system ID changes is the hidden complexity of MDM programs.</li>
+      <li>MDM requires a governance organisation (data owners, data stewards, data policies) as a non-negotiable. A stewardship team scaling proportionally to new customer volume is operational reality, not optional overhead.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. An organisation runs Salesforce, SAP, and an e-commerce platform. All three systems have customer records. They want to ensure a "single view of the customer." They plan to implement Salesforce's duplicate management rules across all three systems. What is the fundamental gap in this approach?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Salesforce duplicate management rules can be extended to cover SAP and e-commerce records using Apex-based matching integrations</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Salesforce duplicate management only governs records within the Salesforce org — it has no capability to detect or merge duplicates that exist between Salesforce, SAP, and the e-commerce platform. Cross-system identity resolution requires MDM integration, not Salesforce-internal duplicate rules.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Duplicate management rules are a licensing add-on that requires the MDM edition of Salesforce to cover cross-system scenarios</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. Two Salesforce Account records for the same company are merged. SAP holds the losing Account's Salesforce ID as a foreign key on 3,000 order records. What must happen next?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Nothing — Salesforce automatically updates all external system foreign keys when an Account merge occurs</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">SAP's 3,000 order records must be updated to replace the deleted (losing) Salesforce Account ID with the surviving Account ID — this integration coordination step must be executed as part of the merge process, or the SAP orders will have a broken foreign key reference</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The losing Account ID remains valid in Salesforce as a redirect to the winning Account — SAP foreign keys require no update</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. An organisation wants to implement "consolidation-style MDM" with Salesforce as the hub. A data analyst wants to report on unified customer data. A sales manager wants the customer's correct address in Salesforce to match the MDM golden record. What will the consolidation style provide and not provide?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Consolidation MDM will provide both — it maintains golden records and distributes them back to all source systems including Salesforce</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Consolidation MDM provides the analyst's unified view (read-only consolidated reporting) but does not provide the sales manager's requirement — consolidation does not write golden record attributes back to source systems. Coexistence or centralised MDM is required to update Salesforce with the authoritative address.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Consolidation MDM provides neither — it only identifies duplicates without creating a unified view or updating source systems</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="intg-011.html" class="related-card">
+              <span class="card-id">INTG-011</span>
+              <h4>Salesforce Data Loader vs Third-Party Tools: A Practical Comparison</h4>
+            </a>
+            <a href="intg-009.html" class="related-card">
+              <span class="card-id">INTG-009</span>
+              <h4>External Objects and Salesforce Connect: Federation Without Migration</h4>
+            </a>
+            <a href="intg-012.html" class="related-card">
+              <span class="card-id">INTG-012</span>
+              <h4>GraphQL for Salesforce: What It Means and Why It Matters</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">What MDM Actually Is</a></li>
+            <li><a href="#s2">MDM Implementation Styles</a></li>
+            <li><a href="#s3">Salesforce as System of Record</a></li>
+            <li><a href="#s4">Golden Record Management</a></li>
+            <li><a href="#s5">Data Governance Requirements</a></li>
+            <li><a href="#quiz">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="intg-011.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Salesforce Data Loader vs Third-Party Tools →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

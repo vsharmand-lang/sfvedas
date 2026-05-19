@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARCH-024: Custom Metadata Types vs Custom Settings vs Custom Objects — SFVedas</title>
+  <meta name="description" content="Custom Metadata Types vs Custom Settings vs Custom Objects: The Decision — a complete architectural guide for solution architects and platform leads."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-024</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Custom Metadata Types vs Custom Settings vs Custom Objects
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The fundamental differences between Custom Metadata Types, Custom Settings, and Custom Objects as configuration stores</li>
+            <li>Why Custom Metadata Types are the preferred choice for most configuration scenarios in modern Salesforce development</li>
+            <li>When Custom Settings are still the right tool — and the limits that constrain them</li>
+            <li>The performance characteristics of each mechanism and how they differ under load</li>
+            <li>A decision matrix for mapping your use case to the right configuration storage mechanism</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Configuration Storage Problem</h2>
+
+        <p>Every Salesforce implementation has business rules, thresholds, and configuration values that need to be stored somewhere and read by Apex, Flows, and validation rules. Tax rates, SLA thresholds, integration endpoints, feature flags, routing rules — these are the configuration layer of your application. Where you store them has implications for how they're deployed, how they perform, and how easily they change.</p>
+
+        <p>Three Salesforce mechanisms exist for this purpose, and they are frequently chosen interchangeably without understanding their different architectural characteristics. Choosing Custom Settings when Custom Metadata Types are appropriate, or vice versa, creates technical debt that surfaces at deployment time, scale, or audit time.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The deployment question is the first question</strong>
+            <p>Before choosing a configuration storage mechanism, ask: "How will this configuration travel between environments?" If the answer is "via metadata deployment (change set, SF CLI, package)," use Custom Metadata Types. If the answer is "it's environment-specific and should never be deployed automatically," Custom Settings may be appropriate. Custom Objects follow regular data migration patterns. The deployment model is the first architectural differentiator.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Custom Settings: Hierarchy Data Close to the Platform</h2>
+
+        <p>Custom Settings are Salesforce's original configuration mechanism. They come in two types: <strong>Hierarchy</strong> (per-org, per-profile, or per-user settings with cascading defaults) and <strong>List</strong> (key-value pairs accessible org-wide). List Custom Settings are accessible via <code>ClassName.getInstance(name)</code> from Apex and in formula fields via <code>$Setup.FieldName__c</code>.</p>
+
+        <h3>What Custom Settings Do Well</h3>
+        <p>Hierarchy Custom Settings are the right tool for configuration that genuinely varies by user or profile. If your application behaves differently for users in different profile groups — different default values, different feature enablement — Hierarchy Custom Settings provide a clean, platform-native mechanism for this differentiation. The hierarchy (Org → Profile → User) means you set a default at org level and override only where needed.</p>
+
+        <p>Custom Settings are also appropriate for environment-specific configuration that should NOT travel between environments: integration endpoints (sandbox vs production), API keys per environment, feature flags that are on in UAT but off in production. Because Custom Settings data is not part of the metadata deployment, it stays put when you deploy — which is intentional for these use cases.</p>
+
+        <h3>Custom Settings Limits</h3>
+        <p>The 10MB total data limit for Custom Settings org-wide is the most commonly hit constraint. For configurations that are small (a few dozen records, simple fields), this is rarely an issue. For configurations that grow — lookup tables, routing rules, tax matrices — the 10MB limit becomes a real constraint. Custom Settings also do not support relationship fields (no lookups to other objects), which limits their expressiveness for complex configuration structures.</p>
+
+        <pre><code>// Apex: Reading Custom Settings at runtime
+// Hierarchy: org-level default, with profile/user overrides
+MyAppSettings__c settings = MyAppSettings__c.getInstance();
+Decimal taxRate = settings.DefaultTaxRate__c;
+
+// List Custom Settings: by name
+IntegrationEndpoint__c endpoint =
+    IntegrationEndpoint__c.getInstance('Production_ERP');
+String url = endpoint.BaseURL__c;
+
+// Formula field access (no Apex required):
+// $Setup.MyAppSettings__c.DefaultTaxRate__c</code></pre>
+
+        <h2 id="s3">Custom Metadata Types: Configuration That Belongs in Your Package</html2>
+
+        <p>Custom Metadata Types (CMT) are Salesforce's modern replacement for many Custom Settings use cases. The critical architectural difference: CMT records are <strong>metadata</strong>, not data. They are part of your org's metadata model, deployed via change sets and the Metadata API, included in packages, and visible in version-controlled source as XML files.</p>
+
+        <p>CMT records travel with your deployments automatically. When you promote from sandbox to production, your CMT records come with the metadata deployment — no separate data migration step required. This makes CMT records the right choice for any configuration that should be consistent across environments and that is part of your application's behaviour definition.</p>
+
+        <h3>CMT Capabilities Beyond Custom Settings</h3>
+        <p>CMTs support relationship fields — a CMT record can have a lookup to another CMT record, or a metadata relationship to a standard Salesforce metadata type (like a Field or Object definition). This enables complex, relational configuration structures that Custom Settings cannot express. A routing rules configuration that maps Account industry to an assigned team, where teams are themselves CMT records, is clean and elegant in CMT. In Custom Settings, it requires a workaround.</p>
+
+        <p>CMT records also do not count toward the custom object limit (200 per org) — they have their own separate limit. You can create as many CMT types and records as your use case requires without impacting your object count budget.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>CMT Is the Default for New Configuration Design</strong>
+            <p>In any new Salesforce implementation or feature, default to Custom Metadata Types for configuration storage unless you have a specific reason for Custom Settings (environment-specific data, per-user hierarchy, small dataset that benefits from formula field access). CMT's deployability and packageability are advantages that almost always outweigh Custom Settings' simpler access model.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Custom Objects: Full CRUD With All the Tradeoffs</h2>
+
+        <p>Custom Objects are the most powerful configuration mechanism — full CRUD operations, relationship support, workflow automation, reporting, page layouts — but they carry the highest operational overhead. Records in custom objects are data, not metadata: they require data migration to move between environments, they count toward your custom object limit, and they consume storage quota.</p>
+
+        <p>Custom Objects are the right choice for configuration that needs to be <strong>managed by business users at runtime</strong> — not deployed by developers. Approval routing configurations that a business administrator updates monthly, SLA definitions that change with contract renewals, pricing tiers that marketing adjusts per campaign — these are configuration that benefits from Salesforce's full UI, validation rules, workflows, and data management capabilities.</p>
+
+        <h3>When to Use Custom Objects for Configuration</h3>
+        <p>Use Custom Objects when: the configuration changes frequently and needs to be updated by non-developers in production, the configuration requires relationships to transactional data (e.g. a configuration record related to specific Accounts or Products), or the volume of configuration records is large enough that the 10MB Custom Settings limit is a concern and CMT deployment overhead is impractical for frequent changes.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Custom Object Configuration Requires Data Governance</strong>
+            <p>When business users can edit configuration data in production, you lose the safety net of environment promotion review. A misconfigured SLA threshold or routing rule created directly in production can affect every new transaction immediately. If you use Custom Objects for configuration, implement approval processes for critical configuration changes, maintain a backup snapshot before major updates, and define clear ownership of who can modify each configuration object.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">Performance Differences That Aren't in the Documentation</h2>
+
+        <p>All three mechanisms read from different sources with different performance profiles. Custom Settings data is cached in the application server layer after the first access in a transaction — subsequent reads within the same transaction are served from cache at near-zero cost. This is why Custom Settings are particularly efficient in validation rules and formula fields that execute on every record operation.</p>
+
+        <p>Custom Metadata Types are also cached — CMT records are loaded into the application server's metadata cache and remain there until the cache is invalidated (typically by a metadata deployment). For Apex code that reads CMT records in a loop, the second and subsequent reads are from cache, not from database. However, the initial SOQL query against CMT records does consume from the transaction's SOQL query limit (100 per transaction).</p>
+
+        <p>Custom Objects are standard SOQL queries against the database — no special caching. Reading configuration from a Custom Object in Apex requires a SOQL query that consumes Governor Limits. For configuration accessed in high-frequency triggers (every Account update, every Opportunity stage change), reading from a Custom Object in every transaction is both Governor-Limit-expensive and potentially performance-impacting. Use Platform Cache as a caching layer for Custom Object configuration in these scenarios.</p>
+
+        <h2 id="s6">Decision Matrix</h2>
+
+        <p>Map your use case to the right mechanism:</p>
+
+        <p><strong>Use Custom Metadata Types when:</strong> configuration must travel with code deployments, configuration should be in version control as metadata, the package must include the configuration, or the configuration is structural/relational (complex CMT-to-CMT relationships).</p>
+
+        <p><strong>Use Custom Settings when:</strong> configuration is environment-specific (sandbox vs production endpoints), the configuration varies by user or profile (Hierarchy type), it needs to be accessible in formula fields without SOQL, or the dataset is very small and change frequency is very low.</p>
+
+        <p><strong>Use Custom Objects when:</strong> business users need to manage configuration in production UI without developer involvement, configuration needs approval workflows or change history, the configuration relates to transactional records, or the volume is too large for Custom Settings limits and too dynamic for CMT deployments.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>The Migration Path When You Choose Wrong</strong>
+            <p>Migrating from Custom Settings to CMT is straightforward for the data but requires refactoring all code that uses <code>getInstance()</code> to SOQL-based CMT queries. Migrating from Custom Objects to CMT requires a data export and metadata import, plus code refactoring. Neither migration is technically complex, but both require a full regression test of any logic that reads the configuration. Do the migration in a sandbox with proper test coverage before attempting production.</p>
+          </div>
+        </div>
+
+        <h2 id="s7">Governance and Lifecycle Management</h2>
+
+        <p>Each mechanism requires different governance. CMT records are part of the metadata deployment pipeline and should follow your change management process — a change to a routing rule CMT record is as significant as a code change and should have the same review and approval pathway. Track CMT record changes in your version control system (they appear as XML file changes in the source format) and include them in pull request reviews.</p>
+
+        <p>Custom Settings in production should have a documented owner per setting and a change log. Since Custom Settings data isn't automatically captured in version control or deployment logs, the only audit trail is your own documentation or Salesforce Shield's audit logs. Custom Object configuration changes can be tracked via the standard Salesforce audit trail (Setup Audit Trail for setup changes, Field History Tracking for field-level changes).</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>The primary differentiator between the three mechanisms is deployment model: CMT records are metadata (travel with deployments), Custom Settings are data (stay in each org), Custom Objects are data (require explicit migration)</li>
+            <li>Custom Metadata Types are the preferred default for new configuration design — deployable, packageable, version-controllable, and they don't consume the custom object limit</li>
+            <li>Custom Settings are appropriate for environment-specific configuration and per-user/profile hierarchy settings — their formula field access and caching make them efficient for high-frequency reads</li>
+            <li>Custom Objects provide the richest UI and governance capabilities for configuration managed by business users — but require explicit data governance and don't automatically travel between environments</li>
+            <li>CMT and Custom Settings are cached after initial access; Custom Object configuration requires a SOQL query on every read and should use Platform Cache for high-frequency access</li>
+            <li>Migrating from Custom Settings or Custom Objects to CMT (or vice versa) is achievable but requires code refactoring and regression testing — get the decision right at design time</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Checkpoint: Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A developer needs to store routing rules that map Account Industry to an assigned support team. These rules must be deployed via change set from sandbox to production and versioned in Git. Which mechanism should they use?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Custom Settings (List type) — accessible by name in Apex without SOQL</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Custom Metadata Types — they are metadata, travel with deployments automatically, appear in version control as XML files, and support relational structures between CMT records</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Custom Objects — they provide the richest UI for managing the routing rules at runtime</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Custom Settings (Hierarchy type) — to allow different routing rules per user profile</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. What is the key architectural reason Custom Settings are appropriate for storing integration endpoint URLs that differ between sandbox and production?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Custom Settings are encrypted by default, making them safer for storing sensitive endpoint URLs</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Custom Settings data does NOT travel with metadata deployments — it stays in each org independently, which is exactly the behaviour needed for environment-specific configuration like different sandbox vs production endpoints</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Custom Settings support masking of URL values in debug logs, preventing accidental exposure</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Custom Settings are the only mechanism accessible from Named Credentials, which endpoint URLs require</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. A business operations team needs to manage SLA threshold configurations that change frequently and require an approval process before going live. Which mechanism is most appropriate?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Custom Metadata Types — they support approval processes for metadata changes via the Metadata API</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Custom Settings — the Hierarchy type allows different SLA thresholds per user without approval processes</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. Custom Objects — they provide the full Salesforce UI for business users to manage records, support native Approval Processes and Field History Tracking for governance, and allow non-developers to make configuration changes in production</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Hard-coded Apex constants — SLA thresholds that require approval should be in code, not configuration</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-025.html" class="related-card">
+              <span class="card-id">ARCH-025</span>
+              <h4>Tenant Isolation in Multi-Tenant Systems</h4>
+            </a>
+            <a href="arch-023.html" class="related-card">
+              <span class="card-id">ARCH-023</span>
+              <h4>Salesforce AppExchange Architecture</h4>
+            </a>
+            <a href="arch-026.html" class="related-card">
+              <span class="card-id">ARCH-026</span>
+              <h4>Salesforce B2B Commerce Architecture: The Hidden Complexity</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">The Configuration Storage Problem</a></li>
+            <li><a href="#">Custom Settings: Hierarchy Data Close to the Platform</a></li>
+            <li><a href="#">Custom Metadata Types: Configuration That Belongs in Your Package
+
+        Custom Metadata Types (CMT) are Salesforce's modern replacement for many Custom Settings use cases. The critical architectural difference: CMT records are metadata, not data. They are part of your org's metadata model, deployed via change sets and the Metadata API, included in packages, and visible in version-controlled source as XML files.
+
+        CMT records travel with your deployments automatically. When you promote from sandbox to production, your CMT records come with the metadata deployment — no separate data migration step required. This makes CMT records the right choice for any configuration that should be consistent across environments and that is part of your application's behaviour definition.
+
+        CMT Capabilities Beyond Custom Settings
+        CMTs support relationship fields — a CMT record can have a lookup to another CMT record, or a metadata relationship to a standard Salesforce metadata type (like a Field or Object definition). This enables complex, relational configuration structures that Custom Settings cannot express. A routing rules configuration that maps Account industry to an assigned team, where teams are themselves CMT records, is clean and elegant in CMT. In Custom Settings, it requires a workaround.
+
+        CMT records also do not count toward the custom object limit (200 per org) — they have their own separate limit. You can create as many CMT types and records as your use case requires without impacting your object count budget.
+
+        
+          🔑
+          
+            CMT Is the Default for New Configuration Design
+            In any new Salesforce implementation or feature, default to Custom Metadata Types for configuration storage unless you have a specific reason for Custom Settings (environment-specific data, per-user hierarchy, small dataset that benefits from formula field access). CMT's deployability and packageability are advantages that almost always outweigh Custom Settings' simpler access model.
+          
+        
+
+        Custom Objects: Full CRUD With All the Tradeoffs</a></li>
+            <li><a href="#">Performance Differences That Aren't in the Documentation</a></li>
+            <li><a href="#">Decision Matrix</a></li>
+            <li><a href="#">Governance and Lifecycle Management</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="arch-025.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Tenant Isolation in Multi-Tenant Systems →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

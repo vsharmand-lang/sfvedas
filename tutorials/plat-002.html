@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salesforce SOQL Tuning: Why Your Queries Are Slow | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=platform-technical" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Platform &amp; Technical</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">PLAT-002</span>
+        <span class="card-tag" style="background:rgba(0,112,210,0.08);color:var(--sf-blue);border-color:rgba(0,112,210,0.2);">Platform &amp; Technical</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Technical Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce SOQL Tuning: Why Your Queries Are Slow
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Slow SOQL is one of the most common causes of poor Salesforce performance — and it is almost always fixable once you understand how the query engine evaluates filters, uses indexes, and decides between scan and seek. This tutorial gives you the mental model.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+        <div class="section-summary">
+          <span class="ss-label">What you will learn...</span>
+          <ul>
+            <li>How the SOQL query engine evaluates WHERE clauses and chooses between index seek and table scan</li>
+            <li>What selectivity means and how to calculate it for a given query</li>
+            <li>Which fields are automatically indexed and how to request custom indexes</li>
+            <li>Using EXPLAIN to diagnose a slow query before it hits production</li>
+            <li>Common SOQL anti-patterns: non-selective filters, text search on long fields, formula field filters</li>
+            <li>Query optimisation techniques that consistently improve performance</li>
+          </ul>
+        </div>
+        <h2 id="s1">How the SOQL Engine Decides: Seek vs Scan</h2>
+        <p>Understanding SOQL performance starts with understanding the two modes the query engine can operate in: an index seek (fast) and a table scan (slow).</p>
+        <p>An index seek navigates a B-tree index structure to find matching rows directly — it reads a small fraction of the data to answer the query. A table scan reads every row in your org's data partition for the object and evaluates the WHERE clause against each row. On a 10-million-record object, a table scan reads 10 million rows; an index seek might read a few thousand.</p>
+        <p>The query engine chooses based on selectivity. If the WHERE clause filter is selective (returns a small percentage of total records), the engine uses an available index. If the filter is non-selective (would return most records), the engine determines that a full scan is actually faster — index overhead is not worth it when most of the data must be read anyway.</p>
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The 5-10% threshold:</strong> Salesforce's query optimiser generally uses an index when the estimated result set is less than approximately 5-10% of the total records for the object in your org. This is an estimate — the optimiser uses statistics rather than exact counts. A query that returns 3% of records will almost always use an index; one returning 40% almost never will.
+          </div>
+        </div>
+        <h2 id="s2">Automatically Indexed Fields</h2>
+        <p>Salesforce automatically creates indexes for a specific set of fields on every object. Knowing which fields are indexed helps you write queries that can use them.</p>
+        <p><strong>Always indexed:</strong> Id (record ID), Name (on standard objects), OwnerId, CreatedDate, SystemModstamp, LastModifiedDate, RecordTypeId, and all fields marked as External ID or Unique. These fields can support selective queries without requesting custom indexes.</p>
+        <p><strong>Standard relationship fields:</strong> Lookup and master-detail relationship fields (AccountId on Contact, CaseId on CaseComment) are indexed. Filtering by parent ID is one of the most efficient query patterns in SOQL.</p>
+        <p><strong>Not automatically indexed:</strong> Custom fields that are not External ID or Unique, standard fields not in the above list (Amount, StageName, Status), and formula fields (formula fields cannot be indexed at all).</p>
+        <pre><code>-- Efficient: filters on indexed fields
+SELECT Id, Name, Amount FROM Opportunity
+WHERE AccountId = :accountId          -- indexed relationship
+AND CreatedDate = LAST_N_DAYS:30      -- indexed standard field
+
+-- Problematic: filter on non-indexed custom field
+SELECT Id, Name FROM Order__c
+WHERE Customer_Segment__c = 'Enterprise'  -- not indexed
+-- On 5M records this triggers a table scan
+
+-- Request custom index for Customer_Segment__c via Salesforce Support
+-- After indexing, the query becomes selective and fast</code></pre>
+        <h2 id="s3">Using EXPLAIN to Diagnose Slow Queries</h2>
+        <p>SOQL EXPLAIN (available via the Tooling API and the Developer Console query plan tool) reveals how the query engine intends to execute a query — before you run it against production data.</p>
+        <p>The EXPLAIN output includes a cardinality estimate (how many rows the engine thinks will be returned), a cost value (relative execution cost — lower is better), and the leading operation type (Index, TableScan, or others). A TableScan operation on a large object is the diagnostic signal you are looking for.</p>
+        <pre><code>-- Using EXPLAIN via Tooling API
+GET /services/data/v60.0/query?explain=
+  SELECT+Id,Name,Amount
+  FROM+Opportunity
+  WHERE+StageName='Closed+Won'
+  AND+CloseDate=THIS_YEAR
+
+-- Response includes:
+{
+  "plans": [{
+    "cardinality": 42000,
+    "fields": ["StageName"],
+    "leadingOperationType": "TableScan",   // bad
+    "relativeCost": 4.2                    // high cost
+  }]
+}
+
+-- Vs a well-indexed query:
+{
+  "plans": [{
+    "cardinality": 180,
+    "fields": ["AccountId"],
+    "leadingOperationType": "Index",        // good
+    "relativeCost": 0.02                   // low cost
+  }]
+}</code></pre>
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Run EXPLAIN before deploying:</strong> Any new SOQL query against an object with more than 100,000 records should be EXPLAIN-tested before deployment. A query that looks reasonable to the developer but triggers a table scan on a multi-million-record production object will fail or timeout.
+          </div>
+        </div>
+        <h2 id="s4">Common SOQL Anti-Patterns</h2>
+        <p>These are the query patterns that cause the most performance problems in production Salesforce orgs.</p>
+        <p><strong>Non-selective status filters:</strong> WHERE Status__c = 'Active' on an object where 90% of records are Active. The filter is technically correct but non-selective — it returns most records. Add a date constraint (AND CreatedDate = LAST_N_DAYS:90) to make the filter set selective.</p>
+        <p><strong>Negative filters on large objects:</strong> WHERE Stage != 'Closed Won'. Negative filters (!=, NOT IN, NOT LIKE) are inherently non-selective because they potentially match most records. Never use negative filters as the primary filter on a large object — pair them with a selective positive filter first.</p>
+        <p><strong>Filter on formula fields:</strong> Formula fields are not stored in the database — they are calculated at query time. A WHERE clause on a formula field forces Salesforce to evaluate the formula for every row before filtering. This is always a full table scan regardless of the result size. Move formula logic to a stored field (populated by a trigger or flow) if the field must be queried.</p>
+        <p><strong>LIKE with leading wildcard:</strong> WHERE Name LIKE '%Smith%'. A leading wildcard defeats index lookup — the engine cannot use the Name index to find 'Smith' anywhere in the string. LIKE 'Smith%' (trailing wildcard only) can use the index. LIKE '%Smith%' cannot.</p>
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The Salesforce search bar is not SOQL:</strong> The global search bar uses a separate search index (Einstein Search), not SOQL. Standard search handles partial string matching efficiently. SOQL is for programmatic data access — use SOQL filters with selective fields, and use the Search API for text search scenarios.
+          </div>
+        </div>
+        <h2 id="s5">Query Optimisation Techniques</h2>
+        <p>When a query is slow, these techniques consistently improve performance.</p>
+        <p><strong>Add a date range as the primary filter:</strong> CreatedDate or LastModifiedDate are indexed on every object. Adding a date range as the first filter dramatically reduces the scan range even on objects without other selective fields.</p>
+        <p><strong>Filter by parent ID before filtering by fields:</strong> WHERE AccountId IN :accountIds AND Status__c = 'Active' is faster than WHERE Status__c = 'Active' AND AccountId IN :accountIds — the relationship filter (indexed) narrows the result set before the non-indexed field filter is evaluated.</p>
+        <p><strong>Reduce the field list:</strong> SELECT only the fields you need. Wide queries (many fields) consume more heap and take longer to serialise. Never SELECT * equivalent — always name specific fields.</p>
+        <p><strong>Use LIMIT strategically:</strong> If you only need the first N results (e.g., "get the most recent 10 cases for this account"), add ORDER BY + LIMIT to stop the engine as soon as it has enough results rather than fetching all matching rows.</p>
+        <pre><code>-- Optimised query combining multiple techniques
+SELECT Id, Subject, Status, CreatedDate
+FROM Case
+WHERE AccountId IN :accountIds          -- 1. selective relationship filter
+AND CreatedDate = LAST_N_DAYS:90        -- 2. date range narrows result
+AND Status != 'Closed'                  -- 3. negative filter after selective positive
+ORDER BY CreatedDate DESC               -- 4. sorted
+LIMIT 200                               -- 5. bounded result set</code></pre>
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>SOQL performs an index seek (fast) when the WHERE filter is selective (&lt;5-10% of rows), or a table scan (slow) when non-selective. The query engine decides which to use based on selectivity estimates.</li>
+            <li>Automatically indexed fields include Id, OwnerId, CreatedDate, External ID fields, Unique fields, and relationship fields. All other fields are unindexed unless you request a custom index via Salesforce support.</li>
+            <li>SOQL EXPLAIN (via Tooling API or Developer Console) reveals whether a query will use an index or a table scan before the query runs against production data — use it for any new query on large objects.</li>
+            <li>Critical anti-patterns: non-selective status filters (most records match), negative filters as primary filters, formula field filters (always a full scan), and LIKE with leading wildcards.</li>
+            <li>Optimisation techniques: add date range as primary filter, filter by parent relationship ID first, select only required fields, and use LIMIT to bound result sets.</li>
+            <li>Formula fields cannot be indexed — if a formula field must be queried frequently, store its value in a real field populated by automation, and query the stored field instead.</li>
+          </ul>
+        </div>
+        <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A SOQL query filters on a custom field "Region__c" on a 2-million-record object. The field is not an External ID. EXPLAIN shows "leadingOperationType": "TableScan". What is the most appropriate fix?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Rewrite the query to use a subquery that first selects by Id, then joins to the Region__c filter</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Request a custom index on Region__c via Salesforce Support (if the field's values are selective), or add a selective indexed field like CreatedDate as a co-filter to reduce the scan range</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Convert Region__c to a formula field so the query engine can optimise it differently</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A developer writes WHERE Description__c LIKE '%invoice%' to find records mentioning "invoice" in a long text field. What is wrong with this query on a large object?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">LIKE queries are not supported on custom text fields in SOQL</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">The leading wildcard in '%invoice%' defeats the index — the engine must scan every row. For text search in long fields, the Salesforce Search API or a custom search index is the correct approach.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">LIKE queries work correctly on long text fields — the full-text search index handles them efficiently</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. You have a query: WHERE StageName = 'Closed Won' on Opportunity with 5 million records, 60% of which are Closed Won. The query is slow. Adding AND CreatedDate = THIS_YEAR reduces matching records to 200,000. Will this likely fix the performance problem?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">No — adding more filters always makes SOQL slower due to additional evaluation overhead</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Yes — CreatedDate is indexed. The date filter brings the result set from 3M records (60%) to 200,000 (4%), which is below the selectivity threshold and allows the query engine to use the CreatedDate index.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">No — StageName is the primary filter and must be indexed for improvement. CreatedDate is a secondary filter and cannot change the execution plan.</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="plat-003.html" class="related-card">
+              <span class="card-id">PLAT-003</span>
+              <h4>Triggers vs Flows vs Process Builder: The Migration Path Forward</h4>
+            </a>
+            <a href="plat-001.html" class="related-card">
+              <span class="card-id">PLAT-001</span>
+              <h4>Apex Best Practices for Tech Leaders Who Don't Write Code</h4>
+            </a>
+            <a href="plat-004.html" class="related-card">
+              <span class="card-id">PLAT-004</span>
+              <h4>Salesforce DX: What Every Delivery Leader Must Know</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">How the SOQL Engine Decides: Seek vs Scan</a></li>
+            <li><a href="#">Automatically Indexed Fields</a></li>
+            <li><a href="#">Using EXPLAIN to Diagnose Slow Queries</a></li>
+            <li><a href="#">Common SOQL Anti-Patterns</a></li>
+            <li><a href="#">Query Optimisation Techniques</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="plat-003.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Triggers vs Flows vs Process Builder →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

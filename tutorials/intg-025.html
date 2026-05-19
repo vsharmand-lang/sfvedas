@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API-First vs Integration-First Architecture: The Strategic Choice | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-025</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        API-First vs Integration-First Architecture: The Strategic Choice
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        API-first and integration-first are not competing philosophies — they operate at different layers of architectural concern. Confusing them leads to organisations that invest in API management platforms while still running spaghetti integration underneath, or organisations that spend years standardising APIs that nobody outside the IT department can consume.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>The precise definitions of API-first and integration-first and where each applies in an enterprise architecture</li>
+      <li>Why API-first is a design methodology, not a technology choice, and what it requires organisationally</li>
+      <li>How integration-first thinking changes the way you evaluate platforms, patterns, and ownership models</li>
+      <li>The MuleSoft API-led connectivity model: System, Process, and Experience layers explained</li>
+      <li>When to prioritise API contract design over integration efficiency, and when the reverse is true</li>
+      <li>How Salesforce platform choices (Connected Apps, Experience Cloud, Data Cloud) shift the strategic priority</li>
+    </ul>
+  </div>
+
+  <h2>Two Strategies That Are Often Confused</h2>
+  <p>API-first is a design methodology: you design the API contract — its endpoints, request/response schemas, authentication model, and versioning strategy — before writing a single line of implementation code. The API is the first citizen; the implementation is secondary. This approach prioritises consumer experience (the developers or systems consuming the API) and forces explicit thinking about contracts, backward compatibility, and discoverability. It became mainstream alongside RESTful APIs and the proliferation of mobile applications that needed stable, versioned interfaces to back-end services.</p>
+  <p>Integration-first is an architectural strategy: you treat the movement of data and process between systems as a first-class architectural concern, not an afterthought solved by whoever owns each system. Integration-first organisations build integration capabilities (a platform, a pattern library, an operations model) before they need them, rather than building point-to-point connections ad hoc and regretting it three years later when they have 400 integrations with no central visibility.</p>
+  <div class="callout callout--insight">
+    <strong>Key Distinction:</strong> API-first answers the question "how should this capability be exposed?" Integration-first answers the question "how should our systems exchange data and process reliably at scale?" A mature enterprise needs both. Organisations that invest heavily in one while neglecting the other pay a predictable price.
+  </div>
+  <p>In the Salesforce context, this distinction manifests concretely. An organisation doing a Salesforce implementation decides to use Connected Apps and Named Credentials to secure all Salesforce API access (good API hygiene, but not API-first design). Separately, it decides that all integrations with Salesforce must flow through a MuleSoft runtime layer with centralised monitoring (integration-first thinking). These decisions are complementary but they are made in different contexts, by different stakeholders, and with different evaluation criteria.</p>
+
+  <h2>What API-First Requires in Practice</h2>
+  <p>API-first is not simply "design before build." It requires a specific organisational capability: the ability to publish an API specification, get feedback from consumers before implementation, and treat the specification as a contractual artefact that outlasts any given implementation. In MuleSoft's ecosystem this is delivered through Anypoint Exchange, where API specifications (typically written in RAML or OAS 3.0) are published and discoverable before a single runtime is deployed. In the Salesforce ecosystem, it maps to defining a Connected App's permission scopes and API contract before the Apex REST service is written.</p>
+  <p>The practical requirements of API-first include a specification language and tooling (RAML, OAS 3.0, AsyncAPI for event-driven APIs), a design review process that involves potential consumers, a versioning strategy (URI versioning, header versioning, or content negotiation), and a deprecation policy. Without these, "API-first" becomes "we write the Swagger docs after the implementation" — which is documentation-first, not API-first, and delivers substantially less value.</p>
+
+  <pre><code># OAS 3.0 snippet: Salesforce Account API contract defined before implementation
+openapi: 3.0.3
+info:
+  title: Customer Account API
+  version: "2.1"
+  description: Canonical API for Customer Account operations
+paths:
+  /accounts/{accountId}:
+    get:
+      summary: Retrieve a single Account by Salesforce ID
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+            pattern: '^[0-9A-Za-z]{15,18}$'
+      responses:
+        "200":
+          description: Account found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        "404":
+          description: Account not found
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        billingCity:
+          type: string
+        annualRevenue:
+          type: number
+          format: double
+      required: [id, name]
+# This contract is published to MuleSoft Anypoint Exchange BEFORE
+# the Apex REST resource or MuleSoft flow is implemented.
+# Consumer teams mock against it immediately.</code></pre>
+
+  <p>The benefit of publishing a mock before implementation is that consumer teams can begin building against it immediately. If the consumer team discovers that the API design is wrong — the schema is missing a field, the endpoint structure doesn't match how they need to query — the change is cheap because nothing has been built yet. This is the core value proposition. An API discovered to be wrong after six consuming integrations are live costs orders of magnitude more to fix.</p>
+
+  <h2>MuleSoft API-Led Connectivity: The Three-Layer Model</h2>
+  <p>MuleSoft's API-led connectivity framework is the most influential architectural pattern for organisations combining API-first design with integration-first thinking. It divides the integration landscape into three horizontal layers, each with a distinct purpose and consumer audience.</p>
+  <p>The System Layer contains APIs that wrap individual backend systems — one System API per core system. A Salesforce System API exposes raw Salesforce operations (create Account, query Opportunity, publish Platform Event) without business logic. An SAP System API exposes SAP BAPI calls without any knowledge of how Salesforce uses them. System APIs are owned by the teams that own the respective systems, versioned conservatively, and expected to have high availability because many Process APIs depend on them.</p>
+  <p>The Process Layer contains APIs that orchestrate calls across multiple System APIs to implement a business process. An "Order Fulfilment" Process API might call the SAP System API to create a delivery, the Salesforce System API to update the Order status, and the ERP System API to post a financial document — in sequence, with error handling and compensation logic. Process APIs encode business rules and are owned by the business process owners, not the IT system teams.</p>
+  <div class="callout callout--tip">
+    <strong>Ownership Clarity:</strong> The three-layer model is as much an organisational pattern as a technical one. If your Salesforce team owns both the Salesforce System API and the Order Fulfilment Process API, you have not implemented API-led connectivity — you have implemented a well-named monolith. The layers need genuinely separate ownership to deliver reusability and decoupling.
+  </div>
+  <p>The Experience Layer contains APIs tailored to specific consumer channels: a mobile app, a partner portal, a customer self-service community. Experience APIs can aggregate data from multiple Process APIs, apply channel-specific transformation (e.g., returning a lightweight summary for mobile vs a detailed record for desktop), and handle channel-specific authentication. Salesforce Experience Cloud APIs, Community REST APIs, and the Salesforce Mobile SDK all represent Experience Layer consumption patterns in the Salesforce context.</p>
+
+  <h2>Integration-First Thinking: What It Changes</h2>
+  <p>An integration-first organisation treats integration as a platform, not a project. When a new system is being evaluated for procurement, the integration team is involved in the evaluation — not as an afterthought after the contract is signed, but as a key evaluator asking whether the system's integration capabilities (available APIs, event model, bulk data access) meet the organisation's integration standards. Systems that don't support the organisation's integration platform (or require bespoke adapters that only that vendor can build) carry a higher TCO that must be factored into the procurement decision.</p>
+  <p>Integration-first changes the project governance model. Every project that connects two or more systems produces integration assets — API specifications, MuleSoft flows, Informatica mappings — that must be registered in the central integration catalogue. These assets are not owned by the project that created them; they are owned by the integration platform team and are available for reuse. This prevents the duplication of integration logic that is endemic in organisations where every project builds its own connections.</p>
+  <p>Integration-first also changes the incident response model. When an integration fails in a point-to-point world, two system teams argue about whose system caused the failure. When integration runs through a central platform, the integration team owns the monitoring, the alerting, and the initial triage. The integration team knows which downstream systems are affected by a given failure and can communicate impact proactively rather than reactively.</p>
+
+  <h2>The Salesforce-Specific Tension</h2>
+  <p>Salesforce creates a specific tension for API-first and integration-first strategies. Salesforce is simultaneously an integration consumer (it needs data from ERP, HRIS, and legacy systems), an integration producer (it exposes rich APIs that consuming systems call), and increasingly an integration platform itself (Platform Events, Change Data Capture, Data Cloud, MuleSoft). Deciding how much integration logic to put inside Salesforce vs. outside Salesforce on a dedicated integration platform is one of the most consequential architectural decisions an organisation makes.</p>
+  <p>Putting integration logic inside Salesforce (Apex callouts, Process Builder flows that call external actions, Platform Events consumed by external systems) has the advantage of simplicity for small-scale requirements and no additional licensing cost. It has the disadvantage of coupling the integration logic to Salesforce's governor limits, deployment model, and testing framework. When an Apex callout fails, debugging it requires access to Salesforce debug logs — not the integration platform's centralised logging.</p>
+  <div class="callout callout--warning">
+    <strong>Salesforce as Integration Platform:</strong> Salesforce is excellent at receiving and sending individual events. It is poor at orchestrating multi-step processes, handling retry logic, managing integration state across multiple systems, or processing high-volume bulk data flows. Use Salesforce for the parts of integration that are naturally close to Salesforce data; use a dedicated integration platform for orchestration, transformation, and cross-system process management.
+  </div>
+  <p>The practical guidance: any integration that requires more than two external system calls, has complex error handling and compensation logic, involves batch or bulk processing, or needs centralised monitoring and SLA management should live on the integration platform, not inside Salesforce. The Salesforce side of that integration should be limited to publishing events, receiving webhooks, and exposing clean, versioned APIs.</p>
+
+  <h2>Making the Strategic Choice</h2>
+  <p>When an organisation needs to choose between prioritising API-first and integration-first investment — and most organisations do need to choose because they can't fully invest in both simultaneously — the decision factors are the organisation's current integration pain and its primary integration drivers.</p>
+  <p>Organisations whose primary pain is that systems are directly connected to each other without any central visibility, monitoring, or reuse should invest in integration-first capabilities first. Build the integration platform, establish the integration patterns, onboard the highest-traffic integrations to the platform before investing heavily in API contract design methodology. A beautifully designed API specification published in Anypoint Exchange does not help if the runtime underneath it is a tangle of undocumented point-to-point connections.</p>
+  <p>Organisations whose primary pain is that internal teams are building redundant integrations because they can't discover what already exists, or that partner and customer developers are unable to consume Salesforce capabilities because the APIs are inconsistent and undocumented, should prioritise API-first investment. Design and publish API contracts, build an API portal, establish versioning standards, and make existing APIs discoverable before building net-new integration infrastructure.</p>
+  <p>Mature organisations — those with both a functioning integration platform and a published API catalogue — can pursue both strategies simultaneously, with API-first governing how capabilities are exposed and integration-first governing how data and process flow between systems. This is the target state, but it takes years to reach and requires sustained executive sponsorship because neither strategy delivers short-term cost reduction on its own.</p>
+
+  <div class="key-takeaways">
+    <h3>Key Takeaways</h3>
+    <ul>
+      <li>API-first is a design methodology (contract before implementation); integration-first is an architectural strategy (treating integration as a platform, not a project). They operate at different layers and both are needed in a mature enterprise.</li>
+      <li>MuleSoft's API-led connectivity model structures integration into System, Process, and Experience layers — each with separate ownership — to enable genuine reuse and decoupling rather than well-named monoliths.</li>
+      <li>The core value of API-first is cheap feedback: discovering that an API design is wrong before consuming integrations are built costs orders of magnitude less than discovering it after.</li>
+      <li>Salesforce is excellent at event-driven integration close to its own data; it is a poor orchestration engine for multi-step cross-system processes. Keep complex orchestration on dedicated integration platforms.</li>
+      <li>Integration-first thinking changes procurement (integration capabilities are evaluation criteria), project governance (integration assets must be registered and reused), and incident response (the integration team owns cross-system failure triage).</li>
+      <li>Organisations should prioritise integration-first if their primary pain is visibility and spaghetti; they should prioritise API-first if their primary pain is discoverability and inconsistency. Most need both but must sequence the investment.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Check Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>A Salesforce architect is asked to classify where the logic for an "Order Fulfilment" process that calls SAP, Salesforce, and a payment gateway should live in a MuleSoft API-led connectivity model. Which layer is correct?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">System Layer — because Order Fulfilment is a core business system capability that should be wrapped directly.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Process Layer — because it orchestrates calls across multiple System APIs to implement a business process, encoding business rules owned by process owners rather than system teams.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Experience Layer — because the order fulfilment flow is ultimately consumed by customer-facing channels that need the final order status.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The process should live inside Salesforce as an Apex class, since Salesforce is the system of record for orders.</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>An organisation is building a Salesforce integration that requires calling three external systems in sequence, with compensation logic if any step fails, and needs SLA monitoring with alerting. Where should this integration logic live?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Inside Salesforce as an Apex class with try/catch blocks and custom logging to a custom object for monitoring.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Inside Salesforce as a Flow with fault paths and an email alert to the system admin if any external action fails.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">On a dedicated integration platform (e.g., MuleSoft) where multi-step orchestration, compensation logic, retry management, and centralised SLA monitoring are native capabilities.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Distributed across each of the three external systems, with each system responsible for calling the next in the chain.</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>What is the primary value delivered by publishing an API specification to a catalogue (e.g., MuleSoft Anypoint Exchange) before the implementation is built?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">It allows the integration platform to auto-generate the runtime implementation from the specification, reducing development time.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">It satisfies security and compliance requirements for API documentation that must exist before any API can be deployed to production.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Consumer teams can mock against the specification immediately and provide design feedback before implementation begins, when changes are cheap rather than expensive.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">It locks the API design so that no changes can be made once consumers have begun building, protecting the contract's stability.</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="intg-026.html" class="related-card">
+              <span class="card-id">INTG-026</span>
+              <h4>Salesforce Data Pipelines: From Ingestion to CRM Analytics</h4>
+            </a>
+            <a href="intg-024.html" class="related-card">
+              <span class="card-id">INTG-024</span>
+              <h4>Real-World Data Migration Case Study: 50M Records from SAP to Salesforce</h4>
+            </a>
+            <a href="intg-027.html" class="related-card">
+              <span class="card-id">INTG-027</span>
+              <h4>B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">Two Strategies That Are Often Confused</a></li>
+            <li><a href="#">What API-First Requires in Practice</a></li>
+            <li><a href="#">MuleSoft API-Led Connectivity: Three Layers</a></li>
+            <li><a href="#">Integration-First Thinking</a></li>
+            <li><a href="#">The Salesforce-Specific Tension</a></li>
+            <li><a href="#">Making the Strategic Choice</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="intg-026.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Salesforce Data Pipelines →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

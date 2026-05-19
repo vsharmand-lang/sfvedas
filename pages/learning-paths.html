@@ -1,14 +1,563 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Learning Paths — SFVedas</title>
-  <meta name="description" content="Structured learning paths for Salesforce tech leaders — The Architect, The Delivery Leader, The Strategist."/>
+  <meta name="description" content="Three structured paths for Salesforce architects, delivery leaders, and strategists who need to understand Salesforce at the level that matters."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
+  <style>
+
+    /* ══════════════════════════════════════════════
+       LEARNING PATHS — lp- prefix design system
+    ══════════════════════════════════════════════ */
+
+    /* ── Hero ─────────────────────────────────── */
+    .lp-hero {
+      background: #0A1628;
+      padding: 120px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .lp-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,147,10,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,147,10,0.05) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 90% 90% at 50% 0%, black 30%, transparent 80%);
+    }
+    .lp-hero-glow {
+      position: absolute;
+      top: -300px; left: 50%;
+      transform: translateX(-50%);
+      width: 900px; height: 700px;
+      background: radial-gradient(ellipse, rgba(232,147,10,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .lp-hero-body {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 40px;
+      text-align: center;
+    }
+    .lp-eyebrow {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .lp-eyebrow::before,
+    .lp-eyebrow::after {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: var(--saffron);
+      opacity: 0.5;
+    }
+    .lp-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: #EDE8E0;
+      margin: 0 0 28px;
+    }
+    .lp-hero-title em { color: var(--saffron); font-style: italic; }
+    .lp-hero-sub {
+      font-family: var(--font-body);
+      font-size: clamp(1rem, 1.6vw, 1.18rem);
+      line-height: 1.78;
+      color: rgba(237,232,224,0.5);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Path chooser cards ───────────────────── */
+    .lp-chooser {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 72px auto 0;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .lp-choose-card {
+      padding: 40px 36px 44px;
+      text-decoration: none;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .lp-choose-card:last-child { border-right: none; }
+    .lp-choose-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--lp-color, var(--saffron));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .lp-choose-card:hover::before { transform: scaleX(1); }
+    .lp-choose-card:hover { background: rgba(255,255,255,0.025); }
+    .lp-choose-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--lp-color, var(--saffron));
+      margin-bottom: 16px;
+      opacity: 0.8;
+    }
+    .lp-choose-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: #EDE8E0;
+      margin-bottom: 8px;
+      line-height: 1.15;
+    }
+    .lp-choose-persona {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--lp-color, var(--saffron));
+      margin-bottom: 16px;
+    }
+    .lp-choose-desc {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: rgba(237,232,224,0.42);
+    }
+    .lp-choose-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 20px;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--lp-color, var(--saffron));
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .lp-choose-card:hover .lp-choose-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── Path sections ────────────────────────── */
+    .lp-paths-wrap {
+      background: var(--bg);
+    }
+    .lp-path {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .lp-path:last-child { border-bottom: none; }
+    .lp-path-watermark {
+      position: absolute;
+      top: -20px; right: -10px;
+      font-family: var(--font-display);
+      font-size: 22vw;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--lp-color, var(--saffron));
+      opacity: 0.028;
+      letter-spacing: -0.06em;
+      pointer-events: none;
+      user-select: none;
+    }
+    .lp-path-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    /* Left identity column */
+    .lp-path-identity {
+      position: sticky;
+      top: 100px;
+    }
+    .lp-path-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--lp-color, var(--saffron));
+      border: 1px solid var(--lp-color, var(--saffron));
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+      opacity: 0.85;
+    }
+    .lp-path-tag-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--lp-color, var(--saffron));
+      flex-shrink: 0;
+    }
+    .lp-path-num {
+      font-family: var(--font-display);
+      font-size: 7rem;
+      font-weight: 700;
+      line-height: 0.85;
+      letter-spacing: -0.06em;
+      color: var(--lp-color, var(--saffron));
+      opacity: 0.15;
+      margin-bottom: 4px;
+    }
+    .lp-path-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .lp-path-persona {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--lp-color, var(--saffron));
+      margin-bottom: 24px;
+    }
+    .lp-path-desc {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.78;
+      color: var(--text-secondary);
+      margin-bottom: 32px;
+    }
+    .lp-path-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .lp-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .lp-meta-icon {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+    }
+    .lp-path-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 36px;
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--lp-color, var(--saffron));
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1.5px solid var(--lp-color, var(--saffron));
+      border-radius: 100px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lp-path-cta:hover {
+      background: var(--lp-color, var(--saffron));
+      color: #fff;
+    }
+
+    /* Right tutorials column */
+    .lp-tutorials-col {
+      padding-top: 8px;
+    }
+    .lp-tut-label {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      opacity: 0.7;
+    }
+    .lp-tut-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Individual tutorial step */
+    .lp-tut-step {
+      display: flex;
+      gap: 20px;
+      text-decoration: none;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      transition: background 0.2s;
+    }
+    .lp-tut-step:first-child { border-top: 1px solid var(--border); }
+    .lp-tut-step:last-child { border-bottom: none; }
+
+    /* Step indicator column */
+    .lp-step-indicator {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 36px;
+      padding-top: 2px;
+    }
+    .lp-step-n {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--lp-color, var(--saffron));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--lp-color, var(--saffron));
+      flex-shrink: 0;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lp-tut-step:hover .lp-step-n {
+      background: var(--lp-color, var(--saffron));
+      color: #fff;
+    }
+    .lp-step-line {
+      width: 1px;
+      flex: 1;
+      min-height: 20px;
+      background: var(--border);
+      margin-top: 6px;
+    }
+    .lp-tut-step:last-child .lp-step-line { display: none; }
+
+    /* Step content */
+    .lp-step-content {
+      flex: 1;
+      padding-bottom: 4px;
+    }
+    .lp-step-top {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .lp-step-id {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--lp-color, var(--saffron));
+      letter-spacing: 0.08em;
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+    .lp-step-title {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--text-primary);
+      transition: color 0.2s;
+    }
+    .lp-tut-step:hover .lp-step-title {
+      color: var(--lp-color, var(--saffron));
+    }
+    .lp-step-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .lp-step-time {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+    .lp-step-tag {
+      font-family: var(--font-ui);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--lp-color, var(--saffron));
+      background: rgba(0,0,0,0.04);
+      padding: 2px 8px;
+      border-radius: 4px;
+      opacity: 0.8;
+    }
+    .lp-step-arrow {
+      font-size: 0.9rem;
+      color: var(--lp-color, var(--saffron));
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s;
+      align-self: center;
+      margin-left: auto;
+      padding-left: 16px;
+    }
+    .lp-tut-step:hover .lp-step-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ── Scroll reveal ────────────────────────── */
+    .lp-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .lp-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .lp-reveal-d1 { transition-delay: 0.1s; }
+    .lp-reveal-d2 { transition-delay: 0.2s; }
+    .lp-reveal-d3 { transition-delay: 0.3s; }
+
+    /* ── Bottom CTA band ──────────────────────── */
+    .lp-bottom {
+      background: #0A1628;
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .lp-bottom-glow {
+      position: absolute;
+      bottom: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(232,147,10,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .lp-bottom-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .lp-bottom h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: #EDE8E0;
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+    .lp-bottom h2 em { color: var(--saffron); font-style: italic; }
+    .lp-bottom p {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.78;
+      color: rgba(237,232,224,0.5);
+      margin-bottom: 40px;
+    }
+    .lp-bottom-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 14px 28px;
+      background: var(--saffron);
+      color: #fff;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(232,147,10,0.3);
+    }
+    .lp-bottom-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(232,147,10,0.4);
+    }
+
+    /* ── Responsive ───────────────────────────── */
+    @media (max-width: 1024px) {
+      .lp-path-inner {
+        grid-template-columns: 280px 1fr;
+        gap: 56px;
+      }
+    }
+    @media (max-width: 860px) {
+      .lp-chooser { grid-template-columns: 1fr; }
+      .lp-choose-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .lp-choose-card:last-child { border-bottom: none; }
+      .lp-path-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .lp-path-identity { position: static; }
+      .lp-path-watermark { display: none; }
+    }
+    @media (max-width: 640px) {
+      .lp-hero-body,
+      .lp-chooser,
+      .lp-path-inner,
+      .lp-bottom-inner { padding-left: 20px; padding-right: 20px; }
+      .lp-hero { padding-top: 88px; }
+      .lp-path { padding: 72px 0; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
 </head>
 <body class="light-mode">
 
@@ -22,7 +571,7 @@
         <li><a href="about.html" class="nav-link">About</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="theme-toggle" id="themeToggle"><span class="theme-icon">☀</span></button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
         <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -34,128 +583,421 @@
     </div>
   </nav>
 
-  <section class="page-hero">
-    <div class="container">
-      <span class="section-label">Learning Paths</span>
-      <h1 class="section-title">Choose your<br/><em>journey</em></h1>
-      <p class="section-desc">Three paths, built for three distinct types of Salesforce leader. Choose the one that matches where you are and where you need to go.</p>
+  <!-- ══════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════ -->
+  <section class="lp-hero">
+    <div class="lp-hero-grid"></div>
+    <div class="lp-hero-glow"></div>
+    <div class="lp-hero-body">
+      <p class="lp-eyebrow">Learning Paths</p>
+      <h1 class="lp-hero-title">Know who you are.<br/><em>Choose your path.</em></h1>
+      <p class="lp-hero-sub">Three roles, three starting points. Each path is a curated sequence of the tutorials that matter most — built around how you actually use Salesforce.</p>
+    </div>
+
+    <!-- Path chooser -->
+    <div class="lp-chooser">
+
+      <a href="#architect" class="lp-choose-card" style="--lp-color: #E8930A">
+        <div class="lp-choose-num">Path 01</div>
+        <div class="lp-choose-title">The Architect</div>
+        <div class="lp-choose-persona">CTOs &amp; Solution Architects</div>
+        <div class="lp-choose-desc">Platform internals, architectural trade-offs, the decisions that shape every org.</div>
+        <div class="lp-choose-arrow">Explore path →</div>
+      </a>
+
+      <a href="#delivery" class="lp-choose-card" style="--lp-color: #0070D2">
+        <div class="lp-choose-num">Path 02</div>
+        <div class="lp-choose-title">The Delivery Leader</div>
+        <div class="lp-choose-persona">Delivery &amp; Programme Managers</div>
+        <div class="lp-choose-desc">Run better implementations, anticipate risks, and own outcomes with confidence.</div>
+        <div class="lp-choose-arrow">Explore path →</div>
+      </a>
+
+      <a href="#strategist" class="lp-choose-card" style="--lp-color: #2D7D52">
+        <div class="lp-choose-num">Path 03</div>
+        <div class="lp-choose-title">The Strategist</div>
+        <div class="lp-choose-persona">All Senior Tech Leaders</div>
+        <div class="lp-choose-desc">Evaluate Salesforce as a strategic asset — invest, build, buy, or walk away.</div>
+        <div class="lp-choose-arrow">Explore path →</div>
+      </a>
+
     </div>
   </section>
 
-  <section style="padding: 80px 0 100px;">
-    <div class="container">
+  <!-- ══════════════════════════════════════════
+       PATH SECTIONS
+  ══════════════════════════════════════════ -->
+  <div class="lp-paths-wrap">
 
-      <!-- PATH 1 -->
-      <div id="architect" style="margin-bottom: 72px; scroll-margin-top: 100px;">
-        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px; border-left: 4px solid var(--saffron);">
-          <div>
-            <div style="font-family: var(--font-display); font-size: 5rem; font-weight: 700; color: rgba(232,147,10,0.15); line-height: 1; margin-bottom: 12px;">01</div>
-            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">The Architect</h2>
-            <p style="font-family: var(--font-ui); font-size: 0.8rem; color: var(--saffron); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;">For CTOs &amp; Solution Architects</p>
+    <!-- ── PATH 01: THE ARCHITECT ── -->
+    <section class="lp-path" id="architect" style="--lp-color: #E8930A; scroll-margin-top: 80px;">
+      <div class="lp-path-watermark">01</div>
+      <div class="lp-path-inner">
+
+        <div class="lp-path-identity lp-reveal">
+          <div class="lp-path-tag"><span class="lp-path-tag-dot"></span>Path 01</div>
+          <div class="lp-path-num">01</div>
+          <h2 class="lp-path-name">The Architect</h2>
+          <p class="lp-path-persona">For CTOs &amp; Solution Architects</p>
+          <p class="lp-path-desc">You need to understand Salesforce at the platform level — the architecture decisions that were made, why they were made, and what they mean for your enterprise. Not certification knowledge. Real, consequential understanding.</p>
+          <div class="lp-path-meta">
+            <div class="lp-meta-row"><span class="lp-meta-icon">⏱</span>~2 hrs total reading time</div>
+            <div class="lp-meta-row"><span class="lp-meta-icon">⚡</span>5 curated tutorials</div>
+            <div class="lp-meta-row"><span class="lp-meta-icon">↗</span>27 tutorials in this area</div>
           </div>
-          <div>
-            <p style="font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">You need to understand Salesforce at the platform level — the architecture decisions that were made, why they were made, and what they mean for your enterprise. You're making decisions that will shape systems for a decade.</p>
-            <h4 style="font-family: var(--font-ui); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 16px;">Tutorials in this path</h4>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-              <a href="../tutorials/multi-tenant.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--saffron);">01</span>
-                <span>If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture?</span>
-                <span style="margin-left: auto; color: var(--saffron);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-data-model.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--saffron);">02</span>
-                <span>Salesforce Data Model Design — The Decisions That Haunt Enterprises for a Decade</span>
-                <span style="margin-left: auto; color: var(--saffron);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-platform-events.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--saffron);">03</span>
-                <span>Salesforce Platform Events — Why Event-Driven Architecture Belongs at the Centre of Your Design</span>
-                <span style="margin-left: auto; color: var(--saffron);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-experience-cloud.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--saffron)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--saffron);">04</span>
-                <span>Salesforce Experience Cloud — Portal Strategy That Leaders Must Interrogate Before Committing</span>
-                <span style="margin-left: auto; color: var(--saffron);">→</span>
-              </a>
-            </div>
+          <a href="tutorials.html?tag=architecture" class="lp-path-cta">View all Architecture tutorials →</a>
+        </div>
+
+        <div class="lp-tutorials-col lp-reveal lp-reveal-d1">
+          <p class="lp-tut-label">Start with these five</p>
+          <div class="lp-tut-list">
+
+            <a href="../tutorials/arch-001.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">1</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">ARCH-001</span>
+                </div>
+                <div class="lp-step-title">If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture?</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">25 min read</span>
+                  <span class="lp-step-tag">Foundation</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/arch-002.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">2</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">ARCH-002</span>
+                </div>
+                <div class="lp-step-title">Governor Limits: The Hidden Architecture Tax Every Leader Must Budget For</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">20 min read</span>
+                  <span class="lp-step-tag">Critical</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/arch-003.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">3</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">ARCH-003</span>
+                </div>
+                <div class="lp-step-title">Org Strategy: One Org, Multiple Orgs, or Hybrid — A Decision Framework</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">22 min read</span>
+                  <span class="lp-step-tag">Decision</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/arch-018.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">4</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">ARCH-018</span>
+                </div>
+                <div class="lp-step-title">Order of Execution: The Most Critical 10 Minutes in Salesforce Architecture</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">25 min read</span>
+                  <span class="lp-step-tag">Deep Dive</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/sec-001.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">5</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">SEC-001</span>
+                </div>
+                <div class="lp-step-title">Salesforce Security Architecture: Profiles, Permission Sets, and Sharing Rules</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">22 min read</span>
+                  <span class="lp-step-tag">Security</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
           </div>
         </div>
-      </div>
 
-      <!-- PATH 2 -->
-      <div id="delivery" style="margin-bottom: 72px; scroll-margin-top: 100px;">
-        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px; border-left: 4px solid var(--sf-blue);">
-          <div>
-            <div style="font-family: var(--font-display); font-size: 5rem; font-weight: 700; color: rgba(0,112,210,0.12); line-height: 1; margin-bottom: 12px;">02</div>
-            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">The Delivery Leader</h2>
-            <p style="font-family: var(--font-ui); font-size: 0.8rem; color: var(--sf-blue); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;">For Delivery Managers</p>
+      </div>
+    </section>
+
+    <!-- ── PATH 02: THE DELIVERY LEADER ── -->
+    <section class="lp-path" id="delivery" style="--lp-color: #0070D2; scroll-margin-top: 80px;">
+      <div class="lp-path-watermark">02</div>
+      <div class="lp-path-inner">
+
+        <div class="lp-path-identity lp-reveal">
+          <div class="lp-path-tag"><span class="lp-path-tag-dot"></span>Path 02</div>
+          <div class="lp-path-num">02</div>
+          <h2 class="lp-path-name">The Delivery Leader</h2>
+          <p class="lp-path-persona">For Delivery &amp; Programme Managers</p>
+          <p class="lp-path-desc">You're responsible for Salesforce implementations succeeding. You need to lead with confidence, anticipate architectural risks before they hit your project, and understand why so many programmes fail.</p>
+          <div class="lp-path-meta">
+            <div class="lp-meta-row"><span class="lp-meta-icon">⏱</span>~1 hr 49 min total reading time</div>
+            <div class="lp-meta-row"><span class="lp-meta-icon">⚡</span>5 curated tutorials</div>
+            <div class="lp-meta-row"><span class="lp-meta-icon">↗</span>27 tutorials in this area</div>
           </div>
-          <div>
-            <p style="font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">You're responsible for Salesforce implementations succeeding. You need to lead with confidence, anticipate architectural risks before they hit your project, and have intelligent conversations with your technical teams and your stakeholders.</p>
-            <h4 style="font-family: var(--font-ui); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 16px;">Tutorials in this path</h4>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-              <a href="../tutorials/salesforce-release-management.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--sf-blue)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--sf-blue);">01</span>
-                <span>Salesforce Release Management — Building a Delivery Pipeline That Does Not Break Production</span>
-                <span style="margin-left: auto; color: var(--sf-blue);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-coe.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--sf-blue)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--sf-blue);">02</span>
-                <span>Building a Salesforce Centre of Excellence — Why Most Fail and What the Successful Ones Do Differently</span>
-                <span style="margin-left: auto; color: var(--sf-blue);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-agile.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--sf-blue)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--sf-blue);">03</span>
-                <span>Is Salesforce Truly Agile-Ready, or Are We Forcing Agile onto a Waterfall Platform?</span>
-                <span style="margin-left: auto; color: var(--sf-blue);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-technical-debt.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--sf-blue)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--sf-blue);">04</span>
-                <span>Salesforce Technical Debt — The Invisible Risk That Destroys Delivery Velocity</span>
-                <span style="margin-left: auto; color: var(--sf-blue);">→</span>
-              </a>
-            </div>
+          <a href="tutorials.html?tag=delivery-management" class="lp-path-cta">View all Delivery tutorials →</a>
+        </div>
+
+        <div class="lp-tutorials-col lp-reveal lp-reveal-d1">
+          <p class="lp-tut-label">Start with these five</p>
+          <div class="lp-tut-list">
+
+            <a href="../tutorials/del-001.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">1</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">DEL-001</span>
+                </div>
+                <div class="lp-step-title">Running a Discovery Workshop for a Salesforce Programme</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">22 min read</span>
+                  <span class="lp-step-tag">Foundation</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/del-007.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">2</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">DEL-007</span>
+                </div>
+                <div class="lp-step-title">Managing a Big Bang Go-Live: Risks, Mitigations, and the Decision to Flip</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">25 min read</span>
+                  <span class="lp-step-tag">Critical</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/del-009.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">3</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">DEL-009</span>
+                </div>
+                <div class="lp-step-title">Salesforce Project Estimation: The Honest Guide</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">22 min read</span>
+                  <span class="lp-step-tag">Planning</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/arch-002.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">4</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">ARCH-002</span>
+                </div>
+                <div class="lp-step-title">Governor Limits: The Hidden Architecture Tax Every Leader Must Budget For</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">20 min read</span>
+                  <span class="lp-step-tag">Architecture</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/cha-002.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">5</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">CHA-002</span>
+                </div>
+                <div class="lp-step-title">Why Salesforce Implementations Fail: The Change Management Diagnosis</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">22 min read</span>
+                  <span class="lp-step-tag">Change Mgmt</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
           </div>
         </div>
-      </div>
 
-      <!-- PATH 3 -->
-      <div id="strategist" style="scroll-margin-top: 100px;">
-        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: start; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 48px; border-left: 4px solid var(--sage-green);">
-          <div>
-            <div style="font-family: var(--font-display); font-size: 5rem; font-weight: 700; color: rgba(45,125,82,0.12); line-height: 1; margin-bottom: 12px;">03</div>
-            <h2 style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">The Strategist</h2>
-            <p style="font-family: var(--font-ui); font-size: 0.8rem; color: var(--sage-green); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;">For All Senior Tech Leaders</p>
+      </div>
+    </section>
+
+    <!-- ── PATH 03: THE STRATEGIST ── -->
+    <section class="lp-path" id="strategist" style="--lp-color: #2D7D52; scroll-margin-top: 80px;">
+      <div class="lp-path-watermark">03</div>
+      <div class="lp-path-inner">
+
+        <div class="lp-path-identity lp-reveal">
+          <div class="lp-path-tag"><span class="lp-path-tag-dot"></span>Path 03</div>
+          <div class="lp-path-num">03</div>
+          <h2 class="lp-path-name">The Strategist</h2>
+          <p class="lp-path-persona">For All Senior Tech Leaders</p>
+          <p class="lp-path-desc">You're making the big decisions — invest, build, buy, or walk away. You need a framework for evaluating Salesforce as a strategic platform, not just as a product. These tutorials give you that framework.</p>
+          <div class="lp-path-meta">
+            <div class="lp-meta-row"><span class="lp-meta-icon">⏱</span>~2 hrs 2 min total reading time</div>
+            <div class="lp-meta-row"><span class="lp-meta-icon">⚡</span>5 curated tutorials</div>
+            <div class="lp-meta-row"><span class="lp-meta-icon">↗</span>24 tutorials in this area</div>
           </div>
-          <div>
-            <p style="font-family: var(--font-body); font-size: 1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px;">You're making the big decisions — invest, build, buy, or walk away. You need a framework for evaluating Salesforce as a strategic platform, not just as a product, and the confidence to challenge the received wisdom in the room.</p>
-            <h4 style="font-family: var(--font-ui); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 16px;">Tutorials in this path</h4>
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-              <a href="../tutorials/salesforce-360.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--sage-green)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--sage-green);">01</span>
-                <span>Salesforce 360 — A Thoughtful Decision or the Only Way Forward?</span>
-                <span style="margin-left: auto; color: var(--sage-green);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-licence-strategy.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--sage-green)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--sage-green);">02</span>
-                <span>Salesforce Licence Strategy — How Sophisticated Buyers Pay 30-40% Less Than Naive Ones</span>
-                <span style="margin-left: auto; color: var(--sage-green);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-org-strategy.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--sage-green)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--sage-green);">03</span>
-                <span>Single Org vs Multi-Org Salesforce Strategy — The Decision That Defines Your Enterprise Architecture</span>
-                <span style="margin-left: auto; color: var(--sage-green);">→</span>
-              </a>
-              <a href="../tutorials/salesforce-change-management.html" style="display: flex; align-items: center; gap: 12px; padding: 14px 18px; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-ui); font-size: 0.875rem; color: var(--text-primary); transition: all 0.25s; text-decoration: none;" onmouseover="this.style.borderColor='var(--sage-green)'" onmouseout="this.style.borderColor='var(--border)'">
-                <span style="color: var(--sage-green);">04</span>
-                <span>Why 70% of Salesforce Failures Are Not Technology Failures — They Are Change Failures</span>
-                <span style="margin-left: auto; color: var(--sage-green);">→</span>
-              </a>
-            </div>
+          <a href="tutorials.html?tag=enterprise-strategy" class="lp-path-cta">View all Strategy tutorials →</a>
+        </div>
+
+        <div class="lp-tutorials-col lp-reveal lp-reveal-d1">
+          <p class="lp-tut-label">Start with these five</p>
+          <div class="lp-tut-list">
+
+            <a href="../tutorials/ent-002.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">1</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">ENT-002</span>
+                </div>
+                <div class="lp-step-title">Total Cost of Ownership: The Salesforce Numbers Nobody Shares</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">25 min read</span>
+                  <span class="lp-step-tag">Foundation</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/ent-007.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">2</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">ENT-007</span>
+                </div>
+                <div class="lp-step-title">Vendor Lock-In Risk: How Dependent Should You Be on Salesforce?</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">22 min read</span>
+                  <span class="lp-step-tag">Risk</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/crm-001.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">3</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">CRM-001</span>
+                </div>
+                <div class="lp-step-title">Salesforce vs Microsoft Dynamics 365: The Enterprise Decision</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">25 min read</span>
+                  <span class="lp-step-tag">Comparison</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/lic-003.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">4</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">LIC-003</span>
+                </div>
+                <div class="lp-step-title">Salesforce Contract Negotiation: What You Can Push Back On</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">25 min read</span>
+                  <span class="lp-step-tag">Commercial</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
+            <a href="../tutorials/ent-024.html" class="lp-tut-step">
+              <div class="lp-step-indicator">
+                <div class="lp-step-n">5</div>
+                <div class="lp-step-line"></div>
+              </div>
+              <div class="lp-step-content">
+                <div class="lp-step-top">
+                  <span class="lp-step-id">ENT-024</span>
+                </div>
+                <div class="lp-step-title">When to Walk Away from Salesforce: The Honest Strategic Assessment</div>
+                <div class="lp-step-meta">
+                  <span class="lp-step-time">25 min read</span>
+                  <span class="lp-step-tag">Strategic</span>
+                </div>
+              </div>
+              <span class="lp-step-arrow">→</span>
+            </a>
+
           </div>
         </div>
-      </div>
 
+      </div>
+    </section>
+
+  </div><!-- /lp-paths-wrap -->
+
+  <!-- ══════════════════════════════════════════
+       BOTTOM CTA
+  ══════════════════════════════════════════ -->
+  <section class="lp-bottom">
+    <div class="lp-bottom-glow"></div>
+    <div class="lp-bottom-inner lp-reveal">
+      <h2>Not sure where<br/>to <em>start?</em></h2>
+      <p>Browse all 285 tutorials and filter by the topic that's most pressing for your next project or decision.</p>
+      <a href="tutorials.html" class="lp-bottom-btn">Browse all tutorials →</a>
     </div>
   </section>
 
@@ -170,7 +1012,7 @@
         <div class="footer-links">
           <div class="footer-col"><h4>Learn</h4><a href="tutorials.html">All Tutorials</a><a href="learning-paths.html">Learning Paths</a></div>
           <div class="footer-col"><h4>About</h4><a href="about.html">Our Story</a></div>
-          <div class="footer-col"><h4>Topics</h4><a href="tutorials.html">Architecture</a><a href="tutorials.html">Delivery</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="tutorials.html?tag=architecture">Architecture</a><a href="tutorials.html?tag=delivery-management">Delivery</a></div>
         </div>
       </div>
       <div class="footer-bottom">
@@ -179,6 +1021,34 @@
       </div>
     </div>
   </footer>
+
   <script src="../js/main.js"></script>
+  <script>
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.lp-reveal');
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // Smooth anchor scroll for chooser cards
+    document.querySelectorAll('.lp-choose-card').forEach(card => {
+      card.addEventListener('click', e => {
+        const href = card.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  </script>
 </body>
 </html>

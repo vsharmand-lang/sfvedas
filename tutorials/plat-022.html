@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lightning Messaging Service: Loosely Coupled Component Communication | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=platform-technical" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Platform &amp; Technical</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">PLAT-022</span>
+        <span class="card-tag" style="background:rgba(0,112,210,0.08);color:var(--sf-blue);border-color:rgba(0,112,210,0.2);">Platform &amp; Technical</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Lightning Messaging Service: Loosely Coupled Component Communication
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+    <div class="section-summary">
+      <h3>What You'll Learn</h3>
+      <p>How LMS solves the cross-DOM communication problem in Lightning, how to define Message Channels, the publish/subscribe API, the scope levels (application vs page), and when LMS is the right choice versus CustomEvent, wire adapters, or Pub/Sub API.</p>
+    </div>
+
+    <h2>The Cross-Component Communication Problem</h2>
+    <p>LWC components in the same parent-child hierarchy can communicate cleanly: parents pass data down via properties, children bubble events up. But what about components in completely different parts of the DOM — a component in the sidebar and a component in the main content area of the same Lightning page? They have no shared parent, so standard event bubbling does not work.</p>
+    <p>Before LMS, teams worked around this using URL parameters, custom events dispatched to the window object, or Apex polling. Lightning Messaging Service (LMS) is the proper solution: a framework-native publish/subscribe bus scoped to either a single page or the entire Lightning application.</p>
+
+    <div class="callout callout--insight">
+      <strong>Insight</strong>
+      LMS is specifically for the Lightning Experience environment. It works across LWC, Aura, and Visualforce in LWC containers on the same page. If you are building communication between standalone pages or external systems, LMS is not the right tool — use Platform Events or the Pub/Sub API.
+    </div>
+
+    <h2>Message Channels: The Contract</h2>
+    <p>A Message Channel is a metadata artifact that defines the "topic" and the payload shape of messages. It is the contract between publishers and subscribers. Defining the channel in metadata (rather than as ad-hoc strings) provides discoverability, namespace isolation, and deployment via Metadata API.</p>
+
+    <div class="code-block">// Message Channel metadata file
+// AccountSelected.messageChannel-meta.xml
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
+  &lt;masterLabel&gt;Account Selected&lt;/masterLabel&gt;
+  &lt;isExposed&gt;true&lt;/isExposed&gt;
+  &lt;description&gt;Published when a user selects an Account in the list view&lt;/description&gt;
+  &lt;lightningMessageFields&gt;
+    &lt;fieldName&gt;accountId&lt;/fieldName&gt;
+    &lt;description&gt;Salesforce Id of the selected Account&lt;/description&gt;
+  &lt;/lightningMessageFields&gt;
+  &lt;lightningMessageFields&gt;
+    &lt;fieldName&gt;accountName&lt;/fieldName&gt;
+    &lt;description&gt;Name of the selected Account&lt;/description&gt;
+  &lt;/lightningMessageFields&gt;
+&lt;/LightningMessageChannel&gt;</div>
+
+    <h2>Publisher and Subscriber Implementation</h2>
+    <p>Publishers import the Message Channel and the <code>publish</code> function from the LMS wire adapter. Subscribers import <code>subscribe</code>, <code>unsubscribe</code>, and register a callback in <code>connectedCallback</code>.</p>
+
+    <div class="code-block">// Publisher LWC
+import { LightningElement, wire } from 'lwc';
+import { MessageContext, publish } from 'lightning/messageService';
+import ACCOUNT_SELECTED from '@salesforce/messageChannel/AccountSelected__c';
+
+export default class AccountListView extends LightningElement {
+  @wire(MessageContext) messageContext;
+
+  handleAccountClick(event) {
+    const payload = {
+      accountId: event.currentTarget.dataset.id,
+      accountName: event.currentTarget.dataset.name
+    };
+    publish(this.messageContext, ACCOUNT_SELECTED, payload);
+  }
+}
+
+// Subscriber LWC
+import { LightningElement, wire } from 'lwc';
+import { MessageContext, subscribe, unsubscribe } from 'lightning/messageService';
+import ACCOUNT_SELECTED from '@salesforce/messageChannel/AccountSelected__c';
+
+export default class AccountDetailPanel extends LightningElement {
+  @wire(MessageContext) messageContext;
+  subscription = null;
+
+  connectedCallback() {
+    this.subscription = subscribe(
+      this.messageContext, ACCOUNT_SELECTED,
+      (message) => this.handleAccountSelected(message)
+    );
+  }
+
+  disconnectedCallback() {
+    unsubscribe(this.subscription);
+    this.subscription = null;
+  }
+
+  handleAccountSelected(message) {
+    this.currentAccountId = message.accountId;
+    // load account details
+  }
+}</div>
+
+    <div class="callout callout--key">
+      <strong>Key Point</strong>
+      Always unsubscribe in <code>disconnectedCallback</code>. A subscription that is not unsubscribed keeps the subscriber component alive in memory even after it is removed from the DOM, causing a memory leak. This is the most common LMS implementation mistake.
+    </div>
+
+    <h2>Scope Levels: APPLICATION vs DEFAULT</h2>
+    <p>LMS messages can be scoped to two levels:</p>
+    <ul>
+      <li><strong>APPLICATION scope:</strong> Messages are delivered to all subscribers in the entire Lightning application — across multiple tabs, iframes, and Visualforce in LWC containers. Use for truly global events (user changed active record, navigation event).</li>
+      <li><strong>DEFAULT scope (recommended):</strong> Messages are delivered only to subscribers on the same Lightning page. More contained and easier to reason about. Prevents unintended subscribers in other tabs from reacting to messages not meant for them.</li>
+    </ul>
+
+    <h2>LMS vs Other Communication Patterns</h2>
+    <p>When to use LMS versus other mechanisms:</p>
+    <ul>
+      <li><strong>Use CustomEvent:</strong> When components are in a parent-child hierarchy. CustomEvents bubble up the component tree naturally.</li>
+      <li><strong>Use @wire with reactive properties:</strong> When a component needs to reactively fetch data when a parameter changes — no explicit messaging needed.</li>
+      <li><strong>Use LMS:</strong> When components are siblings with no shared parent — classic list/detail panel pattern on a Lightning App page.</li>
+      <li><strong>Use Platform Events:</strong> When the communication spans server-side Apex or external systems. Platform Events work outside the Lightning browser context.</li>
+      <li><strong>Use Pub/Sub API (lwc-recipes):</strong> For non-Salesforce Lightning contexts (LWC OSS, custom web apps) where LMS is not available.</li>
+    </ul>
+
+    <div class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>LMS solves cross-DOM communication between unrelated LWC/Aura/VF components on the same Lightning page.</li>
+        <li>Message Channels are metadata artifacts — define the contract in a <code>.messageChannel-meta.xml</code> file and deploy via Metadata API.</li>
+        <li>Always unsubscribe in <code>disconnectedCallback</code> to prevent memory leaks.</li>
+        <li>Use DEFAULT scope unless you explicitly need cross-tab communication — APPLICATION scope is the most common over-use of LMS.</li>
+        <li>LMS works only in the Lightning browser context — use Platform Events for server-side or cross-system communication.</li>
+        <li>The classic LMS use case is a list component and a detail component on the same App Builder page with no parent-child relationship.</li>
+      </ul>
+    </div>
+
+    <div class="quiz-section" id="quiz">
+      <h2>Check Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A subscriber component is removed from the DOM but does not call unsubscribe(). What is the consequence?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The subscription automatically expires after the component is garbage collected</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">The subscription keeps the component in memory, causing a memory leak — always unsubscribe in disconnectedCallback</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">LMS throws an error when the component is removed without unsubscribing</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. Two LWC components are siblings in a Lightning App Builder page with no shared parent. What is the correct communication mechanism?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">CustomEvent with bubbles:true — events bubble to the root and the sibling can listen there</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Lightning Messaging Service — it is designed specifically for communication between unrelated components on the same page</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Platform Events — they work across all Salesforce components regardless of hierarchy</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. Which LMS scope delivers messages to all subscribers across all open Lightning tabs in the browser session?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">DEFAULT scope — it routes to all active subscribers</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">APPLICATION scope — it delivers to the entire Lightning application including multiple tabs</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">GLOBAL scope — a special scope for cross-tab broadcasting</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="plat-023.html" class="related-card">
+              <span class="card-id">PLAT-023</span>
+              <h4>Named Credentials and External Services: Secure API Integration</h4>
+            </a>
+            <a href="plat-021.html" class="related-card">
+              <span class="card-id">PLAT-021</span>
+              <h4>Salesforce Mobile SDK: When Native Beats Standard</h4>
+            </a>
+            <a href="plat-024.html" class="related-card">
+              <span class="card-id">PLAT-024</span>
+              <h4>Salesforce DevOps Center: Is It Ready for Enterprise?</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                                    <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">The Cross-Component Communication Problem</a></li>
+            <li><a href="#">Message Channels: The Contract</a></li>
+            <li><a href="#">Publisher and Subscriber Implementation</a></li>
+            <li><a href="#">Scope Levels: APPLICATION vs DEFAULT</a></li>
+            <li><a href="#">LMS vs Other Communication Patterns</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="plat-023.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Named Credentials and External Services →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

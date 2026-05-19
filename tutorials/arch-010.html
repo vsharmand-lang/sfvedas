@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salesforce Data Model Design: Objects, Relationships, and the Choices That Haunt You | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-010</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce Data Model Design: Objects, Relationships, and the Choices That Haunt You
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        The data model is the foundation of every Salesforce implementation. Bad early choices — the wrong relationship type, overextended standard objects, flat structures that should have been hierarchical — compound over years into technical debt that costs millions to unwind.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn...</span>
+          <ul>
+            <li>The three relationship types in Salesforce and the architectural consequences of choosing each</li>
+            <li>When to use standard objects vs custom objects — and the traps of over-customising standard objects</li>
+            <li>Polymorphic lookups and when they create or solve data model problems</li>
+            <li>Large object design: the performance and query implications of high-volume objects</li>
+            <li>The "fat object" anti-pattern and how it manifests in organisations with poor data governance</li>
+            <li>Data model evolution strategies — how to refactor without breaking existing integrations</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Relationship Types: The Architectural Consequences</h2>
+        <p>Salesforce has three primary relationship types. The choice between them is not merely a modelling preference — it has direct consequences for data ownership, cascade deletion, roll-up summary fields, and the sharing model. Getting this wrong early creates structural debt that cannot easily be refactored.</p>
+        <p><strong>Lookup Relationship:</strong> A loosely coupled reference between two objects. The child record can exist independently — deleting the parent does not cascade-delete the child (the lookup field is simply nullified, or the delete can be blocked by a cascade setting). Lookup fields do not support roll-up summaries. The child object has its own OwnerId and participates in sharing independently. Use lookup when the child can meaningfully exist without the parent and when you need the flexibility of independent ownership.</p>
+        <p><strong>Master-Detail Relationship:</strong> A tightly coupled ownership relationship. The child's OwnerId is controlled by the parent — the child inherits the parent's ownership and sharing. Deleting the parent cascade-deletes all children. Roll-up summary fields (count, sum, min, max) are available on the parent. An object can have a maximum of two master-detail parents. Use master-detail when the child is genuinely a component of the parent that has no meaning without it, and when roll-up summaries are needed.</p>
+        <p><strong>Many-to-Many (Junction Object):</strong> Not a direct relationship type but a pattern: a junction object with two master-detail relationships to the two objects being related. Salesforce provides no native many-to-many relationship field — this pattern is the standard implementation. The junction object can carry its own fields to describe the relationship itself (start date, role, quantity).</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Master-Detail is a one-way door:</strong> You can convert a master-detail relationship to a lookup relationship (provided all existing records meet the lookup validation criteria). You cannot directly convert a lookup to master-detail on an object with data. Converting relationship types on live objects requires a migration strategy — this is one of the choices that haunts orgs for years.
+          </div>
+        </div>
+
+        <pre><code>// Querying roll-up data through Master-Detail relationship
+SELECT Id, Name, Total_Order_Value__c,
+       (SELECT Id, Product_Name__c, Line_Total__c
+        FROM Order_Line_Items__r)
+FROM Order__c
+WHERE Account__c = :accountId
+
+// Roll-up summary on Account from Master-Detail Order:
+// SUM(Order_Line_Items__c) is available as a formula-free field
+// on the Order parent — impossible with Lookup relationships</code></pre>
+
+        <h2 id="s2">Standard Objects vs Custom Objects: The Strategy</h2>
+        <p>Salesforce provides a rich set of standard objects designed to cover common CRM scenarios: Account, Contact, Lead, Opportunity, Case, Contract, Order, Product, Asset, Campaign. The architectural question is: when should you use and extend a standard object vs create a custom object?</p>
+        <p><strong>Use standard objects when:</strong> The business concept maps naturally to the Salesforce CRM model. Accounts are organisations you do business with. Contacts are people at those organisations. Opportunities are revenue-generating deals in progress. Using standard objects for these concepts gives you built-in Salesforce features — the Account hierarchy, the Contact to Opportunity relationship, the standard sales forecasting on Opportunity — that you would have to build manually with custom objects.</p>
+        <p><strong>Use custom objects when:</strong> The concept is genuinely new — a type of entity not represented in the standard model. Manufacturing orders, inspection reports, project milestones, insurance policies — these are business concepts without standard Salesforce equivalents that merit their own objects.</p>
+        <p><strong>The trap — forcing a misfit into a standard object:</strong> The most common data model mistake is using a standard object for a concept it doesn't represent, because it feels close enough. Using the Asset object to represent both customer-owned equipment (correct) and internal IT assets (forced) creates a model where the object serves two different purposes with incompatible field requirements and ownership models. The object accumulates fields for both purposes, validation rules that conflict across purposes, and reports that must filter by type to get meaningful results.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The RecordType workaround trap:</strong> Adding RecordTypes to a standard object to serve two different business concepts is a warning sign. It is sometimes appropriate (different sales processes on Opportunity), but frequently it signals that two distinct entities are being forced into one object. Ask: "Would someone expect to see these two types in the same list view, report, or search?" If no, they probably belong in separate objects.
+          </div>
+        </div>
+
+        <h2 id="s3">Polymorphic Lookups and the WhoId/WhatId Pattern</h2>
+        <p>Salesforce supports polymorphic lookups — lookup fields that can reference different object types depending on the record. The Activity object (Task and Event) uses this: the WhoId field can reference a Contact or a Lead, and the WhatId field can reference an Account, Opportunity, Case, or several other objects.</p>
+        <p>Custom objects can also have polymorphic lookups. A "Communication Log" custom object might have a "Related To" polymorphic field that can reference Account, Opportunity, or Case depending on the context. This is powerful but introduces query complexity — SOQL queries against polymorphic fields require TYPEOF clauses that add complexity and have performance implications.</p>
+        <p>The architectural question is: does the polymorphism genuinely reflect business reality (one communication log that relates to different types of records), or is it a shortcut that avoids creating specific relationship fields? Specific lookup fields (Account__c, Opportunity__c, Case__c as separate nullable fields) are simpler to query and validate than polymorphic lookups, at the cost of some model elegance. Choose based on query frequency and the importance of type-agnostic access patterns.</p>
+
+        <h2 id="s4">The Fat Object Anti-Pattern</h2>
+        <p>The "fat object" anti-pattern occurs when a single Salesforce object accumulates hundreds of fields over time, often covering distinct business concepts that should have been modelled as separate objects or at least as structured related data.</p>
+        <p>Fat objects emerge gradually. Phase 1 of a project adds the essential fields. Phase 2 adds "a few more fields" for a new process. Over years, the object accumulates 150, 200, 300+ fields. Page layouts become overwhelming. The object's definition includes fields for 12 different processes, half of which are irrelevant for any given record type. SOQL queries selecting "SELECT *" equivalents become slow because the database is reading wide rows.</p>
+        <p>The signals of a fat object are visible: objects approaching or exceeding 200 custom fields, page layouts with "Field Sets" just to manage the number of fields shown, reports that require complex filters to produce meaningful results, and developers who need to spend 10 minutes understanding which fields matter for a specific use case.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Refactoring fat objects:</strong> The treatment for a fat object is to identify field clusters that belong to distinct processes or concepts, extract them into related child objects, and migrate historical data. This is expensive but sometimes unavoidable. The better intervention is architectural governance that reviews new field requests against data model principles before creation — preventing fat objects before they form.
+          </div>
+        </div>
+
+        <h2 id="s5">Large Object Design and Query Performance</h2>
+        <p>Objects that accumulate millions or tens of millions of records require specific design attention. Query performance on large objects degrades without proper indexing and query selectivity — SOQL that works fine on 100,000 records becomes unacceptably slow or hits timeout limits on 50 million records.</p>
+        <p>Salesforce automatically indexes the Id field, all external ID fields, all custom fields marked as unique, and a small set of standard fields. For frequently-queried fields that are not automatically indexed, a custom index can be requested from Salesforce support. Custom indexes dramatically improve query performance for selective queries (queries where the filter returns less than ~5-10% of total records).</p>
+        <p>Non-selective queries — queries that return a large proportion of an object's records — cannot use indexes effectively regardless of indexing configuration. A query like "SELECT Id FROM Order__c WHERE Status__c != 'Closed'" on an object with 20 million records where 95% have Status = 'Open' is non-selective and will be slow or fail. Design queries to be selective by construction, not by adding post-hoc indexes.</p>
+
+        <pre><code>// Query optimization — selective filter first
+// Non-selective (bad): returns most records on a large table
+SELECT Id, Account__c, Total_Amount__c
+FROM Order__c
+WHERE Status__c != 'Closed'
+
+// Selective (better): date constraint limits result set
+SELECT Id, Account__c, Total_Amount__c
+FROM Order__c
+WHERE CreatedDate = LAST_N_DAYS:30
+AND Status__c != 'Closed'
+// Use LIMIT if you don't need all results:
+LIMIT 10000</code></pre>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Skinny tables:</strong> For objects with very high query volume on a specific subset of fields (e.g., a list view that always queries the same 5 fields), Salesforce can create a "skinny table" — a narrow database table containing only the frequently-accessed fields, dramatically reducing the I/O needed for those queries. Skinny tables are requested via Salesforce support and are available for qualifying high-volume scenarios.
+          </div>
+        </div>
+
+        <h2 id="s6">Data Model Evolution and Refactoring Strategy</h2>
+        <p>Data models evolve. Business processes change, acquisitions bring new data requirements, and early architectural decisions prove insufficient at scale. The challenge is evolving the model without breaking integrations, workflows, and the accumulated tooling built on top of the original design.</p>
+        <p><strong>Additive changes are safe:</strong> Adding new fields, adding new objects, adding new relationships to existing objects — these are additive and do not break anything that was already working. This is why data model changes should default to addition where possible.</p>
+        <p><strong>Renaming and retiring are risky:</strong> Renaming a field changes its API name if done incorrectly, breaking any hardcoded references in code, integrations, and reports. In Salesforce, the API name and the label are separate — you can change the label without changing the API name. Retiring a field (deleting it) requires auditing all references first: SOQL queries, Apex code, flows, reports, and external systems that reference the field via API.</p>
+        <p><strong>Relationship type changes are the hardest:</strong> Converting between relationship types on objects with data requires a migration approach: new field creation, data migration via Apex/Data Loader, cutover, old field retirement. Each step requires coordination with integration systems that may reference the old field. The timeline for major relationship type changes is measured in weeks or months, not hours.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Master-Detail creates tight ownership coupling (shared OwnerId, cascade delete, roll-up summaries); Lookup is loosely coupled (independent ownership, no cascade). This choice is hard to reverse with data — make it deliberately.</li>
+            <li>Use standard objects when the concept maps naturally to the CRM model; use custom objects when the concept is genuinely new. Forcing unrelated concepts into one standard object (via RecordTypes) is a common source of long-term data model pain.</li>
+            <li>Polymorphic lookups enable type-agnostic relationships but introduce SOQL complexity. Evaluate whether specific named relationship fields are simpler and more queryable before defaulting to polymorphism.</li>
+            <li>The fat object anti-pattern — a single object accumulating hundreds of fields across unrelated processes — creates usability, performance, and maintainability problems. Prevent it with architectural governance; treat it with field extraction and data migration.</li>
+            <li>Large objects (millions of records) require selective queries and custom indexes for performance. Non-selective queries that return most of an object's records are slow regardless of indexing — design queries to be selective by construction.</li>
+            <li>Data model evolution should default to additive changes. Renaming fields risks breaking API consumers; retiring fields requires full reference auditing; changing relationship types requires migration planning measured in weeks.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A developer creates an Order Line Item object with a Master-Detail relationship to Order. Later, the business requires that line items can exist without a parent order (as drafts). What is the problem?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">No problem — Master-Detail allows null parent values for records in draft status</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Master-Detail fields cannot be null — every child must have a parent. The relationship type must be converted to Lookup to allow parent-less records, which requires a migration.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The developer can simply mark the Master-Detail field as optional in the field definition to allow blank values</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A SOQL query on a 30-million-record object runs: SELECT Id FROM Transaction__c WHERE Processing_Date__c > LAST_N_DAYS:30. Processing_Date__c is indexed. The query returns records from the last 30 days only (about 2% of total). What determines whether the index is used?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Indexes are never used on date/time fields in Salesforce — only text and ID fields support indexing</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">This query is selective (2% of records) — the index will be used. Salesforce uses indexes when the result set is approximately 5-10% or less of the total records in the object.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The query must use ORDER BY to benefit from an index in Salesforce SOQL</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. An architect sees an Account object with 280 custom fields across 15 different RecordTypes, where each RecordType uses approximately 20 of those fields. What anti-pattern does this represent, and what is the recommended treatment?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The sharing model anti-pattern — 15 RecordTypes require 15 different sharing rules that will conflict under certain org-wide defaults</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">The fat object anti-pattern — multiple distinct business concepts have been forced into one object. Treatment is to identify field clusters belonging to each concept and extract them into related child objects or separate custom objects.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">No anti-pattern — Salesforce is designed to support many RecordTypes on a single object; 280 fields is within platform limits</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-011.html" class="related-card">
+              <span class="card-id">ARCH-011</span>
+              <h4>Flow vs Apex: The Architectural Decision Framework</h4>
+            </a>
+            <a href="arch-009.html" class="related-card">
+              <span class="card-id">ARCH-009</span>
+              <h4>Experience Cloud Architecture: What's Actually Happening Under the Hood</h4>
+            </a>
+            <a href="arch-012.html" class="related-card">
+              <span class="card-id">ARCH-012</span>
+              <h4>Large Data Volumes: How Salesforce Handles 100M+ Records</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">Relationship Types: The Architectural Consequences</a></li>
+            <li><a href="#">Standard Objects vs Custom Objects: The Strategy</a></li>
+            <li><a href="#">Polymorphic Lookups and the WhoId/WhatId Pattern</a></li>
+            <li><a href="#">The Fat Object Anti-Pattern</a></li>
+            <li><a href="#">Large Object Design and Query Performance</a></li>
+            <li><a href="#">Data Model Evolution and Refactoring Strategy</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="arch-011.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Flow vs Apex: The Architectural Decision Framework →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

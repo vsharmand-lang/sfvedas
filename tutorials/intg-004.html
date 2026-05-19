@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salesforce Bulk API 2.0: High-Volume Data Operations | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-004</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce Bulk API 2.0: High-Volume Data Operations
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        The Bulk API 2.0 is the correct tool for any data operation touching more than a few thousand records. Used well, it can process millions of records reliably. Used poorly, it becomes a source of mysterious failures, performance degradation, and integration debt. This tutorial covers the mechanics and the architecture.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>How Bulk API 2.0 differs from the original Bulk API 1.0 and when to use each</li>
+      <li>The complete job lifecycle: create, upload, close, poll, and download results</li>
+      <li>DML operations supported: insert, update, upsert, delete, and hardDelete</li>
+      <li>Performance tuning: batch sizing, parallel job limits, and throughput optimisation</li>
+      <li>Trigger, workflow, and process automation behavior during bulk operations</li>
+      <li>Query jobs and how to use Bulk API for large-scale data extraction</li>
+    </ul>
+  </div>
+
+  <h2 id="s1">Bulk API 2.0 vs 1.0 — What Changed</h2>
+  <p>The original Bulk API 1.0 was introduced in 2008 and used XML batches with a complex XML job management protocol. Bulk API 2.0, introduced with API version 41.0, simplified the interface substantially: CSV data format only (no XML), a cleaner REST job lifecycle, and automatic batch management (the API handles batch size internally rather than requiring the client to manage it). For new integrations, Bulk API 2.0 is the correct choice. The original Bulk API 1.0 should only be used for legacy system compatibility.</p>
+  <p>The fundamental architecture of both versions is the same: data operations are processed asynchronously in Salesforce's background processing infrastructure, separate from the synchronous governor-limit-governed execution context. This is why Bulk API can process 10 million records when an Apex DML statement is limited to 10,000 records per transaction — Bulk API jobs run outside the synchronous transaction model entirely.</p>
+  <p>Bulk API 2.0 uses the standard OAuth 2.0 Bearer Token for authentication (same token used for REST API calls). The job lifecycle involves creating a job, uploading CSV data, closing the job to signal completion, polling for status, and downloading success and error result files. This lifecycle is straightforward to implement in any HTTP client and is well-supported by all major ETL and integration tools.</p>
+
+  <div class="callout callout--insight">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Bulk API is not just for migrations:</strong> The Bulk API is the appropriate tool for any recurring integration that processes more than approximately 2,000 records per run. Using the REST API for a nightly sync that processes 50,000 records is a common mistake — it consumes API limits rapidly and is significantly slower than the Bulk API for the same data volume.
+    </div>
+  </div>
+
+  <h2 id="s2">The Complete Job Lifecycle</h2>
+  <p>A Bulk API 2.0 ingest job follows a deterministic lifecycle that integrations must implement correctly. The four phases are: create the job (specifying the object, operation, and content type), upload data (upload CSV content to the job), close the job (signal that upload is complete and processing should begin), and monitor and retrieve results (poll the job until state is JobComplete or Failed, then download successfulResults and failedResults CSVs).</p>
+  <p>Job creation returns a job ID. Data is uploaded to the job's upload URL — a single CSV upload up to 100MB or 150 million characters, whichever is smaller. If the dataset exceeds 100MB, the data must be split across multiple jobs. The CSV must use UTF-8 encoding, use the field API names as headers, and include an Id field for update/delete operations or an External ID field for upsert. Omitting required headers causes the job to fail with a cryptic error.</p>
+  <p>After closing the job, Salesforce processes records asynchronously. Processing time depends on org load, record complexity (triggers, workflows, formula fields, roll-up summaries), and whether the operation is an insert (no ID lookup) or upsert (requires ID resolution for each record). Jobs against heavily-automated objects take significantly longer than against simple custom objects with no automation.</p>
+
+  <pre><code>// Bulk API 2.0 — complete ingest job lifecycle
+
+// Step 1: Create job
+POST /services/data/v60.0/jobs/ingest
+{
+  "object": "Account",
+  "operation": "upsert",
+  "externalIdFieldName": "External_ID__c",
+  "contentType": "CSV",
+  "lineEnding": "LF"
+}
+// Response: { "id": "7503g00000A9XXXXX", "state": "Open", ... }
+
+// Step 2: Upload CSV data
+PUT /services/data/v60.0/jobs/ingest/7503g00000A9XXXXX/batches
+Content-Type: text/csv
+External_ID__c,Name,BillingCity,BillingCountry,Industry
+EXT-001,Acme Corp,San Francisco,US,Technology
+EXT-002,Globex Corp,Springfield,US,Manufacturing
+
+// Step 3: Close job to start processing
+PATCH /services/data/v60.0/jobs/ingest/7503g00000A9XXXXX
+{ "state": "UploadComplete" }
+
+// Step 4: Poll for completion
+GET /services/data/v60.0/jobs/ingest/7503g00000A9XXXXX
+// Response: { "state": "JobComplete", "numberRecordsProcessed": 2,
+//             "numberRecordsFailed": 0 }
+
+// Step 5: Download results
+GET /services/data/v60.0/jobs/ingest/7503g00000A9XXXXX/successfulResults
+GET /services/data/v60.0/jobs/ingest/7503g00000A9XXXXX/failedResults</code></pre>
+
+  <h2 id="s3">Triggers, Automation, and AllOrNone Semantics</h2>
+  <p>By default, Bulk API 2.0 processes records in serial mode and fires all Apex triggers, Flow record triggers, workflow rules, and process builders on each record. This is a critical architectural consideration — an org with complex automation on Account or Opportunity objects may find that a 500,000-record bulk upsert fires half a million trigger executions and causes significant background processing load that affects real-time users.</p>
+  <p>Bulk API 1.0 supported a "Parallel" processing mode that split data into batches processed concurrently but disabled triggers on secondary batches in some configurations. Bulk API 2.0 does not have this mode — it always processes serially. If automation must be bypassed during bulk operations, the correct pattern is a custom setting or feature flag in the trigger/flow that the integration user activates before bulk processing and deactivates afterward. Never use the "All or None" option for large operations — the Bulk API uses partial success semantics by design, and an error in one record should not roll back thousands of successfully processed records.</p>
+  <p>Validation rules, duplicate management rules, and field-level security all apply during bulk processing exactly as they do for interactive users. This is by design — the Bulk API is a data operation against the production org, not a backdoor. Test bulk operations against a sandbox with production-equivalent automation before running in production to identify automation-driven failures before they affect production data.</p>
+
+  <h2 id="s4">Query Jobs for Large-Scale Extraction</h2>
+  <p>Bulk API 2.0 query jobs enable large-scale data extraction using SOQL queries without hitting the standard SOQL row limit (50,000 records via REST API). A query job accepts a SOQL SELECT statement and returns results as paginated CSV downloads. The SOQL can select from any accessible object and include WHERE clauses, ORDER BY, and field traversal — though deep relationship queries and aggregate functions are not supported in bulk query mode.</p>
+  <p>Query job results are returned as one or more result sets that must be paginated through using a nextRecordsUrl. For very large objects (50+ million records), result sets can be gigabytes in size. Integration designs should stream result sets directly to the destination (data warehouse, file storage) rather than loading them entirely into memory. Most enterprise ETL tools handle Bulk API query result pagination automatically.</p>
+
+  <pre><code>// Bulk API 2.0 Query Job
+POST /services/data/v60.0/jobs/query
+{
+  "operation": "query",
+  "query": "SELECT Id, Name, AnnualRevenue, Industry, BillingCountry,
+             OwnerId, CreatedDate, LastModifiedDate
+             FROM Account
+             WHERE LastModifiedDate >= 2026-05-01T00:00:00Z
+             ORDER BY LastModifiedDate ASC",
+  "contentType": "CSV"
+}
+// After job completes, paginate through results:
+GET /services/data/v60.0/jobs/query/{jobId}/results?maxRecords=50000
+// Header: Sforce-Locator returned if more pages exist
+GET /services/data/v60.0/jobs/query/{jobId}/results?locator={locator}</code></pre>
+
+  <h2 id="s5">Performance Tuning and Operational Limits</h2>
+  <p>The Bulk API processes records at approximately 500-2,000 records per second for simple objects with minimal automation. Complex objects (Opportunity, Case) with multiple triggers and roll-up summary fields process at 200-500 records per second. A 5-million-record upsert against a complex object can take 3-7 hours. Plan maintenance windows accordingly and design integrations to run incrementally (daily deltas of thousands of records) rather than large catch-up batches wherever possible.</p>
+  <p>Salesforce limits concurrent Bulk API jobs per org. The limit is typically 5 concurrent batch jobs per org for Bulk API 1.0, and Bulk API 2.0 jobs count against the overall concurrent ingest limit. Running multiple parallel Bulk API jobs on the same org simultaneously can cause job queuing and significantly longer processing times. Coordinate bulk job scheduling across integration teams to avoid concurrent job conflicts, especially in complex org environments.</p>
+  <p>Monitor bulk job health using the Bulk API status endpoint and by subscribing to the BulkApiResultEvent Platform Event, which fires when a job completes. Integrate job monitoring into the operational dashboard — a bulk job that silently fails and retries indefinitely without alerting is a common source of data inconsistency in production integrations. Set maximum retry counts and alerting thresholds for job failure rates above acceptable levels.</p>
+
+  <div class="callout callout--tip">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Clean up completed jobs:</strong> Completed Bulk API jobs and their result files are retained by Salesforce for 7 days before automatic cleanup. Integrations that create many bulk jobs without cleaning up completed jobs will accumulate job history that can affect monitoring visibility. Explicitly delete completed jobs after downloading results using DELETE /services/data/v60.0/jobs/ingest/{jobId}.
+    </div>
+  </div>
+
+  <div class="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>Bulk API 2.0 replaces Bulk API 1.0 for all new integrations — CSV format, cleaner REST lifecycle, automatic batch management. Use Bulk API for any recurring operation processing more than ~2,000 records.</li>
+      <li>The job lifecycle is: create → upload CSV → close (UploadComplete) → poll until JobComplete → download successfulResults and failedResults. Implement all five phases — skipping result download means failures go undetected.</li>
+      <li>All org automation (triggers, Flows, workflow rules) fires during Bulk API processing. Complex automation significantly reduces throughput — test with production-equivalent automation in sandbox before go-live.</li>
+      <li>Use a custom setting flag pattern to optionally bypass automation during bulk operations rather than disabling automation in the org — this preserves automation for interactive users while allowing bulk operations to bypass it when required.</li>
+      <li>Query jobs support SOQL-based extraction of millions of records with paginated CSV results — this is the correct extraction pattern for large Salesforce datasets, not repeated REST API calls.</li>
+      <li>Concurrent job limits and per-org throughput constraints require scheduling coordination across integration teams — plan bulk job windows to avoid contention.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A bulk upsert job of 200,000 Opportunity records completes with state "JobComplete" but the integration team notices that 12,000 records were not updated in Salesforce. What is the most likely cause and how should it be diagnosed?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The job failed entirely — "JobComplete" state means 100% success, so this discrepancy indicates a monitoring error in the integration tool</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Bulk API uses partial success semantics — "JobComplete" means the job finished, not that all records succeeded. Download the failedResults CSV to see which 12,000 records failed and the specific error reason for each</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The 12,000 records were processed in a separate batch that was queued and has not yet run</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. An organisation runs three concurrent Bulk API 2.0 ingest jobs simultaneously — one against Account, one against Contact, and one against Opportunity. Jobs that normally complete in 30 minutes are taking 3 hours. What is the most likely cause?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Bulk API 2.0 does not support concurrent jobs — only one ingest job can run at a time per org</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Concurrent Bulk API jobs contend for the org's background processing resources — running three large jobs simultaneously causes queuing and reduced throughput for all jobs. Stagger job execution to avoid concurrent contention.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The org has hit its daily API call limit, causing all API calls including Bulk API operations to be throttled</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. An integration needs to extract all Cases modified in the last 24 hours (potentially 300,000 records). The current implementation uses a loop of REST API SOQL queries with LIMIT 2000 OFFSET X. What is wrong with this approach?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Nothing — looping REST API queries is the recommended extraction pattern for any volume of records</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">SOQL OFFSET-based pagination is unreliable for large datasets (records inserted between page fetches cause missing/duplicate records) and consumes 150 API calls per 300,000 records. A Bulk API query job is the correct approach for this volume.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The REST API SOQL limit is 50,000 records, not 2,000 — the loop is unnecessary and should use a single query</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="intg-005.html" class="related-card">
+              <span class="card-id">INTG-005</span>
+              <h4>API Rate Limits: The Integration Tax Nobody Budgets For</h4>
+            </a>
+            <a href="intg-003.html" class="related-card">
+              <span class="card-id">INTG-003</span>
+              <h4>ETL for Salesforce: Talend, Informatica, and the Alternatives</h4>
+            </a>
+            <a href="intg-006.html" class="related-card">
+              <span class="card-id">INTG-006</span>
+              <h4>Real-Time Integration Patterns: Platform Events, CDC, and Streaming API</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Bulk API 2.0 vs 1.0</a></li>
+            <li><a href="#s2">The Complete Job Lifecycle</a></li>
+            <li><a href="#s3">Triggers, Automation, and Semantics</a></li>
+            <li><a href="#s4">Query Jobs for Extraction</a></li>
+            <li><a href="#s5">Performance Tuning</a></li>
+            <li><a href="#quiz">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="intg-005.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: API Rate Limits →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

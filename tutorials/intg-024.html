@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Real-World Data Migration Case Study: 50M Records from SAP to Salesforce | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-024</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">25 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Real-World Data Migration Case Study: 50M Records from SAP to Salesforce
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Moving fifty million customer, order, and product records from an SAP ECC landscape to Salesforce is not a technical problem — it is an organisational one. The technical problems are solvable. This case study walks through what actually happened, what nearly killed the project, and what any architect can extract from it.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>How a 50M-record SAP-to-Salesforce migration was structured across a 14-month programme</li>
+      <li>Why data quality discovery consumed 40% of total project effort and how to budget for it</li>
+      <li>The technical pipeline: SAP BAPI extraction, Informatica transformation, Bulk API 2.0 load</li>
+      <li>How delta synchronisation was maintained during the 9-month parallel-run period</li>
+      <li>Three near-catastrophic decisions that were reversed in time and what replaced them</li>
+      <li>What the post-go-live data landscape looked like after 90 days — including what was still broken</li>
+    </ul>
+  </div>
+
+  <h2>The Starting Point: What SAP Held and Why It Was Messy</h2>
+  <p>The organisation — a global manufacturing company with operations in 23 countries — had run SAP ECC 6.0 as its system of record for customers, materials, sales orders, and financial postings for 17 years. When the board approved a Salesforce Sales Cloud and Service Cloud implementation, the integration team inherited roughly 50 million records across seven primary object types: Business Partners (KNA1/KNB1), Materials (MARA/MAKT), Sales Orders (VBAK/VBAP), Contracts (VBKD), Service Notifications (QMEL), Equipment master data (EQUI), and Functional Locations (IFLOT).</p>
+  <p>The data quality picture was grim from the outset. A preliminary profiling exercise, completed in week three, found 2.3 million Business Partner records with no email address, 840,000 with duplicate names differing only in whitespace or punctuation, 1.1 million materials records referencing discontinued product lines, and over 400,000 sales orders with a document currency that did not match the sales area currency. These were not edge cases — they were systemic artefacts of 17 years of manual data entry across dozens of regional SAP clients that had been merged through acquisitions.</p>
+  <div class="callout callout--warning">
+    <strong>Project Budget Warning:</strong> The original project plan allocated six weeks to data quality. The actual data quality phase consumed 28 weeks. Any project that does not complete a thorough profiling exercise before committing to a timeline will face this problem. Profiling is not preparatory work — it is the work.
+  </div>
+  <p>The migration scope was negotiated down three times before an executable plan emerged. The original scope included all historical sales orders going back to 2007. After profiling, the team agreed to migrate only orders with a document date after 2018, reducing the order volume from 31 million to 7.4 million records. Equipment and Functional Location data was descoped entirely and federated via Salesforce Connect to SAP instead — a decision that saved the programme and is now considered one of the best architectural choices made.</p>
+
+  <h2>Pipeline Architecture: From SAP BAPI to Bulk API 2.0</h2>
+  <p>The extraction layer used SAP BAPIs (Business Application Programming Interfaces) called via RFC (Remote Function Call) connections from Informatica IICS. Custom BAPI wrappers were written in ABAP for object types where standard BAPIs did not return the required fields in a single call — Business Partner with all address roles and Sales Order with line items and pricing conditions both required custom extraction logic. Full extraction of the 50M in-scope records took 72 hours of continuous extraction windows across a 4-week period to avoid impacting SAP production performance.</p>
+  <p>Informatica IICS served as the transformation layer. The mapping logic was substantial: a single Business Partner in SAP mapped to a combination of Account, Contact, and Person Account in Salesforce depending on the partner function (sold-to, ship-to, bill-to, payer). A Business Partner with four partner functions could generate up to four Salesforce records, each requiring a cross-reference maintained in an external ID mapping table stored in an intermediate PostgreSQL database on AWS RDS. This mapping table eventually grew to 9.1 million rows and became the critical artefact for every subsequent delta migration run.</p>
+  <div class="callout callout--insight">
+    <strong>External ID Design:</strong> Every migrated record received a custom external ID field populated with the SAP source system key — for example, <code>SAP_ECC_BP_ID__c</code> on Account. This allowed upserts during delta runs without requiring SOQL queries to find existing records, and it provided a permanent audit trail of where each Salesforce record originated.
+  </div>
+  <p>The load layer used Salesforce Bulk API 2.0 exclusively. REST API was considered but rejected on the basis that at 50M records even a 3-second per-record call would take 1,736 days of sequential processing. Bulk API 2.0 CSV jobs were structured at a maximum of 150MB per file, parallelised across 4 concurrent jobs per object type, and monitored via a custom Python script that polled the job status endpoint every 60 seconds and posted results to a Slack channel.</p>
+
+  <pre><code># Python snippet: poll Bulk API 2.0 job and report results
+import requests, time
+
+def poll_bulk_job(instance_url, access_token, job_id, interval=60):
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json"
+    }
+    url = f"{instance_url}/services/data/v60.0/jobs/ingest/{job_id}"
+    while True:
+        resp = requests.get(url, headers=headers)
+        job = resp.json()
+        state = job.get("state")
+        print(f"Job {job_id}: state={state}, "
+              f"processed={job.get('numberRecordsProcessed',0)}, "
+              f"failed={job.get('numberRecordsFailed',0)}")
+        if state in ("JobComplete", "Failed", "Aborted"):
+            return job
+        time.sleep(interval)
+
+# After completion, retrieve failed records
+def get_failed_results(instance_url, access_token, job_id):
+    headers = {"Authorization": f"Bearer {access_token}"}
+    url = f"{instance_url}/services/data/v60.0/jobs/ingest/{job_id}/failedResults"
+    resp = requests.get(url, headers=headers)
+    return resp.text  # CSV of failed records with sf__Error column</code></pre>
+
+  <h2>The Delta Synchronisation Problem</h2>
+  <p>The SAP system remained live throughout the migration. Business did not stop for 14 months. New Business Partners were created daily. Existing orders were updated, closed, and cancelled. The migration team needed a mechanism to keep the Salesforce data current during the parallel-run period without running full extractions every night — a full extraction took 72 hours and would have created a perpetual catch-up situation.</p>
+  <p>The delta synchronisation solution combined three mechanisms. For Business Partners and Materials (master data), SAP Change Pointers were enabled on the relevant message types (DEBMAS for customers, MATMAS for materials). Informatica read these change pointers on a 4-hour schedule and produced delta extract files containing only modified records. The change pointer mechanism had existed in SAP since version 3.1 but had never been activated in this customer's landscape — it required ABAP Basis support to enable and a brief SAP performance impact assessment before production enablement.</p>
+  <p>For Sales Orders (transactional data), a custom ABAP program used the SAP change document objects (VERKBELEG for sales documents) to identify orders modified since the last extraction timestamp. This timestamp was stored in a custom Z-table in SAP and updated by the ABAP program after each successful extraction, creating an idempotent extraction mechanism. For Service Notifications, a similar approach used the SAP notification change history table QMEL_AEND.</p>
+  <div class="callout callout--tip">
+    <strong>Timestamp Management:</strong> Never rely on a timestamp managed outside the source system for delta extraction. If the extraction job fails halfway through and the external timestamp has already been updated, you will miss records. Store the high-water mark inside the source system, updated only after a verified successful extraction, and use a slightly overlapping window (e.g., last-modified minus 15 minutes) to handle clock skew.
+  </div>
+  <p>The delta volumes were manageable: approximately 12,000 Business Partner changes per day, 85,000 order changes per day, and 3,200 material changes per day. The 4-hour Bulk API 2.0 upsert jobs completed consistently within 45 minutes, leaving sufficient buffer for reruns if needed. The external ID upsert pattern was essential here — without it, every delta load would have required a SOQL lookup to find the existing Salesforce record before updating it, which would have consumed API limits at significant scale.</p>
+
+  <h2>Three Near-Catastrophic Decisions That Were Reversed</h2>
+  <p>Every large migration project has decisions that look reasonable in the planning phase but collapse under contact with reality. This one had three of significance.</p>
+  <p>The first was the decision to use Salesforce Flows for post-load data enrichment. The original plan called for a Flow that would fire on Account creation and populate billing hierarchy fields, territory assignments, and account scoring attributes by calling external services. During the initial load test of 2 million accounts, this triggered 2 million Flow executions, consumed the entire daily API limit in 6 hours, and caused the Salesforce org to begin throttling all API calls — including the Bulk API 2.0 jobs already running. The fix was to move all post-load enrichment to a separate batch Apex job that ran after each load window with explicit API call tracking, and to temporarily deactivate the Flow trigger during migration windows using a custom metadata flag.</p>
+  <p>The second near-catastrophic decision was the choice to migrate order line items (VBAP) before order headers (VBAK). A junior data engineer, working from the Informatica job sequence documentation, ran the line item load before the team had confirmed that all parent order IDs were present in Salesforce. This resulted in 340,000 orphaned OrderProduct records with a null OrderId that triggered a cascade of validation rule failures. Recovery required a targeted Bulk API delete job, a resequenced load, and two days of reconciliation work. The lesson: always load parent objects before child objects, and enforce a dependency check in the job orchestration layer before any load job starts.</p>
+  <div class="callout callout--warning">
+    <strong>Object Load Sequencing:</strong> Define a formal load order document and make it an artefact that must be signed off before any load job can be submitted to the job scheduler. In Salesforce, the sequence for sales data is typically: Account → Contact → Pricebook → Product2 → PricebookEntry → Order → OrderItem. Any deviation requires explicit justification.
+  </div>
+  <p>The third was the initial refusal to implement a data reconciliation framework. The team lead believed that the Bulk API job success/failure reports were sufficient to confirm data accuracy. They were sufficient for load confirmation — but not for data accuracy. Two months into the parallel run, a spot-check comparison between SAP and Salesforce showed that 1.2% of Account records had incorrect billing city values due to a character encoding issue with non-ASCII city names (cities with umlauts, accented characters, and Cyrillic script from Eastern European subsidiaries). The records had loaded successfully; the data was simply wrong. A reconciliation framework comparing record counts and key field hash values across both systems was implemented retroactively, but it would have caught this issue three months earlier if deployed at the start.</p>
+
+  <h2>Go-Live Cutover: The 72-Hour Window</h2>
+  <p>The cutover plan was designed around a 72-hour blackout window: SAP would accept no new transactions from Friday 18:00 to Monday 18:00 local time at headquarters. During this window, the final full-refresh delta loads would run, all outstanding enrichment jobs would complete, and the validation suite would confirm record counts and sample field accuracy before go-live was declared. Users would access Salesforce on Monday morning.</p>
+  <p>The cutover runbook ran to 47 pages and included 214 individual steps, each with an owner, an estimated duration, and a rollback instruction. A shared Confluence page tracked step completion in real time during the cutover weekend. The migration lead had a war room with representatives from the Salesforce team, the SAP Basis team, Informatica support, and the business super-users who were responsible for spot-checking data in their respective domains (sales, service, finance).</p>
+  <p>The actual cutover took 68 hours — within the window but with only 4 hours of buffer. The main time overrun came from the Account hierarchy reconciliation step: the SAP Partner hierarchy (KNVH table) encoded parent-child relationships using SAP customer numbers, and the hierarchy rebuild in Salesforce required processing the 9.1 million row mapping table twice to resolve the parent Account IDs correctly. This step had been tested in staging but the staging mapping table was only 2.1 million rows — the performance did not scale linearly.</p>
+  <div class="callout callout--key">
+    <strong>Cutover Testing:</strong> Always run at least one complete cutover rehearsal using production-scale data volumes, not staging samples. Performance characteristics of hierarchical data processing, external ID resolution, and enrichment jobs change significantly between a 2M-row mapping table and a 9M-row mapping table. Discovering this during the actual cutover leaves no time to optimise.
+  </div>
+
+  <h2>Post-Go-Live: What Was Still Broken After 90 Days</h2>
+  <p>Go-live on Monday was declared successful. The 47-page runbook had been completed, record counts matched within 0.2%, and the business super-users had signed off on their domain data. But successful go-live is not the same as a clean migration, and the next 90 days revealed several categories of ongoing issues.</p>
+  <p>Data freshness for Equipment and Functional Location data (federated via Salesforce Connect to SAP) performed worse than expected on high-latency connections from the company's Asian offices. The OData adapter response time from Singapore to the SAP system in Germany averaged 4.2 seconds per record retrieval. Users who opened a Service Case and needed to view related Equipment data waited 4+ seconds per field population. This was architecturally known but the business impact was worse than accepted in the design review. Caching strategies using Platform Cache were implemented post-go-live to reduce repeat lookups within a session.</p>
+  <p>The duplicate management problem emerged at week six. The SAP system had contained duplicates, the deduplication rules applied during migration had caught the obvious ones, but 1.4 million Account pairs that were genuinely different entities in SAP (different customer numbers) turned out to represent the same legal entity — just enrolled in SAP by different regional offices. These were not detectable by name-matching rules because the names were legitimately different (a German office might have used "BASF SE" while a UK office used "BASF United Kingdom Limited"). Resolving this required a manual review workflow built in Salesforce that is still processing records 90 days post-go-live.</p>
+  <p>Financial data reconciliation between SAP and Salesforce revealed a 0.8% variance in total order value — approximately €4.7M against a total migrated order book of €590M. Investigation traced the discrepancy to orders with retroactive pricing adjustments that were applied in SAP after the final delta extraction window closed. These adjustments had not been captured in the cutover plan. A supplementary delta load of 22,000 order records was performed at day 45 to close the variance.</p>
+
+  <h2>What Every Architect Should Extract From This</h2>
+  <p>Case studies are only valuable if they produce transferable insight. Several principles from this migration apply regardless of source system, target system, or record volume.</p>
+  <p>Data quality is not a remediation activity — it is a discovery activity. The goal of data profiling is not to fix data before migration; it is to understand what the data actually contains so that scope, timeline, and budget can be set accurately. Every week spent on profiling before a project commitment is worth four weeks of unplanned work after the commitment is made.</p>
+  <p>External IDs are not optional. Every record migrated into Salesforce should carry a field that identifies its origin: the source system, the source system ID, and ideally the extraction timestamp. This field has no operational value after go-live in most cases — but it is the only thing that makes delta sync, reconciliation, and post-migration debugging tractable. The cost of adding the field is trivial; the cost of not having it is not.</p>
+  <p>Parallel run periods are not a safety net — they are a measurement instrument. The value of a parallel run is the data you collect about divergence between systems, not the comfort of having a fallback. If the parallel run data is not being actively reviewed and discrepancies resolved on a weekly basis, the parallel run is providing false confidence rather than real risk reduction.</p>
+
+  <div class="key-takeaways">
+    <h3>Key Takeaways</h3>
+    <ul>
+      <li>Data quality discovery consumed 40% of total project effort in this migration — budget for it explicitly or the timeline will absorb the cost anyway.</li>
+      <li>The external ID pattern (SAP source key stored in a custom Salesforce field) was the single most important technical decision for enabling reliable delta sync and reconciliation.</li>
+      <li>Object load sequencing must be formally documented and enforced in the job orchestration layer — loading child records before parents causes cascading failures that are expensive to recover from.</li>
+      <li>Post-load enrichment logic (Flows, triggers) must be disabled or rate-controlled during migration windows to prevent API limit exhaustion from overwhelming ongoing load jobs.</li>
+      <li>Cutover rehearsals must use production-scale data volumes; performance characteristics of hierarchy resolution and enrichment jobs do not scale linearly from staging samples.</li>
+      <li>Post-go-live issues (latency on federated data, delayed duplicates, pricing adjustment gaps) are normal — plan a 90-day hypercare period with dedicated resources before declaring the migration complete.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Check Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>During a large SAP-to-Salesforce migration, the team notices that post-load Flows are consuming the daily API limit within hours. What is the recommended fix?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Increase the Salesforce API limit by purchasing additional capacity from Salesforce support.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Switch from Bulk API 2.0 to REST API to reduce the number of API calls during the load.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Disable or gate the post-load Flows using a custom metadata flag during migration windows, and run enrichment as a separate batch job with explicit API tracking after each load window.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Reduce the number of records per Bulk API 2.0 job to spread the load over more days.</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>A data engineer is designing delta synchronisation for a migration with a 9-month parallel run. Where should the extraction high-water mark timestamp be stored?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">In the job orchestration tool's configuration database, updated at the start of each extraction run.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Inside the source system (e.g., a custom Z-table in SAP), updated only after verified successful extraction, with a small overlap window to handle clock skew.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">In Salesforce custom metadata, so it can be read by both the extraction tool and the Salesforce validation framework.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">In a shared S3 bucket, using the last-modified timestamp of the most recently uploaded extract file.</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>A migration cutover rehearsal was run successfully on a 2M-row staging dataset. During the actual cutover using production data (9M rows), the Account hierarchy rebuild step takes three times longer than expected and nearly misses the cutover window. What was the root cause?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The production Salesforce org has more active users than staging, causing API throttling during the hierarchy rebuild.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The mapping table query used a full table scan without indexes, which performs adequately at 2M rows but poorly at 9M rows due to I/O constraints.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Performance of hierarchical data processing with external ID resolution does not scale linearly with dataset size — the rehearsal at staging scale did not reveal the production-scale performance profile.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The SAP system was still processing business transactions during the hierarchy rebuild, causing lock contention on the source tables.</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="intg-025.html" class="related-card">
+              <span class="card-id">INTG-025</span>
+              <h4>API-First vs Integration-First Architecture: The Strategic Choice</h4>
+            </a>
+            <a href="intg-023.html" class="related-card">
+              <span class="card-id">INTG-023</span>
+              <h4>The Middleware Decision: When You Need an ESB vs Point-to-Point</h4>
+            </a>
+            <a href="intg-026.html" class="related-card">
+              <span class="card-id">INTG-026</span>
+              <h4>Salesforce Data Pipelines: From Ingestion to CRM Analytics</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">The Starting Point: What SAP Held</a></li>
+            <li><a href="#">Pipeline Architecture: BAPI to Bulk API 2.0</a></li>
+            <li><a href="#">The Delta Synchronisation Problem</a></li>
+            <li><a href="#">Three Near-Catastrophic Decisions</a></li>
+            <li><a href="#">Go-Live Cutover: The 72-Hour Window</a></li>
+            <li><a href="#">Post-Go-Live: What Was Still Broken</a></li>
+            <li><a href="#">What Every Architect Should Extract</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="intg-025.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: API-First vs Integration-First Architecture →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

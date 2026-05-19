@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARCH-003: Org Strategy — SFVedas</title>
+  <meta name="description" content="One Org, Multiple Orgs, or Hybrid — a decision framework for enterprise Salesforce architecture. For CTOs and Solution Architects."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-003</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: CTOs</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Org Strategy
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>What each of the three org strategies actually entails and what it costs to maintain</li>
+            <li>The legitimate cases for single-org and for multi-org — not the vendor version</li>
+            <li>The 7 questions that should determine your org strategy before any build starts</li>
+            <li>Why the "hybrid" approach usually fails — and when it's justified</li>
+            <li>The hidden costs of getting this decision wrong and how to surface the decision in the right forum</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Decision That Shapes Everything</h2>
+
+        <p>Of all the architectural decisions made in a Salesforce programme, org strategy is the one that has the longest-lasting consequences and the most pressure applied to make it quickly. You'll be in an early discovery workshop, there will be a slide titled "Enterprise Salesforce Architecture" and a Salesforce logo sitting above a single cloud icon, and someone will say: <em>"And of course, we'd recommend a single-org approach."</em></p>
+
+        <p>Nobody will challenge it. The business stakeholders don't know what it means. The Delivery Manager is focused on the programme timeline. The partner has built the commercial model around a single org. The Salesforce AE is paid on licence volume, and a single org with consolidated user counts works in their model too.</p>
+
+        <p>So the decision gets made by default — not by analysis. And then, two years later, someone is standing in a governance review explaining why a merger of two business units' Salesforce data is going to take 18 months and cost more than the original implementation.</p>
+
+        <p>This tutorial exists so you can make this decision by design.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>The Fundamental Principle</strong>
+            <p>Org strategy is a <em>business</em> decision that has technical implications — not a technical decision that has business implications. It should be made by business leaders with input from architects. It should not be made by architects, partners, or Salesforce without the business understanding the trade-offs.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">What "Single Org" Actually Means</h2>
+
+        <p>A single-org strategy means all business units, geographies, and functions that use Salesforce share one Salesforce organisation — one set of metadata, one database, one release cycle, one set of users and licences.</p>
+
+        <p>The benefits are real. <strong>Cross-business-unit reporting</strong> is straightforward because the data is in one place. A unified view of a customer across Sales, Service, and Marketing requires no integration because all three functions share the same Account and Contact records. The operations overhead is lower — one set of admins, one release process, one sandbox strategy.</p>
+
+        <p>But the costs are also real. <strong>One release cycle means one governance process.</strong> If the Sales team wants to deploy a change to the Opportunity object on the first Tuesday of the month and the Service team's change freeze runs until the 15th, those release cadences conflict. Every change to a shared object requires coordination across every team that uses it. This is not a technical problem — it's a political and operational one, and it scales with org complexity.</p>
+
+        <p>The other hidden cost of single-org is the <strong>configuration ceiling.</strong> Salesforce has limits on the number of custom objects (2,000), fields per object (500 custom), record types, page layouts, and countless other metadata components. A multi-divisional enterprise with 5-10 years of Salesforce growth can genuinely approach these limits in a single org, at which point the conversation about org architecture becomes non-optional.</p>
+
+        <h2 id="s3">What "Multiple Orgs" Actually Means</h2>
+
+        <p>A multi-org strategy means different groups use different Salesforce organisations. This could be geographical (APAC org, EMEA org, Americas org), divisional (one org per major business unit), or functional (a Sales Cloud org separate from a Service Cloud org).</p>
+
+        <p>The benefits are also real. <strong>Independent release cadences.</strong> Business Unit A can deploy every sprint. Business Unit B, which is in a regulatory change freeze, can hold their org stable for three months. Neither team is blocked by the other. The <strong>data isolation</strong> is absolute — there's no risk of data cross-contamination between orgs, which matters in regulated industries and in M&A situations where two recently merged companies need to maintain separate data until legal requirements are satisfied.</p>
+
+        <p>The costs, however, are substantial. <strong>Shared customer data disappears.</strong> If a customer buys from Division A and calls Division B's service team, the service agent has no visibility of the purchase unless there's an integration — which there now needs to be, permanently. <strong>The integration cost is ongoing.</strong> Every time a field is added to Account in one org, the integration layer may need to be updated. This is not a one-time project cost; it's a sustained operational and maintenance cost.</p>
+
+        <p>There's also the <strong>licence complexity.</strong> Users who work across business units need licences in multiple orgs. Salesforce's licence model doesn't make this cheap — and in a True-Up negotiation, multiple org user counts aggregate in ways that are not always favourable.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The Partner Incentive Problem</strong>
+            <p>Implementation partners almost always recommend single-org. The commercial reason is straightforward: a complex, highly-customised single org requires more configuration, more development, more integration, and more governance work — all of which they bill for. A properly scoped multi-org strategy may be architecturally correct but commercially less attractive to a partner. Ask your architect to make the case for multi-org explicitly before dismissing it.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">The Hybrid: When Best of Both Becomes Worst of Both</h2>
+
+        <p>The hybrid approach — a primary org for the core business, with satellite orgs for specific divisions or functions — appears to offer the best of both worlds. In practice, it usually doesn't.</p>
+
+        <p>The primary org still has all the governance overhead of a large single-org deployment. The satellite orgs still need integration with the primary org for shared customer data. You now have the integration complexity of multi-org AND the governance complexity of a large single org. The orgs that were supposed to be "independent" are still waiting for the primary org's release window to deploy changes that touch shared objects.</p>
+
+        <p>There are legitimate scenarios for a hybrid approach. Acquisitions are the most common: a newly acquired company has its own Salesforce org and the integration effort to merge it into the parent org's structure is not trivially justified. Running the acquired org as a satellite for 12-18 months while the business integration is worked out is reasonable. Calling that a long-term architecture is not.</p>
+
+        <h2 id="s5">The 7 Questions That Should Decide Your Org Strategy</h2>
+
+        <p>Before any architecture diagram is drawn, these seven questions should be answered by the business — not the architect, not the partner:</p>
+
+        <p><strong>1. Is there a regulatory or legal requirement for data isolation between business units?</strong> GDPR, HIPAA, FCA regulations, or jurisdictional data residency requirements may mandate that customer data from one geography or business unit cannot be co-located with another. If yes, multi-org is not optional.</p>
+
+        <p><strong>2. Do different business units need genuinely independent release cadences?</strong> Not "preferred" independent releases — genuinely mandatory ones, such as a regulated division with change freeze periods that differ from the rest of the business. If yes, shared release governance in a single org will create sustained friction.</p>
+
+        <p><strong>3. Is a unified customer view across all business units a strategic requirement?</strong> If your board-level priority is "know the whole customer," and you sell to and service customers across multiple divisions, single-org is architecturally advantageous. Cross-org customer data unification via integration or Data Cloud is possible but expensive.</p>
+
+        <p><strong>4. What is the acquisition likelihood over the next 5 years?</strong> Acquisitions create immediate multi-org situations. If your company acquires 2-3 businesses per year, your "single org" strategy will require a constant programme of org mergers. Designing your governance model for that reality upfront is better than being surprised by it.</p>
+
+        <p><strong>5. Are the business units' Salesforce processes genuinely shared or genuinely different?</strong> If two divisions have different sales processes, different service workflows, different object models — the "shared" value of single-org diminishes. The shared governance cost remains.</p>
+
+        <p><strong>6. Who governs Salesforce changes across the enterprise?</strong> Single-org requires enterprise-wide governance. If your organisation does not have — and cannot build — a governance function that spans all business units, single-org will become ungovernable within three years.</p>
+
+        <p><strong>7. What is the 5-year Salesforce growth trajectory?</strong> If the business plans significant expansion of Salesforce usage — new clouds, new business units, new geographies — the architecture needs to accommodate that growth. Starting multi-org when expansion is predictable is cheaper than splitting a single org later.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The Governance Test</strong>
+            <p>If you cannot point to a named individual or committee with the authority to reject a change request from a business unit's senior VP because it conflicts with another business unit's release plan — you do not have single-org governance. And without single-org governance, a single org becomes a source of conflict, not a source of value.</p>
+          </div>
+        </div>
+
+        <h2 id="s6">Making the Decision in the Right Forum</h2>
+
+        <p>Org strategy should be on the agenda of the programme's governing body, not a slide presented by the Salesforce partner in a discovery workshop. The people who need to sign off on this decision are:</p>
+
+        <ul>
+          <li>The CTO or Head of Technology, who owns the architectural direction</li>
+          <li>The heads of each major business unit that will use Salesforce</li>
+          <li>Legal and compliance, if data residency or regulatory separation is a factor</li>
+          <li>Finance, because the licence and operational costs differ materially by strategy</li>
+        </ul>
+
+        <p>The decision should be documented in a formal Architecture Decision Record (ADR) with the rationale, the alternatives considered, and the conditions under which the decision would be revisited. "We chose single-org and will revisit if we acquire a business with a non-compatible Salesforce implementation" is a legitimate ADR entry. "We chose single-org because that's what Salesforce recommended" is not.</p>
+
+        <h2 id="s7">The Decision You'll Most Regret</h2>
+
+        <p>Of the three strategies, the one that organisations most regret — in my experience — is not multi-org when single-org would have been better. It's the reverse. The single-org decision made quickly in year one, which becomes a governance nightmare by year three, and a strategic liability by year five.</p>
+
+        <p>The reason is the asymmetry of the problem. Moving from single-org to multi-org mid-flight requires a data migration, an integration project, a new governance model, and a period of running two orgs simultaneously. It is expensive, disruptive, and slow. Moving from multi-org to single-org is also expensive — but you control the timing, because you can maintain the status quo indefinitely while you plan the merger.</p>
+
+        <p>If you're in genuine doubt between single-org and multi-org, the more reversible decision is multi-org. Keep your options open. Merging orgs later is always possible. Splitting a deeply integrated single org is a programme in its own right.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Org strategy is a business decision — it should be made in a governance forum with business leaders, not in a technical workshop with architects and partners</li>
+            <li>Single-org wins when: unified customer data matters, cross-unit reporting is strategic, and enterprise-wide governance can be built and sustained</li>
+            <li>Multi-org wins when: data residency requirements differ, release cadences are genuinely incompatible, or M&amp;A creates irreconcilably different Salesforce implementations</li>
+            <li>The hybrid approach adds complexity of both strategies without fully delivering the benefits of either — use it tactically (acquisitions), not as a permanent architecture</li>
+            <li>The 7 questions (regulatory requirements, release independence, unified customer view, acquisition likelihood, process similarity, governance capacity, growth trajectory) are the decision framework — answer them before drawing any architecture diagrams</li>
+            <li>When in genuine doubt, multi-org is more reversible than single-org; the cost of a later merger is real but plannable</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Checkpoint: Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A company's Legal team has confirmed that customer data from their UK and US operations cannot be stored in the same database due to regulatory requirements. What org strategy does this mandate?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Single org with Salesforce Shield encryption to separate the data</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Multiple orgs, since the regulatory requirement mandates physical data isolation that a single shared database cannot provide</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Single org with role hierarchy to control data visibility between jurisdictions</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Hybrid approach with UK data in the primary org and US data in a satellite org</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. Why do implementation partners typically recommend single-org, even in cases where multi-org may be architecturally appropriate?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Because single-org always delivers better business outcomes</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Because complex single-org implementations require more configuration, development, and governance work — which generates more billable services revenue</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Because Salesforce's licence model penalises multi-org deployments</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Because Salesforce's platform does not support meaningful multi-org architectures</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. If an organisation is genuinely uncertain between single-org and multi-org, which approach is more reversible if the decision turns out to be wrong?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Single-org, because you can always create new orgs for divisions later</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Multi-org, because merging orgs later (though expensive) is plannable and controllable; splitting a deeply integrated single org mid-flight is disruptive and harder to time</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Both are equally reversible — the cost is the same either way</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Hybrid, because it gives the option to adjust in either direction</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-004.html" class="related-card">
+              <span class="card-id">ARCH-004</span>
+              <h4>Salesforce Metadata Model: What It Is and Why It Shapes Everything</h4>
+            </a>
+            <a href="arch-002.html" class="related-card">
+              <span class="card-id">ARCH-002</span>
+              <h4>Governor Limits</h4>
+            </a>
+            <a href="arch-005.html" class="related-card">
+              <span class="card-id">ARCH-005</span>
+              <h4>Platform Events Architecture: Async by Design</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">The Decision That Shapes Everything</a></li>
+            <li><a href="#">What "Single Org" Actually Means</a></li>
+            <li><a href="#">What "Multiple Orgs" Actually Means</a></li>
+            <li><a href="#">The Hybrid: When Best of Both Becomes Worst of Both</a></li>
+            <li><a href="#">The 7 Questions That Should Decide Your Org Strategy</a></li>
+            <li><a href="#">Making the Decision in the Right Forum</a></li>
+            <li><a href="#">The Decision You'll Most Regret</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="arch-004.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Salesforce Metadata Model →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Truth About Salesforce Caching: What's Cached, What Isn't | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-013</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Technical Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        The Truth About Salesforce Caching: What's Cached, What Isn't
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Caching in Salesforce is not a single mechanism — it is a layered set of platform features and custom patterns, each with different scope, TTL, and eviction behaviour. Misunderstanding caching is responsible for both performance problems and stale data bugs in production.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn...</span>
+          <ul>
+            <li>The four caching layers in Salesforce and what each one caches</li>
+            <li>Platform Cache: org partition vs session partition, TTL configuration, and when to use it</li>
+            <li>Lightning Data Service: how it caches record data client-side and when caches go stale</li>
+            <li>What is NOT cached — the missing SOQL result cache and its performance implications</li>
+            <li>Static resource caching: CDN, browser cache, and version busting strategies</li>
+            <li>Cache invalidation patterns and the architectural pitfalls of stale cache data</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Four Caching Layers in Salesforce</h2>
+        <p>When Salesforce architects discuss caching, they are almost never talking about a single mechanism. Salesforce caching operates across four distinct layers, each with different scope, lifetime, invalidation behaviour, and use cases. Conflating these layers is one of the most common sources of performance misconceptions and stale data bugs.</p>
+        <p><strong>Layer 1 — Platform Cache:</strong> A server-side key-value cache managed by Apex or Flow. Stores serialised Apex objects, strings, or arbitrary data. Has org-scoped (shared across all sessions) and session-scoped (per user session) partitions. TTL is configurable per cache put operation. This is the layer developers control explicitly.</p>
+        <p><strong>Layer 2 — Lightning Data Service (LDS):</strong> A client-side record cache managed by the Lightning framework. LDS caches the field values of Salesforce records accessed by Lightning components and shares them across components on the same page. Changes to records via LDS automatically propagate to all LDS consumers on the page. This is implicit caching managed by the framework.</p>
+        <p><strong>Layer 3 — Static Resource Cache:</strong> CSS, JavaScript, and image files served as Salesforce static resources are cached by the browser and the Salesforce CDN. This is a standard HTTP caching layer — no Salesforce-specific behaviour, but with version busting implications for deployments.</p>
+        <p><strong>Layer 4 — Salesforce Internal Infrastructure Caching:</strong> Metadata, security configuration, and system setup data is cached within the Salesforce application servers. This is invisible to developers but explains why metadata changes (new fields, permission changes) sometimes require a few minutes to propagate across all platform nodes.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The important absence:</strong> Salesforce does NOT have a SOQL query result cache. Every SOQL query execution reads from the database. There is no "run this query 100 times, only the first hits the database" behaviour. If you want to avoid repeated database reads, you must cache the results explicitly using Platform Cache.
+          </div>
+        </div>
+
+        <h2 id="s2">Platform Cache: The Developer-Controlled Layer</h2>
+        <p>Platform Cache is the primary tool for Apex developers to reduce repeated expensive operations — SOQL queries, callouts, complex calculations — by storing their results and retrieving them on subsequent calls within the cache's TTL.</p>
+        <p>Platform Cache has two partition types with different scope and lifetime:</p>
+        <p><strong>Org Partition:</strong> Data stored in the org partition is accessible to any Apex code running in the org, across all user sessions. This is appropriate for data that is the same for all users: reference data (static lookup values, configuration tables), external API responses that don't vary per user, and computationally expensive aggregations that are shared across users. TTL can be set from 1 second to 48 hours.</p>
+        <p><strong>Session Partition:</strong> Data stored in the session partition is accessible only within the current user's session. This is appropriate for user-specific data: personalisation preferences, multi-step form state, permission-denormalised data specific to the current user's access context. Session cache is automatically invalidated when the session ends (logout or expiry).</p>
+
+        <pre><code>// Platform Cache — storing and retrieving from org partition
+public class ConfigCacheService {
+
+    private static final String CACHE_KEY = 'configData';
+    private static final Integer TTL_SECONDS = 3600; // 1 hour
+
+    public static Map&lt;String, String&gt; getConfig() {
+        Cache.OrgPartition orgPart = Cache.Org.getPartition('local.AppConfig');
+
+        // Try cache first
+        Map&lt;String, String&gt; config =
+            (Map&lt;String, String&gt;) orgPart.get(CACHE_KEY);
+
+        if (config == null) {
+            // Cache miss — query from database
+            config = loadConfigFromDatabase();
+            orgPart.put(CACHE_KEY, config, TTL_SECONDS);
+        }
+
+        return config;
+    }
+
+    // Call this when config changes to force cache refresh
+    public static void invalidateCache() {
+        Cache.OrgPartition orgPart = Cache.Org.getPartition('local.AppConfig');
+        orgPart.remove(CACHE_KEY);
+    }
+}</code></pre>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Platform Cache capacity is licensed:</strong> Platform Cache capacity (the maximum total data size across all partitions) is a licensed feature. Default orgs have limited Platform Cache capacity; additional capacity can be purchased. Partition sizes are configured in Setup under Platform Cache. Attempting to store data when the partition is full throws a CacheException — handle this defensively in production code.
+          </div>
+        </div>
+
+        <h2 id="s3">Lightning Data Service: The Client-Side Record Cache</h2>
+        <p>Lightning Data Service (LDS) is the framework layer that manages record data in Lightning components. When a Lightning Web Component uses @wire(getRecord) or @wire(updateRecord), LDS intercepts the call and manages a client-side cache of the record's field values.</p>
+        <p>The key architectural behaviour of LDS is shared cache across components on the same page. If three components on the same record page all use @wire(getRecord) for the same record, LDS makes one server call and shares the result across all three components. If any component updates the record via LDS, the cache is automatically invalidated and all components on the page receive the updated data — without explicit coordination code.</p>
+        <p>LDS also handles optimistic UI updates — when you call updateRecord via LDS, the UI can update immediately with the new values before the server confirms the save. If the server save fails, LDS rolls back the optimistic update. This makes Lightning interfaces feel responsive without custom "loading" state management.</p>
+
+        <pre><code>// Lightning Web Component using LDS wire adaptor
+import { LightningElement, api, wire } from 'lwc';
+import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import ACCOUNT_NAME_FIELD from '@salesforce/schema/Account.Name';
+import ANNUAL_REVENUE_FIELD from '@salesforce/schema/Account.AnnualRevenue';
+
+export default class AccountSummary extends LightningElement {
+    @api recordId;
+
+    @wire(getRecord, {
+        recordId: '$recordId',
+        fields: [ACCOUNT_NAME_FIELD, ANNUAL_REVENUE_FIELD]
+    })
+    account;
+    // LDS caches this record — other components on the page
+    // sharing this recordId receive the same cached data
+
+    get name() {
+        return getFieldValue(this.account.data, ACCOUNT_NAME_FIELD);
+    }
+}</code></pre>
+
+        <h2 id="s4">What Is NOT Cached: The SOQL Non-Cache Reality</h2>
+        <p>Understanding what Salesforce does NOT cache is as important as understanding what it does cache — because many performance optimisation attempts are built on a false assumption about platform-level caching that doesn't exist.</p>
+        <p><strong>SOQL query results:</strong> The most important non-cache. Salesforce has no query result cache. Executing the same SOQL query twice in the same transaction, in two different Apex methods, or in two different transactions all result in separate database reads. The second call to [SELECT Id FROM Account WHERE ...] queries the database fresh — there is no "already ran this" cache.</p>
+        <p><strong>Aggregate results:</strong> COUNT(), SUM(), AVG() and other aggregate SOQL queries are similarly uncached. Large COUNT() queries on multi-million-record objects run against the full database on every call. This is why replacing COUNT() queries in frequently-called Apex with Platform Cache values is one of the most impactful performance optimisations available.</p>
+        <p><strong>External callout responses:</strong> Callout results are never cached by Salesforce. Every HTTP callout to an external endpoint is a new network request. If you call a reference data API 50 times in a transaction, you make 50 callout attempts — subject to callout limits and external API rate limits. Cache callout responses in Platform Cache when the data is stable within the cache TTL window.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The most common caching mistake:</strong> Calling a SOQL query in a loop or in a method that is called from a loop, expecting the platform to "cache" the result after the first call. It doesn't. Each iteration executes a new database query. The only way to avoid repeated SOQL is to extract the query before the loop, store results in a Map, and do Map lookups inside the loop.
+          </div>
+        </div>
+
+        <h2 id="s5">Static Resource Caching and Version Management</h2>
+        <p>Salesforce static resources (CSS files, JavaScript libraries, images) are served with standard HTTP caching headers. Browsers cache these files locally and the Salesforce CDN caches them at edge nodes. This is a significant performance benefit — a user who has visited a Salesforce org recently does not re-download static resources on every page load.</p>
+        <p>The problem this creates for deployments: when you update a static resource (update a JavaScript library, change a CSS file), browsers and CDN nodes that have the old version cached may continue serving the stale version until the cache TTL expires. For users who don't clear their browser cache, they may see old styling or broken JavaScript behaviour after a deployment.</p>
+        <p>Salesforce addresses this via versioned static resource URLs. Each static resource version has a unique URL that includes a version hash. Deploying a new version of a static resource creates a new URL — browser and CDN caches treat it as a new resource and request it fresh. Old cached versions of the old URL remain cached but are no longer referenced by updated pages.</p>
+        <p>The implication for LWC components: static resource version references in component HTML are automatically updated when the resource is redeployed, so the version busting is automatic. For manually referenced static resources in Visualforce or custom HTML, the version URL must be regenerated after each resource update — using $Resource.myStaticResource in Visualforce ensures the versioned URL is always used.</p>
+
+        <h2 id="s6">Cache Invalidation Patterns and Stale Data Pitfalls</h2>
+        <p>Cache invalidation — knowing when cached data is no longer valid and must be refreshed — is the hardest part of working with Platform Cache. The failure mode is stale data: users see outdated values because the cache has not been invalidated after the underlying data changed.</p>
+        <p>The two primary cache invalidation patterns in Salesforce are TTL-based expiry (the cache expires automatically after the configured TTL) and explicit invalidation (the cache is explicitly removed when the source data changes).</p>
+        <p>TTL-based expiry is simple to implement but creates a maximum staleness window: users may see data that is up to [TTL] seconds old. This is acceptable for reference data that changes infrequently (postal code lists, country codes, product categories) but unacceptable for business data that must be current (account credit limits, inventory levels, approval status).</p>
+        <p>Explicit invalidation is more precise but requires that the invalidation event be reliably triggered whenever the source data changes. The standard pattern: an Apex trigger on the source object calls Cache.invalidate() when relevant fields change. This ensures the cache is cleared immediately when data changes, forcing the next reader to fetch fresh data.</p>
+
+        <pre><code>// Trigger-based cache invalidation
+trigger AccountCacheInvalidator on Account (after update) {
+    Set&lt;Id&gt; changedIds = new Set&lt;Id&gt;();
+
+    for (Account acc : Trigger.new) {
+        Account old = Trigger.oldMap.get(acc.Id);
+        // Invalidate if credit limit or status changed
+        if (acc.Credit_Limit__c != old.Credit_Limit__c ||
+            acc.Account_Status__c != old.Account_Status__c) {
+            changedIds.add(acc.Id);
+        }
+    }
+
+    if (!changedIds.isEmpty()) {
+        Cache.OrgPartition orgPart =
+            Cache.Org.getPartition('local.CreditData');
+        for (Id accountId : changedIds) {
+            orgPart.remove('credit_' + accountId);
+        }
+    }
+}</code></pre>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Salesforce caching operates across four layers: Platform Cache (developer-controlled server-side), Lightning Data Service (client-side record cache), static resource cache (browser/CDN), and internal infrastructure cache (metadata, invisible to developers).</li>
+            <li>Platform Cache has org-scoped partitions (shared across all users, for reference data) and session-scoped partitions (per user, for personalised state). Capacity is licensed — handle CacheException defensively in production code.</li>
+            <li>Lightning Data Service caches record fields client-side and shares them across components on the same page, eliminating duplicate server calls and automatically propagating record updates to all consuming components.</li>
+            <li>SOQL queries are NOT cached — every execution hits the database. This is the most important caching misconception. Cache SOQL results explicitly in Platform Cache for frequently-called reference queries to avoid repeated database reads.</li>
+            <li>Static resource version URLs provide automatic cache busting on deployment. Use $Resource references (not hardcoded paths) to ensure components always reference the current version after deployment.</li>
+            <li>Cache invalidation is the hardest problem: TTL-based expiry accepts staleness up to the TTL window; trigger-based explicit invalidation provides immediate freshness at the cost of invalidation event management complexity.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. An Apex method runs a COUNT() query against a 50-million-record object. The method is called on every page load by 5,000 concurrent users. What is the most impactful performance optimisation?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Create a custom index on the object — COUNT() queries benefit from indexed scans on large tables</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Cache the COUNT() result in Platform Cache (org partition) with an appropriate TTL — repeated COUNT() queries on 50M records are expensive database operations; caching eliminates 4,999 of 5,000 concurrent database calls</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Move the COUNT() query to an async Queueable job — async queries have higher limits and execute faster for large aggregations</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. Three LWC components on the same Salesforce record page all use @wire(getRecord) for the same record. How many server-side data requests are made when the page loads?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Three — each component's wire adaptor makes an independent server call regardless of shared record ID</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">One — Lightning Data Service detects that all three components are requesting the same record and makes a single server call, sharing the cached result across all three consumers</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Zero — record data is pre-loaded from the URL context and wire adaptors consume it without additional server calls</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. You cached an Account's credit limit in Platform Cache (org partition) with a 4-hour TTL. An admin updates the credit limit in Salesforce 30 minutes later. A transaction checks the cached value 45 minutes after the original cache. What value does it see?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The updated credit limit — Salesforce automatically invalidates Platform Cache when the underlying record changes</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">The original (stale) credit limit — Platform Cache with TTL-only invalidation does not auto-invalidate when source data changes. The cache will hold the old value until the 4-hour TTL expires or explicit invalidation is triggered.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">An error — Platform Cache detects the underlying record has changed and throws a CacheStaleException</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-014.html" class="related-card">
+              <span class="card-id">ARCH-014</span>
+              <h4>Package Development Model vs Org Development Model</h4>
+            </a>
+            <a href="arch-012.html" class="related-card">
+              <span class="card-id">ARCH-012</span>
+              <h4>Large Data Volumes: How Salesforce Handles 100M+ Records</h4>
+            </a>
+            <a href="arch-015.html" class="related-card">
+              <span class="card-id">ARCH-015</span>
+              <h4>Salesforce CLI and DevOps Architecture</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">The Four Caching Layers in Salesforce</a></li>
+            <li><a href="#">Platform Cache: The Developer-Controlled Layer</a></li>
+            <li><a href="#">Lightning Data Service: The Client-Side Record Cache</a></li>
+            <li><a href="#">What Is NOT Cached: The SOQL Non-Cache Reality</a></li>
+            <li><a href="#">Static Resource Caching and Version Management</a></li>
+            <li><a href="#">Cache Invalidation Patterns and Stale Data Pitfalls</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="arch-014.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Package Development Model vs Org Development Model →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

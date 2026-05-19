@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Salesforce DX: What Every Delivery Leader Must Know | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=platform-technical" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Platform &amp; Technical</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">PLAT-004</span>
+        <span class="card-tag" style="background:rgba(0,112,210,0.08);color:var(--sf-blue);border-color:rgba(0,112,210,0.2);">Platform &amp; Technical</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce DX: What Every Delivery Leader Must Know
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Salesforce DX (SFDX) is not just a set of CLI commands — it is a shift in how Salesforce development is structured, tracked, and deployed. Leaders who understand its principles can set the right standards for their teams and ask the right questions during delivery reviews.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+        <div class="section-summary">
+          <span class="ss-label">What you will learn...</span>
+          <ul>
+            <li>What Salesforce DX is and the philosophy behind it</li>
+            <li>Source-driven development vs org-driven development — why it matters for delivery</li>
+            <li>Scratch orgs: what they are, how they are used, and when they change your team's workflow</li>
+            <li>Second-Generation Packaging (2GP) and its role in enterprise Salesforce delivery</li>
+            <li>What a mature SFDX-based CI/CD pipeline looks like</li>
+            <li>The questions a delivery leader should ask to assess SFDX adoption maturity</li>
+          </ul>
+        </div>
+        <h2 id="s1">What Salesforce DX Is</h2>
+        <p>Salesforce DX (Developer Experience) is a set of tools, practices, and platform capabilities introduced in 2017 to bring modern software development practices to Salesforce delivery. At its core, SFDX is three things: the Salesforce CLI (a command-line tool for all org operations), a source-format for metadata (XML-based files that represent org configuration), and a development model that treats source control as the authoritative state of the org.</p>
+        <p>Before SFDX, Salesforce development was org-centric: developers made changes directly in a sandbox, then retrieved metadata and deployed it. The org was the system of record. With SFDX, the model inverts: source control is the system of record, and the org is a deployed instance of what is in source control. This sounds like a small philosophical shift — its delivery implications are significant.</p>
+        <p>SFDX also introduced scratch orgs: short-lived, disposable Salesforce environments that can be created from scratch in minutes based on a configuration definition. A developer can spin up a fresh org, apply their feature's metadata, run tests, and destroy it — all in an automated pipeline without touching any shared sandbox.</p>
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The cultural shift:</strong> SFDX is not just a tool adoption — it requires a cultural shift from "the org is where we work" to "source control is where we work." Teams that adopt the SFDX toolset without this cultural shift end up with the tools but still make changes directly in production, defeating the purpose.
+          </div>
+        </div>
+        <h2 id="s2">Source-Driven vs Org-Driven Development</h2>
+        <p>Understanding the difference between these two development models helps leaders assess whether their team is working in a sustainable, auditable way.</p>
+        <p><strong>Org-driven development (the old model):</strong> Developers open a sandbox, make changes, use "Retrieve" to export the metadata to their local machine, commit it to Git, and use "Deploy" to push to other environments. The org is the primary workspace; source control is a secondary backup. Problems: developers forget to retrieve after changes; multiple developers overwrite each other's work; the production org drifts from what's in source control; deployments are manual and error-prone.</p>
+        <p><strong>Source-driven development (SFDX model):</strong> Source control is the primary workspace. Developers pull the latest source, push to a scratch org or sandbox, make and test changes, retrieve the delta back to source, and merge via a pull request. The pipeline deploys from source to environments. The org is a derivative of source control, not the other way around. Problems solved: drift is eliminated, changes are tracked, pipelines are automated, reviews happen before deployment.</p>
+        <p>A team genuinely practicing source-driven development can answer: "What is the exact set of metadata deployed in production right now?" with confidence — it is the latest commit on the main branch. A team practicing org-driven development usually cannot answer this question accurately.</p>
+        <h2 id="s3">Scratch Orgs: The Developer Workflow</h2>
+        <p>Scratch orgs are the most visible SFDX feature for development teams. They are temporary Salesforce orgs (default lifetime: 7 days, maximum: 30 days) created from a definition file that specifies the org's shape — which features are enabled, which Salesforce edition it simulates, and which settings are configured.</p>
+        <p>The workflow: a developer creates a scratch org, pushes the project's source (from Git) to the scratch org, writes their feature, retrieves changes back to source, runs automated tests, and the scratch org is discarded when development is done. No shared sandboxes are polluted with half-finished features; no developers are blocked waiting for a shared environment; no sandbox refresh is required to get a clean state.</p>
+        <p>Scratch orgs are appropriate for feature development and automated testing. They are not appropriate for UAT (scratch orgs cannot carry data), performance testing, or integration testing with external systems (scratch org URLs change each time, breaking OAuth configurations).</p>
+        <pre><code># Creating and using a scratch org
+sf org create scratch \
+  --definition-file config/project-scratch-def.json \
+  --alias myFeatureDev \
+  --duration-days 7
+
+# Push local source to the scratch org
+sf project deploy start --target-org myFeatureDev
+
+# Run tests
+sf apex run test --target-org myFeatureDev --wait 10
+
+# Pull any changes made in the org back to source
+sf project retrieve start --target-org myFeatureDev</code></pre>
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Scratch org limits:</strong> The number of active scratch orgs is limited by licence type (typically 40-200 active per day depending on the org edition). Large teams need to manage scratch org allocation or use shared developer sandboxes for some workflows. Monitor scratch org consumption if you have a large development team.
+          </div>
+        </div>
+        <h2 id="s4">Second-Generation Packaging (2GP)</h2>
+        <p>Second-Generation Packaging (2GP) is the SFDX-based approach to defining explicit, versioned packages of Salesforce metadata. Unlike an org's flat metadata pool (where everything exists together in one space), 2GP packages define clear boundaries: "this package contains these specific objects, classes, and flows."</p>
+        <p>For enterprise delivery teams (as opposed to ISVs building AppExchange products), 2GP provides modularity benefits: different teams own different packages, dependencies between packages are explicit and enforced, and each package can be versioned and deployed independently. A shared core package (company data model standards) can be a dependency of multiple team packages without each team duplicating it.</p>
+        <p>2GP is the recommended model for complex enterprise implementations with multiple teams — but it is not appropriate for every situation. Smaller implementations, single-team projects, and orgs with highly intertwined metadata may have more overhead from package management than benefit. The decision to adopt 2GP should be made at programme initiation, not retrofitted mid-project.</p>
+        <h2 id="s5">What a Mature SFDX CI/CD Pipeline Looks Like</h2>
+        <p>A mature Salesforce CI/CD pipeline built on SFDX typically includes these stages, automated end-to-end.</p>
+        <p><strong>Developer push → Pull request:</strong> Developer pushes source changes to a feature branch and creates a pull request. The pipeline automatically creates a scratch org, deploys the feature branch source, runs unit tests, and runs a static code analysis (PMD/Code Analyser). PR cannot be merged if tests fail or code analysis detects critical issues.</p>
+        <p><strong>Merge to develop → Integration sandbox deploy:</strong> Merged code is automatically deployed to the integration sandbox where integration tests run. This catches conflicts between features merged from multiple developers.</p>
+        <p><strong>Release branch → UAT sandbox deploy:</strong> A release branch cut from develop is deployed to the UAT sandbox. Manual UAT testing happens here against the full data set.</p>
+        <p><strong>Production deploy:</strong> After UAT sign-off, the release branch is deployed to production via the pipeline. No manual metadata deployments from a developer's machine — the pipeline is the only deployment mechanism.</p>
+        <div class="callout callout--tip">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Questions to ask your team:</strong> "Can you show me the last 10 production deployments in your CI/CD pipeline?" A healthy answer includes a list of automated pipeline runs with test results and deployer identity. If the answer is "we do manual deployments from sandbox," the team is not practicing SFDX-based delivery regardless of what tools they have installed.
+          </div>
+        </div>
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Salesforce DX inverts the development model: source control is the system of record, and the org is a deployed instance. This eliminates drift, enables automation, and makes deployments auditable.</li>
+            <li>Source-driven development means every change flows source → org, never org → source as the primary direction. Teams that skip this cultural shift defeat the purpose of SFDX tooling.</li>
+            <li>Scratch orgs are short-lived disposable environments created from source in minutes — appropriate for feature development and automated testing, not for UAT or integration testing.</li>
+            <li>Second-Generation Packaging (2GP) provides modular, versioned metadata boundaries with explicit dependencies — recommended for complex enterprise multi-team implementations, not mandatory for every project.</li>
+            <li>A mature SFDX CI/CD pipeline automates the full path from developer commit to production deploy, with automated tests, code analysis, and no manual deployments from developer machines.</li>
+            <li>The delivery leader's litmus test: "Can you show me the last production deployment in your pipeline?" — the answer reveals whether SFDX practices are genuinely in use.</li>
+          </ul>
+        </div>
+        <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A team has Salesforce CLI installed and uses SFDX commands, but developers still make changes directly in the integration sandbox and "retrieve" them to Git afterward. Are they practicing source-driven development?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Yes — they are using SFDX tools and committing to Git, which satisfies the source-driven development requirement</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">No — source-driven development requires source control to be the primary workspace. Making changes in the org first and retrieving afterward is org-driven development, which still allows drift and untracked changes.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Partially — they meet the tooling requirement but need to add automated testing to complete the SFDX adoption</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A 15-person development team uses scratch orgs for feature development. After 3 months they find they frequently hit "maximum active scratch orgs" errors. What is the cause and fix?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Scratch orgs cannot be used by teams larger than 10 — upgrade to full sandboxes for teams above this size</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">The daily scratch org creation limit is exceeded. Solutions: developers delete scratch orgs promptly when done (not let them expire), reduce scratch org default duration, or request a limit increase via Salesforce support.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The SFDX CLI version is outdated — upgrading the CLI resolves scratch org creation errors</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. At what project stage should the decision to use Second-Generation Packaging (2GP) be made for a large enterprise implementation?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">After the first sprint, once the team understands the complexity of the metadata involved</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">After go-live, as a technical debt reduction initiative once the initial delivery is complete</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">At programme initiation — 2GP package boundaries need to be defined before development starts, as retrofitting package structure into existing org metadata is extremely difficult and disruptive</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="plat-005.html" class="related-card">
+              <span class="card-id">PLAT-005</span>
+              <h4>Understanding Salesforce Releases: Major, Minor, and How They Affect You</h4>
+            </a>
+            <a href="plat-003.html" class="related-card">
+              <span class="card-id">PLAT-003</span>
+              <h4>Triggers vs Flows vs Process Builder: The Migration Path Forward</h4>
+            </a>
+            <a href="plat-006.html" class="related-card">
+              <span class="card-id">PLAT-006</span>
+              <h4>Visualforce in 2026: What's Still Worth Knowing</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">What Salesforce DX Is</a></li>
+            <li><a href="#">Source-Driven vs Org-Driven Development</a></li>
+            <li><a href="#">Scratch Orgs: The Developer Workflow</a></li>
+            <li><a href="#">Second-Generation Packaging (2GP)</a></li>
+            <li><a href="#">What a Mature SFDX CI/CD Pipeline Looks Like</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="plat-005.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Understanding Salesforce Releases →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

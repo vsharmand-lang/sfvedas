@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apex Heap, CPU Limits, and the Art of Staying Within Bounds | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-007</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Technical Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Apex Heap, CPU Limits, and the Art of Staying Within Bounds
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Governor limits are not obstacles — they are architectural signals. Understanding what the heap, CPU, and SOQL limits actually measure reveals how to design Apex that performs, scales, and doesn't fail in production under load.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn...</span>
+          <ul>
+            <li>Why governor limits exist and what they are actually protecting against</li>
+            <li>How heap memory is consumed — what counts, what doesn't, and how to reduce it</li>
+            <li>CPU time measurement: what the clock counts and where most CPU time is spent</li>
+            <li>SOQL and DML limits: the bulkification principle and why it prevents most limit exceptions</li>
+            <li>Asynchronous Apex limits and why async is not a magic limit escape hatch</li>
+            <li>Architectural patterns for limit-safe code at scale</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Why Limits Exist: The Multi-Tenant Contract</h2>
+        <p>Governor limits are the enforcement mechanism for the multi-tenant resource sharing agreement. On a shared platform serving ~150,000 organisations on common infrastructure, any single tenant's runaway code — an infinite loop, a query that returns millions of rows, an in-memory object tree that consumes gigabytes — would degrade service for all other tenants on the same server instance.</p>
+        <p>The platform enforces limits per transaction. Each Apex transaction starts with a clean slate of allowances and is terminated — with a runtime exception — if it exceeds any limit before completing. This is not a penalty; it is a circuit breaker. The transaction fails fast, allowing the shared infrastructure to serve other tenants, rather than running to completion at the expense of every other org on the instance.</p>
+        <p>Understanding limits through this lens changes how you design code. The question shifts from "how do I avoid hitting limits?" to "how do I design so that my operations naturally fit within transaction boundaries?" That shift produces architecturally sound solutions rather than band-aid workarounds.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Limits as specifications:</strong> Treat governor limits as non-functional requirements, not constraints. A system that regularly bumps against limits is not just "too close to the limit" — it is architected incorrectly for the platform. Redesign is the solution, not limit increase requests.
+          </div>
+        </div>
+
+        <h2 id="s2">Heap Size: What Counts and How It Fills</h2>
+        <p>The heap limit (6MB synchronous, 12MB async) measures the total memory occupied by all Apex objects in the current transaction at any given point. This includes every variable declared, every SObject queried into a list, every string concatenated, every collection built.</p>
+        <p>The most common heap consumption offenders are large query results stored in memory. A query returning 10,000 Opportunity records with 50 fields each — even before processing — can approach or exceed the heap limit. The fix is not to query fewer records (you may legitimately need 10,000) but to manage what you hold in memory simultaneously.</p>
+        <p>The <code>Database.QueryLocator</code> pattern in batch Apex is the architectural solution for processing large data volumes without heap exhaustion. A QueryLocator does not load all records into heap at once — it provides a cursor that loads records in the defined batch size (up to 2,000 per execute method call). The heap at any point contains only the current batch, not the entire result set.</p>
+
+        <pre><code>// Anti-pattern: loading 50,000 records into heap
+List&lt;Opportunity&gt; allOpps = [SELECT Id, Name, Amount, StageName,
+    CloseDate, AccountId, OwnerId, ... FROM Opportunity LIMIT 50000];
+// At 50 fields × 50,000 records, this can easily exceed 6MB heap
+
+// Correct pattern: Batch Apex with QueryLocator
+global class OpportunityProcessor implements Database.Batchable&lt;SObject&gt; {
+    global Database.QueryLocator start(Database.BatchableContext bc) {
+        return Database.getQueryLocator(
+            'SELECT Id, Name, Amount, StageName FROM Opportunity'
+        );
+        // QueryLocator cursor — records not yet in heap
+    }
+
+    global void execute(Database.BatchableContext bc,
+                        List&lt;Opportunity&gt; scope) {
+        // Only current batch (up to 2,000 records) is in heap here
+        for (Opportunity opp : scope) {
+            // process individual record
+        }
+    }
+
+    global void finish(Database.BatchableContext bc) { }
+}</code></pre>
+
+        <p>String manipulation is a hidden heap consumer. String concatenation in a loop (str += newPart) creates a new String object for every concatenation, leaving the old strings in heap until garbage collected. Use List<String> and String.join() for building large strings in loops — significantly more heap-efficient.</p>
+
+        <h2 id="s3">CPU Time: What the Clock Actually Measures</h2>
+        <p>The CPU time limit (10,000ms synchronous, 60,000ms async) measures the time spent executing Apex code on the CPU — not wall clock time. Network I/O (waiting for a callout to return), database wait time (waiting for SOQL to execute), and time waiting for other Salesforce services do not count against the CPU limit. Only actual CPU execution counts.</p>
+        <p>This distinction matters for diagnosing limit exceptions. A transaction that seems to take 30 seconds wall clock time might only consume 8,000ms of CPU time — the rest is database and network wait. Conversely, a transaction that completes in 2 seconds wall clock time might consume 9,500ms of CPU time if it is doing intensive in-memory computation (sorting, string matching, complex calculation loops).</p>
+        <p>The highest CPU consumers in typical Apex code are nested loops over collections, regular expression matching on large strings, recursive method calls with deep stacks, and deserialising large JSON payloads. None of these involve I/O — they are pure computation that burns CPU time quickly.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Nested loop explosion:</strong> A nested loop over two collections of 1,000 items each executes 1,000,000 iterations. At even 1 microsecond per iteration, that is 1,000ms — 10% of the synchronous CPU limit from a single nested loop. Design algorithms that avoid O(n²) complexity over large collections, using Map-based lookups instead.
+          </div>
+        </div>
+
+        <pre><code>// Anti-pattern: O(n²) nested loop
+for (Contact con : contacts) {
+    for (Account acc : accounts) {
+        if (con.AccountId == acc.Id) {
+            // match found — process
+        }
+    }
+}
+// 1,000 contacts × 1,000 accounts = 1,000,000 iterations
+
+// Correct pattern: Map-based O(n) lookup
+Map&lt;Id, Account&gt; accMap = new Map&lt;Id, Account&gt;(accounts);
+for (Contact con : contacts) {
+    Account acc = accMap.get(con.AccountId);
+    if (acc != null) {
+        // match found — process
+    }
+}
+// 1,000 contacts × 1 map lookup = 1,000 total operations</code></pre>
+
+        <h2 id="s4">SOQL and DML: The Bulkification Principle</h2>
+        <p>The SOQL limit (100 queries synchronous) and DML limit (150 statements synchronous) are designed to enforce bulkification — the practice of performing operations on collections rather than one record at a time. This is the most frequently violated architectural principle in Salesforce code.</p>
+        <p>The classic violation is the "query in a loop" pattern: for each record in a trigger, execute a SOQL query to get related data. A trigger processing 200 records would need 200 SOQL queries — double the limit. The platform will throw a LimitException on the 101st query.</p>
+        <p>Bulkified code solves this by collecting all IDs first, making one query for all related records, and then using an in-memory Map to associate results with trigger records. This reduces 200 SOQL queries to 1.</p>
+
+        <pre><code>// Anti-pattern: SOQL in a loop (trigger context)
+for (Order__c order : Trigger.new) {
+    // This is a new SOQL query for every record!
+    Account acc = [SELECT Id, Name, Credit_Limit__c
+                   FROM Account WHERE Id = :order.Account__c];
+    if (order.Total_Amount__c > acc.Credit_Limit__c) {
+        order.addError('Order exceeds credit limit');
+    }
+}
+
+// Correct pattern: Bulk query, Map lookup
+Set&lt;Id&gt; accountIds = new Set&lt;Id&gt;();
+for (Order__c order : Trigger.new) {
+    accountIds.add(order.Account__c);
+}
+
+Map&lt;Id, Account&gt; accountMap = new Map&lt;Id, Account&gt;(
+    [SELECT Id, Name, Credit_Limit__c FROM Account WHERE Id IN :accountIds]
+);
+
+for (Order__c order : Trigger.new) {
+    Account acc = accountMap.get(order.Account__c);
+    if (acc != null &amp;&amp; order.Total_Amount__c > acc.Credit_Limit__c) {
+        order.addError('Order exceeds credit limit');
+    }
+}</code></pre>
+
+        <h2 id="s5">Asynchronous Apex: Higher Limits, Same Principles</h2>
+        <p>Asynchronous Apex (Batch, Queueable, Scheduled, Future) runs with higher limits: 12MB heap, 60,000ms CPU, and for Batch specifically, 200 SOQL per execute method and 200 DML statements. This makes async Apex appear to solve limit problems — and for genuinely large data volumes it does. But async is not a magic escape hatch from good architectural practices.</p>
+        <p>Queueable Apex, the most flexible async pattern, runs with the same SOQL and DML limits as synchronous Apex (100 SOQL, 150 DML) — not the elevated Batch limits. The higher heap and CPU limits apply, but the query and DML limits are not elevated. Many developers assume Queueable inherits Batch's elevated query limits; it does not.</p>
+        <p>Future methods have the most constrained async execution: they cannot accept SObject parameters (only primitive types and collections of primitives), they cannot be called from Batch Apex, and they execute in an unordered queue with no dependency management. Queueable Apex supersedes future methods for most scenarios — use future only when the Apex must make callouts from a trigger context (where Queueable is blocked if there are pending trigger operations).</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>The async queue depth risk:</strong> Asynchronous Apex jobs are queued. Under high load, the queue depth can grow — meaning a Queueable job submitted during peak hours may not execute for minutes. Design async jobs to be idempotent and to handle delayed execution gracefully. Do not use async Apex for time-critical operations.
+          </div>
+        </div>
+
+        <h2 id="s6">Limit Monitoring and Architectural Governance</h2>
+        <p>Limit exceptions that reach production represent architectural failures that should have been caught earlier. The practices that prevent them span design, review, testing, and monitoring.</p>
+        <p><strong>Limits API in Apex:</strong> The Limits class exposes the current usage and maximum for every governor limit in real time. Use it during development and testing to profile code behaviour, and in production monitoring to detect transactions approaching limits before they fail.</p>
+
+        <pre><code>// Proactive limit monitoring in Apex
+System.debug('SOQL queries used: ' + Limits.getQueries() +
+             ' / ' + Limits.getLimitQueries());
+System.debug('CPU time used: ' + Limits.getCpuTime() +
+             ' ms / ' + Limits.getLimitCpuTime() + ' ms');
+System.debug('Heap size: ' + Limits.getHeapSize() +
+             ' bytes / ' + Limits.getLimitHeapSize() + ' bytes');
+
+// Use in defensive patterns to branch to async before limit breach:
+if (Limits.getQueries() > 80) {
+    // Approaching SOQL limit — offload remaining work to Queueable
+    System.enqueueJob(new RemainingWorkQueueable(remainingIds));
+    return;
+}</code></pre>
+
+        <p><strong>Code review gates:</strong> SOQL in loops, DML in loops, and string concatenation in loops should be flagged as blocking issues in code review. These are not style preferences — they are correctness issues that will cause production failures at scale.</p>
+        <p><strong>Test with volume:</strong> Unit tests with 1-2 records do not expose limit issues. Load tests that exercise triggers with 200 records in a batch, process flows with 10,000 record datasets, and batch jobs with the full production record volume are the only reliable way to discover limit bottlenecks before users do.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Governor limits enforce the multi-tenant resource sharing contract — each transaction starts with a clean allowance, and the platform terminates any transaction that exceeds its limits to protect all tenants on shared infrastructure.</li>
+            <li>Heap exhaustion most commonly comes from loading large query result sets into memory at once. Use Batch Apex QueryLocators for large data volumes — they load only the current batch into heap, not the full result set.</li>
+            <li>CPU limit measures actual computation time, not wall clock time. Nested loops over large collections, JSON deserialisation, and regex matching are the primary CPU consumers — replace nested loops with Map-based O(n) lookups.</li>
+            <li>Bulkification — querying and DML operating on collections, never on individual records in loops — is the solution to SOQL and DML limit violations. One query for N records beats N queries for 1 record each, always.</li>
+            <li>Queueable Apex has the same SOQL and DML limits as synchronous Apex (100/150) — only Batch Apex has elevated query limits. Async does not universally escape limits.</li>
+            <li>Use the Limits class to monitor real-time limit consumption in code, write tests with production-representative data volumes, and treat SOQL-in-loops as a blocking code review issue.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. An Apex trigger on the Contact object queries the parent Account inside a for loop iterating over Trigger.new. The trigger is called with a data load of 200 contacts. What happens?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The trigger completes successfully — Apex automatically batches SOQL queries inside loops</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">A LimitException is thrown at the 101st SOQL query, failing the entire DML operation with a runtime error</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The trigger runs in async mode automatically when processing more than 100 records, bypassing the synchronous SOQL limit</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A developer argues that wrapping a problematic trigger in a Queueable job will give it the elevated 200-SOQL limit of Batch Apex. Is this correct?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Yes — all asynchronous Apex shares the elevated 200 SOQL limit</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">No — Queueable Apex runs with the same 100 SOQL limit as synchronous Apex. Only Batch Apex execute() gets 200 SOQL per batch execution.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Yes — Queueable jobs running in async mode always get double the synchronous SOQL limit</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. A transaction is taking 25 seconds wall clock time to complete but finishes before the CPU limit exception. Which part of the 25 seconds is NOT counted against the CPU time limit?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Time spent executing Apex loops and collection operations</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Time spent deserialising JSON payloads using JSON.deserialize()</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Time waiting for SOQL queries and callouts to return results — database and network I/O wait time does not count against the CPU limit</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-008.html" class="related-card">
+              <span class="card-id">ARCH-008</span>
+              <h4>Salesforce Shield: Architecture for Regulated Industries</h4>
+            </a>
+            <a href="arch-006.html" class="related-card">
+              <span class="card-id">ARCH-006</span>
+              <h4>Lightning Web Components vs Aura: The Architecture Decision That Wasn't Made Well</h4>
+            </a>
+            <a href="arch-009.html" class="related-card">
+              <span class="card-id">ARCH-009</span>
+              <h4>Experience Cloud Architecture: What's Actually Happening Under the Hood</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">Why Limits Exist: The Multi-Tenant Contract</a></li>
+            <li><a href="#">Heap Size: What Counts and How It Fills</a></li>
+            <li><a href="#">CPU Time: What the Clock Actually Measures</a></li>
+            <li><a href="#">SOQL and DML: The Bulkification Principle</a></li>
+            <li><a href="#">Asynchronous Apex: Higher Limits, Same Principles</a></li>
+            <li><a href="#">Limit Monitoring and Architectural Governance</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="arch-008.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Salesforce Shield →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

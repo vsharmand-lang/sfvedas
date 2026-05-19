@@ -1,14 +1,444 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About — SFVedas</title>
-  <meta name="description" content="The story behind SFVedas and Vishal Sharma — deep Salesforce knowledge for tech leaders."/>
+  <meta name="description" content="Why SFVedas exists — deep Salesforce knowledge for architects, delivery managers, and tech leaders who need more than certification content."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
+  <style>
+
+    /* ─── Layout primitives ─── */
+    .about-wrap { padding-top: 68px; }
+
+    .a-container {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .a-container--narrow {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ─── Eyebrow label ─── */
+    .a-eyebrow {
+      display: inline-block;
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 24px;
+    }
+
+    /* ─── HERO ─── */
+    .a-hero {
+      padding: 100px 0 96px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .a-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,147,10,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,147,10,0.045) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 80% 80% at 10% 50%, black 30%, transparent 80%);
+      pointer-events: none;
+    }
+    .a-hero-inner { position: relative; z-index: 1; }
+    .a-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: var(--text-primary);
+      margin: 0 0 32px;
+      max-width: 720px;
+    }
+    .a-hero h1 em {
+      color: var(--saffron);
+      font-style: italic;
+    }
+    .a-hero-lede {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 2vw, 1.3rem);
+      line-height: 1.8;
+      color: var(--text-secondary);
+      max-width: 640px;
+    }
+
+    /* ─── Prose sections ─── */
+    .a-prose-section {
+      padding: 88px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .a-prose {
+      font-family: var(--font-body);
+      font-size: 1.2rem;
+      line-height: 1.85;
+      color: var(--text-secondary);
+    }
+    .a-prose p { margin: 0 0 1.6em; }
+    .a-prose p:last-child { margin-bottom: 0; }
+    .a-prose strong { color: var(--text-primary); font-weight: 600; }
+
+    .a-pullquote {
+      margin: 56px 0;
+      padding: 36px 48px;
+      background: var(--warm-cream);
+      border-left: 4px solid var(--saffron);
+      border-radius: 0 12px 12px 0;
+    }
+    .a-pullquote p {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--deep-navy);
+      margin: 0;
+    }
+
+    /* ─── Section heading ─── */
+    .a-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .a-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin: 0 0 16px;
+    }
+    .a-h2 em { color: var(--saffron); font-style: italic; }
+    .a-section-intro {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 0 56px;
+    }
+
+    /* ─── MISSING: numbered items ─── */
+    .missing-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .missing-item {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: background 0.2s;
+    }
+    .missing-item:last-child { border-bottom: none; }
+    .missing-item:hover { background: var(--bg-secondary); }
+    .missing-counter {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 0 40px;
+      border-right: 1px solid var(--border);
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--saffron);
+      line-height: 1;
+      opacity: 0.55;
+    }
+    .missing-body {
+      padding: 40px 48px;
+    }
+    .missing-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 12px;
+      line-height: 1.3;
+    }
+    .missing-body p {
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ─── LIBRARY coverage ─── */
+    .library-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .lib-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: background 0.2s;
+    }
+    .lib-row:last-child { border-bottom: none; }
+    .lib-row:hover { background: var(--bg-secondary); }
+    .lib-count {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      padding: 32px 16px;
+    }
+    .lib-count span {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--saffron);
+      line-height: 1;
+    }
+    .lib-details {
+      padding: 32px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+    }
+    .lib-details h4 {
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+      margin: 0;
+    }
+    .lib-details p {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ─── AUDIENCE cards ─── */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .audience-card {
+      padding: 40px 36px 44px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-card);
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .audience-card:hover {
+      border-color: var(--saffron);
+      box-shadow: 0 8px 40px rgba(232,147,10,0.1);
+      transform: translateY(-3px);
+    }
+    .audience-marker {
+      width: 44px; height: 44px;
+      background: var(--warm-cream);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--saffron);
+    }
+    .audience-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 14px;
+      line-height: 1.25;
+    }
+    .audience-card p {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ─── NOT list ─── */
+    .not-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .not-list li {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .not-list li:last-child { border-bottom: none; }
+    .not-x {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 36px 0;
+      border-right: 1px solid var(--border);
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      opacity: 0.35;
+    }
+    .not-content {
+      padding: 36px 48px;
+    }
+    .not-content p {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      line-height: 1.78;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .not-content p strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* ─── FOUNDER ─── */
+    .a-founder {
+      padding: 96px 0 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+    .a-founder::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background: var(--border);
+      margin-top: 96px;
+    }
+    .founder-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 72px;
+      align-items: flex-start;
+    }
+    .founder-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 96px;
+    }
+    .founder-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--deep-navy) 0%, var(--saffron) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-ui);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fff;
+    }
+    .founder-name-label {
+      text-align: center;
+    }
+    .founder-name-label strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .founder-name-label span {
+      font-family: var(--font-ui);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+    .founder-right {}
+    .founder-right .a-prose { margin-bottom: 0; }
+    .founder-closer {
+      margin-top: 48px;
+      padding: 40px 48px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .founder-closer p {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--deep-navy);
+      margin: 0;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .audience-grid { grid-template-columns: 1fr 1fr; }
+      .founder-layout { grid-template-columns: 1fr; gap: 40px; }
+      .founder-left { flex-direction: row; justify-content: flex-start; position: static; }
+    }
+    @media (max-width: 640px) {
+      .a-container, .a-container--narrow { padding: 0 24px; }
+      .a-hero { padding: 72px 0 72px; }
+      .a-section, .a-prose-section { padding: 64px 0; }
+      .missing-item { grid-template-columns: 64px 1fr; }
+      .missing-counter { font-size: 2rem; padding: 28px 0; }
+      .missing-body { padding: 28px 28px; }
+      .lib-row { grid-template-columns: 80px 1fr; }
+      .lib-count span { font-size: 2rem; }
+      .lib-details { padding: 24px 28px; }
+      .audience-grid { grid-template-columns: 1fr; }
+      .audience-card { padding: 32px 28px; }
+      .not-list li { grid-template-columns: 48px 1fr; }
+      .not-content { padding: 28px 28px; }
+      .a-pullquote { padding: 28px 32px; }
+      .a-pullquote p { font-size: 1.25rem; }
+      .founder-closer { padding: 32px 32px; }
+      .founder-closer p { font-size: 1.25rem; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
 </head>
 <body class="light-mode">
 
@@ -22,7 +452,7 @@
         <li><a href="about.html" class="nav-link active">About</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="theme-toggle" id="themeToggle"><span class="theme-icon">☀</span></button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
         <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -34,78 +464,219 @@
     </div>
   </nav>
 
-  <section class="page-hero">
-    <div class="container">
-      <span class="section-label">Our Story</span>
-      <h1 class="section-title">Why we built<br/><em>SFVedas</em></h1>
-      <p class="section-desc">The story behind the platform — and the philosophy that makes it different from every other Salesforce tutorial site.</p>
-    </div>
-  </section>
+  <div class="about-wrap">
 
-  <!-- BRAND STORY -->
-  <section style="padding: 80px 0; background: var(--bg);">
-    <div class="container" style="max-width: 820px;">
-      <span class="section-label">The Philosophy</span>
-      <h2 class="section-title" id="philosophy">Ancient wisdom.<br/><em>Modern Salesforce.</em></h2>
-      <div style="font-family: var(--font-body); font-size: 1.05rem; line-height: 1.9; color: var(--text-secondary);">
-        <p>The ancient Vedas were not instruction manuals. They were not step-by-step guides for completing a task. They were <strong style="color: var(--text-primary);">repositories of deep wisdom</strong> — frameworks for understanding the world at its most fundamental level.</p>
-        <p>Most Salesforce tutorials are instruction manuals. Click here. Configure this. Deploy that. They teach you what to do, but not <em>why</em> the platform was designed this way, what the tradeoffs are, and when to challenge the assumptions entirely.</p>
-        <p>SFVedas exists for the leaders who need the deeper layer. The CTOs who need to decide whether to bet their enterprise on Salesforce. The delivery managers who need to lead complex implementations without being ambushed by architectural surprises. The solution architects who need to understand the platform's constraints before designing systems that will live for a decade.</p>
-
-        <blockquote style="margin: 36px 0; padding: 24px 32px; background: var(--warm-cream); border-left: 4px solid var(--saffron); border-radius: var(--radius-md); font-family: var(--font-display); font-size: 1.2rem; font-style: italic; color: var(--deep-navy);">
-          "Just as the ancient Vedas were the deepest repository of knowledge in their time — SFVedas is the deepest repository of Salesforce knowledge for today's tech leaders."
-        </blockquote>
-
-        <p>This is not a site about getting Salesforce certified quickly. This is a site about understanding Salesforce deeply — the architecture decisions, the delivery realities, the strategic choices that determine whether your investment succeeds or fails.</p>
+    <!-- ── HERO ── -->
+    <section class="a-hero">
+      <div class="a-container">
+        <div class="a-hero-inner">
+          <span class="a-eyebrow">About SFVedas</span>
+          <h1>Why this<br/><em>exists</em></h1>
+          <p class="a-hero-lede">If you work in Salesforce at a senior level — as an architect, a delivery manager, or a tech leader responsible for large implementations — you will have noticed that most of the content available to you does not match the problems you are actually facing.</p>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOUNDER -->
-  <section class="about-founder" id="vishal">
-    <div class="container">
-      <span class="section-label">Instructor &amp; Founder</span>
-      <div class="founder-inner" style="margin-top: 32px;">
-        <div class="founder-avatar-lg">VS</div>
-        <div>
-          <h2 class="founder-name">Vishal Sharma</h2>
-          <p class="founder-title">Instructor &amp; Founder, SFVedas</p>
-          <div class="founder-bio">
-            <p>Vishal Sharma is building SFVedas as he builds his own deep expertise in Salesforce — not as a finished authority, but as a committed practitioner who believes in learning out loud and sharing knowledge at every stage of the journey.</p>
-            <p>SFVedas is a platform built on a simple belief: that the most valuable knowledge about Salesforce is not found in certification guides or click-through tutorials — it's found in the hard questions that leaders ask in boardrooms, in architecture review meetings, and in the moments before a ₹10 crore implementation decision.</p>
-            <p>Credentials and background will be built and shared here as the journey continues. What matters today is the quality and depth of the thinking — judge SFVedas by its content, not its resume.</p>
+    <!-- ── WHY THIS EXISTS ── -->
+    <section class="a-prose-section">
+      <div class="a-container--narrow">
+        <div class="a-prose">
+          <p>Trailhead is good at what it does. Certification content is good at what it does. But there is a layer of knowledge above that — the architecture decisions, the delivery realities, the commercial and strategic questions — where very little has been written down properly.</p>
+          <p>SFVedas is an attempt to address that. It is not a finished product. It is a library being built over time, starting with the questions that seem most absent from what is currently available.</p>
+        </div>
+
+        <div class="a-pullquote">
+          <p>"There is a layer of knowledge above certification — the architecture decisions, the delivery realities, the strategic questions — where very little has been written down properly."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── WHAT SEEMS TO BE MISSING ── -->
+    <section class="a-section">
+      <div class="a-container">
+        <span class="a-eyebrow">The gap</span>
+        <h2 class="a-h2">What seems to be <em>missing</em></h2>
+        <p class="a-section-intro">Four areas where existing content consistently falls short of what senior Salesforce professionals actually need.</p>
+
+        <div class="missing-list">
+          <div class="missing-item">
+            <div class="missing-counter">01</div>
+            <div class="missing-body">
+              <h3>Platform depth</h3>
+              <p>Most content explains what Salesforce does. Very little explains how it works at the level that actually informs architecture decisions — what happens at the database layer under load, how multi-tenancy creates constraints that shape every design choice, why certain patterns fail in ways that are not obvious until they do.</p>
+            </div>
+          </div>
+          <div class="missing-item">
+            <div class="missing-counter">02</div>
+            <div class="missing-body">
+              <h3>Commercial and strategic honesty</h3>
+              <p>There is almost no content that addresses the bigger questions around Salesforce objectively — how to evaluate total cost of ownership properly, how to negotiate a licence renewal, or when a different platform would genuinely serve the organisation better. Most content on these topics is produced by people with a commercial interest in a particular answer.</p>
+            </div>
+          </div>
+          <div class="missing-item">
+            <div class="missing-counter">03</div>
+            <div class="missing-body">
+              <h3>Delivery reality</h3>
+              <p>Large Salesforce implementations are difficult, and the difficulty is rarely technical. Clients who change priorities every sprint, programmes that are six months behind with no clear recovery plan, go-lives that fail at 11pm — these situations are common, and almost none of it appears in any structured form.</p>
+            </div>
+          </div>
+          <div class="missing-item">
+            <div class="missing-counter">04</div>
+            <div class="missing-body">
+              <h3>The RFP process</h3>
+              <p>For organisations bidding on Salesforce work, or trying to procure it, the RFP process is largely undocumented. What makes a response win on value rather than price? How do you assess whether a bid is genuinely competitive? We could not find a useful resource on either side of this.</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- WHAT MAKES US DIFFERENT -->
-  <section style="padding: 80px 0;">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Why SFVedas</span>
-        <h2 class="section-title">Different by <em>design</em></h2>
+    <!-- ── WHAT THE LIBRARY COVERS ── -->
+    <section class="a-section">
+      <div class="a-container">
+        <span class="a-eyebrow">The library</span>
+        <h2 class="a-h2">285 tutorials across <em>14 areas</em></h2>
+        <p class="a-section-intro">Each one is structured around a question a senior practitioner would actually ask — not a beginner learning the platform, but someone with real responsibility trying to make a good decision.</p>
+
+        <div class="library-list">
+          <div class="lib-row">
+            <div class="lib-count"><span>50</span></div>
+            <div class="lib-details">
+              <h4>Architecture &amp; Platform</h4>
+              <p>How Salesforce works under the hood — design patterns, performance, scalability, and the constraints that shape every technical decision.</p>
+            </div>
+          </div>
+          <div class="lib-row">
+            <div class="lib-count"><span>50</span></div>
+            <div class="lib-details">
+              <h4>Delivery Management</h4>
+              <p>Discovery, sprint management, stakeholders, go-lives, and programme recovery — the situations no training course prepares you for.</p>
+            </div>
+          </div>
+          <div class="lib-row">
+            <div class="lib-count"><span>35</span></div>
+            <div class="lib-details">
+              <h4>AI &amp; the Future</h4>
+              <p>Agentforce, Einstein, model grounding, AI governance, and what changes for architects as the platform evolves.</p>
+            </div>
+          </div>
+          <div class="lib-row">
+            <div class="lib-count"><span>30</span></div>
+            <div class="lib-details">
+              <h4>RFPs &amp; Commercial</h4>
+              <p>Evaluating bids, writing responses, support models, and commercial structures — frameworks for both sides of the table.</p>
+            </div>
+          </div>
+          <div class="lib-row">
+            <div class="lib-count"><span>20</span></div>
+            <div class="lib-details">
+              <h4>Integration &amp; Data</h4>
+              <p>Migrations, APIs, data residency, real-time architectures, and the tradeoffs that determine whether integrations survive production.</p>
+            </div>
+          </div>
+          <div class="lib-row">
+            <div class="lib-count"><span>20</span></div>
+            <div class="lib-details">
+              <h4>CRM Comparisons</h4>
+              <p>Dynamics, HubSpot, SAP, ServiceNow, Oracle — honest comparisons including when Salesforce loses.</p>
+            </div>
+          </div>
+          <div class="lib-row">
+            <div class="lib-count"><span>80</span></div>
+            <div class="lib-details">
+              <h4>Security, Reporting, Licensing, Industry &amp; Team</h4>
+              <p>Security architecture, analytics strategy, licence optimisation, vertical implementations, team building, and change management at scale.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="paths-grid">
-        <div class="path-card" style="cursor: default;">
-          <div class="path-num">01</div>
-          <h3>Hard Questions First</h3>
-          <p>Every tutorial starts with a question that senior leaders actually wrestle with — not a beginner concept that's been covered a thousand times.</p>
-        </div>
-        <div class="path-card" style="cursor: default;">
-          <div class="path-num">02</div>
-          <h3>No Fluff. Ever.</h3>
-          <p>No filler content, no padding, no SEO-optimised waffle. Every sentence earns its place or it doesn't exist on this site.</p>
-        </div>
-        <div class="path-card" style="cursor: default;">
-          <div class="path-num">03</div>
-          <h3>Honest Analysis</h3>
-          <p>We will tell you when Salesforce is the wrong answer. We are not a Salesforce marketing channel. We are an independent knowledge platform.</p>
+    </section>
+
+    <!-- ── WHO THIS IS FOR ── -->
+    <section class="a-section">
+      <div class="a-container">
+        <span class="a-eyebrow">Audience</span>
+        <h2 class="a-h2">Who this is <em>written for</em></h2>
+        <p class="a-section-intro">Three types of senior professional for whom existing Salesforce content consistently falls short.</p>
+
+        <div class="audience-grid">
+          <div class="audience-card">
+            <div class="audience-marker">SA</div>
+            <h3>Solution Architects</h3>
+            <p>Who need to understand the platform at a depth that certification content does not reach — and who need to make design decisions they can defend over time.</p>
+          </div>
+          <div class="audience-card">
+            <div class="audience-marker">DM</div>
+            <h3>Delivery Managers</h3>
+            <p>Who are responsible for complex programmes and need practical frameworks for situations that no training course prepares you for.</p>
+          </div>
+          <div class="audience-card">
+            <div class="audience-marker">CTO</div>
+            <h3>Tech Leaders &amp; CTOs</h3>
+            <p>Who need to make strategic decisions about Salesforce and want a perspective that is not produced by someone trying to sell them something.</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+
+    <!-- ── WHAT THIS IS NOT ── -->
+    <section class="a-section">
+      <div class="a-container">
+        <span class="a-eyebrow">In plain terms</span>
+        <h2 class="a-h2">What this <em>is not</em></h2>
+        <p class="a-section-intro">Three things this site deliberately is not — because being clear about that is part of what makes it useful.</p>
+
+        <ul class="not-list">
+          <li>
+            <span class="not-x">✕</span>
+            <div class="not-content">
+              <p><strong>Not a beginner platform.</strong> Trailhead is genuinely good for that and there is no point in duplicating it. If you are new to Salesforce, start there.</p>
+            </div>
+          </li>
+          <li>
+            <span class="not-x">✕</span>
+            <div class="not-content">
+              <p><strong>Not certification prep.</strong> If passing an exam is what you need, there are better resources. This site assumes you already have baseline fluency and are asking harder questions.</p>
+            </div>
+          </li>
+          <li>
+            <span class="not-x">✕</span>
+            <div class="not-content">
+              <p><strong>Not commercially invested in Salesforce being the answer.</strong> Some tutorials here will tell you that a different platform would serve your situation better. That felt important to include.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ── FOUNDER ── -->
+    <section class="a-founder" id="vishal">
+      <div class="a-container">
+        <span class="a-eyebrow">The person behind it</span>
+        <div class="founder-layout">
+          <div class="founder-left">
+            <div class="founder-avatar">VS</div>
+            <div class="founder-name-label">
+              <strong>Vishal Sharma</strong>
+              <span>Instructor &amp; Founder · sfvedas.com</span>
+            </div>
+          </div>
+          <div class="founder-right">
+            <div class="a-prose">
+              <p>I built SFVedas because the content I needed as a senior Salesforce professional did not exist. Not certification prep. Not click-through guides. The architecture tradeoffs, the delivery situations that go wrong, the questions that do not have a clean answer.</p>
+              <p>I am building this as I go, which means some of it will be incomplete and some of it will be wrong. I would rather build something real and correct it over time than wait until it is polished.</p>
+              <p>If something here is useful to you — good, that is the point. If something is wrong or could be better — I genuinely want to know.</p>
+              <p>SFVedas is being built in public. The library will grow, the thinking will evolve, and the content will be updated as the platform and the industry change.</p>
+            </div>
+            <div class="founder-closer">
+              <p>If you are a senior Salesforce professional who has found yourself asking questions that existing content does not answer well — this is built for you.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /about-wrap -->
 
   <footer class="footer">
     <div class="container">
@@ -127,6 +698,7 @@
       </div>
     </div>
   </footer>
+
   <script src="../js/main.js"></script>
 </body>
 </html>

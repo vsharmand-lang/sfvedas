@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API Rate Limits: The Integration Tax Nobody Budgets For | SFVedas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-005</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        API Rate Limits: The Integration Tax Nobody Budgets For
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Salesforce API limits are one of the most misunderstood aspects of enterprise Salesforce architecture. They are not a bug to route around — they are a shared infrastructure constraint that every integration must budget for. When they are not budgeted, production failures follow.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>How Salesforce's 24-hour API limit is calculated and what counts against it</li>
+      <li>The difference between REST API limits, Bulk API limits, Streaming API limits, and Apex callout limits</li>
+      <li>How to audit current API consumption and identify which integrations are consuming the most</li>
+      <li>Design patterns that reduce API consumption: composite API, sObject Collections, and event-driven alternatives</li>
+      <li>What happens when limits are exceeded and how to design for graceful degradation</li>
+      <li>The licensing math: how additional API calls are purchased and when it makes sense</li>
+    </ul>
+  </div>
+
+  <h2 id="s1">How Salesforce API Limits Work</h2>
+  <p>Salesforce's primary API limit is the 24-hour rolling limit on REST and SOAP API calls. The allocation is calculated as: 1,000 API calls per Salesforce license per 24 hours, with a minimum of 15,000 calls for Professional Edition and 1,000,000 calls for Unlimited and Performance Edition orgs. For an Enterprise Edition org with 200 users, the daily allocation is approximately 200,000 API calls. This sounds generous until you model what each integration actually consumes.</p>
+  <p>The limit resets on a rolling 24-hour basis, not at midnight. This means a spike of API calls at 11pm does not immediately free up limit at midnight — the calls count against the window until 11pm the following day. Integration designs that front-load API consumption (large batch jobs running overnight) may encounter limits during business hours when the window hasn't fully reset.</p>
+  <p>Critically, not all API types count the same way against limits. REST and SOAP API calls count against the 24-hour limit one call per HTTP request. Bulk API jobs do not count individual records against the REST API limit — they consume from the Bulk API allocation. Streaming API (CometD subscriptions) has its own hourly event delivery limit. Understanding which API each integration uses is the foundation of API budget planning.</p>
+
+  <div class="callout callout--warning">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-body">
+      <strong>ISV packages consume your API limit:</strong> Every managed package installed in your org that makes API calls — AppExchange data enrichment tools, analytics connectors, email tracking tools — consumes from your shared API allocation. Many organisations discover their API limit is being exhausted by third-party packages that are polling Salesforce every few minutes. Audit all installed packages before investigating custom integrations.
+    </div>
+  </div>
+
+  <h2 id="s2">Auditing API Consumption</h2>
+  <p>Salesforce provides API usage data through System Overview (Setup > System Overview) and through the API Usage platform event. The System Overview shows current API requests in the last 24 hours with a gauge. For detailed attribution — which connected app, which user, which integration is consuming how many calls — you need Event Monitoring (a Shield add-on) or the API Usage Notifications feature.</p>
+  <p>The REST endpoint for checking current API usage is simple and should be polled by every integration monitoring system. The response includes the remaining API calls and the total limit, giving a real-time view of consumption:</p>
+
+  <pre><code>// Check current API usage
+GET /services/data/v60.0/limits
+// Response excerpt:
+{
+  "DailyApiRequests": {
+    "Max": 1000000,
+    "Remaining": 847293
+  },
+  "DailyBulkApiBatches": {
+    "Max": 15000,
+    "Remaining": 14823
+  },
+  "DailyStreamingApiEvents": {
+    "Max": 50000,
+    "Remaining": 49100
+  },
+  "HourlyPublishedPlatformEvents": {
+    "Max": 50000,
+    "Remaining": 48750
+  }
+}</code></pre>
+
+  <p>For deep attribution, Event Monitoring's API event logs include the Connected App name, the client IP address, the user ID, and the API endpoint for every API call. Running an aggregation over a day's API event log reveals which connected apps are making the most calls, which users are driving the most programmatic access, and which endpoints are being called most frequently. This is the starting point for any API limit optimisation effort.</p>
+
+  <h2 id="s3">High-Consumption Patterns to Eliminate</h2>
+  <p>The most wasteful API consumption pattern is individual REST API calls in a loop. A common anti-pattern is an integration that fetches a list of record IDs (1 API call), then makes individual GET requests for each record to retrieve its fields (N API calls for N records). For 10,000 records, this is 10,001 API calls. The correct pattern uses SOQL queries with all required fields returned in a single API call, reducing 10,000 calls to 1 (or a handful for pagination).</p>
+  <p>The Composite API and sObject Collections API exist specifically to reduce API call count for multi-record operations. sObject Collections allows up to 200 record creates, updates, or deletes in a single API call. Composite allows up to 25 subrequests in a single HTTP round trip, including queries and DML operations with results from one subrequest referenced by subsequent ones. These are significant API call multipliers when used correctly.</p>
+  <p>Polling patterns — where an external system repeatedly calls the Salesforce REST API every minute to check if records have changed — are extremely wasteful and unnecessary. Salesforce provides Platform Events, Change Data Capture, and the Streaming API specifically to replace polling. A system subscribing to Account CDC events receives notifications only when Accounts actually change, consuming zero API calls for quiet periods versus hundreds of polling calls that return no new data.</p>
+
+  <h2 id="s4">Composite API and Batch Optimisation</h2>
+  <p>The Composite API is one of the most underused API efficiency tools in the Salesforce ecosystem. It allows a single HTTP request to contain up to 25 subrequests, with conditional logic and reference IDs that allow the output of one subrequest to be the input to another. The practical impact: an integration that creates a parent Account, creates a Contact with the new Account ID, and creates an Opportunity linked to both can do all three in a single HTTP request with three subrequests, rather than three sequential API calls.</p>
+
+  <pre><code>// Composite API — create Account + Contact + Opportunity in 1 call
+POST /services/data/v60.0/composite
+{
+  "allOrNone": false,
+  "compositeRequest": [
+    {
+      "method": "POST",
+      "url": "/services/data/v60.0/sobjects/Account",
+      "referenceId": "newAccount",
+      "body": { "Name": "Acme Corp", "Industry": "Technology" }
+    },
+    {
+      "method": "POST",
+      "url": "/services/data/v60.0/sobjects/Contact",
+      "referenceId": "newContact",
+      "body": {
+        "LastName": "Smith",
+        "AccountId": "@{newAccount.id}"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/services/data/v60.0/sobjects/Opportunity",
+      "referenceId": "newOpp",
+      "body": {
+        "Name": "Acme - Initial Deal",
+        "AccountId": "@{newAccount.id}",
+        "CloseDate": "2026-09-30",
+        "StageName": "Prospecting",
+        "Amount": 50000
+      }
+    }
+  ]
+}
+// 3 records created, 1 API call consumed</code></pre>
+
+  <h2 id="s5">Graceful Degradation When Limits Are Hit</h2>
+  <p>When an API limit is exceeded, Salesforce returns HTTP 403 with error code REQUEST_LIMIT_EXCEEDED. Integrations that are not designed for this response will typically throw an unhandled exception, crash, or enter an error loop that consumes even more calls trying to recover. Well-designed integrations handle the 403 explicitly — logging the event, pausing the integration, alerting the operations team, and queuing failed operations for retry when the limit window resets.</p>
+  <p>Priority-based API budget allocation is the architectural pattern for production resiliency. Not all integrations are equal — real-time customer-facing processes should consume API budget before background batch synchronisation jobs. Implement this through time-of-day scheduling (batch jobs run overnight when user-facing API consumption is low), API call monitoring with automatic batch job throttling when remaining limits drop below a threshold, and separate connected app credentials per integration so consumption can be attributed and managed individually.</p>
+  <p>The Connected App OAuth settings allow per-connected-app IP restrictions and can be revoked independently. Creating separate connected apps for each integration system (rather than all integrations sharing one credential) enables granular monitoring, independent credential rotation, and the ability to kill one misbehaving integration without affecting others. This is an operational hygiene requirement in any multi-integration Salesforce org.</p>
+
+  <div class="callout callout--tip">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Monitor the Remaining value, not the Max:</strong> Set alert thresholds on the DailyApiRequests Remaining value, not on the consumed count. Alert at 20% remaining (200,000 calls left on a 1M limit) and again at 5% remaining. This gives operations time to throttle batch jobs before limit exhaustion affects interactive users.
+    </div>
+  </div>
+
+  <div class="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>The daily API limit is 1,000 calls per license with a minimum allocation per edition. For a 200-user Enterprise org, expect ~200,000 daily API calls — this is consumed faster than most teams expect when multiple integrations and packages are present.</li>
+      <li>REST and SOAP API calls count against the 24-hour rolling limit; Bulk API and Streaming API have separate limits. Understanding which API each integration uses is prerequisite to accurate capacity planning.</li>
+      <li>Audit API consumption using Event Monitoring logs to attribute calls to specific connected apps and users. Installed managed packages are frequently the largest unbudgeted API consumers.</li>
+      <li>Eliminate polling patterns — replace them with Platform Events, Change Data Capture, or Streaming API subscriptions that notify on change rather than burning API calls on silent periods.</li>
+      <li>Use the Composite API (25 subrequests per call) and sObject Collections API (200 records per DML call) to reduce API call count by an order of magnitude compared to record-by-record operations.</li>
+      <li>Handle HTTP 403 REQUEST_LIMIT_EXCEEDED explicitly with queuing, alerting, and graceful degradation — never let API limit exhaustion crash an integration silently.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. An integration synchronises 5,000 records from an external system to Salesforce every hour by making individual REST API PATCH calls for each record. The org has a 500,000/day API limit. How many API calls does this integration consume per day, and what is the most impactful optimisation?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">5,000 calls per day — one call per sync cycle. The REST API batches the records automatically.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">120,000 calls per day (5,000 records × 24 hours). Switch to Bulk API 2.0 upsert jobs, which do not consume REST API call quota for individual records and can process 5,000 records as a single job.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">5,000 calls per hour = 120,000/day, but the fix is to use the Composite API to batch 25 calls per request, reducing to 4,800/day</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. An organisation unexpectedly hits its daily API limit despite having what appeared to be adequate headroom based on their integration inventory. What is the most likely overlooked source of consumption?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Interactive user activity in the Salesforce Lightning UI, which makes background API calls for every page viewed</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Installed managed packages from AppExchange that poll Salesforce on recurring schedules — these consume from the same shared API allocation and are frequently not included in integration capacity plans</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Platform Events published by internal Flows, which consume from the REST API allocation</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. A Salesforce integration team receives an HTTP 403 with error code REQUEST_LIMIT_EXCEEDED during a peak processing period. The integration retries the failed calls immediately in a loop. What is the likely outcome?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The retries will succeed once Salesforce processes the backlog — retry loops are the correct recovery pattern for 403 errors</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">The retry loop itself makes additional API calls, consuming the remaining limit faster and blocking other integrations from making any calls — exponential backoff with a maximum retry limit and alerting is the correct pattern</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Salesforce will automatically increase the limit temporarily to accommodate the retry burst</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="intg-006.html" class="related-card">
+              <span class="card-id">INTG-006</span>
+              <h4>Real-Time Integration Patterns: Platform Events, CDC, and Streaming API</h4>
+            </a>
+            <a href="intg-004.html" class="related-card">
+              <span class="card-id">INTG-004</span>
+              <h4>Salesforce Bulk API 2.0: High-Volume Data Operations</h4>
+            </a>
+            <a href="intg-007.html" class="related-card">
+              <span class="card-id">INTG-007</span>
+              <h4>Data Migration Strategy: The 6-Week vs 6-Month Debate</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">How Salesforce API Limits Work</a></li>
+            <li><a href="#s2">Auditing API Consumption</a></li>
+            <li><a href="#s3">High-Consumption Patterns</a></li>
+            <li><a href="#s4">Composite API Optimisation</a></li>
+            <li><a href="#s5">Graceful Degradation</a></li>
+            <li><a href="#quiz">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="intg-006.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Real-Time Integration Patterns →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

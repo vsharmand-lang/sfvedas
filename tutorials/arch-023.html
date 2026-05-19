@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARCH-023: Salesforce AppExchange Architecture — SFVedas</title>
+  <meta name="description" content="Salesforce AppExchange Architecture: ISV vs Managed Packages Explained — for CTOs and enterprise architects evaluating AppExchange investments."/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=architecture" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Architecture</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ARCH-023</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Architecture</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: CTOs</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce AppExchange Architecture
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>How managed packages work architecturally — what a namespace is, how code isolation works, and what ISVs can and cannot access in your org</li>
+            <li>The difference between 1GP and 2GP packages and what it means for upgrade stability</li>
+            <li>What Salesforce's AppExchange Security Review checks — and what it doesn't</li>
+            <li>The hidden architectural costs of AppExchange packages that never appear in the sales pitch</li>
+            <li>A framework for evaluating AppExchange apps before installation in an enterprise org</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">AppExchange from an Architecture Perspective</h2>
+
+        <p>The AppExchange is often discussed in commercial terms — which apps are available, what do they cost, what reviews say. For architects and CTOs, the more important discussion is architectural: what does an AppExchange managed package actually do to your org when you install it, and what are the long-term implications of having it there?</p>
+
+        <p>A managed package installs Apex classes, triggers, objects, fields, flows, Lightning components, and configuration into your org. Once installed, some of this cannot be removed without uninstalling the entire package. The package runs in your org's execution context, consumes your Governor Limits, occupies your custom object and field counts, and can (with appropriate permissions) access your data. This is a significant architectural commitment, and it should be evaluated as one.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Every managed package is a permanent guest</strong>
+            <p>You can uninstall an AppExchange package, but uninstallation only succeeds if there are no dependencies — no custom fields that reference the package's objects, no flows using the package's components, no reports using the package's fields. In practice, after 2 years of using an AppExchange app, most orgs have built significant dependencies on it. Uninstallation becomes effectively impossible. Evaluate AppExchange apps as long-term architectural commitments, not easily reversible trials.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Managed Packages: How Namespaces Work</h2>
+
+        <p>Every AppExchange managed package has a <strong>namespace prefix</strong> — a short, unique identifier (typically 3–15 characters) that the ISV registers with Salesforce. All metadata within the package is prefixed with this namespace. An object called <code>Contract__c</code> in a package with namespace <code>acme</code> appears in your org as <code>acme__Contract__c</code>. All Apex classes are <code>acme.ClassName</code>. This namespace isolation is how Salesforce ensures that package metadata doesn't collide with your org's custom metadata.</p>
+
+        <p>The practical implication: when you query or reference package objects from your own code, you must use the fully namespace-qualified name. In managed subscriber contexts (your code calling package objects), the SOQL and Apex must include the namespace.</p>
+
+        <pre><code>-- Querying a managed package object from subscriber org SOQL
+-- Package namespace: 'acme', Object: Contract__c
+
+SELECT Id, acme__ContractValue__c, acme__StartDate__c
+FROM   acme__Contract__c
+WHERE  acme__Status__c = 'Active'
+ORDER BY acme__StartDate__c DESC
+
+-- In Apex, referencing a package class
+acme.ContractCalculator calc = new acme.ContractCalculator();
+Decimal value = calc.calculateTotalValue(contractId);
+
+-- You cannot see the source of acme.ContractCalculator
+-- (it's compiled and protected in the managed package)</code></pre>
+
+        <h3>Protected vs Public Package Components</h3>
+        <p>ISVs can mark individual package components as "protected" or "public" (globally accessible). Protected components are hidden from subscriber org code — you can use a protected object in SOQL if it's exposed via a package API, but you cannot extend or override it. Global (public) components can be referenced and subclassed by subscriber org code. This distinction determines how extensible and customisable a package is — check the package's documentation for which components are global.</p>
+
+        <h2 id="s3">1GP vs 2GP: What It Means for Buyers</h2>
+
+        <p>First-Generation Packages (1GP) are the original AppExchange packaging model. They're built in a specific "packaging org" and have significant constraints on upgrade flexibility: once a field or object is in a 1GP managed package, it cannot be removed in future versions. ISVs cannot change field data types in 1GP packages. This rigidity means that mature 1GP packages often carry years of legacy schema that can't be cleaned up.</p>
+
+        <p>Second-Generation Packages (2GP) are built using the DX model with Git-based source control. They offer cleaner version management, better dependency tracking, and more flexibility in schema evolution. ISVs who have migrated to 2GP can more reliably release clean updates without accumulating the schema debt that 1GP forces.</p>
+
+        <p>As a buyer: when evaluating a managed package, ask whether the ISV is on 1GP or 2GP. A 1GP package that has been in market since 2012 is likely carrying significant schema overhead that has architectural implications for your org. A 2GP package has a cleaner evolution path. This isn't a disqualifier, but it's a factor in long-term maintenance assessment.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Check the Package Version Cadence</strong>
+            <p>Look at the AppExchange listing's version history. A package that releases updates infrequently (less than 4× per year for an active product) may not be keeping pace with Salesforce's three annual releases. Packages that fall behind can break when Salesforce releases a critical platform update. A package with a consistent release cadence and transparent release notes signals an ISV that actively maintains their platform compatibility.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Security Review: What Salesforce Actually Checks</h2>
+
+        <p>All paid AppExchange listings must pass a Salesforce security review before publication. The review checks for: Apex code vulnerabilities (SOQL injection, XSS, CSRF), adherence to sharing model (code that bypasses org sharing rules without justification), access to sensitive data without appropriate encryption, and hardcoded credentials or endpoints. The review is thorough by security standards for a platform-level review.</p>
+
+        <p>What the security review does NOT check: whether the package's data handling complies with GDPR or other privacy regulations, whether the ISV's backend systems (if the package calls external services) are secure, or whether the package's performance characteristics are appropriate for your data volumes. The security review is a baseline — it's not a comprehensive due diligence replacement.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Where Data Goes Matters</strong>
+            <p>Many AppExchange packages call external ISV-hosted services. Customer data from your Salesforce org may be sent to the ISV's servers for processing — analytics, AI features, compliance tracking. This data transfer may not be immediately obvious from the app listing. Before installing any package that processes sensitive customer data, review the ISV's data processing agreement (DPA) and assess whether the transfer is compliant with your data governance policies and GDPR/regional regulations.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">The Hidden Costs of AppExchange Apps</h2>
+
+        <p>Beyond the licence fee, AppExchange packages carry hidden architectural costs that accumulate over time. <strong>Custom object and field consumption:</strong> most packages install custom objects and fields that count toward your org's limits. A large package might consume 20–30 custom objects. For orgs approaching the 200 custom object limit, this is a real constraint.</p>
+
+        <p><strong>Governor Limit budget consumption:</strong> package Apex code executes in the same Governor Limit context as your own code. A package that runs complex automation on Account records consumes CPU time, SOQL queries, and DML statements from the same transaction budget your custom Apex has. This is rarely disclosed in sales conversations and surfaces as unexplained Governor Limit breaches after installation.</p>
+
+        <p><strong>API call consumption:</strong> packages that make outbound API calls (to the ISV's own backend) consume your org's Callout limits. Packages that receive data from Salesforce APIs consume your org's API call budget if they use REST/SOAP rather than CDC or Streaming.</p>
+
+        <h2 id="s6">Build vs Buy: The Enterprise Architect's Framework</h2>
+
+        <p>The build vs buy decision for Salesforce functionality is not just a cost calculation. Architectural factors that favour <strong>buying (AppExchange)</strong>: the capability is not strategic differentiation (billing management, e-signature, document generation — commodity functionality), time-to-value is critical, and the vendor has deep Salesforce expertise and a strong release cadence.</p>
+
+        <p>Architectural factors that favour <strong>building</strong>: the capability is a source of competitive advantage, the data model of available packages doesn't fit your requirements without significant customisation, the package's Governor Limit consumption profile conflicts with your existing automation, or your data governance requirements preclude data leaving your Salesforce org to an ISV backend.</p>
+
+        <h2 id="s7">Evaluating an AppExchange App Before Installation</h2>
+
+        <p>A structured evaluation process for enterprise architects. <strong>Step 1:</strong> Install in a full copy sandbox, not production. Document every object, field, and Apex class added to the sandbox after installation. This is your installation inventory.</p>
+        <p><strong>Step 2:</strong> Run performance tests with your org's representative data volumes. Trigger the package's automation on batches of 200 records and monitor Governor Limit consumption in the debug log.</p>
+        <p><strong>Step 3:</strong> Review the package's Apex triggers on objects you customise. Do they conflict with your existing automation? Do they use <code>without sharing</code> in ways that bypass your security model?</p>
+        <p><strong>Step 4:</strong> Review the ISV's DPA and data processing documentation for any external API calls the package makes. Confirm compliance with your data governance policies.</p>
+        <p><strong>Step 5:</strong> Document the uninstallation path. What dependencies would need to be removed to uninstall the package cleanly? This is the measure of how locked-in you become over time.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>The Package Scorecard</strong>
+            <p>Build a simple scorecard for every AppExchange evaluation: custom object count consumed, custom field count, Apex trigger count on your key objects, external callout destinations, DPA status, version cadence (updates per year), and user reviews from orgs similar to yours in size and industry. Score each dimension and include the scorecard in your architecture decision record. Future architects who inherit your org will thank you for the documented rationale.</p>
+          </div>
+        </div>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Installing a managed package is an architectural commitment — package metadata occupies your custom object limits, runs Apex in your Governor Limit context, and may be irreversible if dependencies form</li>
+            <li>Namespace isolation prevents naming collisions between package and subscriber org metadata — all package objects and classes must be referenced with the namespace prefix</li>
+            <li>2GP packages offer cleaner schema evolution than 1GP — check which generation an ISV is on when evaluating long-term maintainability</li>
+            <li>Salesforce's security review covers code-level security but not GDPR compliance, external data processing agreements, or performance at your data volumes</li>
+            <li>Hidden costs include custom object/field limit consumption, Governor Limit budget sharing, and API call consumption — none of which appear in licence pricing conversations</li>
+            <li>Always install in a full copy sandbox first, run performance tests, review Apex triggers on your key objects, and check the ISV's DPA before production installation</li>
+            <li>Document the uninstallation path at evaluation time — after 2 years of use, it will be too late to uninstall cleanly without a major project</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Checkpoint: Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. An AppExchange package has the namespace "acme". What is the correct SOQL syntax to query a custom object called "Contract__c" from that package?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. SELECT Id FROM Contract__c WHERE acme__Status__c = 'Active'</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. SELECT Id FROM acme__Contract__c WHERE acme__Status__c = 'Active' — all package object and field names are prefixed with the namespace</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. SELECT Id FROM [acme]Contract__c WHERE [acme]Status__c = 'Active'</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. The namespace is transparent in SOQL — query Contract__c and Salesforce resolves the namespace automatically</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. What does Salesforce's AppExchange Security Review NOT cover?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. SOQL injection vulnerabilities in the package's Apex code</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. XSS vulnerabilities in the package's Visualforce and Lightning components</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">C. Whether the ISV's external backend systems are secure, whether the package's data handling is GDPR-compliant, and whether the package performs appropriately at your specific data volumes</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Whether the package uses hardcoded credentials or API endpoints</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. Why is the uninstallation path for an AppExchange package important to evaluate before installation?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Salesforce charges an uninstallation fee for managed packages that must be factored into TCO calculations</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Uninstalling a package automatically deletes all data stored in the package's custom objects, even if those objects are still referenced in reports</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. After 2+ years of use, your org will have built dependencies (flows, reports, custom fields referencing package objects) that make clean uninstallation effectively impossible — evaluating this at the start determines how locked-in you become over time</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Package uninstallation requires Salesforce Support involvement for packages over 50 components and the lead time can be weeks</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-024.html" class="related-card">
+              <span class="card-id">ARCH-024</span>
+              <h4>Custom Metadata Types vs Custom Settings vs Custom Objects</h4>
+            </a>
+            <a href="arch-022.html" class="related-card">
+              <span class="card-id">ARCH-022</span>
+              <h4>Record-Triggered Flows</h4>
+            </a>
+            <a href="arch-025.html" class="related-card">
+              <span class="card-id">ARCH-025</span>
+              <h4>Tenant Isolation in Multi-Tenant Systems</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">AppExchange from an Architecture Perspective</a></li>
+            <li><a href="#">Managed Packages: How Namespaces Work</a></li>
+            <li><a href="#">1GP vs 2GP: What It Means for Buyers</a></li>
+            <li><a href="#">Security Review: What Salesforce Actually Checks</a></li>
+            <li><a href="#">The Hidden Costs of AppExchange Apps</a></li>
+            <li><a href="#">Build vs Buy: The Enterprise Architect's Framework</a></li>
+            <li><a href="#">Evaluating an AppExchange App Before Installation</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="arch-024.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Custom Metadata Types vs Custom Settings vs Custo… →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Ancient wisdom. Modern Salesforce.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

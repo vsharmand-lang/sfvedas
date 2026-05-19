@@ -1,18 +1,648 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SFVedas — Deep Salesforce Knowledge for Tech Leaders</title>
-  <meta name="description" content="Just as the ancient Vedas were the deepest repository of knowledge in their time — SFVedas is the deepest repository of Salesforce knowledge for today's tech leaders."/>
+  <meta name="description" content="285 tutorials on Salesforce architecture, delivery, and strategy — written for senior practitioners, not beginners."/>
   <meta name="author" content="Vishal Sharma"/>
   <meta property="og:title" content="SFVedas — Deep Salesforce Knowledge for Tech Leaders"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and delivery managers."/>
+  <meta property="og:description" content="The Salesforce knowledge senior practitioners can't find anywhere else."/>
   <meta property="og:url" content="https://sfvedas.com"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,700&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css"/>
+  <style>
+
+    /* ══════════════════════════════════════════════════════
+       HOMEPAGE DESIGN SYSTEM
+       All classes prefixed hp- to avoid conflicts
+    ══════════════════════════════════════════════════════ */
+
+    /* ─── Hero ─────────────────────────────────────────── */
+    .hp-hero {
+      min-height: 100vh;
+      background: #0A1628;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 140px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hp-hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,147,10,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,147,10,0.06) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(ellipse 70% 70% at 15% 40%, black 20%, transparent 75%);
+    }
+    .hp-hero-glow {
+      position: absolute;
+      top: -320px; right: -320px;
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(232,147,10,0.09) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hp-hero-glow-2 {
+      position: absolute;
+      bottom: -200px; left: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,112,210,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hp-hero-body {
+      position: relative;
+      z-index: 1;
+      padding: 0 40px;
+      max-width: 1160px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hp-eyebrow {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hp-eyebrow::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--saffron);
+      opacity: 0.6;
+    }
+
+    .hp-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 5rem);
+      font-weight: 700;
+      line-height: 0.97;
+      letter-spacing: -0.04em;
+      color: #EDE8E0;
+      margin: 0 0 40px;
+      max-width: 1000px;
+    }
+    .hp-hero-title em {
+      color: var(--saffron);
+      font-style: italic;
+    }
+    .hp-hero-title .line-indent {
+      padding-left: 0.35em;
+      display: block;
+    }
+
+    .hp-hero-sub {
+      font-family: var(--font-body);
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      line-height: 1.78;
+      color: rgba(237,232,224,0.58);
+      max-width: 580px;
+      margin: 0 0 52px;
+    }
+
+    .hp-hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 80px;
+    }
+    .hp-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--saffron);
+      color: #fff;
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 15px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.01em;
+      box-shadow: 0 4px 20px rgba(232,147,10,0.35);
+    }
+    .hp-btn-primary:hover {
+      background: #d4820a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(232,147,10,0.45);
+    }
+    .hp-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(237,232,224,0.65);
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 15px 28px;
+      border-radius: 10px;
+      border: 1px solid rgba(237,232,224,0.15);
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.01em;
+    }
+    .hp-btn-ghost:hover {
+      color: #EDE8E0;
+      border-color: rgba(237,232,224,0.35);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* Stats bar */
+    .hp-stats-bar {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1160px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .hp-stat {
+      padding: 40px 0 44px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .hp-stat:last-child { border-right: none; }
+    .hp-stat:not(:first-child) { padding-left: 48px; }
+    .hp-stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--saffron);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+    .hp-stat-desc {
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(237,232,224,0.4);
+    }
+
+    /* ─── Section shell ─────────────────────────────────── */
+    .hp-section {
+      padding: 120px 0;
+    }
+    .hp-section--cream {
+      background: var(--warm-cream, #F0EBE1);
+    }
+    .hp-section--dark {
+      background: #0A1628;
+    }
+    .hp-section--border {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hp-container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .hp-container--narrow {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .hp-section-label {
+      font-family: var(--font-ui);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      display: block;
+      margin-bottom: 20px;
+    }
+    .hp-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin: 0 0 20px;
+    }
+    .hp-h2 em { color: var(--saffron); font-style: italic; }
+    .hp-h2--light { color: #EDE8E0; }
+    .hp-intro {
+      font-family: var(--font-body);
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 0 0 64px;
+    }
+
+    /* ─── WHAT THIS IS ──────────────────────────────────── */
+    .hp-what-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+    .hp-what-prose {
+      font-family: var(--font-body);
+      font-size: 1.2rem;
+      line-height: 1.85;
+      color: var(--text-secondary);
+    }
+    .hp-what-prose p { margin: 0 0 1.5em; }
+    .hp-what-prose p:last-child { margin-bottom: 0; }
+    .hp-what-prose strong { color: var(--text-primary); font-weight: 600; }
+
+    .hp-diff-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .hp-diff-item {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      transition: background 0.2s;
+    }
+    .hp-diff-item:last-child { border-bottom: none; }
+    .hp-diff-item:hover { background: var(--bg-secondary); }
+    .hp-diff-n {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--saffron);
+      letter-spacing: 0.05em;
+    }
+    .hp-diff-body {
+      padding: 28px 32px;
+    }
+    .hp-diff-body h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 7px;
+    }
+    .hp-diff-body p {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    /* ─── LIBRARY TABLE ─────────────────────────────────── */
+    .hp-library-table {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .hp-lib-row {
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      align-items: center;
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+    .hp-lib-row:last-child { border-bottom: none; }
+    .hp-lib-row:hover {
+      background: var(--bg-secondary);
+    }
+    .hp-lib-row:hover .hp-lib-arrow { opacity: 1; transform: translateX(4px); }
+    .hp-lib-count {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      padding: 28px 16px;
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--saffron);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .hp-lib-info {
+      padding: 28px 36px;
+    }
+    .hp-lib-info h3 {
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 5px;
+      letter-spacing: 0.01em;
+    }
+    .hp-lib-info p {
+      font-family: var(--font-body);
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.55;
+    }
+    .hp-lib-arrow {
+      padding: 28px 32px;
+      font-size: 1.2rem;
+      color: var(--saffron);
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    /* ─── AUDIENCE ──────────────────────────────────────── */
+    .hp-audience-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .hp-aud-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 44px 36px 48px;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
+    .hp-aud-card:hover {
+      border-color: var(--saffron);
+      box-shadow: 0 8px 48px rgba(232,147,10,0.1);
+      transform: translateY(-4px);
+    }
+    .hp-aud-tag {
+      font-family: var(--font-ui);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--saffron);
+      margin-bottom: 20px;
+    }
+    .hp-aud-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin: 0 0 16px;
+    }
+    .hp-aud-card p {
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin: 0 0 28px;
+      flex-grow: 1;
+    }
+    .hp-aud-link {
+      font-family: var(--font-ui);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--saffron);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s;
+    }
+    .hp-aud-link:hover { gap: 10px; }
+
+    /* ─── MANIFESTO ─────────────────────────────────────── */
+    .hp-manifesto {
+      padding: 140px 0;
+      background: #0A1628;
+      position: relative;
+      overflow: hidden;
+    }
+    .hp-manifesto::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 50%, rgba(232,147,10,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 50%, rgba(0,112,210,0.04) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .hp-manifesto-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .hp-manifesto-label {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(232,147,10,0.7);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hp-manifesto-label::before {
+      content: '';
+      display: block;
+      width: 28px; height: 1px;
+      background: rgba(232,147,10,0.5);
+    }
+    .hp-manifesto-text {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.5vw, 4.2rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.22;
+      letter-spacing: -0.025em;
+      color: rgba(237,232,224,0.9);
+    }
+    .hp-manifesto-text em {
+      color: var(--saffron);
+      font-style: normal;
+    }
+    .hp-manifesto-attr {
+      margin-top: 52px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hp-manifesto-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a2f4a, var(--saffron));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .hp-manifesto-attr-text strong {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(237,232,224,0.85);
+    }
+    .hp-manifesto-attr-text span {
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      color: rgba(237,232,224,0.4);
+    }
+
+    /* ─── NEWSLETTER ────────────────────────────────────── */
+    .hp-newsletter {
+      padding: 100px 0;
+      background: var(--warm-cream);
+      border-top: 1px solid var(--border);
+    }
+    .hp-newsletter-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .hp-newsletter-text h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      line-height: 1.15;
+      margin: 0 0 16px;
+    }
+    .hp-newsletter-text h2 em {
+      color: var(--saffron);
+      font-style: italic;
+    }
+    .hp-newsletter-text p {
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    .hp-newsletter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hp-newsletter-form input {
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      padding: 16px 20px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--text-primary);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .hp-newsletter-form input:focus {
+      border-color: var(--saffron);
+      box-shadow: 0 0 0 3px rgba(232,147,10,0.12);
+    }
+    .hp-newsletter-form input::placeholder { color: #bbb; }
+    .hp-newsletter-submit {
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 16px 28px;
+      background: var(--deep-navy);
+      color: #EDE8E0;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      letter-spacing: 0.01em;
+    }
+    .hp-newsletter-submit:hover {
+      background: #142240;
+      transform: translateY(-1px);
+    }
+    .hp-newsletter-note {
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      opacity: 0.7;
+    }
+
+    /* ─── Scroll reveal ─────────────────────────────────── */
+    .hp-reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .hp-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hp-reveal-delay-1 { transition-delay: 0.1s; }
+    .hp-reveal-delay-2 { transition-delay: 0.2s; }
+    .hp-reveal-delay-3 { transition-delay: 0.32s; }
+
+    /* ─── Responsive ────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hp-what-grid { grid-template-columns: 1fr; gap: 56px; }
+      .hp-lib-row { grid-template-columns: 80px 1fr auto; }
+    }
+    @media (max-width: 768px) {
+      .hp-hero { padding-top: 100px; }
+      .hp-hero-body, .hp-stats-bar, .hp-container, .hp-container--narrow,
+      .hp-manifesto-inner { padding-left: 24px; padding-right: 24px; }
+      .hp-section { padding: 80px 0; }
+      .hp-stats-bar { grid-template-columns: 1fr 1fr; }
+      .hp-stat:nth-child(3) { grid-column: 1 / -1; border-right: none; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 28px; }
+      .hp-stat:not(:first-child) { padding-left: 0; }
+      .hp-stat { padding: 28px 0 32px; }
+      .hp-audience-grid { grid-template-columns: 1fr; gap: 20px; }
+      .hp-newsletter-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hp-manifesto { padding: 100px 0; }
+      .hp-lib-row { grid-template-columns: 72px 1fr 40px; }
+      .hp-lib-info { padding: 20px 20px; }
+      .hp-lib-count { font-size: 1.8rem; padding: 20px 12px; }
+      .hp-lib-arrow { padding: 20px 16px; opacity: 1; }
+    }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
 </head>
 <body class="light-mode">
 
@@ -45,208 +675,254 @@
     </div>
   </nav>
 
-  <!-- ── HERO ── -->
-  <section class="hero">
-    <div class="hero-bg">
-      <div class="hero-orb hero-orb-1"></div>
-      <div class="hero-orb hero-orb-2"></div>
-      <div class="hero-grid"></div>
-    </div>
-    <div class="hero-inner">
-      <div class="hero-badge animate-fade-up" style="animation-delay:0.1s">
-        <span class="badge-dot"></span>
-        Deep Knowledge · Not Surface Level
-      </div>
-      <h1 class="hero-title animate-fade-up" style="animation-delay:0.2s">
-        The Sacred Texts<br/>of <em>Salesforce</em><br/>Leadership
-      </h1>
-      <p class="hero-sub animate-fade-up" style="animation-delay:0.35s">
-        Just as the ancient Vedas were the deepest repository of knowledge in their time —<br class="br-desktop"/>
-        SFVedas is the deepest repository of Salesforce knowledge for today's tech leaders.
+  <!-- ══════════════════════════════════════════════════════
+       HERO
+  ══════════════════════════════════════════════════════ -->
+  <section class="hp-hero">
+    <div class="hp-hero-grid"></div>
+    <div class="hp-hero-glow"></div>
+    <div class="hp-hero-glow-2"></div>
+
+    <div class="hp-hero-body">
+      <p class="hp-eyebrow animate-fade-up" style="animation-delay:0.05s">
+        Deep Salesforce Knowledge
       </p>
-      <div class="hero-actions animate-fade-up" style="animation-delay:0.5s">
-        <a href="pages/tutorials.html" class="btn btn-primary">Explore Tutorials</a>
-        <a href="pages/learning-paths.html" class="btn btn-ghost">View Learning Paths</a>
-      </div>
-      <div class="hero-stats animate-fade-up" style="animation-delay:0.65s">
-        <div class="stat">
-          <span class="stat-num">3</span>
-          <span class="stat-label">Deep Tutorials</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num">Free</span>
-          <span class="stat-label">To Start</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-num">Leaders</span>
-          <span class="stat-label">Only Audience</span>
-        </div>
-      </div>
-    </div>
-    <div class="hero-scroll">
-      <span>Scroll to explore</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- ── PHILOSOPHY ── -->
-  <section class="philosophy">
-    <div class="container">
-      <div class="philosophy-inner">
-        <div class="philosophy-text">
-          <span class="section-label">Our Philosophy</span>
-          <h2 class="section-title">Knowledge that goes<br/><em>beyond the click</em></h2>
-          <p class="section-body">
-            Most Salesforce tutorials teach you what to click. SFVedas teaches you <strong>why architecture decisions matter</strong>, how to lead delivery at scale, and when to challenge the platform itself.
-          </p>
-          <p class="section-body">
-            This is content built for the people in the room making the <strong>₹10 crore decisions</strong> — not for those following someone else's playbook.
-          </p>
-          <a href="pages/about.html" class="btn btn-outline">Our Story</a>
-        </div>
-        <div class="philosophy-pillars">
-          <div class="pillar">
-            <div class="pillar-icon">⚡</div>
-            <h3>Architecture</h3>
-            <p>Deep dives into Salesforce platform decisions, multi-tenancy, scalability and design tradeoffs.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-icon">🎯</div>
-            <h3>Delivery</h3>
-            <p>Governor limits, technical debt, agile delivery frameworks and enterprise implementation strategy.</p>
-          </div>
-          <div class="pillar">
-            <div class="pillar-icon">🧭</div>
-            <h3>Strategy</h3>
-            <p>Platform vs product decisions, total cost of ownership, and when Salesforce is — and isn't — the answer.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FEATURED TUTORIALS ── -->
-  <section class="tutorials-section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Featured Tutorials</span>
-        <h2 class="section-title">Start with the <em>hardest questions</em></h2>
-        <p class="section-desc">These are not beginner tutorials. These are the questions senior tech leaders actually wrestle with.</p>
-      </div>
-      <div class="tutorials-grid">
-
-        <article class="tutorial-card tutorial-card--featured">
-          <div class="card-meta">
-            <span class="card-tag">Architecture</span>
-            <span class="card-tag card-tag--free">Free</span>
-            <span class="card-read">25 min read</span>
-          </div>
-          <h3 class="card-title">If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture?</h3>
-          <p class="card-excerpt">An honest exploration of cloud architecture evolution. We examine microservices, Kubernetes, serverless — and whether multi-tenancy is still the smartest choice in 2026.</p>
-          <div class="card-footer">
-            <div class="card-author">
-              <div class="author-avatar">VS</div>
-              <span>Vishal Sharma</span>
-            </div>
-            <a href="tutorials/multi-tenant.html" class="card-link">Read Tutorial →</a>
-          </div>
-        </article>
-
-        <article class="tutorial-card">
-          <div class="card-meta">
-            <span class="card-tag">Delivery</span>
-            <span class="card-tag card-tag--free">Free</span>
-            <span class="card-read">25 min read</span>
-          </div>
-          <h3 class="card-title">Salesforce Integration Architecture — MuleSoft, APIs or Point-to-Point: What Leaders Must Understand</h3>
-          <p class="card-excerpt">MuleSoft vs point-to-point vs custom APIs — the integration decision that shapes your architecture for years. What tech leaders must know before they commit.</p>
-          <div class="card-footer">
-            <div class="card-author">
-              <div class="author-avatar">VS</div>
-              <span>Vishal Sharma</span>
-            </div>
-            <a href="tutorials/salesforce-integration.html" class="card-link">Read Tutorial →</a>
-          </div>
-        </article>
-
-        <article class="tutorial-card">
-          <div class="card-meta">
-            <span class="card-tag">Strategy</span>
-            <span class="card-tag card-tag--free">Free</span>
-            <span class="card-read">28 min read</span>
-          </div>
-          <h3 class="card-title">Salesforce 360 — A Thoughtful Decision or the Only Way Forward?</h3>
-          <p class="card-excerpt">Is Customer 360 a genuinely strategic decision or has the market already made the choice for you? A deep analysis for tech leaders.</p>
-          <div class="card-footer">
-            <div class="card-author">
-              <div class="author-avatar">VS</div>
-              <span>Vishal Sharma</span>
-            </div>
-            <a href="tutorials/salesforce-360.html" class="card-link">Read Tutorial →</a>
-          </div>
-        </article>
-
-      </div>
-      <div class="tutorials-cta">
-        <a href="pages/tutorials.html" class="btn btn-outline">View All Tutorials</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── LEARNING PATHS ── -->
-  <section class="paths-section">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Learning Paths</span>
-        <h2 class="section-title">Choose your <em>journey</em></h2>
-      </div>
-      <div class="paths-grid">
-        <a href="pages/learning-paths.html#architect" class="path-card">
-          <div class="path-num">01</div>
-          <h3>The Architect</h3>
-          <p>For Solution Architects and CTOs who need to understand Salesforce at the platform level — not just the product level.</p>
-          <span class="path-arrow">→</span>
+      <h1 class="hp-hero-title animate-fade-up" style="animation-delay:0.18s">
+        The knowledge<br/>
+        Salesforce<br/>
+        <em>certification</em><br/>
+        <span class="line-indent">doesn't give you.</span>
+      </h1>
+      <p class="hp-hero-sub animate-fade-up" style="animation-delay:0.35s">
+        285 tutorials on the architecture decisions, delivery realities, and strategic questions that no training course prepares senior practitioners for.
+      </p>
+      <div class="hp-hero-actions animate-fade-up" style="animation-delay:0.5s">
+        <a href="pages/tutorials.html" class="hp-btn-primary">
+          Explore all 285 tutorials &nbsp;→
         </a>
-        <a href="pages/learning-paths.html#delivery" class="path-card">
-          <div class="path-num">02</div>
-          <h3>The Delivery Leader</h3>
-          <p>For Delivery Managers who are responsible for Salesforce projects and need to lead with confidence, not just coordinate.</p>
-          <span class="path-arrow">→</span>
-        </a>
-        <a href="pages/learning-paths.html#strategist" class="path-card">
-          <div class="path-num">03</div>
-          <h3>The Strategist</h3>
-          <p>For Tech Leaders who need to make the big decisions — invest, build, buy, or walk away from Salesforce entirely.</p>
-          <span class="path-arrow">→</span>
+        <a href="pages/about.html" class="hp-btn-ghost">
+          Why this exists
         </a>
       </div>
     </div>
-  </section>
 
-  <!-- ── QUOTE SECTION ── -->
-  <section class="quote-section">
-    <div class="container">
-      <blockquote class="brand-quote">
-        <span class="quote-mark">"</span>
-        <p>Just as the ancient Vedas were the deepest repository of knowledge in their time — SFVedas is the deepest repository of Salesforce knowledge for today's tech leaders.</p>
-        <cite>— Vishal Sharma, Instructor &amp; Founder, SFVedas</cite>
-      </blockquote>
+    <div class="hp-stats-bar animate-fade-up" style="animation-delay:0.65s">
+      <div class="hp-stat">
+        <div class="hp-stat-num" data-count="285">0</div>
+        <div class="hp-stat-desc">Deep tutorials</div>
+      </div>
+      <div class="hp-stat">
+        <div class="hp-stat-num" data-count="14">0</div>
+        <div class="hp-stat-desc">Knowledge areas</div>
+      </div>
+      <div class="hp-stat">
+        <div class="hp-stat-num">Senior</div>
+        <div class="hp-stat-desc">Practitioners only</div>
+      </div>
     </div>
   </section>
 
-  <!-- ── NEWSLETTER ── -->
-  <section class="newsletter-section">
-    <div class="container">
-      <div class="newsletter-inner">
-        <div class="newsletter-text">
-          <h2>Stay at the <em>deep end</em></h2>
-          <p>New tutorials, thought leadership and Salesforce architecture insights — delivered to leaders who want more than surface-level knowledge.</p>
+  <!-- ══════════════════════════════════════════════════════
+       WHAT THIS IS
+  ══════════════════════════════════════════════════════ -->
+  <section class="hp-section hp-section--border">
+    <div class="hp-container">
+      <div class="hp-what-grid">
+
+        <div>
+          <span class="hp-section-label hp-reveal">The gap we fill</span>
+          <h2 class="hp-h2 hp-reveal hp-reveal-delay-1">
+            Most Salesforce content<br/>
+            teaches you what to click.<br/>
+            <em>This teaches you what to think.</em>
+          </h2>
+          <div class="hp-what-prose hp-reveal hp-reveal-delay-2">
+            <p>Trailhead is excellent for beginners. Certification content is excellent for passing exams. But there is a layer above that — the architecture tradeoffs, the delivery situations that go wrong, the commercial questions nobody answers honestly — where almost nothing has been written down properly.</p>
+            <p>SFVedas exists for that layer. Written for <strong>architects, delivery managers, and tech leaders</strong> who are already fluent in Salesforce and need to go deeper.</p>
+          </div>
+          <a href="pages/about.html" class="hp-aud-link hp-reveal hp-reveal-delay-3" style="margin-top:8px">
+            Read the full story →
+          </a>
         </div>
-        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-          <input type="email" placeholder="your@email.com" required class="newsletter-input"/>
-          <button type="submit" class="btn btn-primary">Subscribe Free</button>
+
+        <ul class="hp-diff-list hp-reveal hp-reveal-delay-1">
+          <li class="hp-diff-item">
+            <span class="hp-diff-n">01</span>
+            <div class="hp-diff-body">
+              <h3>Platform depth, not surface knowledge</h3>
+              <p>What happens under the hood — at the database layer, under load, with multi-tenancy — and why it shapes every architecture decision you make.</p>
+            </div>
+          </li>
+          <li class="hp-diff-item">
+            <span class="hp-diff-n">02</span>
+            <div class="hp-diff-body">
+              <h3>Commercial and strategic honesty</h3>
+              <p>TCO analysis, licence negotiation, and when a different platform would genuinely serve the organisation better. Not written by someone trying to sell you Salesforce.</p>
+            </div>
+          </li>
+          <li class="hp-diff-item">
+            <span class="hp-diff-n">03</span>
+            <div class="hp-diff-body">
+              <h3>Delivery reality, not theory</h3>
+              <p>Programmes six months behind, clients who change scope every sprint, go-lives that fail at 11pm. These situations are common. Structured guidance on them is rare.</p>
+            </div>
+          </li>
+          <li class="hp-diff-item">
+            <span class="hp-diff-n">04</span>
+            <div class="hp-diff-body">
+              <h3>RFPs and commercial structures</h3>
+              <p>What makes a bid win on value rather than price. How to evaluate whether a response is genuinely competitive. Both sides of the table, documented.</p>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       LIBRARY — 7 content areas
+  ══════════════════════════════════════════════════════ -->
+  <section class="hp-section hp-section--cream">
+    <div class="hp-container">
+      <span class="hp-section-label hp-reveal">The library</span>
+      <h2 class="hp-h2 hp-reveal hp-reveal-delay-1">285 tutorials.<br/>14 areas. <em>Zero filler.</em></h2>
+      <p class="hp-intro hp-reveal hp-reveal-delay-2">Every tutorial is built around a question a senior practitioner would actually ask — not a beginner learning the platform, but someone making real decisions.</p>
+
+      <div class="hp-library-table hp-reveal hp-reveal-delay-2">
+        <a href="pages/tutorials.html?tag=architecture" class="hp-lib-row">
+          <div class="hp-lib-count">50</div>
+          <div class="hp-lib-info">
+            <h3>Architecture &amp; Platform</h3>
+            <p>How Salesforce works under load, multi-tenancy constraints, design patterns, and the platform decisions that will outlive your project.</p>
+          </div>
+          <div class="hp-lib-arrow">→</div>
+        </a>
+        <a href="pages/tutorials.html?tag=delivery" class="hp-lib-row">
+          <div class="hp-lib-count">50</div>
+          <div class="hp-lib-info">
+            <h3>Delivery Management</h3>
+            <p>Discovery, sprint governance, stakeholder management, go-live recovery, and programme situations no training course prepares you for.</p>
+          </div>
+          <div class="hp-lib-arrow">→</div>
+        </a>
+        <a href="pages/tutorials.html?tag=ai-agentforce" class="hp-lib-row">
+          <div class="hp-lib-count">35</div>
+          <div class="hp-lib-info">
+            <h3>AI &amp; the Future</h3>
+            <p>Agentforce, Einstein, model grounding, AI governance, and what the AI shift actually means for Salesforce architects and delivery leaders.</p>
+          </div>
+          <div class="hp-lib-arrow">→</div>
+        </a>
+        <a href="pages/tutorials.html?tag=rfp-commercial" class="hp-lib-row">
+          <div class="hp-lib-count">30</div>
+          <div class="hp-lib-info">
+            <h3>RFPs &amp; Commercial</h3>
+            <p>Bid strategy, evaluation frameworks, support structures, and the commercial dynamics that determine who wins and why.</p>
+          </div>
+          <div class="hp-lib-arrow">→</div>
+        </a>
+        <a href="pages/tutorials.html?tag=integration-data" class="hp-lib-row">
+          <div class="hp-lib-count">20</div>
+          <div class="hp-lib-info">
+            <h3>Integration &amp; Data</h3>
+            <p>Migrations, API limits, real-time architectures, data residency, and the integration decisions that define long-term system health.</p>
+          </div>
+          <div class="hp-lib-arrow">→</div>
+        </a>
+        <a href="pages/tutorials.html?tag=crm-comparisons" class="hp-lib-row">
+          <div class="hp-lib-count">20</div>
+          <div class="hp-lib-info">
+            <h3>CRM Comparisons</h3>
+            <p>Dynamics, HubSpot, SAP, ServiceNow, Oracle — honest, objective comparisons including the scenarios where Salesforce is not the right answer.</p>
+          </div>
+          <div class="hp-lib-arrow">→</div>
+        </a>
+        <a href="pages/tutorials.html" class="hp-lib-row">
+          <div class="hp-lib-count">80</div>
+          <div class="hp-lib-info">
+            <h3>Security, Licensing, Industry &amp; Teams</h3>
+            <p>Security architecture, licence optimisation, vertical implementations, team design, change management, and reporting strategy at scale.</p>
+          </div>
+          <div class="hp-lib-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       WHO IT'S FOR
+  ══════════════════════════════════════════════════════ -->
+  <section class="hp-section">
+    <div class="hp-container">
+      <span class="hp-section-label hp-reveal">Audience</span>
+      <h2 class="hp-h2 hp-reveal hp-reveal-delay-1">
+        Built for three<br/>types of <em>senior professional.</em>
+      </h2>
+      <p class="hp-intro hp-reveal hp-reveal-delay-2">
+        If you are new to Salesforce, start with Trailhead — it is genuinely excellent. SFVedas begins where certification ends.
+      </p>
+
+      <div class="hp-audience-grid">
+        <div class="hp-aud-card hp-reveal">
+          <span class="hp-aud-tag">Solution Architects</span>
+          <h3>You design systems that live for a decade.</h3>
+          <p>This is content for architects who need to understand the platform at a depth that certification content does not reach — and who need to defend their design decisions when the requirements change.</p>
+          <a href="pages/learning-paths.html#architect" class="hp-aud-link">Start here →</a>
+        </div>
+        <div class="hp-aud-card hp-reveal hp-reveal-delay-1">
+          <span class="hp-aud-tag">Delivery Managers</span>
+          <h3>You are responsible when things go wrong.</h3>
+          <p>Practical frameworks for the situations that no training course prepares you for — scope changes, programme recovery, stakeholder management, and go-lives that test your nerve.</p>
+          <a href="pages/learning-paths.html#delivery" class="hp-aud-link">Start here →</a>
+        </div>
+        <div class="hp-aud-card hp-reveal hp-reveal-delay-2">
+          <span class="hp-aud-tag">Tech Leaders &amp; CTOs</span>
+          <h3>You make the decisions that cost millions.</h3>
+          <p>Strategic analysis written for leaders who need an honest perspective — not produced by someone with a commercial interest in Salesforce being the answer. Includes when to walk away.</p>
+          <a href="pages/learning-paths.html#strategist" class="hp-aud-link">Start here →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       MANIFESTO
+  ══════════════════════════════════════════════════════ -->
+  <section class="hp-manifesto">
+    <div class="hp-manifesto-inner">
+      <p class="hp-manifesto-label">From the founder</p>
+      <p class="hp-manifesto-text hp-reveal">
+        "There is a layer of knowledge <em>above</em> Salesforce certification —
+        the architecture decisions, the delivery situations that go wrong,
+        the commercial questions nobody answers honestly.
+        <em>Very little of it has been written down properly.</em>
+        SFVedas is the attempt to change that."
+      </p>
+      <div class="hp-manifesto-attr hp-reveal hp-reveal-delay-1">
+        <div class="hp-manifesto-avatar">VS</div>
+        <div class="hp-manifesto-attr-text">
+          <strong>Vishal Sharma</strong>
+          <span>Instructor &amp; Founder · sfvedas.com</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       NEWSLETTER
+  ══════════════════════════════════════════════════════ -->
+  <section class="hp-newsletter">
+    <div class="hp-container">
+      <div class="hp-newsletter-inner">
+        <div class="hp-newsletter-text hp-reveal">
+          <h2>Stay at<br/>the <em>deep end.</em></h2>
+          <p>New tutorials, architecture insights, and honest Salesforce analysis — sent directly to senior practitioners who want more than surface-level content.</p>
+        </div>
+        <form class="hp-newsletter-form hp-reveal hp-reveal-delay-1" onsubmit="handleNewsletter(event)">
+          <input type="email" placeholder="your@email.com" required/>
+          <button type="submit" class="hp-newsletter-submit">Subscribe — it's free</button>
+          <span class="hp-newsletter-note">No noise. Unsubscribe any time.</span>
         </form>
       </div>
     </div>
@@ -273,13 +949,12 @@
             <h4>About</h4>
             <a href="pages/about.html">Our Story</a>
             <a href="pages/about.html#vishal">Vishal Sharma</a>
-            <a href="pages/about.html#philosophy">Philosophy</a>
           </div>
           <div class="footer-col">
             <h4>Topics</h4>
             <a href="pages/tutorials.html?tag=architecture">Architecture</a>
             <a href="pages/tutorials.html?tag=delivery">Delivery</a>
-            <a href="pages/tutorials.html?tag=strategy">Strategy</a>
+            <a href="pages/tutorials.html?tag=rfp-commercial">RFPs</a>
           </div>
         </div>
       </div>
@@ -291,5 +966,43 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+    // ── Counter animation for hero stats ──
+    function animateCount(el) {
+      const target = +el.dataset.count;
+      if (!target) return;
+      const duration = 1800;
+      const start = performance.now();
+      const step = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - t, 3);
+        el.textContent = Math.round(ease * target);
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCount(e.target);
+          counterObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObserver.observe(c));
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.hp-reveal');
+    const hpObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          hpObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => hpObserver.observe(el));
+  </script>
 </body>
 </html>
