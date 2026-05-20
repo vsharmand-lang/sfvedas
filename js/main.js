@@ -36,20 +36,46 @@ hamburger?.addEventListener('click', () => {
 });
 
 // ── Newsletter ────────────────────────────────────────────
-function handleNewsletter(e) {
+// Sign up at formspree.io, create a form, and paste your endpoint below.
+const NEWSLETTER_ENDPOINT = 'https://formspree.io/f/xpwrqkvj';
+
+async function handleNewsletter(e) {
   e.preventDefault();
   const form  = e.target;
-  const email = form.querySelector('input[type="email"]').value;
+  const email = form.querySelector('input[type="email"]').value.trim();
   const btn   = form.querySelector('button');
-  btn.textContent = '✓ Subscribed!';
-  btn.style.background = '#2D7D52';
+
+  btn.textContent = 'Subscribing…';
   btn.disabled = true;
-  form.querySelector('input').value = '';
-  setTimeout(() => {
-    btn.textContent = 'Subscribe Free';
-    btn.style.background = '';
+
+  try {
+    const res = await fetch(NEWSLETTER_ENDPOINT, {
+      method:  'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ email })
+    });
+
+    if (res.ok) {
+      btn.textContent = '✓ You\'re in!';
+      btn.style.background = '#2D7D52';
+      form.querySelector('input').value = '';
+      setTimeout(() => {
+        btn.textContent = 'Subscribe — it\'s free';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 4000);
+    } else {
+      throw new Error('Submit failed');
+    }
+  } catch {
+    btn.textContent = 'Try again';
+    btn.style.background = '#c0392b';
     btn.disabled = false;
-  }, 3000);
+    setTimeout(() => {
+      btn.textContent = 'Subscribe — it\'s free';
+      btn.style.background = '';
+    }, 3000);
+  }
 }
 
 // ── Scroll Reveal ─────────────────────────────────────────
