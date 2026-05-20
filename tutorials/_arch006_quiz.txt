@@ -1,0 +1,74 @@
+<div class="quiz-section" id="quiz">
+          <h2>Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p class="quiz-prompt">1. Your team is migrating from Aura to LWC. They want to embed a new LWC component inside an existing Aura parent while the parent is migrated later. Is this allowed?</p>
+            <div class="quiz-option" onclick="answer(this,'q1','right')">Yes — LWC components can be embedded inside Aura parents. This is the recommended bottom-up migration approach.</div>
+            <div class="quiz-option" onclick="answer(this,'q1','wrong')">No — LWC and Aura components cannot coexist in the same component tree under any circumstances</div>
+            <div class="quiz-option" onclick="answer(this,'q1','wrong')">Yes, but only if the Aura parent uses the c:container wrapper component provided by Salesforce</div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p class="quiz-prompt">2. An architect argues that migrating stable, rarely-used Aura components should happen immediately to reduce technical debt. What is the most sound counter-argument?</p>
+            <div class="quiz-option" onclick="answer(this,'q2','wrong')">Aura components will be automatically migrated by Salesforce in the next major release, so migration effort is wasted</div>
+            <div class="quiz-option" onclick="answer(this,'q2','right')">Migration cost exceeds performance benefit for rarely-accessed components; prioritise by measured impact — high-traffic, frequently-rendered components deliver the greatest ROI</div>
+            <div class="quiz-option" onclick="answer(this,'q2','wrong')">Aura is not actually in maintenance mode — it continues to receive new features alongside LWC</div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p class="quiz-prompt">3. An LWC component on a high-traffic page needs to communicate with an Aura component in the same page layout. What mechanism should be used?</p>
+            <div class="quiz-option" onclick="answer(this,'q3','wrong')">Aura Application Events — fire the event from LWC via Apex and consume it in the Aura component</div>
+            <div class="quiz-option" onclick="answer(this,'q3','wrong')">Standard DOM custom events — dispatch from LWC and capture with an Aura event handler attribute</div>
+            <div class="quiz-option" onclick="answer(this,'q3','right')">Lightning Message Service (LMS) — the framework-agnostic messaging channel that works for LWC-to-Aura, Aura-to-LWC, and LWC-to-LWC communication</div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="arch-004.html" class="related-card">
+              <span class="card-id">ARCH-004</span>
+              <h4>Salesforce Metadata Model: What It Is and Why It Shapes Everything</h4>
+            </a>
+            <a href="arch-017.html" class="related-card">
+              <span class="card-id">ARCH-017</span>
+              <h4>Mobile Architecture in Salesforce — SFVedas</h4>
+            </a>
+            <a href="arch-009.html" class="related-card">
+              <span class="card-id">ARCH-009</span>
+              <h4>Experience Cloud Architecture: What's Actually Happening Under the Hood</h4>
+            </a>
+            <a href="arch-022.html" class="related-card">
+              <span class="card-id">ARCH-022</span>
+              <h4>Record-Triggered Flows — SFVedas</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why Salesforce Built LWC</a></li>
+            <li><a href="#s2">Architectural Differences That Matter</a></li>
+            <li><a href="#s3">Interoperability Rules</a></li>
+            <li><a href="#s4">Performance Implications</a></li>
+            <li><a href="#s5">Migration Decision Framework</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Master Salesforce Architecture</h4>
+          <p>This is one of 27 architecture deep-dives on SFVedas — built for leaders, not just developers.</p>
+          <a href="../pages/tutorials.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">View All Tutorials</a>
+                </div>
+      </aside>
+
+    </div>

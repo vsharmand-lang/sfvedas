@@ -1,0 +1,28 @@
+<section class="page-hero">
+    <div class="container">
+      <span class="section-label">All Tutorials</span>
+      <h1 class="section-title">Deep knowledge.<br/><em>Hard questions.</em></h1>
+      <p class="section-desc">285 tutorials across 14 areas — for architects, delivery leaders, and strategists who need to understand Salesforce at the level that matters.</p>
+    </div>
+  </section>
+
+  <section style="padding: 60px 0 100px;">
+    <div class="container">
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-tag="all">All Topics</button>
+        <button class="filter-btn" data-tag="architecture">Architecture</button>
+        <button class="filter-btn" data-tag="platform-technical">Platform &amp; Technical</button>
+        <button class="filter-btn" data-tag="integration-data">Integration &amp; Data</button>
+        <button class="filter-btn" data-tag="enterprise-strategy">Enterprise Strategy</button>
+        <button class="filter-btn" data-tag="ai-future">AI &amp; Future</button>
+        <button class="filter-btn" data-tag="delivery-management">Delivery Management</button>
+        <button class="filter-btn" data-tag="crm-comparison">CRM Comparison</button>
+        <button class="filter-btn" data-tag="security-compliance">Security &amp; Compliance</button>
+        <button class="filter-btn" data-tag="reporting-analytics">Reporting &amp; Analytics</button>
+        <button class="filter-btn" data-tag="industry-specific">Industry-Specific</button>
+        <button class="filter-btn" data-tag="team-talent">Team &amp; Talent</button>
+        <button class="filter-btn" data-tag="licensing-commercial">Licensing &amp; Commercial</button>
+        <button class="filter-btn" data-tag="change-management">Change Management</button>
+        <button class="filter-btn" data-tag="rfp">RFP</button>
+      </div>
+      <p id="tutorialCount" style="font-family:var(--font-ui);font-size:0.82rem;color:var(--text-secondary);margin:12px 0 28px;"></p

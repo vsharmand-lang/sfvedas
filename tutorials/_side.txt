@@ -1,0 +1,30 @@
+<aside class="tutorial-sidebar">
+    <div class="sidebar-progress"><div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <h4>Reading Progress</h4>
+      <div class="sidebar-progress"><div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div><div class="progress-fill" id="sidebarProgress" style="width:0%"></div></div>
+      <div style="font-size:.8rem;color:var(--text-secondary,#666);margin-top:.4rem" id="progressPct">0% complete</div>
+        </div><div class="sidebar-toc">
+          <h4>Contents</h4>
+          <ul class="toc-list">
+            <li><a href="#">Why Labels Need Architectural Attention</a></li>
+            <li><a href="#">How Labels Are Stored and Resolved</a></li>
+            <li><a href="#">Naming Conventions That Scale</a></li>
+            <li><a href="#">Translation Workbench Architecture</a></li>
+            <li><a href="#">Translation at Scale: Governance</a></li>
+            <li><a href="#">Labels in Managed Packages</a></li>
+            <li><a href="#">Label Retirement at Scale</a></li>
+          </ul>
+        </div><div class="sidebar-download">
+          <h4>About the Author</h4>
+      <div class="author-block">
+        <div class="author-avatar">VS</div>
+        <div>
+          <div class="author-name">Vishal Sharma</div>
+          <div class="author-role">Salesforce Architecture Specialist · Updated May 2026</div>
+        </div>
+      </div>
+        </div><div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+      <a href="plat-008.html" class="cta-btn">Next: Salesforce Connect →</a>
+      <a href="../pages/tutorials.html" style="display:block;text-align:center;margin-top:.75rem;font-size:.85rem;color:var(--accent,#0070d2)">All Tutorials</a>
+        </div></aside>

@@ -1,0 +1,19 @@
+</li>
+      </ul>
+    </div>
+
+    <section class="quiz-section">
+      <h2>Check Your Understanding</h2>
+
+      <div class="quiz-q" id="q1">
+        <p>1. An ISV wants to remove a field from their managed package that was released 2 years ago. What is the approved process?</p>
+        <button class="quiz-option" onclick="answer(this,'q1','wrong')">Delete the field from the packaging org and ship a new version — subscribers get a migration window</button>
+        <button class="quiz-option" onclick="answer(this,'q1','right')">Mark the field as deprecated, ship the version, communicate a removal timeline, and only hard-remove it in a future version</button>
+        <button class="quiz-option" onclick="answer(this,'q1','wrong')">Contact each subscriber to remove their references, then delete the field</button>
+      </div>
+
+      <div class="quiz-q" id="q2">
+        <p>2. What is the primary risk of namespace prefix pollution when installing a new AppExchange package?</p>
+        <button class="quiz-option" onclick="answer(this,'q2','wrong')">The package will fail to install if the org already uses the same namespace prefix</button>
+        <button class="quiz-option" onclick="answer(this,'q2','right')">All SOQL queries, integrations, and API mappings referencing package fields must use the namespace prefix, permanently affecting the org's data model readability</button>
+        <button class="quiz-option" onclick="answer(this,'q2','wrong')">Namespace prefixes cause governor limit consumption to increase for all transactions</b

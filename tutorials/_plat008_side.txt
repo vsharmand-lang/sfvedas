@@ -1,0 +1,22 @@
+<aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">The Case for Federated Data</a></li>
+            <li><a href="#">Connect Architecture</a></li>
+            <li><a href="#">Adapter Types</a></li>
+            <li><a href="#">Governor Limits and Performance</a></li>
+            <li><a href="#">When Connect Is the Right Choice</a></li>
+            <li><a href="#">Security and Caching</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+      <a href="plat-009.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: OmniStudio →</a>
+                        </div>
+      </aside>

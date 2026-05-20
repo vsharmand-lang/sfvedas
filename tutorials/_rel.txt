@@ -1,0 +1,16 @@
+     <h2>Related Tutorials</h2>
+      <div class="related-grid">
+        <a href="plat-004.html" class="related-card">
+              <span class="card-id">PLAT-004</span>
+              <h4><span class="card-id">PLAT-004</span>
+              <h4></h4></h4>
+            </a>
+        <a href="plat-015.html" class="related-card">
+              <span class="card-id">PLAT-015</span>
+              <h4><span class="card-id">PLAT-015</span>
+              <h4></h4></h4>
+            </a>
+        <a href="plat-005.html" class="related-card">
+              <span class="card-id">PLAT-005</span>
+              <h4><span class="card-id">PLAT-005</span>
+       

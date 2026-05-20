@@ -1,0 +1,24 @@
+<div class="quiz-question" id="q1">
+        <p>1. An ISV wants to remove a field from their managed package that was released 2 years ago. What is the approved process?</p>
+        
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">Delete the field from the packaging org and ship a new version — subscribers get a migration window</div>
+        <div class="quiz-option" onclick="answer(this,'q1','right')">Mark the field as deprecated, ship the version, communicate a removal timeline, and only hard-remove it in a future version</div>
+        <div class="quiz-option" onclick="answer(this,'q1','wrong')">Contact each subscriber to remove their references, then delete the field</div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. What is the primary risk of namespace prefix pollution when installing a new AppExchange package?</p>
+        <div class="quiz-option" onclick="answer(this,'q2','wrong')">The package will fail to install if the org already uses the same namespace prefix</div>
+        <div class="quiz-option" onclick="answer(this,'q2','right')">All SOQL queries, integrations, and API mappings referencing package fields must use the namespace prefix, permanently affecting the org's data model readability</div>
+        <div class="quiz-option" onclick="answer(this,'q2','wrong')">Namespace prefixes cause governor limit consumption to increase for all transactions</div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. What is the key difference between pull upgrades and push upgrades in managed package delivery?</p>
+        <div class="quiz-option" onclick="answer(this,'q3','wrong')">Pull upgrades are automatic; push upgrades require manual subscriber action</div>
+        <div class="quiz-option" onclick="answer(this,'q3','right')">Pull upgrades give subscribers control over timing; push upgrades are delivered by the ISV on their schedule without subscriber deferral</div>
+        <div class="quiz-option" onclick="answer(this,'q3','wrong')">Push upgrades only work in sandboxes; pull upgrades deploy to production directly</div>
+      </div>
+            </div>
+          </div>

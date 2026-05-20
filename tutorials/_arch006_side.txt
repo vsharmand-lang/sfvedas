@@ -1,0 +1,33 @@
+<aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why Salesforce Built LWC</a></li>
+            <li><a href="#s2">Architectural Differences That Matter</a></li>
+            <li><a href="#s3">Interoperability Rules</a></li>
+            <li><a href="#s4">Performance Implications</a></li>
+            <li><a href="#s5">Migration Decision Framework</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-progress"><div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <h4>Your Progress</h4>
+          <div class="progress-track">
+            <div class="progress-fill" id="sidebarProgress"></div>
+          </div>
+          <span class="progress-pct" id="progressPct">0% complete</span>
+        </div>
+
+        <div class="sidebar-download">
+          <h4>Download</h4>
+          <p>Save this tutorial as PDF for offline reference.</p>
+          <button onclick="window.print()" class="btn-download">Download PDF</button>
+        </div>
+
+        <div class="sidebar-cta">
+          <h4>Master Salesforce Architecture</h4>
+          <p>This is one of 27 architecture deep-dives on SFVedas — built for leaders, not just developers.</p>
+          <a href="../pages/tutorials.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">View All Tutorials</a>
+        </div>
+      </aside>

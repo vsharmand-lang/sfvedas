@@ -1,0 +1,57 @@
+<div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="ent-003.html" class="related-card">
+              <span class="card-id">ENT-003</span>
+              <h4>Salesforce ROI: How to Measure What Actually Matters</h4>
+            </a>
+            <a href="lic-003.html" class="related-card">
+              <span class="card-id">LIC-003</span>
+              <h4>Salesforce Contract Negotiation: What You Can Push Back On</h4>
+            </a>
+            <a href="lic-004.html" class="related-card">
+              <span class="card-id">LIC-004</span>
+              <h4>True Cost of Salesforce: Licences, Customisation, and Run Costs</h4>
+            </a>
+            <a href="ent-011.html" class="related-card">
+              <span class="card-id">ENT-011</span>
+              <h4>The Business Case for Salesforce: Template and Techniques</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Licence Price Is the Smallest Part</a></li>
+            <li><a href="#s2">Software Licences</a></li>
+            <li><a href="#s3">Implementation Costs</a></li>
+            <li><a href="#s4">Ongoing Support and Development</a></li>
+            <li><a href="#s5">Infrastructure and Integration</a></li>
+            <li><a href="#s6">Internal Talent</a></li>
+            <li><a href="#s7">Building the 5-Year TCO Model</a></li>
+            <li><a href="#quiz">Checkpoint Quiz</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-download">
+          <h4>Resources</h4>
+          <a href="#" onclick="return false;"><span>📊</span> 5-Year TCO Model Template</a>
+          <a href="#" onclick="return false;"><span>📄</span> Cost Category Breakdown Guide</a>
+          <a href="#" onclick="return false;"><span>✅</span> Business Case Review Checklist</a>
+        </div>
+        <div class="sidebar-cta">
+          <h4>The Strategist Path</h4>
+          <p>Part of the Strategist learning path — for senior tech leaders making the big platform investment decisions.</p>
+          <a href="../pages/learning-paths.html#strategist" class="btn btn-primary" style="width:100%;text-align:center;display:block;">View Path →</a>
+        </div>
+      </aside>
+
+    </div>
