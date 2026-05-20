@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SFVedas — Deep Salesforce Knowledge for Tech Leaders</title>
   <meta name="description" content="285 tutorials on Salesforce architecture, delivery, and strategy — written for senior practitioners, not beginners."/>
@@ -637,6 +638,151 @@
       .hp-lib-count { font-size: 1.8rem; padding: 20px 12px; }
       .hp-lib-arrow { padding: 20px 16px; opacity: 1; }
     }
+
+    /* ─── LATEST TUTORIALS ──────────────────────────────── */
+    .hp-latest {
+      padding: 90px 0 100px;
+      background: #0A1628;
+      position: relative;
+      overflow: hidden;
+    }
+    .hp-latest::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(232,147,10,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,147,10,0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      pointer-events: none;
+    }
+    .hp-latest-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .hp-latest-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #E8930A;
+      margin-bottom: 10px;
+    }
+    .hp-latest-pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #E8930A;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .hp-latest-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+      font-weight: 700;
+      color: #EDE8E0;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin: 0;
+    }
+    .hp-latest-header h2 em { font-style: italic; color: #E8930A; }
+    .hp-latest-viewall {
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #E8930A;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      padding-bottom: 4px;
+      transition: gap 0.2s;
+    }
+    .hp-latest-viewall:hover { gap: 11px; }
+    .hp-latest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      position: relative;
+    }
+    .hp-tut-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(232,147,10,0.1);
+      border-radius: 8px;
+      padding: 22px 24px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .hp-tut-card:hover {
+      border-color: rgba(232,147,10,0.35);
+      background: rgba(232,147,10,0.05);
+      transform: translateY(-3px);
+    }
+    .hp-tut-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hp-tut-card-id {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: rgba(232,147,10,0.75);
+      letter-spacing: 0.06em;
+    }
+    .hp-tut-card-tag {
+      font-family: var(--font-ui);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(237,232,224,0.35);
+      border: 1px solid rgba(237,232,224,0.1);
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+    .hp-tut-card-title {
+      font-family: var(--font-heading);
+      font-size: 0.98rem;
+      font-weight: 400;
+      color: #EDE8E0;
+      line-height: 1.4;
+      flex: 1;
+      margin: 0;
+    }
+    .hp-tut-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hp-tut-card-time {
+      font-family: var(--font-ui);
+      font-size: 0.72rem;
+      color: rgba(237,232,224,0.3);
+    }
+    .hp-tut-card-arrow {
+      font-size: 0.9rem;
+      color: #E8930A;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .hp-tut-card:hover .hp-tut-card-arrow { opacity: 1; transform: translateX(4px); }
+    @media (max-width: 900px) {
+      .hp-latest-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .hp-latest-grid { grid-template-columns: 1fr; }
+      .hp-latest-header { flex-direction: column; gap: 20px; align-items: flex-start; }
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
@@ -931,6 +1077,92 @@
           <strong>Vishal Sharma</strong>
           <span>Instructor &amp; Founder · sfvedas.com</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       LATEST TUTORIALS
+  ══════════════════════════════════════════════════════ -->
+  <section class="hp-latest">
+    <div class="hp-container">
+      <div class="hp-latest-header hp-reveal">
+        <div>
+          <div class="hp-latest-eyebrow">
+            <span class="hp-latest-pulse"></span>
+            Recently Published
+          </div>
+          <h2>83 tutorials live — <em>and growing.</em></h2>
+        </div>
+        <a href="pages/tutorials.html" class="hp-latest-viewall">View all tutorials →</a>
+      </div>
+      <div class="hp-latest-grid">
+        <a href="tutorials/arch-001.html" class="hp-tut-card hp-reveal">
+          <div class="hp-tut-card-meta">
+            <span class="hp-tut-card-id">ARCH-001</span>
+            <span class="hp-tut-card-tag">Architecture</span>
+          </div>
+          <p class="hp-tut-card-title">If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture?</p>
+          <div class="hp-tut-card-footer">
+            <span class="hp-tut-card-time">25 min read</span>
+            <span class="hp-tut-card-arrow">→</span>
+          </div>
+        </a>
+        <a href="tutorials/intg-001.html" class="hp-tut-card hp-reveal">
+          <div class="hp-tut-card-meta">
+            <span class="hp-tut-card-id">INTG-001</span>
+            <span class="hp-tut-card-tag">Integration</span>
+          </div>
+          <p class="hp-tut-card-title">MuleSoft vs Salesforce Native Integration: The Decision Framework</p>
+          <div class="hp-tut-card-footer">
+            <span class="hp-tut-card-time">25 min read</span>
+            <span class="hp-tut-card-arrow">→</span>
+          </div>
+        </a>
+        <a href="tutorials/intg-002.html" class="hp-tut-card hp-reveal">
+          <div class="hp-tut-card-meta">
+            <span class="hp-tut-card-id">INTG-002</span>
+            <span class="hp-tut-card-tag">Integration</span>
+          </div>
+          <p class="hp-tut-card-title">Data Cloud Architecture: Real-Time Data at Salesforce Scale</p>
+          <div class="hp-tut-card-footer">
+            <span class="hp-tut-card-time">25 min read</span>
+            <span class="hp-tut-card-arrow">→</span>
+          </div>
+        </a>
+        <a href="tutorials/plat-001.html" class="hp-tut-card hp-reveal">
+          <div class="hp-tut-card-meta">
+            <span class="hp-tut-card-id">PLAT-001</span>
+            <span class="hp-tut-card-tag">Platform</span>
+          </div>
+          <p class="hp-tut-card-title">Apex Best Practices for Tech Leaders Who Don't Write Code</p>
+          <div class="hp-tut-card-footer">
+            <span class="hp-tut-card-time">15 min read</span>
+            <span class="hp-tut-card-arrow">→</span>
+          </div>
+        </a>
+        <a href="tutorials/del-001.html" class="hp-tut-card hp-reveal">
+          <div class="hp-tut-card-meta">
+            <span class="hp-tut-card-id">DEL-001</span>
+            <span class="hp-tut-card-tag">Delivery</span>
+          </div>
+          <p class="hp-tut-card-title">Running a Discovery Workshop for a Salesforce Programme</p>
+          <div class="hp-tut-card-footer">
+            <span class="hp-tut-card-time">22 min read</span>
+            <span class="hp-tut-card-arrow">→</span>
+          </div>
+        </a>
+        <a href="tutorials/ent-002.html" class="hp-tut-card hp-reveal">
+          <div class="hp-tut-card-meta">
+            <span class="hp-tut-card-id">ENT-002</span>
+            <span class="hp-tut-card-tag">Enterprise</span>
+          </div>
+          <p class="hp-tut-card-title">Total Cost of Ownership: The Salesforce Numbers Nobody Shares</p>
+          <div class="hp-tut-card-footer">
+            <span class="hp-tut-card-time">25 min read</span>
+            <span class="hp-tut-card-arrow">→</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>

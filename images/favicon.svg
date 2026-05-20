@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="5" fill="#0A1628"/>
+  <g transform="translate(0, 2)">
+    <defs>
+      <linearGradient id="fg" x1="0.5" y1="0" x2="0.5" y2="1">
+        <stop offset="0%" stop-color="#FDD27A"/>
+        <stop offset="100%" stop-color="#E8930A"/>
+      </linearGradient>
+    </defs>
+    <path d="M16,2 L28,8 L16,14 L4,8 Z" fill="url(#fg)"/>
+    <path d="M4,8  L16,14 L16,17 L4,11 Z"  fill="#4285F4"/>
+    <path d="M4,11 L16,17 L16,20 L4,14 Z"  fill="#EA4335"/>
+    <path d="M4,14 L16,20 L16,23 L4,17 Z"  fill="#FBBC05"/>
+    <path d="M4,17 L16,23 L16,26 L4,20 Z"  fill="#34A853"/>
+    <path d="M4,8  L16,14 L16,26 L4,20 Z"  fill="rgba(0,0,0,0.20)"/>
+    <path d="M16,14 L28,8  L28,11 L16,17 Z" fill="#4285F4"/>
+    <path d="M16,17 L28,11 L28,14 L16,20 Z" fill="#EA4335"/>
+    <path d="M16,20 L28,14 L28,17 L16,23 Z" fill="#FBBC05"/>
+    <path d="M16,23 L28,17 L28,20 L16,26 Z" fill="#34A853"/>
+    <path d="M28,8  L16,14 L16,26 L28,20 Z" fill="rgba(0,0,0,0.07)"/>
+    <g stroke="rgba(255,255,255,0.45)" stroke-width="0.9" stroke-linecap="round" fill="none">
+      <line x1="4"  y1="8"  x2="16" y2="14"/>
+      <line x1="28" y1="8"  x2="16" y2="14"/>
+      <line x1="16" y1="14" x2="16" y2="26"/>
+    </g>
+  </g>
+</svg>
