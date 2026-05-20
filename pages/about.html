@@ -54,31 +54,38 @@
 
     /* ─── HERO ─── */
     .a-hero {
-      padding: 100px 0 96px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
+      padding: 120px 0 100px;
+      background: #0A1628;
+      border-bottom: none;
       position: relative;
       overflow: hidden;
     }
-    .a-hero::before {
-      content: '';
+    .a-hero-grid {
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(232,147,10,0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(232,147,10,0.045) 1px, transparent 1px);
-      background-size: 64px 64px;
+        linear-gradient(rgba(232,147,10,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,147,10,0.06) 1px, transparent 1px);
+      background-size: 72px 72px;
       mask-image: radial-gradient(ellipse 80% 80% at 10% 50%, black 30%, transparent 80%);
       pointer-events: none;
     }
+    .a-hero-glow {
+      position: absolute;
+      top: -200px; left: -150px;
+      width: 700px; height: 600px;
+      background: radial-gradient(ellipse, rgba(232,147,10,0.09) 0%, transparent 65%);
+      pointer-events: none;
+    }
     .a-hero-inner { position: relative; z-index: 1; }
+    .a-hero .a-eyebrow { color: var(--saffron); }
     .a-hero h1 {
       font-family: var(--font-display);
       font-size: clamp(3rem, 6vw, 5rem);
       font-weight: 700;
       line-height: 1.08;
       letter-spacing: -0.035em;
-      color: var(--text-primary);
+      color: #EDE8E0;
       margin: 0 0 32px;
       max-width: 720px;
     }
@@ -90,7 +97,7 @@
       font-family: var(--font-body);
       font-size: clamp(1.15rem, 2vw, 1.3rem);
       line-height: 1.8;
-      color: var(--text-secondary);
+      color: rgba(237,232,224,0.6);
       max-width: 640px;
     }
 
@@ -475,6 +482,7 @@
         <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
         <li><a href="learning-paths.html" class="nav-link">Learning Paths</a></li>
         <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="advertise.html" class="nav-link">Advertise</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
@@ -486,6 +494,7 @@
       <a href="tutorials.html" class="nav-link">Tutorials</a>
       <a href="learning-paths.html" class="nav-link">Learning Paths</a>
       <a href="about.html" class="nav-link">About</a>
+      <a href="advertise.html" class="nav-link">Advertise</a>
     </div>
   </nav>
 
@@ -493,6 +502,8 @@
 
     <!-- ── HERO ── -->
     <section class="a-hero">
+      <div class="a-hero-grid"></div>
+      <div class="a-hero-glow"></div>
       <div class="a-container">
         <div class="a-hero-inner">
           <span class="a-eyebrow">About SFVedas</span>

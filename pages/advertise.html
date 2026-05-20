@@ -322,6 +322,67 @@
       color: rgba(237,232,224,0.3);
     }
 
+    /* ── Enquiry Forms ────────────────────────── */
+    .adv-cta-wrap { position: relative; }
+    .adv-enquire-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .adv-enquire-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 11px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      background: transparent;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .adv-enquire-input::placeholder { color: var(--text-secondary); opacity: 0.6; }
+    .adv-enquire-input:focus { border-color: var(--saffron); }
+    .adv-enquire-success {
+      display: none;
+      text-align: center;
+      padding: 13px 16px;
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2D7D52;
+      background: rgba(45,125,82,0.08);
+      border: 1px solid rgba(45,125,82,0.2);
+      border-radius: 8px;
+    }
+    .adv-contact-input {
+      padding: 15px 28px;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      background: rgba(255,255,255,0.06);
+      color: #EDE8E0;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+      max-width: 380px;
+      transition: border-color 0.2s;
+      margin-bottom: 12px;
+    }
+    .adv-contact-input::placeholder { color: rgba(237,232,224,0.4); }
+    .adv-contact-input:focus { border-color: var(--saffron); }
+    .adv-contact-form { display: flex; flex-direction: column; align-items: center; }
+    .adv-contact-success {
+      display: none;
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #7ee8a2;
+      margin-bottom: 12px;
+    }
+
     /* ── Responsive ───────────────────────────── */
     @media (max-width: 860px) {
       .adv-packages { grid-template-columns: 1fr; }
@@ -348,6 +409,7 @@
         <li><a href="tutorials.html" class="nav-link">Tutorials</a></li>
         <li><a href="learning-paths.html" class="nav-link">Learning Paths</a></li>
         <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="advertise.html" class="nav-link">Advertise</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
@@ -359,6 +421,7 @@
       <a href="tutorials.html" class="nav-link">Tutorials</a>
       <a href="learning-paths.html" class="nav-link">Learning Paths</a>
       <a href="about.html" class="nav-link">About</a>
+      <a href="advertise.html" class="nav-link">Advertise</a>
     </div>
   </nav>
 
@@ -369,7 +432,7 @@
     <div class="adv-hero-body">
       <p class="adv-eyebrow">Work With Us</p>
       <h1 class="adv-hero-title">Reach the people<br/>who <em>make decisions.</em></h1>
-      <p class="adv-hero-sub">SFVedas readers are not students learning Salesforce. They are CTOs, solution architects, and delivery leaders making platform decisions that involve millions of pounds in investment.</p>
+      <p class="adv-hero-sub">SFVedas readers are not students learning Salesforce. They are CTOs, solution architects, and delivery leaders making platform decisions that involve millions in investment.</p>
     </div>
     <div class="adv-stats">
       <div class="adv-stat">
@@ -431,7 +494,7 @@
         <div class="adv-package">
           <div class="adv-pkg-name">Sponsored Tutorial</div>
           <div class="adv-pkg-tagline">Your brand on a deep, editorial tutorial read by architects and delivery leaders.</div>
-          <div class="adv-pkg-price">£400</div>
+          <div class="adv-pkg-price">$499 <small style="font-size:1rem;opacity:0.6">/ ₹41,500</small></div>
           <div class="adv-pkg-price-note">per tutorial · one-time</div>
           <ul class="adv-pkg-features">
             <li>Your logo + "Supported by" label at top of tutorial</li>
@@ -440,14 +503,20 @@
             <li>Included in sitemap &amp; SEO indexing</li>
             <li>Social promotion on publish</li>
           </ul>
-          <a href="mailto:vishal@sfvedas.com?subject=Sponsored Tutorial Enquiry" class="adv-pkg-cta secondary">Enquire →</a>
+          <div class="adv-cta-wrap">
+            <form class="adv-enquire-form" onsubmit="handleEnquiry(event, 'Sponsored Tutorial')">
+              <input type="email" class="adv-enquire-input" placeholder="Your email address" required/>
+              <button type="submit" class="adv-pkg-cta secondary">Enquire →</button>
+            </form>
+            <p class="adv-enquire-success">✓ Got it — we'll reply within 48 hours.</p>
+          </div>
         </div>
 
         <div class="adv-package featured">
           <div class="adv-pkg-badge">Most popular</div>
           <div class="adv-pkg-name">Newsletter Sponsorship</div>
           <div class="adv-pkg-tagline">A dedicated placement in the SFVedas newsletter, direct to senior Salesforce professionals.</div>
-          <div class="adv-pkg-price">£300</div>
+          <div class="adv-pkg-price">$379 <small style="font-size:1rem;opacity:0.6">/ ₹31,500</small></div>
           <div class="adv-pkg-price-note">per send · single issue</div>
           <ul class="adv-pkg-features">
             <li>Full dedicated sponsor block in one newsletter</li>
@@ -456,13 +525,19 @@
             <li>Open rates typically 35–50% in this niche</li>
             <li>Reporting on clicks provided after send</li>
           </ul>
-          <a href="mailto:vishal@sfvedas.com?subject=Newsletter Sponsorship Enquiry" class="adv-pkg-cta primary">Get in touch →</a>
+          <div class="adv-cta-wrap">
+            <form class="adv-enquire-form" onsubmit="handleEnquiry(event, 'Newsletter Sponsorship')">
+              <input type="email" class="adv-enquire-input" placeholder="Your email address" required/>
+              <button type="submit" class="adv-pkg-cta primary">Get in touch →</button>
+            </form>
+            <p class="adv-enquire-success">✓ Got it — we'll reply within 48 hours.</p>
+          </div>
         </div>
 
         <div class="adv-package">
           <div class="adv-pkg-name">Content Partnership</div>
           <div class="adv-pkg-tagline">We write a tutorial on a topic relevant to your product — honest, editorial, and properly researched.</div>
-          <div class="adv-pkg-price">£900</div>
+          <div class="adv-pkg-price">$1,099 <small style="font-size:1rem;opacity:0.6">/ ₹91,500</small></div>
           <div class="adv-pkg-price-note">per tutorial · includes writing</div>
           <ul class="adv-pkg-features">
             <li>Full editorial tutorial written by SFVedas</li>
@@ -471,7 +546,13 @@
             <li>Promoted across site, newsletter, and social</li>
             <li>SEO-optimised with schema markup</li>
           </ul>
-          <a href="mailto:vishal@sfvedas.com?subject=Content Partnership Enquiry" class="adv-pkg-cta secondary">Enquire →</a>
+          <div class="adv-cta-wrap">
+            <form class="adv-enquire-form" onsubmit="handleEnquiry(event, 'Content Partnership')">
+              <input type="email" class="adv-enquire-input" placeholder="Your email address" required/>
+              <button type="submit" class="adv-pkg-cta secondary">Enquire →</button>
+            </form>
+            <p class="adv-enquire-success">✓ Got it — we'll reply within 48 hours.</p>
+          </div>
         </div>
 
       </div>
@@ -509,9 +590,15 @@
     <div class="adv-contact-glow"></div>
     <div class="adv-contact-inner">
       <h2>Ready to reach<br/><em>the right people?</em></h2>
-      <p>Send a short email with your company, what you're promoting, and which package interests you. We'll respond within 48 hours.</p>
-      <a href="mailto:vishal@sfvedas.com?subject=SFVedas Sponsorship Enquiry" class="adv-contact-btn">Email vishal@sfvedas.com →</a>
-      <p class="adv-contact-note">No forms. No sales calls. Just a direct conversation.</p>
+      <p>Drop your email below and tell us which package interests you. We'll respond within 48 hours.</p>
+      <div class="adv-contact-form-wrap">
+        <p class="adv-contact-success" id="contact-success">✓ Got it — we'll reply within 48 hours.</p>
+        <form class="adv-contact-form" onsubmit="handleEnquiry(event, 'General Enquiry')">
+          <input type="email" class="adv-contact-input" placeholder="your@email.com" required/>
+          <button type="submit" class="adv-contact-btn">Get in touch →</button>
+        </form>
+      </div>
+      <p class="adv-contact-note">No sales calls. Just a direct conversation.</p>
     </div>
   </section>
 
@@ -537,5 +624,32 @@
   </footer>
 
   <script src="../js/main.js" defer></script>
+  <script>
+    async function handleEnquiry(e, packageName) {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.querySelector('input[type="email"]').value.trim();
+      const btn = form.querySelector('button');
+      const originalText = btn.textContent;
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      try {
+        const res = await fetch('https://formspree.io/f/xzdweppl', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, type: 'Advertising Enquiry', package: packageName })
+        });
+        if (res.ok) {
+          const success = form.parentElement.querySelector('.adv-enquire-success, .adv-contact-success');
+          if (success) { success.style.display = 'block'; }
+          form.style.display = 'none';
+        } else { throw new Error(); }
+      } catch {
+        btn.textContent = 'Try again';
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = originalText; }, 3000);
+      }
+    }
+  </script>
 </body>
 </html>
