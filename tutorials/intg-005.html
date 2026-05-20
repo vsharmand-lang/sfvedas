@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>API Rate Limits: The Integration Tax Nobody Budgets For | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="API Rate Limits: The Integration Tax Nobody Budgets For | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-005.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="API Rate Limits: The Integration Tax Nobody Budgets For | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "API Rate Limits: The Integration Tax Nobody Budgets For | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-005.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-005.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -103,7 +139,7 @@
   <p>Salesforce provides API usage data through System Overview (Setup > System Overview) and through the API Usage platform event. The System Overview shows current API requests in the last 24 hours with a gauge. For detailed attribution — which connected app, which user, which integration is consuming how many calls — you need Event Monitoring (a Shield add-on) or the API Usage Notifications feature.</p>
   <p>The REST endpoint for checking current API usage is simple and should be polled by every integration monitoring system. The response includes the remaining API calls and the total limit, giving a real-time view of consumption:</p>
 
-  <pre><code>// Check current API usage
+  <pre><code class="language-java">// Check current API usage
 GET /services/data/v60.0/limits
 // Response excerpt:
 {
@@ -135,7 +171,7 @@ GET /services/data/v60.0/limits
   <h2 id="s4">Composite API and Batch Optimisation</h2>
   <p>The Composite API is one of the most underused API efficiency tools in the Salesforce ecosystem. It allows a single HTTP request to contain up to 25 subrequests, with conditional logic and reference IDs that allow the output of one subrequest to be the input to another. The practical impact: an integration that creates a parent Account, creates a Contact with the new Account ID, and creates an Opportunity linked to both can do all three in a single HTTP request with three subrequests, rather than three sequential API calls.</p>
 
-  <pre><code>// Composite API — create Account + Contact + Opportunity in 1 call
+  <pre><code class="language-java">// Composite API — create Account + Contact + Opportunity in 1 call
 POST /services/data/v60.0/composite
 {
   "allOrNone": false,
@@ -328,5 +364,7 @@ POST /services/data/v60.0/composite
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

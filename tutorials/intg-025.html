@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>API-First vs Integration-First Architecture: The Strategic Choice | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="API-First vs Integration-First Architecture: The Strategic Choice | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-025.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="API-First vs Integration-First Architecture: The Strategic Choice | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "API-First vs Integration-First Architecture: The Strategic Choice | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-025.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-025.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -99,7 +135,7 @@
   <p>API-first is not simply "design before build." It requires a specific organisational capability: the ability to publish an API specification, get feedback from consumers before implementation, and treat the specification as a contractual artefact that outlasts any given implementation. In MuleSoft's ecosystem this is delivered through Anypoint Exchange, where API specifications (typically written in RAML or OAS 3.0) are published and discoverable before a single runtime is deployed. In the Salesforce ecosystem, it maps to defining a Connected App's permission scopes and API contract before the Apex REST service is written.</p>
   <p>The practical requirements of API-first include a specification language and tooling (RAML, OAS 3.0, AsyncAPI for event-driven APIs), a design review process that involves potential consumers, a versioning strategy (URI versioning, header versioning, or content negotiation), and a deprecation policy. Without these, "API-first" becomes "we write the Swagger docs after the implementation" — which is documentation-first, not API-first, and delivers substantially less value.</p>
 
-  <pre><code># OAS 3.0 snippet: Salesforce Account API contract defined before implementation
+  <pre><code class="language-java"># OAS 3.0 snippet: Salesforce Account API contract defined before implementation
 openapi: 3.0.3
 info:
   title: Customer Account API
@@ -322,5 +358,7 @@ components:
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

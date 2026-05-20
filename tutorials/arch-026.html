@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce B2B Commerce Architecture: The Hidden Complexity | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Salesforce B2B Commerce Architecture: The Hidden Complexity | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-026.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Salesforce B2B Commerce Architecture: The Hidden Complexity | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Salesforce B2B Commerce Architecture: The Hidden Complexity | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/arch-026.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-026.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -116,7 +152,7 @@
 
         <p><strong>CartItem and Order:</strong> The cart in B2B Commerce is a temporary order. When a buyer checks out, the cart is converted to a Salesforce Order. This means Order and OrderItem records are the commerce transaction record — and they carry all the constraints of standard Salesforce Orders (line item limits, order lifecycle, etc.).</p>
 
-        <pre><code>// Example: Querying buyer group assignment for an account
+        <pre><code class="language-java">// Example: Querying buyer group assignment for an account
 SELECT Id, Name, BuyerGroupId, BuyerGroup.Name
 FROM BuyerAccount
 WHERE BuyerId = :accountId
@@ -152,7 +188,7 @@ WHERE CatalogueId IN (
         <p><strong>Option 2 — ERP Integration via Middleware:</strong> Orders are published from Salesforce via Platform Events or outbound messages to an integration layer (MuleSoft, Boomi, custom) that transforms and routes to the ERP. The challenge here is order acknowledgment — the ERP must confirm order receipt and provide an order number, which needs to be written back to the Salesforce Order record. Design the acknowledgment loop carefully to avoid orphaned orders.</p>
         <p><strong>Option 3 — Real-time ERP Submission at Checkout:</strong> The checkout flow calls an ERP API synchronously to submit the order. Simpler from a data consistency standpoint but creates a hard dependency on ERP availability. If the ERP is down, checkout fails. This pattern is appropriate only when the ERP is highly available and the business requires synchronous order confirmation (e.g., printing a purchase order at checkout).</p>
 
-        <pre><code>// Platform Event publish at Order activation for ERP integration
+        <pre><code class="language-java">// Platform Event publish at Order activation for ERP integration
 trigger OrderToERP on Order (after update) {
     List&lt;Commerce_Order_Event__e&gt; events = new List&lt;Commerce_Order_Event__e&gt;();
     for (Order o : Trigger.new) {
@@ -351,5 +387,7 @@ trigger OrderToERP on Order (after update) {
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Schema Design for Analytics: Facts, Dimensions, and Relationships | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Salesforce Schema Design for Analytics: Facts, Dimensions, and Relationships | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-022.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Salesforce Schema Design for Analytics: Facts, Dimensions, and Relationships | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Salesforce Schema Design for Analytics: Facts, Dimensions, and Relationships | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-022.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-022.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -109,7 +145,7 @@
   <p>Salesforce's standard approach for SCD tracking is Field History — tracking field value changes on the Account object with timestamps. This captures when Industry changed, but requires joining field history to the Opportunity at Opportunity CloseDate to determine what Industry value was current at deal close. This join is expensive and complex in SOQL and requires careful ETL to implement in a data warehouse.</p>
   <p>The clean pattern for analytics SCD management is a snapshot field on the analytical fact object. When an Opportunity is created (or at CloseDate), capture the current values of key Account dimension attributes directly on the Opportunity: Account_Industry_At_Close__c, Account_Size_At_Close__c, Account_Region_At_Close__c. These snapshot fields preserve point-in-time dimension state on the fact record, enabling accurate historical analysis without complex history joins.</p>
 
-  <pre><code>// Opportunity creation trigger — snapshot Account dimensions
+  <pre><code class="language-java">// Opportunity creation trigger — snapshot Account dimensions
 trigger OpportunitySnapshotDimensions on Opportunity (before insert) {
     Set&lt;Id&gt; accountIds = new Set&lt;Id&gt;();
     for (Opportunity opp : Trigger.new) {
@@ -293,5 +329,7 @@ trigger OpportunitySnapshotDimensions on Opportunity (before insert) {
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

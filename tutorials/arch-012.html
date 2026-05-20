@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Large Data Volumes: How Salesforce Handles 100M+ Records | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Large Data Volumes: How Salesforce Handles 100M+ Records | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-012.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Large Data Volumes: How Salesforce Handles 100M+ Records | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Large Data Volumes: How Salesforce Handles 100M+ Records | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/arch-012.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-012.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -105,7 +141,7 @@
         <p>This architecture is why custom indexes in Salesforce are called "two-column indexes" — they index on the combination of OrgId + the indexed field. A standard B-tree index on just the custom field would be useless in a multi-tenant table; the index must include the org ID for the query to use it efficiently.</p>
         <p>The implication for LDV design is that index selectivity must be evaluated within the context of your org's data, not the full table. A field that is highly selective across all orgs (like a globally unique external ID) may still be non-selective within your org if your data has many records with the same value.</p>
 
-        <pre><code>-- Conceptual representation of the multi-tenant table structure
+        <pre><code class="language-sql">-- Conceptual representation of the multi-tenant table structure
 -- (not actual Salesforce SQL, but illustrative)
 SELECT OrgId, Id, AccountId, CloseDate, Amount, StageName
 FROM Opportunity_Data
@@ -133,7 +169,7 @@ AND Amount > 100000             -- your filter
         <p>Bulk API v2 (the current version) simplifies the v1 job/batch/result model into a simpler upload-and-poll pattern. You upload a CSV file to a job, the platform processes it in parallel chunks, and you poll for results. For queries, Bulk API v2 returns results as CSV files that you download in chunks.</p>
         <p>The architectural decision point is when to use Bulk API vs REST API. As a general rule: operations on more than 2,000 records should use Bulk API. Below that threshold, the REST API's synchronous processing is faster because it avoids the overhead of job creation, parallel setup, and polling. Above 2,000 records, Bulk API's parallelism and optimised batch processing delivers significantly better throughput.</p>
 
-        <pre><code># Bulk API v2 data load example (using SFDX CLI)
+        <pre><code class="language-java"># Bulk API v2 data load example (using SFDX CLI)
 # Create a Bulk API job for Opportunity insert
 sf data import bulk \
   --file opportunities.csv \
@@ -323,5 +359,7 @@ sf data bulk results \
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

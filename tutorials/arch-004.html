@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Metadata Model: What It Is and Why It Shapes Everything | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Salesforce Metadata Model: What It Is and Why It Shapes Everything | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-004.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Salesforce Metadata Model: What It Is and Why It Shapes Everything | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Salesforce Metadata Model: What It Is and Why It Shapes Everything | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/arch-004.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-004.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -118,7 +154,7 @@
         <p>This architecture is why Salesforce can push a single upgrade to all ~150,000 orgs simultaneously. Because the application logic is in the platform layer (Tier 1), not in the tenant's data layer, upgrading the platform upgrades every tenant at once. There is no per-tenant deployment, no per-tenant upgrade testing by Salesforce. The guarantee is that the upgrade will not break standard org configurations — which is why the standard metadata contracts are so carefully maintained.</p>
         <p>The same architecture creates the governor limits. Because all tenants share resources, the platform must prevent any single tenant's metadata-driven logic (Apex, SOQL, triggers) from monopolising shared resources. Governor limits are the enforcement mechanism for the shared-resource bargain.</p>
 
-        <pre><code>// Metadata API retrieve example (using SFDX CLI)
+        <pre><code class="language-java">// Metadata API retrieve example (using SFDX CLI)
 sf project retrieve start \
   --metadata "CustomObject:Account" \
   --metadata "ApexClass:OrderService" \
@@ -143,7 +179,7 @@ sf project retrieve start \
           </div>
         </div>
 
-        <pre><code>// Tooling API query example — check Apex code coverage
+        <pre><code class="language-java">// Tooling API query example — check Apex code coverage
 GET /services/data/v60.0/tooling/query?q=
   SELECT+Id,ApexClassOrTrigger.Name,NumLinesCovered,
          NumLinesUncovered,Coverage
@@ -174,7 +210,7 @@ GET /services/data/v60.0/tooling/query?q=
         <p><strong>Package-based development:</strong> The Salesforce DX (Salesforce CLI / Second-Generation Packaging) model defines explicit package boundaries — a package contains a declared subset of org metadata. This is the architectural recommendation for complex orgs because it creates modularity: different teams own different packages, dependencies between packages are explicit, and package versions provide reproducibility. Contrast this with org-based development where all metadata is in one undifferentiated bucket.</p>
         <p><strong>Metadata completeness:</strong> Not all metadata types are retrievable via the Metadata API. Some standard platform configuration (certain setup UI configurations, some permission system features) cannot be exported and redeployed. This is a known platform limitation — when designing deployment pipelines, validate that all relevant metadata types are API-retrievable before committing to an automated deployment strategy.</p>
 
-        <pre><code># sfdx-project.json — defining package structure
+        <pre><code class="language-java"># sfdx-project.json — defining package structure
 {
   "packageDirectories": [
     {
@@ -341,5 +377,7 @@ GET /services/data/v60.0/tooling/query?q=
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

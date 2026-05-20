@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Data Model Design: Objects, Relationships, and the Choices That Haunt You | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Salesforce Data Model Design: Objects, Relationships, and the Choices That Haunt You | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-010.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Salesforce Data Model Design: Objects, Relationships, and the Choices That Haunt You | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Salesforce Data Model Design: Objects, Relationships, and the Choices That Haunt You | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/arch-010.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-010.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -100,7 +136,7 @@
           </div>
         </div>
 
-        <pre><code>// Querying roll-up data through Master-Detail relationship
+        <pre><code class="language-java">// Querying roll-up data through Master-Detail relationship
 SELECT Id, Name, Total_Order_Value__c,
        (SELECT Id, Product_Name__c, Line_Total__c
         FROM Order_Line_Items__r)
@@ -146,7 +182,7 @@ WHERE Account__c = :accountId
         <p>Salesforce automatically indexes the Id field, all external ID fields, all custom fields marked as unique, and a small set of standard fields. For frequently-queried fields that are not automatically indexed, a custom index can be requested from Salesforce support. Custom indexes dramatically improve query performance for selective queries (queries where the filter returns less than ~5-10% of total records).</p>
         <p>Non-selective queries — queries that return a large proportion of an object's records — cannot use indexes effectively regardless of indexing configuration. A query like "SELECT Id FROM Order__c WHERE Status__c != 'Closed'" on an object with 20 million records where 95% have Status = 'Open' is non-selective and will be slow or fail. Design queries to be selective by construction, not by adding post-hoc indexes.</p>
 
-        <pre><code>// Query optimization — selective filter first
+        <pre><code class="language-java">// Query optimization — selective filter first
 // Non-selective (bad): returns most records on a large table
 SELECT Id, Account__c, Total_Amount__c
 FROM Order__c
@@ -320,5 +356,7 @@ LIMIT 10000</code></pre>
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

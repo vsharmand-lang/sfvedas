@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce as Source of Truth: Data Governance Implications | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Salesforce as Source of Truth: Data Governance Implications | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-018.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Salesforce as Source of Truth: Data Governance Implications | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Salesforce as Source of Truth: Data Governance Implications | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-018.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-018.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -109,7 +145,7 @@
   <p><strong>Write-back</strong> means Salesforce writes its data, and the downstream synchronisation happens asynchronously afterward. The user's save succeeds immediately in Salesforce; the downstream system is updated minutes or hours later. This is the most common pattern and provides the best user experience (no waiting for downstream systems), but it creates a window of inconsistency between Salesforce and downstream systems. Downstream systems that read data during this window see stale data.</p>
   <p>The governance implication of write-back is that Salesforce must own conflict resolution logic. If SAP updates a customer's billing address during the write-back window (before the Salesforce change has propagated), whose change wins? The governance policy must define this explicitly: "Salesforce writes are authoritative — a Salesforce change always overwrites a downstream change made after the Salesforce change was committed" or "last-write-wins" or "SAP wins for billing-related fields, Salesforce wins for customer contact fields." Without this policy, the conflict resolution is undefined and inconsistency accumulates silently.</p>
 
-  <pre><code>-- Monitoring for Salesforce-vs-ERP data conflicts
+  <pre><code class="language-sql">-- Monitoring for Salesforce-vs-ERP data conflicts
 -- Run periodically to detect address divergence
 SELECT sf.AccountId, sf.SFBillingStreet, sf.SFBillingCity,
        erp.ERPBillingStreet, erp.ERPBillingCity,
@@ -282,5 +318,7 @@ ORDER BY sf.SFLastModified DESC;
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

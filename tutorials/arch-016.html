@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ARCH-016: Einstein Platform Architecture — SFVedas</title>
   <meta name="description" content="Einstein Platform Architecture: Beyond the Marketing — a clear-eyed architectural analysis of Salesforce AI for CTOs and Solution Architects."/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta property="og:title" content="ARCH-016: Einstein Platform Architecture — SFVedas"/>
+  <meta property="og:description" content="Einstein Platform Architecture: Beyond the Marketing — a clear-eyed architectural analysis of Salesforce AI for CTOs and Solution Architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-016.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ARCH-016: Einstein Platform Architecture — SFVedas"/>
+  <meta name="twitter:description" content="Einstein Platform Architecture: Beyond the Marketing — a clear-eyed architectural analysis of Salesforce AI for CTOs and Solution Architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -17,7 +26,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ARCH-016: Einstein Platform Architecture — SFVedas",
+  "description": "Einstein Platform Architecture: Beyond the Marketing — a clear-eyed architectural analysis of Salesforce AI for CTOs and Solution Architects.",
+  "url": "https://sfvedas.com/tutorials/arch-016.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-016.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -127,7 +161,7 @@
 
         <p>The architectural flow: a user triggers a generative action (e.g. "Summarise this case"), Salesforce constructs a prompt by merging a system prompt template with record data, passes the combined prompt to the configured LLM via API, and renders the response in the Salesforce UI. The LLM is external to Salesforce infrastructure — responses come from the LLM provider's API.</p>
 
-        <pre><code>// Apex invocation of an Einstein Generative AI Prompt Template
+        <pre><code class="language-java">// Apex invocation of an Einstein Generative AI Prompt Template
 // (simplified representation of how custom prompts work)
 
 aiplatform.PredictResponse response = aiplatform.AIApplications
@@ -343,5 +377,7 @@ String generatedSummary = response.getGeneration().getText();</code></pre>
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

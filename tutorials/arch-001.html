@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ARCH-001: Multi-Tenant Architecture — SFVedas</title>
   <meta name="description" content="If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture? A deep architectural analysis for tech leaders."/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta property="og:title" content="ARCH-001: Multi-Tenant Architecture — SFVedas"/>
+  <meta property="og:description" content="If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture? A deep architectural analysis for tech leaders."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-001.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ARCH-001: Multi-Tenant Architecture — SFVedas"/>
+  <meta name="twitter:description" content="If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture? A deep architectural analysis for tech leaders."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -17,7 +26,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ARCH-001: Multi-Tenant Architecture — SFVedas",
+  "description": "If Salesforce Were Built Today — Would They Still Choose Multi-Tenant Architecture? A deep architectural analysis for tech leaders.",
+  "url": "https://sfvedas.com/tutorials/arch-001.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-001.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -118,7 +152,7 @@
 
         <p>This is reflected in Salesforce's schema design. The core metadata tables — <code>SystemField</code>, <code>Name</code>, <code>Entity</code> — don't vary by customer. What varies is the data stored in a universal object store called the Entity-Attribute-Value (EAV) pattern, where your custom objects and fields are stored as rows in a generic object table, not as actual database columns.</p>
 
-        <pre><code>-- Simplified representation of how Salesforce stores custom object data
+        <pre><code class="language-sql">-- Simplified representation of how Salesforce stores custom object data
 -- Your "Opportunity__c" is NOT its own table; it's rows like this:
 
 SELECT *
@@ -252,7 +286,7 @@ AND    record_id  = 'specific_record_id'</code></pre>
 
         <p>For genuinely compute-intensive workloads, Salesforce is not the right place to run the computation. Long-running processes, complex machine learning inference, high-frequency event processing — these belong in external systems, called from Salesforce via platform events or external services, not run within Salesforce's Governor Limit boundaries.</p>
 
-        <pre><code>// The wrong way: trying to do heavy computation in Apex
+        <pre><code class="language-java">// The wrong way: trying to do heavy computation in Apex
 // This will hit CPU limits on large datasets
 for (Account acc : [SELECT Id, /* 50 fields */ FROM Account WHERE ...]) {
     // Complex business logic per record
@@ -431,5 +465,7 @@ EventBus.publish(new ComputeRequestEvent__e(
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

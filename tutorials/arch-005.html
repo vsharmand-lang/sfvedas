@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Platform Events Architecture: Async by Design | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Platform Events Architecture: Async by Design | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-005.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Platform Events Architecture: Async by Design | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Platform Events Architecture: Async by Design | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/arch-005.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-005.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -105,7 +141,7 @@
         <p><strong>Publish After Commit:</strong> The event is published only after the current transaction commits. If the transaction rolls back (due to an exception or validation failure), the event is never published. This is the appropriate behavior for events that signal "something happened" — you don't want to notify downstream systems about a record creation that was ultimately rolled back.</p>
         <p><strong>Publish Immediately:</strong> The event is published as soon as EventBus.publish() is called, regardless of whether the current transaction commits. This is appropriate for events that must signal even during transaction failures — error notifications, audit events, or monitoring signals where you want the event published regardless of the transaction outcome.</p>
 
-        <pre><code>// Define Platform Event payload fields in the event definition
+        <pre><code class="language-java">// Define Platform Event payload fields in the event definition
 // Then publish from Apex:
 
 Order_Status_Change__e evt = new Order_Status_Change__e(
@@ -145,7 +181,7 @@ if (!sr.isSuccess()) {
         <p><strong>Flow Triggered by Platform Event:</strong> A Record-Triggered Flow (or Autolaunched Flow triggered by a Platform Event) provides a low-code option for event consumption. This is appropriate for straightforward automation — creating records, sending notifications, updating related records — where the flow logic is maintainable without code. Flow event triggers run asynchronously like Apex triggers.</p>
         <p><strong>External Subscriber via Streaming API / Pub/Sub API:</strong> External systems subscribe to Platform Events via the Salesforce Streaming API (CometD protocol) or the newer Pub/Sub API (gRPC-based, higher throughput). This is the pattern for integrating external applications — an ERP subscriber receives order events, an analytics platform receives data change events, a notification service receives alert events.</p>
 
-        <pre><code>// Apex trigger consuming Platform Events
+        <pre><code class="language-java">// Apex trigger consuming Platform Events
 trigger OrderStatusHandler on Order_Status_Change__e (after insert) {
     List&lt;Order&gt; toUpdate = new List&lt;Order&gt;();
 
@@ -334,5 +370,7 @@ trigger OrderStatusHandler on Order_Status_Change__e (after insert) {
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

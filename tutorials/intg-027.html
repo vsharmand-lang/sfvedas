@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns | SFVedas</title>
   <meta name="description" content="A deep-dive into B2B integration patterns for Salesforce — EDI standards, AS2 protocol, order-to-cash flows, trading partner management, and governance for high-stakes data exchange."/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta property="og:title" content="B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns | SFVedas"/>
+  <meta property="og:description" content="A deep-dive into B2B integration patterns for Salesforce — EDI standards, AS2 protocol, order-to-cash flows, trading partner management, and governance for high-stakes data exchange."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-027.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns | SFVedas"/>
+  <meta name="twitter:description" content="A deep-dive into B2B integration patterns for Salesforce — EDI standards, AS2 protocol, order-to-cash flows, trading partner management, and governance for high-stakes data exchange."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -17,7 +26,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns | SFVedas",
+  "description": "A deep-dive into B2B integration patterns for Salesforce — EDI standards, AS2 protocol, order-to-cash flows, trading partner management, and governance for high-stakes data exchange.",
+  "url": "https://sfvedas.com/tutorials/intg-027.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-027.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -105,7 +139,7 @@
         <p>Mapping EDI transaction sets to Salesforce objects is the core translation challenge. An X12 850 Purchase Order maps to a Salesforce Order with Order Products — but the mapping is never clean. EDI fields like the Buyer's Party Identifier, the allowances and charges segments, the carrier routing instructions, and the packaging details have no direct equivalents in standard Salesforce objects. The mapping requires custom fields on Order and OrderItem, plus potentially custom objects for packaging, routing, and party identifiers.</p>
         <p>The translation process introduces data quality risk at every step. EDI messages arrive as flat, positional text files — a single wrong character in the ISA (Interchange Control Header) segment will cause the entire message to fail validation. The EDI translator parses the raw file, validates it against the standard and the trading partner's specific implementation guide (which often deviates from the standard), and generates a functional acknowledgment (997/999 in X12) confirming receipt. Only after successful acknowledgment is the translated data passed to Salesforce for order creation.</p>
 
-        <pre><code>-- Simplified X12 850 Purchase Order (illustrative structure)
+        <pre><code class="language-sql">-- Simplified X12 850 Purchase Order (illustrative structure)
 ISA*00*          *00*          *ZZ*BUYERID        *ZZ*SUPPLIERID     *260515*1430*^*00501*000000001*0*P*:~
 GS*PO*BUYERID*SUPPLIERID*20260515*1430*1*X*005010~
 ST*850*0001~
@@ -307,5 +341,7 @@ IEA*1*000000001~
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ARCH-024: Custom Metadata Types vs Custom Settings vs Custom Objects — SFVedas</title>
   <meta name="description" content="Custom Metadata Types vs Custom Settings vs Custom Objects: The Decision — a complete architectural guide for solution architects and platform leads."/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta property="og:title" content="ARCH-024: Custom Metadata Types vs Custom Settings vs Custom Objects — SFVedas"/>
+  <meta property="og:description" content="Custom Metadata Types vs Custom Settings vs Custom Objects: The Decision — a complete architectural guide for solution architects and platform leads."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-024.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ARCH-024: Custom Metadata Types vs Custom Settings vs Custom Objects — SFVedas"/>
+  <meta name="twitter:description" content="Custom Metadata Types vs Custom Settings vs Custom Objects: The Decision — a complete architectural guide for solution architects and platform leads."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -17,7 +26,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ARCH-024: Custom Metadata Types vs Custom Settings vs Custom Objects — SFVedas",
+  "description": "Custom Metadata Types vs Custom Settings vs Custom Objects: The Decision — a complete architectural guide for solution architects and platform leads.",
+  "url": "https://sfvedas.com/tutorials/arch-024.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-024.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -113,7 +147,7 @@
         <h3>Custom Settings Limits</h3>
         <p>The 10MB total data limit for Custom Settings org-wide is the most commonly hit constraint. For configurations that are small (a few dozen records, simple fields), this is rarely an issue. For configurations that grow — lookup tables, routing rules, tax matrices — the 10MB limit becomes a real constraint. Custom Settings also do not support relationship fields (no lookups to other objects), which limits their expressiveness for complex configuration structures.</p>
 
-        <pre><code>// Apex: Reading Custom Settings at runtime
+        <pre><code class="language-java">// Apex: Reading Custom Settings at runtime
 // Hierarchy: org-level default, with profile/user overrides
 MyAppSettings__c settings = MyAppSettings__c.getInstance();
 Decimal taxRate = settings.DefaultTaxRate__c;
@@ -363,5 +397,7 @@ String url = endpoint.BaseURL__c;
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

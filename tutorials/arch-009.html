@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Experience Cloud Architecture: What's Actually Happening Under the Hood | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Experience Cloud Architecture: What's Actually Happening Under the Hood | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-009.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Experience Cloud Architecture: What's Actually Happening Under the Hood | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Experience Cloud Architecture: What's Actually Happening Under the Hood | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/arch-009.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-009.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -117,7 +153,7 @@
         <p>This architecture has significant security implications. Any data accessible to the Guest User is accessible to any anonymous internet visitor. Guest user access is controlled through the Guest User Profile and the Guest User sharing rules configured for the site. Misconfigured Guest User access is one of the most common Salesforce security vulnerabilities — it has resulted in public data exposures where internal org data was inadvertently accessible to unauthenticated visitors.</p>
         <p>Salesforce has progressively tightened Guest User defaults in recent releases. By default, Guest Users cannot read internal user data, cannot create most record types, and cannot access records owned by internal users unless explicitly shared. In older orgs built before these restrictions were tightened, a Guest User security audit is essential — the default permissions may have been expanded during initial development and left broader than intended.</p>
 
-        <pre><code>// Checking Guest User profile access via SOQL (as admin)
+        <pre><code class="language-java">// Checking Guest User profile access via SOQL (as admin)
 SELECT Id, Name, PermissionsViewAllData, PermissionsModifyAllData,
        PermissionsApiEnabled
 FROM Profile
@@ -313,5 +349,7 @@ ORDER BY SobjectType</code></pre>
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

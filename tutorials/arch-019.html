@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ARCH-019: Salesforce and Microservices — SFVedas</title>
   <meta name="description" content="Salesforce and Microservices: Friend or Foe? A complete architectural analysis for CTOs and integration architects."/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta property="og:title" content="ARCH-019: Salesforce and Microservices — SFVedas"/>
+  <meta property="og:description" content="Salesforce and Microservices: Friend or Foe? A complete architectural analysis for CTOs and integration architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-019.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ARCH-019: Salesforce and Microservices — SFVedas"/>
+  <meta name="twitter:description" content="Salesforce and Microservices: Friend or Foe? A complete architectural analysis for CTOs and integration architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -17,7 +26,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ARCH-019: Salesforce and Microservices — SFVedas",
+  "description": "Salesforce and Microservices: Friend or Foe? A complete architectural analysis for CTOs and integration architects.",
+  "url": "https://sfvedas.com/tutorials/arch-019.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-019.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -126,7 +160,7 @@
         <h3>Pattern 3: Change Data Capture (CRM data replication)</h3>
         <p>CDC automatically publishes events for every create/update/delete on Salesforce records. External systems subscribe and maintain their own copy of relevant Salesforce data. Appropriate for: data warehouses consuming CRM data, search indexes, analytics platforms, microservices that need CRM data locally for performance.</p>
 
-        <pre><code>// Subscribing to Salesforce Change Data Capture events via EmpConnector (Java)
+        <pre><code class="language-java">// Subscribing to Salesforce Change Data Capture events via EmpConnector (Java)
 // CDC events are published to /data/AccountChangeEvent channel
 
 EmpConnector connector = new EmpConnector(bayeuxParameters);
@@ -350,5 +384,7 @@ connector.subscribe("/data/AccountChangeEvent", -1L, event -> {
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Shield: Architecture for Regulated Industries | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Salesforce Shield: Architecture for Regulated Industries | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-008.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Salesforce Shield: Architecture for Regulated Industries | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Salesforce Shield: Architecture for Regulated Industries | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/arch-008.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-008.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -112,7 +148,7 @@
           </div>
         </div>
 
-        <pre><code>// What works and what breaks with Platform Encryption
+        <pre><code class="language-java">// What works and what breaks with Platform Encryption
 
 // Deterministic encryption — equality filter works:
 SELECT Id, Name FROM Contact WHERE Name = 'John Smith'
@@ -144,7 +180,7 @@ SELECT Id, Email FROM Contact WHERE Email = 'j.smith@example.com'
         <p>Event types cover the full surface of Salesforce activity: Login events, API events (every REST and SOAP API call with the client IP and endpoint), Report events (who downloaded what report and when), Visualforce page access, Lightning component interactions, and more. For a regulated industry, this is the evidence layer required for security investigations and compliance audits.</p>
         <p>The typical integration pattern for Event Monitoring is a SIEM (Security Information and Event Management) integration. Event logs are extracted hourly (or in near real-time with Real-Time Event Monitoring) and pushed to a SIEM platform — Splunk, Microsoft Sentinel, IBM QRadar — where they are correlated with events from other systems, rules are applied, and alerts are generated for suspicious patterns (mass data export, after-hours access from unusual IPs, excessive record views by a single user).</p>
 
-        <pre><code>// Querying Event Log Files via REST API
+        <pre><code class="language-java">// Querying Event Log Files via REST API
 GET /services/data/v60.0/query?q=
   SELECT+Id,EventType,LogDate,LogFileLength
   FROM+EventLogFile
@@ -321,5 +357,7 @@ GET /services/data/v60.0/sobjects/EventLogFile/{Id}/LogFile
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

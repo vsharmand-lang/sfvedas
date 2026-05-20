@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Data Archiving Strategy: Moving Records Out Without Breaking Reports | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Data Archiving Strategy: Moving Records Out Without Breaking Reports | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-020.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Data Archiving Strategy: Moving Records Out Without Breaking Reports | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Data Archiving Strategy: Moving Records Out Without Breaking Reports | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-020.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-020.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -109,7 +145,7 @@
   <p>Archiving eligibility criteria define which records can be safely moved out of active storage. Eligibility typically has three components: age threshold (records older than X months/years), status threshold (records in a terminal status: Closed, Resolved, Lost, Cancelled), and no-active-dependency check (no active related records that reference the candidate, such as an open Case that references a Closed Opportunity via a custom lookup).</p>
   <p>The archive selection query must be idempotent — running it twice should not double-archive records. Using a cursor-based approach with an archive timestamp or a batch ID ensures that the archive job can be resumed if it fails mid-run without re-processing already-archived records. External ID fields on the archive target should use the Salesforce Record ID as the archive key, enabling lookups from the archive back to the original record metadata if needed.</p>
 
-  <pre><code>// Archive selection query — Closed Cases older than 3 years
+  <pre><code class="language-sql">// Archive selection query — Closed Cases older than 3 years
 // with no active child records
 SELECT Id, CaseNumber, Subject, Status, AccountId, ClosedDate,
        Description, Priority, Origin, SystemModstamp
@@ -286,5 +322,7 @@ LIMIT 50000  -- Process in batches to avoid timeout</code></pre>
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

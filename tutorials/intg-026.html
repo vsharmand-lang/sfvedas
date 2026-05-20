@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Data Pipelines: From Ingestion to CRM Analytics | SFVedas</title>
   <meta name="description" content="A deep-dive into Salesforce Data Pipelines — how data streams, transformations, writeback datasets, and scheduling work together to power CRM Analytics at scale."/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta property="og:title" content="Salesforce Data Pipelines: From Ingestion to CRM Analytics | SFVedas"/>
+  <meta property="og:description" content="A deep-dive into Salesforce Data Pipelines — how data streams, transformations, writeback datasets, and scheduling work together to power CRM Analytics at scale."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-026.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Salesforce Data Pipelines: From Ingestion to CRM Analytics | SFVedas"/>
+  <meta name="twitter:description" content="A deep-dive into Salesforce Data Pipelines — how data streams, transformations, writeback datasets, and scheduling work together to power CRM Analytics at scale."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -17,7 +26,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Salesforce Data Pipelines: From Ingestion to CRM Analytics | SFVedas",
+  "description": "A deep-dive into Salesforce Data Pipelines — how data streams, transformations, writeback datasets, and scheduling work together to power CRM Analytics at scale.",
+  "url": "https://sfvedas.com/tutorials/intg-026.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-026.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -106,7 +140,7 @@
         <p>For Salesforce object streams, the field-level selection matters operationally. Selecting all fields from a large object like Opportunity or Case — with dozens of custom fields, long text areas, and formula fields — bloats the stream cache and extends refresh time. For analytics, you usually need a fraction of the fields the object contains. Being selective at the stream level reduces storage consumption and improves refresh performance significantly.</p>
         <p>Incremental sync, when enabled on a stream, reads only records created or modified since the last sync timestamp. This uses the SystemModStamp field (or a specified date field) as the high-water mark. The implication is that deletions are not captured by incremental sync — a record deleted in Salesforce remains in the stream cache until a full refresh runs. For use cases where deletions matter (active pipeline reporting, customer churn), schedule periodic full refreshes to keep the stream cache aligned with the source.</p>
 
-        <pre><code>-- Example: Filtering a Data Stream for active opportunities only
+        <pre><code class="language-sql">-- Example: Filtering a Data Stream for active opportunities only
 -- In Pipeline Builder, apply a Filter node after the Opportunity stream:
 
 Filter:
@@ -139,7 +173,7 @@ Filter:
         <p>Each Data Stream has its own refresh schedule — hourly, daily at a specific time, or on-demand. Pipeline runs are triggered by stream completion or on an independent schedule. The dependency chain matters: if Pipeline A depends on Stream B completing, and Stream B is scheduled to run at 2:00 AM while Pipeline A is scheduled to run at 2:15 AM, a slow Stream B refresh can cause Pipeline A to run on stale data without any error — it simply uses the previous refresh's data.</p>
         <p>For complex analytics implementations with many pipelines and streams, dependency-aware scheduling is essential. Salesforce does not provide a native DAG orchestrator for pipeline runs — there is no equivalent of Airflow within CRM Analytics. The workaround is to use Pipeline chaining (running subsequent pipelines on completion of a preceding one) or to use a generous buffer in schedule timings based on empirical refresh durations. Monitor pipeline run times regularly — a pipeline that reliably runs in 8 minutes will eventually take 45 minutes when data volume grows, and the schedule buffer that worked initially will stop working silently.</p>
 
-        <pre><code>// Monitoring Data Pipeline runs via REST API
+        <pre><code class="language-java">// Monitoring Data Pipeline runs via REST API
 GET /services/data/v60.0/wave/dataflowjobs?licenseType=EinsteinAnalytics
 // Returns recent pipeline and dataflow job runs with:
 // {
@@ -325,5 +359,7 @@ if (!slowJobs.isEmpty()) {
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

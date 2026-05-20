@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ARCH-027: The Salesforce Trust Model — SFVedas</title>
   <meta name="description" content="The Salesforce Trust Model: SLAs, Incidents, and What Leaders Should Know — for CTOs and programme directors making platform commitments."/>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta property="og:title" content="ARCH-027: The Salesforce Trust Model — SFVedas"/>
+  <meta property="og:description" content="The Salesforce Trust Model: SLAs, Incidents, and What Leaders Should Know — for CTOs and programme directors making platform commitments."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-027.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ARCH-027: The Salesforce Trust Model — SFVedas"/>
+  <meta name="twitter:description" content="The Salesforce Trust Model: SLAs, Incidents, and What Leaders Should Know — for CTOs and programme directors making platform commitments."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -17,7 +26,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ARCH-027: The Salesforce Trust Model — SFVedas",
+  "description": "The Salesforce Trust Model: SLAs, Incidents, and What Leaders Should Know — for CTOs and programme directors making platform commitments.",
+  "url": "https://sfvedas.com/tutorials/arch-027.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-027.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -117,7 +151,7 @@
 
         <p>The dashboard displays five status levels: Operational (green), Degraded Performance (yellow), Partial Outage (orange), Service Disruption (red), and Under Maintenance (grey). Degraded Performance and Partial Outage statuses often precede Service Disruption — monitoring trust.salesforce.com proactively allows your operations team to begin contingency procedures before users report widespread problems.</p>
 
-        <pre><code>// trust.salesforce.com also provides a status API
+        <pre><code class="language-java">// trust.salesforce.com also provides a status API
 // Programmatic access to current instance status
 
 GET https://api.status.salesforce.com/v1/instances/NA64/status
@@ -349,5 +383,7 @@ GET https://api.status.salesforce.com/v1/instances/NA64/status
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

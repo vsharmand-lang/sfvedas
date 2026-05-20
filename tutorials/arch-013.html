@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Truth About Salesforce Caching: What's Cached, What Isn't | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="The Truth About Salesforce Caching: What's Cached, What Isn't | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/arch-013.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="The Truth About Salesforce Caching: What's Cached, What Isn't | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Truth About Salesforce Caching: What's Cached, What Isn't | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/arch-013.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/arch-013.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -107,7 +143,7 @@
         <p><strong>Org Partition:</strong> Data stored in the org partition is accessible to any Apex code running in the org, across all user sessions. This is appropriate for data that is the same for all users: reference data (static lookup values, configuration tables), external API responses that don't vary per user, and computationally expensive aggregations that are shared across users. TTL can be set from 1 second to 48 hours.</p>
         <p><strong>Session Partition:</strong> Data stored in the session partition is accessible only within the current user's session. This is appropriate for user-specific data: personalisation preferences, multi-step form state, permission-denormalised data specific to the current user's access context. Session cache is automatically invalidated when the session ends (logout or expiry).</p>
 
-        <pre><code>// Platform Cache — storing and retrieving from org partition
+        <pre><code class="language-java">// Platform Cache — storing and retrieving from org partition
 public class ConfigCacheService {
 
     private static final String CACHE_KEY = 'configData';
@@ -148,7 +184,7 @@ public class ConfigCacheService {
         <p>The key architectural behaviour of LDS is shared cache across components on the same page. If three components on the same record page all use @wire(getRecord) for the same record, LDS makes one server call and shares the result across all three components. If any component updates the record via LDS, the cache is automatically invalidated and all components on the page receive the updated data — without explicit coordination code.</p>
         <p>LDS also handles optimistic UI updates — when you call updateRecord via LDS, the UI can update immediately with the new values before the server confirms the save. If the server save fails, LDS rolls back the optimistic update. This makes Lightning interfaces feel responsive without custom "loading" state management.</p>
 
-        <pre><code>// Lightning Web Component using LDS wire adaptor
+        <pre><code class="language-java">// Lightning Web Component using LDS wire adaptor
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import ACCOUNT_NAME_FIELD from '@salesforce/schema/Account.Name';
@@ -195,7 +231,7 @@ export default class AccountSummary extends LightningElement {
         <p>TTL-based expiry is simple to implement but creates a maximum staleness window: users may see data that is up to [TTL] seconds old. This is acceptable for reference data that changes infrequently (postal code lists, country codes, product categories) but unacceptable for business data that must be current (account credit limits, inventory levels, approval status).</p>
         <p>Explicit invalidation is more precise but requires that the invalidation event be reliably triggered whenever the source data changes. The standard pattern: an Apex trigger on the source object calls Cache.invalidate() when relevant fields change. This ensures the cache is cleared immediately when data changes, forcing the next reader to fetch fresh data.</p>
 
-        <pre><code>// Trigger-based cache invalidation
+        <pre><code class="language-java">// Trigger-based cache invalidation
 trigger AccountCacheInvalidator on Account (after update) {
     Set&lt;Id&gt; changedIds = new Set&lt;Id&gt;();
 
@@ -364,5 +400,7 @@ trigger AccountCacheInvalidator on Account (after update) {
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

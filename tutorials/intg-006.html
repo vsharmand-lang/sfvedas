@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Real-Time Integration Patterns: Platform Events, CDC, and Streaming API | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Real-Time Integration Patterns: Platform Events, CDC, and Streaming API | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-006.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Real-Time Integration Patterns: Platform Events, CDC, and Streaming API | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Real-Time Integration Patterns: Platform Events, CDC, and Streaming API | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-006.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-006.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -102,7 +138,7 @@
   <p>A Platform Event is a custom metadata type — you define it in Setup with fields just like a custom object. Published events are stored on Salesforce's event bus and delivered to subscribers within seconds. The event bus retains events for 72 hours, enabling event replay for subscribers that were offline or missed events.</p>
   <p>Publishing Platform Events is straightforward from Apex or Flows. The event is treated like a standard SObject insert — EventBus.publish() for synchronous publishing or inserting the Platform Event SObject through the standard DML path. External systems publish events via the REST API using the standard /sobjects/{EventName__e} endpoint. This bidirectional publishing model makes Platform Events the correct mechanism for cross-system event signalling in both directions.</p>
 
-  <pre><code>// Publishing a Platform Event from Apex
+  <pre><code class="language-java">// Publishing a Platform Event from Apex
 Order_Shipped__e shipEvent = new Order_Shipped__e(
     Order_Id__c = order.Id,
     Tracking_Number__c = trackingNum,
@@ -132,7 +168,7 @@ trigger OrderShippedHandler on Order_Shipped__e (after insert) {
   <p>CDC must be enabled per object in Setup under Change Data Capture. Standard objects and custom objects can be enabled. The change event is published to a channel named /data/{ObjectName}ChangeEvent for specific objects (e.g., /data/AccountChangeEvent) or /data/ChangeEvents for all enabled objects. Subscribers choosing the wildcard channel receive all CDC events for all enabled objects on a single subscription.</p>
   <p>CDC change events include a changedFields header that lists which fields were modified. Combined with the event payload, this allows the subscriber to build the full changed state without re-querying Salesforce — reducing the integration to pure event-driven, zero-poll architecture. For objects with high update frequency, this is significantly more efficient than polling-based change detection.</p>
 
-  <pre><code>// CDC event payload structure (JSON representation)
+  <pre><code class="language-java">// CDC event payload structure (JSON representation)
 {
   "schema": "AccountChangeEvent",
   "payload": {
@@ -319,5 +355,7 @@ trigger OrderShippedHandler on Order_Shipped__e (after insert) {
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

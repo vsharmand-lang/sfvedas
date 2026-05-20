@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Triggers vs Flows vs Process Builder: The Migration Path Forward | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Triggers vs Flows vs Process Builder: The Migration Path Forward | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/plat-003.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Triggers vs Flows vs Process Builder: The Migration Path Forward | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Triggers vs Flows vs Process Builder: The Migration Path Forward | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/plat-003.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-003.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -100,7 +136,7 @@
         <p>The most dangerous configuration in a Salesforce org is a mix of all three automation types on the same object — a Workflow Rule, a Process Builder process, and an Apex trigger all firing on Opportunity update. The interactions are unpredictable and the combined behaviour is difficult to debug.</p>
         <p>In the order of execution, Record-Triggered Flows fire before and after the DML operation in specific positions, Apex triggers fire before and after DML, and Workflow Rules fire after triggers in the after-update context. Process Builder also fires in the after context. When all of these are active on the same object, a change to one record can trigger a cascade of interactions where each tool's output feeds into the next tool's trigger condition.</p>
         <p>The symptom is typically: a record update that should trigger one action ends up triggering five, or a record gets into an infinite loop of updates until the recursion guard kicks in. Debugging requires understanding the entire automation inventory for the object — which most orgs do not have documented.</p>
-        <pre><code>-- Query to inventory all automation on a specific object
+        <pre><code class="language-sql">-- Query to inventory all automation on a specific object
 -- (useful first step before starting a migration)
 
 SELECT Id, Name, TableEnumOrId, TriggerType,
@@ -284,5 +320,7 @@ WHERE TableEnumOrId = 'Opportunity'</code></pre>
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ETL for Salesforce: Talend, Informatica, and the Alternatives | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="ETL for Salesforce: Talend, Informatica, and the Alternatives | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-003.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ETL for Salesforce: Talend, Informatica, and the Alternatives | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ETL for Salesforce: Talend, Informatica, and the Alternatives | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-003.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-003.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -109,7 +145,7 @@
   <p>Talend's limitation in the Salesforce context is its Java code generation model. Talend compiles each job into executable Java code, which gives it good runtime performance but makes jobs opaque to non-developers during debugging and maintenance. When a Talend job fails during a bulk upsert due to a field validation error on 3% of records, diagnosing and fixing the rejection without Java knowledge is difficult. Organisations using Talend for Salesforce typically need a developer-level resource to maintain the integration, not just an integration administrator.</p>
   <p>Talend Cloud (the SaaS-hosted version) has improved the operational experience significantly, adding monitoring, scheduling, and a more modern UI. But even Talend Cloud carries per-user licensing costs that make it non-trivial for smaller Salesforce integrations. The sweet spot for Talend is organisations already standardised on it for non-Salesforce data warehousing that want to extend it to Salesforce without introducing another tool.</p>
 
-  <pre><code>// Salesforce Bulk API 2.0 query — what ETL tools use under the hood
+  <pre><code class="language-java">// Salesforce Bulk API 2.0 query — what ETL tools use under the hood
 // Step 1: Create a query job
 POST /services/data/v60.0/jobs/query
 {
@@ -292,5 +328,7 @@ POST /services/data/v60.0/jobs/query
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>

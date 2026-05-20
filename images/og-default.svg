@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0A1628"/>
+      <stop offset="100%" stop-color="#0f1e38"/>
+    </linearGradient>
+    <linearGradient id="top-grad" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#FDD27A"/>
+      <stop offset="100%" stop-color="#E8930A"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E8930A" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#E8930A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g stroke="rgba(232,147,10,0.04)" stroke-width="1">
+    <line x1="0" y1="90" x2="1200" y2="90"/>
+    <line x1="0" y1="180" x2="1200" y2="180"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="360" x2="1200" y2="360"/>
+    <line x1="0" y1="450" x2="1200" y2="450"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="90" y1="0" x2="90" y2="630"/>
+    <line x1="180" y1="0" x2="180" y2="630"/>
+    <line x1="270" y1="0" x2="270" y2="630"/>
+    <line x1="360" y1="0" x2="360" y2="630"/>
+    <line x1="450" y1="0" x2="450" y2="630"/>
+    <line x1="540" y1="0" x2="540" y2="630"/>
+    <line x1="630" y1="0" x2="630" y2="630"/>
+    <line x1="720" y1="0" x2="720" y2="630"/>
+    <line x1="810" y1="0" x2="810" y2="630"/>
+    <line x1="900" y1="0" x2="900" y2="630"/>
+    <line x1="990" y1="0" x2="990" y2="630"/>
+    <line x1="1080" y1="0" x2="1080" y2="630"/>
+  </g>
+
+  <!-- Glow -->
+  <ellipse cx="900" cy="315" rx="400" ry="300" fill="url(#glow)"/>
+
+  <!-- Logo mark (isometric cube, scaled up) -->
+  <g transform="translate(88, 200) scale(5.5)">
+    <!-- Top face -->
+    <path d="M16,2 L28,8 L16,14 L4,8 Z" fill="url(#top-grad)"/>
+    <!-- Left face stripes -->
+    <path d="M4,8  L16,14 L16,17 L4,11 Z" fill="#4285F4"/>
+    <path d="M4,11 L16,17 L16,20 L4,14 Z" fill="#EA4335"/>
+    <path d="M4,14 L16,20 L16,23 L4,17 Z" fill="#FBBC05"/>
+    <path d="M4,17 L16,23 L16,26 L4,20 Z" fill="#34A853"/>
+    <path d="M4,8  L16,14 L16,26 L4,20 Z" fill="rgba(0,0,0,0.18)"/>
+    <!-- Right face stripes -->
+    <path d="M16,14 L28,8  L28,11 L16,17 Z" fill="#4285F4"/>
+    <path d="M16,17 L28,11 L28,14 L16,20 Z" fill="#EA4335"/>
+    <path d="M16,20 L28,14 L28,17 L16,23 Z" fill="#FBBC05"/>
+    <path d="M16,23 L28,17 L28,20 L16,26 Z" fill="#34A853"/>
+    <path d="M28,8  L16,14 L16,26 L28,20 Z" fill="rgba(0,0,0,0.07)"/>
+    <!-- Hairlines -->
+    <g stroke="rgba(255,255,255,0.4)" stroke-width="0.7" fill="none">
+      <line x1="4" y1="8" x2="16" y2="14"/>
+      <line x1="28" y1="8" x2="16" y2="14"/>
+      <line x1="16" y1="14" x2="16" y2="26"/>
+    </g>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="88" y="540" font-family="Georgia, serif" font-size="52" font-weight="700" letter-spacing="-1">
+    <tspan fill="#E8930A">SF</tspan><tspan fill="#EDE8E0">Vedas</tspan>
+  </text>
+
+  <!-- Divider line -->
+  <line x1="88" y1="568" x2="380" y2="568" stroke="rgba(232,147,10,0.3)" stroke-width="1"/>
+
+  <!-- Tagline -->
+  <text x="88" y="596" font-family="Georgia, serif" font-size="22" fill="rgba(237,232,224,0.45)" letter-spacing="0.02em">Deep Salesforce Knowledge for Tech Leaders</text>
+
+  <!-- Right accent bar -->
+  <rect x="1140" y="0" width="4" height="630" fill="#E8930A" opacity="0.6"/>
+</svg>

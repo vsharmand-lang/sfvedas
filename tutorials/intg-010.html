@@ -4,7 +4,18 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Master Data Management with Salesforce: The Myths vs Reality | SFVedas</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Master Data Management with Salesforce: The Myths vs Reality | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-010.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Master Data Management with Salesforce: The Myths vs Reality | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="../css/main.css"/>
@@ -16,7 +27,32 @@
     gtag('js', new Date());
     gtag('config', 'G-99QW4K310Y');
   </script>
-</head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Master Data Management with Salesforce: The Myths vs Reality | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-010.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-010.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script></head>
 <body class="light-mode">
 
   <div class="reading-progress" id="readingProgress"></div>
@@ -110,7 +146,7 @@
   <p>The Account object in Salesforce is a reasonable domain for customer master data if Salesforce is truly the first system updated when customer attributes change. The test: when a customer calls to update their billing address, does the call center representative update it in Salesforce first (with sync to SAP) or in SAP first (with sync to Salesforce)? The system updated first is the authoritative system. If the answer varies by situation or by team, there is no true system of record — there are two competing systems of record in conflict.</p>
   <p>Making Salesforce the genuine system of record requires more than an architecture decision — it requires changing business processes. The billing address change process must route through Salesforce. The new customer onboarding process must start in Salesforce. The customer merge process (when two duplicate customers are identified) must be governed by Salesforce stewards. Technology implements the decisions; the decisions are organisational.</p>
 
-  <pre><code>// Querying potential duplicate accounts for stewardship review
+  <pre><code class="language-java">// Querying potential duplicate accounts for stewardship review
 SELECT Id, Name, BillingCity, BillingCountry, Phone,
        SAP_Customer_ID__c, External_ID__c,
        CreatedDate, LastModifiedDate
@@ -287,5 +323,7 @@ ORDER BY Name, CreatedDate</code></pre>
     }
   </script>
   <script src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
 </html>
