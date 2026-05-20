@@ -37,7 +37,7 @@ hamburger?.addEventListener('click', () => {
 
 // ── Newsletter ────────────────────────────────────────────
 // Sign up at formspree.io, create a form, and paste your endpoint below.
-const NEWSLETTER_ENDPOINT = 'https://formspree.io/f/xpwrqkvj';
+const NEWSLETTER_ENDPOINT = 'https://formspree.io/f/xzdweppl';
 
 async function handleNewsletter(e) {
   e.preventDefault();
