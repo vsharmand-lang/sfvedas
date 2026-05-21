@@ -1674,7 +1674,7 @@ ul { list-style: none; }
 }
 .related-card:hover { border-color: var(--saffron); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
 .related-card .card-id, .related-card .related-id { margin-bottom: 8px; display: inline-block; }
-.related-card h4, .related-card .related-title { font-family: var(--font-ui) !important; font-size: 0.85rem !important; font-weight: 600; color: var(--text-primary); line-height: 1.45; border: none !important; padding: 0 !important; margin: 0 !important; display: block; }
+.related-card h4, .related-card .related-title { font-family: var(--font-ui) !important; font-size: 0.85rem !important; font-weight: 600; color: var(--text-primary) !important; line-height: 1.45; border: none !important; padding: 0 !important; margin: 0 !important; display: block; }
 
 /* ═══════════════════════════════════════════════════════════
    SIDEBAR ADDITIONS
