@@ -59,6 +59,19 @@
       max-width: 1160px;
       margin: 0 auto;
       padding: 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 460px;
+      gap: 60px;
+      align-items: center;
+    }
+    .tut-hero-diagram {
+      flex-shrink: 0;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    @media (max-width: 960px) {
+      .tut-hero-body { grid-template-columns: 1fr; }
+      .tut-hero-diagram { display: none; }
     }
     .tut-eyebrow {
       font-family: var(--font-ui);
@@ -425,11 +438,161 @@
     <div class="tut-hero-grid"></div>
     <div class="tut-hero-glow"></div>
     <div class="tut-hero-body">
-      <p class="tut-eyebrow">All Tutorials</p>
-      <h1 class="tut-hero-title">
-        Deep knowledge.<br/><em>Hard questions.</em>
-      </h1>
-      <p class="tut-hero-sub">220 tutorials across 10 areas — for architects, delivery leaders, and strategists who need to understand Salesforce at the level that matters.</p>
+
+      <!-- Left: text -->
+      <div class="tut-hero-text">
+        <p class="tut-eyebrow">All Tutorials</p>
+        <h1 class="tut-hero-title">
+          Deep knowledge.<br/><em>Hard questions.</em>
+        </h1>
+        <p class="tut-hero-sub">220 tutorials across 10 areas — for architects, delivery leaders, and strategists who need to understand Salesforce at the level that matters.</p>
+      </div>
+
+      <!-- Right: Knowledge Atlas — all 10 topic areas in 3 orbital rings -->
+      <div class="tut-hero-diagram">
+        <svg viewBox="0 0 500 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <style>
+              @keyframes kt-cw  { to { transform: rotate(360deg);  } }
+              @keyframes kt-ccw { to { transform: rotate(-360deg); } }
+              @keyframes kt-glo { 0%,100%{opacity:.18} 50%{opacity:.58} }
+              @keyframes kt-flo { to { stroke-dashoffset: -19; } }
+              .kt-i  { transform-origin: 250px 240px; animation: kt-cw  10s linear infinite; }
+              .kt-m  { transform-origin: 250px 240px; animation: kt-ccw 24s linear infinite; }
+              .kt-o  { transform-origin: 250px 240px; animation: kt-cw  42s linear infinite; }
+              .kt-cg { animation: kt-glo 3s ease-in-out infinite; }
+              .kt-l1 { stroke-dasharray:5 13; animation: kt-flo 2s   linear infinite; }
+              .kt-l2 { stroke-dasharray:5 13; animation: kt-flo 2.7s linear infinite; animation-delay:-.6s; }
+              .kt-l3 { stroke-dasharray:5 13; animation: kt-flo 3.2s linear infinite; animation-delay:-1.3s; }
+            </style>
+            <filter id="ktg" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="4" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="kts" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="12" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- ── Depth: faint outer boundary ── -->
+          <circle cx="250" cy="240" r="228" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+
+          <!-- ── Orbital tracks ── -->
+          <circle cx="250" cy="240" r="195" stroke="rgba(255,255,255,0.055)" stroke-width="1" stroke-dasharray="1.5 20" class="kt-o"/>
+          <circle cx="250" cy="240" r="150" stroke="rgba(232,147,10,0.18)"   stroke-width="1" stroke-dasharray="2 13"  class="kt-m"/>
+          <circle cx="250" cy="240" r="80"  stroke="rgba(1,118,211,0.32)"    stroke-width="1" stroke-dasharray="3 10"  class="kt-i"/>
+
+          <!-- ── Centre deep glow ── -->
+          <circle cx="250" cy="240" r="58" fill="rgba(232,147,10,0.05)" class="kt-cg" filter="url(#kts)"/>
+
+          <!-- ── Ripple rings ── -->
+          <circle cx="250" cy="240" r="18" fill="none" stroke="rgba(232,147,10,0.5)" stroke-width="1.5">
+            <animate attributeName="r"       from="18"  to="212" dur="3.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.5" to="0"   dur="3.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="250" cy="240" r="18" fill="none" stroke="rgba(232,147,10,0.25)" stroke-width="0.75">
+            <animate attributeName="r"       from="18"  to="212" dur="3.5s" begin="1.75s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.3" to="0"   dur="3.5s" begin="1.75s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- ── Orbiting dots — inner ring (3 blue dots, CW 6s) ── -->
+          <circle cx="250" cy="160" r="5" fill="#0176D3" filter="url(#ktg)">
+            <animateTransform attributeName="transform" type="rotate" from="0 250 240"   to="360 250 240"  dur="6s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="250" cy="160" r="3.5" fill="rgba(1,118,211,0.6)" filter="url(#ktg)">
+            <animateTransform attributeName="transform" type="rotate" from="120 250 240" to="480 250 240"  dur="6s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="250" cy="160" r="2" fill="rgba(1,118,211,0.3)">
+            <animateTransform attributeName="transform" type="rotate" from="240 250 240" to="600 250 240"  dur="6s" repeatCount="indefinite"/>
+          </circle>
+          <!-- ── Orbiting dots — middle ring (2 saffron dots, CCW 14s) ── -->
+          <circle cx="250" cy="90" r="4" fill="rgba(232,147,10,0.82)" filter="url(#ktg)">
+            <animateTransform attributeName="transform" type="rotate" from="45 250 240"  to="-315 250 240" dur="14s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="250" cy="90" r="2.5" fill="rgba(232,147,10,0.38)">
+            <animateTransform attributeName="transform" type="rotate" from="225 250 240" to="-135 250 240" dur="14s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- ── Connection lines ── -->
+          <line x1="250" y1="240" x2="330" y2="240" stroke="rgba(1,118,211,0.55)" stroke-width="2"   stroke-linecap="round" class="kt-l1"/>
+          <line x1="250" y1="240" x2="170" y2="240" stroke="rgba(1,118,211,0.55)" stroke-width="2"   stroke-linecap="round" class="kt-l1"/>
+          <line x1="250" y1="240" x2="356" y2="134" stroke="rgba(232,147,10,0.45)" stroke-width="1.5" stroke-linecap="round" class="kt-l2"/>
+          <line x1="250" y1="240" x2="356" y2="346" stroke="rgba(232,147,10,0.45)" stroke-width="1.5" stroke-linecap="round" class="kt-l2"/>
+          <line x1="250" y1="240" x2="144" y2="346" stroke="rgba(232,147,10,0.45)" stroke-width="1.5" stroke-linecap="round" class="kt-l2"/>
+          <line x1="250" y1="240" x2="144" y2="134" stroke="rgba(232,147,10,0.45)" stroke-width="1.5" stroke-linecap="round" class="kt-l2"/>
+          <line x1="250" y1="240" x2="250" y2="45"  stroke="rgba(255,255,255,0.2)" stroke-width="1"   stroke-linecap="round" class="kt-l3"/>
+          <line x1="250" y1="240" x2="445" y2="240" stroke="rgba(255,255,255,0.2)" stroke-width="1"   stroke-linecap="round" class="kt-l3"/>
+          <line x1="250" y1="240" x2="250" y2="435" stroke="rgba(255,255,255,0.2)" stroke-width="1"   stroke-linecap="round" class="kt-l3"/>
+          <line x1="250" y1="240" x2="55"  y2="240" stroke="rgba(255,255,255,0.2)" stroke-width="1"   stroke-linecap="round" class="kt-l3"/>
+
+          <!-- ════════════════════════════════
+               INNER RING (r=32) — THE CORE
+          ════════════════════════════════ -->
+
+          <!-- ARCHITECTURE -->
+          <circle cx="330" cy="240" r="32" fill="rgba(1,118,211,0.16)" stroke="rgba(1,118,211,0.72)" stroke-width="1.5"/>
+          <text x="330" y="243" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="700" letter-spacing="0.02em" fill="rgba(237,232,224,0.95)">ARCHITECTURE</text>
+
+          <!-- PLATFORM & TECHNICAL -->
+          <circle cx="170" cy="240" r="32" fill="rgba(1,80,210,0.15)" stroke="rgba(1,100,220,0.68)" stroke-width="1.5"/>
+          <text x="170" y="237" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"   font-weight="700" letter-spacing="0.04em" fill="rgba(237,232,224,0.95)">PLATFORM</text>
+          <text x="170" y="248" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.03em" fill="rgba(100,155,255,0.82)">&amp; TECHNICAL</text>
+
+          <!-- ════════════════════════════════
+               MIDDLE RING (r=26) — DOMAINS
+          ════════════════════════════════ -->
+
+          <!-- ENTERPRISE STRATEGY (top-right) -->
+          <circle cx="356" cy="134" r="26" fill="rgba(232,147,10,0.14)" stroke="rgba(232,147,10,0.68)" stroke-width="1.5"/>
+          <text x="356" y="130" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.95)">ENTERPRISE</text>
+          <text x="356" y="141" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.04em" fill="rgba(232,147,10,0.82)">STRATEGY</text>
+
+          <!-- AI & FUTURE (bottom-right) -->
+          <circle cx="356" cy="346" r="26" fill="rgba(232,147,10,0.14)" stroke="rgba(232,147,10,0.68)" stroke-width="1.5"/>
+          <text x="356" y="342" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.95)">AI &amp;</text>
+          <text x="356" y="353" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.04em" fill="rgba(232,147,10,0.82)">FUTURE</text>
+
+          <!-- INTEGRATION & DATA (bottom-left) -->
+          <circle cx="144" cy="346" r="26" fill="rgba(0,168,198,0.12)" stroke="rgba(0,168,198,0.62)" stroke-width="1.5"/>
+          <text x="144" y="342" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.04em" fill="rgba(237,232,224,0.95)">INTEGRATION</text>
+          <text x="144" y="353" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.04em" fill="rgba(0,168,198,0.82)">&amp; DATA</text>
+
+          <!-- SECURITY & COMPLIANCE (top-left) -->
+          <circle cx="144" cy="134" r="26" fill="rgba(27,152,81,0.12)" stroke="rgba(27,152,81,0.62)" stroke-width="1.5"/>
+          <text x="144" y="130" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.95)">SECURITY</text>
+          <text x="144" y="141" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.03em" fill="rgba(27,185,100,0.82)">&amp; COMPLIANCE</text>
+
+          <!-- ════════════════════════════════
+               OUTER RING (r=20) — PRACTICE
+          ════════════════════════════════ -->
+
+          <!-- DELIVERY MANAGEMENT (top) -->
+          <circle cx="250" cy="45" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <text x="250" y="42" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.82)">DELIVERY</text>
+          <text x="250" y="51" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="5.5" letter-spacing="0.04em" fill="rgba(237,232,224,0.48)">MANAGEMENT</text>
+
+          <!-- CRM COMPARISON (right) -->
+          <circle cx="445" cy="240" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <text x="445" y="237" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.82)">CRM</text>
+          <text x="445" y="247" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="5.5" letter-spacing="0.04em" fill="rgba(237,232,224,0.48)">COMPARE</text>
+
+          <!-- CHANGE MANAGEMENT (bottom) -->
+          <circle cx="250" cy="435" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <text x="250" y="432" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.82)">CHANGE</text>
+          <text x="250" y="441" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="5.5" letter-spacing="0.04em" fill="rgba(237,232,224,0.48)">MANAGEMENT</text>
+
+          <!-- LICENSING & COMMERCIAL (left) -->
+          <circle cx="55" cy="240" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+          <text x="55" y="237" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6"   font-weight="700" letter-spacing="0.05em" fill="rgba(237,232,224,0.82)">LICENSING</text>
+          <text x="55" y="246" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="5.5" letter-spacing="0.04em" fill="rgba(237,232,224,0.48)">&amp; COMM.</text>
+
+          <!-- ── Centre: pulsing core ── -->
+          <circle cx="250" cy="240" r="13" fill="rgba(232,147,10,0.55)" class="kt-cg" filter="url(#ktg)"/>
+          <circle cx="250" cy="240" r="6"  fill="#fff" opacity="0.9"/>
+        </svg>
+      </div>
+
     </div>
     <div class="tut-hero-stats">
       <div class="tut-hstat">
