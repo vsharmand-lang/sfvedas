@@ -430,7 +430,7 @@
                  placeholder="Search by title or ID — e.g. ARCH-001 or 'governor limits'" autocomplete="off"/>
         </div>
         <div class="tut-count-pill" id="countPill">
-          <span id="countNum">285</span> tutorials
+          <span id="countNum">220</span> tutorials
         </div>
       </div>
     </div>
@@ -444,12 +444,8 @@
       <button class="tut-filter" data-tag="delivery-management">Delivery Management</button>
       <button class="tut-filter" data-tag="crm-comparison">CRM Comparison</button>
       <button class="tut-filter" data-tag="security-compliance">Security &amp; Compliance</button>
-      <button class="tut-filter" data-tag="reporting-analytics">Reporting &amp; Analytics</button>
-      <button class="tut-filter" data-tag="industry-specific">Industry-Specific</button>
-      <button class="tut-filter" data-tag="team-talent">Team &amp; Talent</button>
       <button class="tut-filter" data-tag="licensing-commercial">Licensing &amp; Commercial</button>
       <button class="tut-filter" data-tag="change-management">Change Management</button>
-      <button class="tut-filter" data-tag="rfp">RFP</button>
     </div>
   </div>
 
@@ -492,12 +488,8 @@
     'delivery-management': 'Delivery Management',
     'crm-comparison': 'CRM Comparison',
     'security-compliance': 'Security & Compliance',
-    'reporting-analytics': 'Reporting & Analytics',
-    'industry-specific': 'Industry-Specific',
-    'team-talent': 'Team & Talent',
     'licensing-commercial': 'Licensing & Commercial',
-    'change-management': 'Change Management',
-    'rfp': 'RFP'
+    'change-management': 'Change Management'
   };
 
   const TUTORIALS = [
@@ -699,64 +691,6 @@
     {id:'SEC-018',tag:'security-compliance',title:'Incident Response for Salesforce: What to Do When Something Goes Wrong',readTime:20,slug:'sec-018'},
     {id:'SEC-019',tag:'security-compliance',title:'Data Classification in Salesforce: Tagging, Handling, and Governance',readTime:18,slug:'sec-019'},
     {id:'SEC-020',tag:'security-compliance',title:'Security Hardening Checklist for Salesforce Enterprise Orgs',readTime:20,slug:'sec-020'},
-    // ── REPORTING & ANALYTICS (20) ────────────────────────────────
-    {id:'RPT-001',tag:'reporting-analytics',title:'Reports vs Dashboards vs CRM Analytics: When to Use Which',readTime:18,slug:'rpt-001'},
-    {id:'RPT-002',tag:'reporting-analytics',title:'CRM Analytics Architecture: Datasets, Recipes, and Lenses',readTime:25,slug:'rpt-002'},
-    {id:'RPT-003',tag:'reporting-analytics',title:'Real-Time vs Batch Analytics in Salesforce: The Tradeoffs',readTime:20,slug:'rpt-003'},
-    {id:'RPT-004',tag:'reporting-analytics',title:'Sales Performance Metrics: What to Measure and How to Build It',readTime:20,slug:'rpt-004'},
-    {id:'RPT-005',tag:'reporting-analytics',title:'Service Analytics: Measuring What Matters in Contact Centres',readTime:20,slug:'rpt-005'},
-    {id:'RPT-006',tag:'reporting-analytics',title:'Pipeline Analytics: The Metrics That Predict Revenue',readTime:22,slug:'rpt-006'},
-    {id:'RPT-007',tag:'reporting-analytics',title:'Data Cloud for Analytics: Unified Data for Unified Insight',readTime:22,slug:'rpt-007'},
-    {id:'RPT-008',tag:'reporting-analytics',title:'Salesforce Native Reports: Advanced Features Most Leaders Don\'t Know',readTime:18,slug:'rpt-008'},
-    {id:'RPT-009',tag:'reporting-analytics',title:'Row-Level Security in CRM Analytics: Implementing Data Access Control',readTime:20,slug:'rpt-009'},
-    {id:'RPT-010',tag:'reporting-analytics',title:'Tableau and Salesforce: Embedding Analytics in Salesforce Pages',readTime:20,slug:'rpt-010'},
-    {id:'RPT-011',tag:'reporting-analytics',title:'Marketing Attribution Reporting: Multi-Touch Models in Salesforce',readTime:20,slug:'rpt-011'},
-    {id:'RPT-012',tag:'reporting-analytics',title:'Custom Report Types: When to Build Them and How',readTime:15,slug:'rpt-012'},
-    {id:'RPT-013',tag:'reporting-analytics',title:'Einstein Discovery: The Predictive Analytics Layer Explained',readTime:22,slug:'rpt-013'},
-    {id:'RPT-014',tag:'reporting-analytics',title:'Report Performance at Scale: Why Your Dashboard Loads Slowly',readTime:18,slug:'rpt-014'},
-    {id:'RPT-015',tag:'reporting-analytics',title:'Executive Dashboard Design: Principles for Salesforce Leaders',readTime:20,slug:'rpt-015'},
-    {id:'RPT-016',tag:'reporting-analytics',title:'Reporting on Automation: How to See What Flows and Apex Are Doing',readTime:18,slug:'rpt-016'},
-    {id:'RPT-017',tag:'reporting-analytics',title:'Salesforce Adoption Analytics: Measuring User Engagement',readTime:18,slug:'rpt-017'},
-    {id:'RPT-018',tag:'reporting-analytics',title:'Cross-Object Reporting: The Limits and the Workarounds',readTime:15,slug:'rpt-018'},
-    {id:'RPT-019',tag:'reporting-analytics',title:'Data Quality Reporting: Building Dashboards That Drive Cleanup',readTime:18,slug:'rpt-019'},
-    {id:'RPT-020',tag:'reporting-analytics',title:'Historical Trending Reports: What They Can and Can\'t Show You',readTime:18,slug:'rpt-020'},
-    // ── INDUSTRY-SPECIFIC (20) ────────────────────────────────────
-    {id:'IND-001',tag:'industry-specific',title:'Salesforce Financial Services Cloud: Architecture and Key Decisions',readTime:25,slug:'ind-001'},
-    {id:'IND-002',tag:'industry-specific',title:'Salesforce Health Cloud: Clinical Data Models and Compliance',readTime:25,slug:'ind-002'},
-    {id:'IND-003',tag:'industry-specific',title:'Salesforce for Manufacturing: Connected Assets and Field Service',readTime:22,slug:'ind-003'},
-    {id:'IND-004',tag:'industry-specific',title:'Salesforce Education Cloud: Student Lifecycle and CRM in Higher Ed',readTime:20,slug:'ind-004'},
-    {id:'IND-005',tag:'industry-specific',title:'Salesforce for Retail: Commerce Cloud and Connected Commerce',readTime:22,slug:'ind-005'},
-    {id:'IND-006',tag:'industry-specific',title:'Salesforce Automotive Cloud: Dealer Networks and Connected Vehicles',readTime:20,slug:'ind-006'},
-    {id:'IND-007',tag:'industry-specific',title:'Salesforce Net Zero Cloud: Sustainability Reporting Architecture',readTime:20,slug:'ind-007'},
-    {id:'IND-008',tag:'industry-specific',title:'Salesforce Government Cloud: Public Sector Architecture and Data Security',readTime:22,slug:'ind-008'},
-    {id:'IND-009',tag:'industry-specific',title:'Salesforce Nonprofit Cloud: Architecture for Mission-Driven Orgs',readTime:20,slug:'ind-009'},
-    {id:'IND-010',tag:'industry-specific',title:'Salesforce for Insurance: Policy, Claims, and the Regulatory Overlay',readTime:22,slug:'ind-010'},
-    {id:'IND-011',tag:'industry-specific',title:'Salesforce for Utilities: Energy and Resource Management Patterns',readTime:20,slug:'ind-011'},
-    {id:'IND-012',tag:'industry-specific',title:'Salesforce for Media: Content Management and Subscriber Lifecycle',readTime:18,slug:'ind-012'},
-    {id:'IND-013',tag:'industry-specific',title:'Salesforce for Real Estate: Property Lifecycle and CRM Patterns',readTime:18,slug:'ind-013'},
-    {id:'IND-014',tag:'industry-specific',title:'Salesforce for Professional Services: PSA and Resource Management',readTime:20,slug:'ind-014'},
-    {id:'IND-015',tag:'industry-specific',title:'Salesforce for Pharma: Regulated Industry Delivery Considerations',readTime:22,slug:'ind-015'},
-    {id:'IND-016',tag:'industry-specific',title:'Industry Cloud vs Custom Build: The Vertical Decision Framework',readTime:22,slug:'ind-016'},
-    {id:'IND-017',tag:'industry-specific',title:'Salesforce Field Service: Architecture and Scheduling Engine Explained',readTime:22,slug:'ind-017'},
-    {id:'IND-018',tag:'industry-specific',title:'Revenue Cloud (CPQ): Architecture and Commercial Complexity',readTime:25,slug:'ind-018'},
-    {id:'IND-019',tag:'industry-specific',title:'Loyalty Management Cloud: Points, Tiers, and Data Architecture',readTime:20,slug:'ind-019'},
-    {id:'IND-020',tag:'industry-specific',title:'Experience Cloud for Industries: Community and Partner Portal Patterns',readTime:20,slug:'ind-020'},
-    // ── TEAM & TALENT (15) ────────────────────────────────────────
-    {id:'TAL-001',tag:'team-talent',title:'Building a Salesforce Team: Roles, Skills, and Hiring Decisions',readTime:20,slug:'tal-001'},
-    {id:'TAL-002',tag:'team-talent',title:'The Salesforce Career Ladder: From Admin to Architect',readTime:18,slug:'tal-002'},
-    {id:'TAL-003',tag:'team-talent',title:'Salesforce Certifications: Which Ones Actually Matter for Leaders',readTime:15,slug:'tal-003'},
-    {id:'TAL-004',tag:'team-talent',title:'Managing Salesforce Developers: What Good Looks Like',readTime:18,slug:'tal-004'},
-    {id:'TAL-005',tag:'team-talent',title:'The Salesforce Partner Model: How to Select and Manage a SI Partner',readTime:20,slug:'tal-005'},
-    {id:'TAL-006',tag:'team-talent',title:'In-House vs Outsourced Salesforce Capability: The Strategic Decision',readTime:22,slug:'tal-006'},
-    {id:'TAL-007',tag:'team-talent',title:'Centre of Excellence Staffing: Who You Need and When',readTime:18,slug:'tal-007'},
-    {id:'TAL-008',tag:'team-talent',title:'Knowledge Transfer at Project End: Ensuring You Own the Org',readTime:18,slug:'tal-008'},
-    {id:'TAL-009',tag:'team-talent',title:'Onboarding a New Salesforce Architect: The 90-Day Plan',readTime:18,slug:'tal-009'},
-    {id:'TAL-010',tag:'team-talent',title:'Evaluating a Salesforce Architect Without Being Technical',readTime:20,slug:'tal-010'},
-    {id:'TAL-011',tag:'team-talent',title:'Contract Structures for Salesforce Delivery: T&M vs Fixed Price',readTime:18,slug:'tal-011'},
-    {id:'TAL-012',tag:'team-talent',title:'Managing Attrition in a Salesforce Programme',readTime:15,slug:'tal-012'},
-    {id:'TAL-013',tag:'team-talent',title:'Building Internal Salesforce Champions: The Enablement Strategy',readTime:18,slug:'tal-013'},
-    {id:'TAL-014',tag:'team-talent',title:'The Salesforce Talent Market in 2026: Trends and Realities',readTime:15,slug:'tal-014'},
-    {id:'TAL-015',tag:'team-talent',title:'Succession Planning for Salesforce Capability: De-risking Key Person Dependency',readTime:18,slug:'tal-015'},
     // ── LICENSING & COMMERCIAL (15) ───────────────────────────────
     {id:'LIC-001',tag:'licensing-commercial',title:'Salesforce Licensing Model: The Complete Guide for Leaders',readTime:22,slug:'lic-001'},
     {id:'LIC-002',tag:'licensing-commercial',title:'User Licenses vs Permission Set Licenses: What\'s the Difference?',readTime:18,slug:'lic-002'},
@@ -789,17 +723,6 @@
     {id:'CHA-013',tag:'change-management',title:'Super User Networks: Design, Incentives, and Sustainability',readTime:15,slug:'cha-013'},
     {id:'CHA-014',tag:'change-management',title:'Training vs Enablement: The Difference That Changes Outcomes',readTime:18,slug:'cha-014'},
     {id:'CHA-015',tag:'change-management',title:'Change Readiness Assessment: Running It Before You Build',readTime:18,slug:'cha-015'},
-    // ── RFP (10) ──────────────────────────────────────────────────
-    {id:'RFP-001',tag:'rfp',title:'Writing a Salesforce RFP: The Framework That Gets Better Responses',readTime:22,slug:'rfp-001'},
-    {id:'RFP-002',tag:'rfp',title:'Evaluating Salesforce Implementation Proposals: The Scorecard',readTime:20,slug:'rfp-002'},
-    {id:'RFP-003',tag:'rfp',title:'RFP Red Flags: What Partner Responses Tell You About Delivery Risk',readTime:20,slug:'rfp-003'},
-    {id:'RFP-004',tag:'rfp',title:'System Integrator Selection: Beyond the Slide Deck',readTime:22,slug:'rfp-004'},
-    {id:'RFP-005',tag:'rfp',title:'What to Include in a Salesforce Statement of Work',readTime:20,slug:'rfp-005'},
-    {id:'RFP-006',tag:'rfp',title:'Proof of Concept Design for Salesforce Evaluations',readTime:18,slug:'rfp-006'},
-    {id:'RFP-007',tag:'rfp',title:'Reference Check Questions for Salesforce Partners',readTime:15,slug:'rfp-007'},
-    {id:'RFP-008',tag:'rfp',title:'Comparing Salesforce and Non-Salesforce Bids: The Evaluation Framework',readTime:20,slug:'rfp-008'},
-    {id:'RFP-009',tag:'rfp',title:'Negotiating Implementation Contracts: What to Push For',readTime:22,slug:'rfp-009'},
-    {id:'RFP-010',tag:'rfp',title:'Running a Salesforce Partner Selection Process: Step by Step',readTime:22,slug:'rfp-010'}
   ];
 
   let currentTag = 'all';
