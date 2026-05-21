@@ -249,15 +249,55 @@
       max-width: 1160px;
       margin: 0 auto;
     }
+    /* left/right fade edges */
+    .tut-filters-wrap::before,
     .tut-filters-wrap::after {
       content: '';
       position: absolute;
-      top: 0; bottom: 0; right: 0;
-      width: 80px;
-      background: linear-gradient(90deg, transparent 0%, rgba(248,245,240,0.96) 100%);
+      top: 0; bottom: 0;
+      width: 64px;
       pointer-events: none;
       z-index: 2;
+      transition: opacity 0.20s;
     }
+    .tut-filters-wrap::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(248,245,240,0.97) 0%, transparent 100%);
+      opacity: 0;
+    }
+    .tut-filters-wrap::after {
+      right: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(248,245,240,0.97) 100%);
+      opacity: 1;
+    }
+    .tut-filters-wrap.can-scroll-left::before  { opacity: 1; }
+    .tut-filters-wrap.at-end::after            { opacity: 0; }
+
+    /* scroll arrow buttons */
+    .fbar-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(180,168,148,0.40);
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 10px rgba(30,30,46,0.10);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.18s cubic-bezier(0.34,1.56,0.64,1);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .fbar-arrow svg { width: 14px; height: 14px; stroke: #5a5550; stroke-width: 2; fill: none; }
+    .fbar-arrow:hover { background: #fff; box-shadow: 0 4px 16px rgba(30,30,46,0.16); transform: translateY(-50%) scale(1.10); }
+    .fbar-arrow-left  { left: 8px; }
+    .fbar-arrow-right { right: 8px; }
+    .tut-filters-wrap.can-scroll-left  .fbar-arrow-left  { opacity: 1; pointer-events: auto; }
+    .tut-filters-wrap:not(.at-end)     .fbar-arrow-right { opacity: 1; pointer-events: auto; }
+
     .tut-filters {
       padding: 13px 40px 16px;
       display: flex;
@@ -266,6 +306,7 @@
       scrollbar-width: none;
       -ms-overflow-style: none;
       align-items: center;
+      scroll-behavior: smooth;
     }
     .tut-filters::-webkit-scrollbar { display: none; }
     /* Per-filter color identities via --fc RGB triplet */
@@ -698,7 +739,10 @@
       </div>
     </div>
     <div class="tut-filter-sep"></div>
-    <div class="tut-filters-wrap">
+    <div class="tut-filters-wrap" id="filtersWrap">
+      <button class="fbar-arrow fbar-arrow-left" id="fbarLeft" aria-label="Scroll left">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
       <div class="tut-filters" id="filterBar">
         <button class="tut-filter active" data-tag="all">All Topics</button>
         <button class="tut-filter" data-tag="architecture">Architecture</button>
@@ -712,6 +756,9 @@
         <button class="tut-filter" data-tag="licensing-commercial">Licensing &amp; Commercial</button>
         <button class="tut-filter" data-tag="change-management">Change Management</button>
       </div>
+      <button class="fbar-arrow fbar-arrow-right" id="fbarRight" aria-label="Scroll right">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
   </div>
 
@@ -1079,6 +1126,28 @@
     }
   }
   applyFilters();
+
+  // ── Filter bar scroll arrows ────────────────────────────────────────────
+  (function() {
+    const wrap  = document.getElementById('filtersWrap');
+    const bar   = document.getElementById('filterBar');
+    const left  = document.getElementById('fbarLeft');
+    const right = document.getElementById('fbarRight');
+    const STEP  = 240;
+
+    function syncArrows() {
+      const atStart = bar.scrollLeft <= 4;
+      const atEnd   = bar.scrollLeft + bar.clientWidth >= bar.scrollWidth - 4;
+      wrap.classList.toggle('can-scroll-left', !atStart);
+      wrap.classList.toggle('at-end', atEnd);
+    }
+
+    left.addEventListener('click',  () => { bar.scrollBy({ left: -STEP, behavior: 'smooth' }); });
+    right.addEventListener('click', () => { bar.scrollBy({ left:  STEP, behavior: 'smooth' }); });
+    bar.addEventListener('scroll', syncArrows, { passive: true });
+    window.addEventListener('resize', syncArrows);
+    syncArrows();
+  })();
   </script>
   <script src="../js/main.js" defer></script>
 </body>
