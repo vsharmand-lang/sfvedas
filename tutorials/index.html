@@ -448,148 +448,180 @@
         <p class="tut-hero-sub">220 tutorials across 10 areas — for architects, delivery leaders, and strategists who need to understand Salesforce at the level that matters.</p>
       </div>
 
-      <!-- Right: Knowledge Atlas — all 10 topic areas in 3 orbital rings -->
+      <!-- Right: Knowledge Radar — 9 topic domains, radar-scan animation -->
       <div class="tut-hero-diagram">
-        <svg viewBox="0 0 500 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 500 465" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <style>
-              @keyframes kt-cw  { to { transform: rotate(360deg);  } }
-              @keyframes kt-ccw { to { transform: rotate(-360deg); } }
-              @keyframes kt-glo { 0%,100%{opacity:.18} 50%{opacity:.58} }
-              @keyframes kt-flo { to { stroke-dashoffset: -19; } }
-              .kt-i  { transform-origin: 250px 240px; animation: kt-cw  10s linear infinite; }
-              .kt-m  { transform-origin: 250px 240px; animation: kt-ccw 24s linear infinite; }
-              .kt-o  { transform-origin: 250px 240px; animation: kt-cw  42s linear infinite; }
-              .kt-cg { animation: kt-glo 3s ease-in-out infinite; }
-              .kt-l1 { stroke-dasharray:5 13; animation: kt-flo 2s   linear infinite; }
-              .kt-l2 { stroke-dasharray:5 13; animation: kt-flo 2.7s linear infinite; animation-delay:-.6s; }
-              .kt-l3 { stroke-dasharray:5 13; animation: kt-flo 3.2s linear infinite; animation-delay:-1.3s; }
+              /* Each node peaks in opacity when the radar sweep reaches it.
+                 Period 9s, nodes at 40° steps → 1s between each activation.
+                 delay = peak_time − 9s so animation is at 0% keyframe on time. */
+              @keyframes kt-scan {
+                0%   { opacity: 1.0; }
+                20%  { opacity: 0.75; }
+                55%  { opacity: 0.40; }
+                100% { opacity: 0.40; }
+              }
+              .kt-n0 { animation: kt-scan 9s ease-out infinite; }
+              .kt-n1 { animation: kt-scan 9s ease-out infinite; animation-delay: -8s; }
+              .kt-n2 { animation: kt-scan 9s ease-out infinite; animation-delay: -7s; }
+              .kt-n3 { animation: kt-scan 9s ease-out infinite; animation-delay: -6s; }
+              .kt-n4 { animation: kt-scan 9s ease-out infinite; animation-delay: -5s; }
+              .kt-n5 { animation: kt-scan 9s ease-out infinite; animation-delay: -4s; }
+              .kt-n6 { animation: kt-scan 9s ease-out infinite; animation-delay: -3s; }
+              .kt-n7 { animation: kt-scan 9s ease-out infinite; animation-delay: -2s; }
+              .kt-n8 { animation: kt-scan 9s ease-out infinite; animation-delay: -1s; }
             </style>
-            <filter id="ktg" x="-80%" y="-80%" width="260%" height="260%">
-              <feGaussianBlur stdDeviation="4" result="b"/>
+
+            <!-- Node glow (blurred halo behind each circle) -->
+            <filter id="ktglow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="10"/>
+            </filter>
+            <!-- Center ambient glow -->
+            <filter id="ktcg" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="18" result="b"/>
               <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
-            <filter id="kts" x="-60%" y="-60%" width="220%" height="220%">
-              <feGaussianBlur stdDeviation="12" result="b"/>
+            <!-- Radar tip glow -->
+            <filter id="kttip" x="-120%" y="-120%" width="340%" height="340%">
+              <feGaussianBlur stdDeviation="5" result="b"/>
               <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
             </filter>
           </defs>
 
-          <!-- ── Depth: faint outer boundary ── -->
-          <circle cx="250" cy="240" r="228" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+          <!-- ── Scope rings (static, give radar depth) ── -->
+          <circle cx="250" cy="235" r="218" stroke="rgba(255,255,255,0.022)" stroke-width="1"/>
+          <circle cx="250" cy="235" r="152" stroke="rgba(255,255,255,0.055)" stroke-width="1" stroke-dasharray="1.5 22"/>
+          <circle cx="250" cy="235" r="82"  stroke="rgba(232,147,10,0.10)"  stroke-width="1" stroke-dasharray="2 14"/>
 
-          <!-- ── Orbital tracks ── -->
-          <circle cx="250" cy="240" r="195" stroke="rgba(255,255,255,0.055)" stroke-width="1" stroke-dasharray="1.5 20" class="kt-o"/>
-          <circle cx="250" cy="240" r="150" stroke="rgba(232,147,10,0.18)"   stroke-width="1" stroke-dasharray="2 13"  class="kt-m"/>
-          <circle cx="250" cy="240" r="80"  stroke="rgba(1,118,211,0.32)"    stroke-width="1" stroke-dasharray="3 10"  class="kt-i"/>
+          <!-- ── Spokes: faint lines from center to each node ── -->
+          <line x1="250" y1="235" x2="250" y2="83"  stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="250" y1="235" x2="348" y2="119" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="250" y1="235" x2="400" y2="209" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="250" y1="235" x2="382" y2="311" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="250" y1="235" x2="302" y2="378" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="250" y1="235" x2="198" y2="378" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="250" y1="235" x2="118" y2="311" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="250" y1="235" x2="100" y2="209" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+          <line x1="250" y1="235" x2="152" y2="119" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
 
-          <!-- ── Centre deep glow ── -->
-          <circle cx="250" cy="240" r="58" fill="rgba(232,147,10,0.05)" class="kt-cg" filter="url(#kts)"/>
+          <!-- ── Centre ambient glow ── -->
+          <circle cx="250" cy="235" r="72" fill="rgba(232,147,10,0.07)" filter="url(#ktcg)"/>
 
-          <!-- ── Ripple rings ── -->
-          <circle cx="250" cy="240" r="18" fill="none" stroke="rgba(232,147,10,0.5)" stroke-width="1.5">
-            <animate attributeName="r"       from="18"  to="212" dur="3.5s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" from="0.5" to="0"   dur="3.5s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="250" cy="240" r="18" fill="none" stroke="rgba(232,147,10,0.25)" stroke-width="0.75">
-            <animate attributeName="r"       from="18"  to="212" dur="3.5s" begin="1.75s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" from="0.3" to="0"   dur="3.5s" begin="1.75s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- ── Orbiting dots — inner ring (3 blue dots, CW 6s) ── -->
-          <circle cx="250" cy="160" r="5" fill="#0176D3" filter="url(#ktg)">
-            <animateTransform attributeName="transform" type="rotate" from="0 250 240"   to="360 250 240"  dur="6s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="250" cy="160" r="3.5" fill="rgba(1,118,211,0.6)" filter="url(#ktg)">
-            <animateTransform attributeName="transform" type="rotate" from="120 250 240" to="480 250 240"  dur="6s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="250" cy="160" r="2" fill="rgba(1,118,211,0.3)">
-            <animateTransform attributeName="transform" type="rotate" from="240 250 240" to="600 250 240"  dur="6s" repeatCount="indefinite"/>
-          </circle>
-          <!-- ── Orbiting dots — middle ring (2 saffron dots, CCW 14s) ── -->
-          <circle cx="250" cy="90" r="4" fill="rgba(232,147,10,0.82)" filter="url(#ktg)">
-            <animateTransform attributeName="transform" type="rotate" from="45 250 240"  to="-315 250 240" dur="14s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="250" cy="90" r="2.5" fill="rgba(232,147,10,0.38)">
-            <animateTransform attributeName="transform" type="rotate" from="225 250 240" to="-135 250 240" dur="14s" repeatCount="indefinite"/>
+          <!-- ══ RADAR SWEEP ══
+               Three co-rotating lines at -28°, -14°, 0° create a fading cone trailing the sharp lead line. -->
+          <line x1="250" y1="235" x2="250" y2="83" stroke="rgba(232,147,10,0.05)" stroke-width="9" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" from="-28 250 235" to="332 250 235" dur="9s" repeatCount="indefinite"/>
+          </line>
+          <line x1="250" y1="235" x2="250" y2="83" stroke="rgba(232,147,10,0.17)" stroke-width="4" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" from="-14 250 235" to="346 250 235" dur="9s" repeatCount="indefinite"/>
+          </line>
+          <line x1="250" y1="235" x2="250" y2="83" stroke="rgba(232,147,10,0.72)" stroke-width="1.5" stroke-linecap="round">
+            <animateTransform attributeName="transform" type="rotate" from="0 250 235" to="360 250 235" dur="9s" repeatCount="indefinite"/>
+          </line>
+          <!-- Glowing dot at tip of lead line -->
+          <circle cx="250" cy="83" r="4" fill="rgba(232,147,10,0.95)" filter="url(#kttip)">
+            <animateTransform attributeName="transform" type="rotate" from="0 250 235" to="360 250 235" dur="9s" repeatCount="indefinite"/>
           </circle>
 
-          <!-- ── Connection lines ── -->
-          <line x1="250" y1="240" x2="330" y2="240" stroke="rgba(1,118,211,0.55)" stroke-width="2"   stroke-linecap="round" class="kt-l1"/>
-          <line x1="250" y1="240" x2="170" y2="240" stroke="rgba(1,118,211,0.55)" stroke-width="2"   stroke-linecap="round" class="kt-l1"/>
-          <line x1="250" y1="240" x2="356" y2="134" stroke="rgba(232,147,10,0.45)" stroke-width="1.5" stroke-linecap="round" class="kt-l2"/>
-          <line x1="250" y1="240" x2="356" y2="346" stroke="rgba(232,147,10,0.45)" stroke-width="1.5" stroke-linecap="round" class="kt-l2"/>
-          <line x1="250" y1="240" x2="144" y2="346" stroke="rgba(232,147,10,0.45)" stroke-width="1.5" stroke-linecap="round" class="kt-l2"/>
-          <line x1="250" y1="240" x2="144" y2="134" stroke="rgba(232,147,10,0.45)" stroke-width="1.5" stroke-linecap="round" class="kt-l2"/>
-          <line x1="250" y1="240" x2="250" y2="45"  stroke="rgba(255,255,255,0.2)" stroke-width="1"   stroke-linecap="round" class="kt-l3"/>
-          <line x1="250" y1="240" x2="445" y2="240" stroke="rgba(255,255,255,0.2)" stroke-width="1"   stroke-linecap="round" class="kt-l3"/>
-          <line x1="250" y1="240" x2="250" y2="435" stroke="rgba(255,255,255,0.2)" stroke-width="1"   stroke-linecap="round" class="kt-l3"/>
-          <line x1="250" y1="240" x2="55"  y2="240" stroke="rgba(255,255,255,0.2)" stroke-width="1"   stroke-linecap="round" class="kt-l3"/>
+          <!-- ── Ripple from centre ── -->
+          <circle cx="250" cy="235" fill="none" stroke="rgba(232,147,10,0.40)" stroke-width="1.2">
+            <animate attributeName="r"       values="14;208" dur="4.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.40;0"  dur="4.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="250" cy="235" fill="none" stroke="rgba(232,147,10,0.18)" stroke-width="0.8">
+            <animate attributeName="r"       values="14;208" dur="4.5s" begin="2.25s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.18;0"  dur="4.5s" begin="2.25s" repeatCount="indefinite"/>
+          </circle>
 
-          <!-- ════════════════════════════════
-               INNER RING (r=32) — THE CORE
-          ════════════════════════════════ -->
+          <!-- ══════════════════════════════════════════
+               9 DOMAIN NODES — equal radius 152, 40° apart
+               Coordinates: cx = 250 + 152·sin(θ), cy = 235 − 152·cos(θ)
+          ══════════════════════════════════════════ -->
 
-          <!-- ARCHITECTURE -->
-          <circle cx="330" cy="240" r="32" fill="rgba(1,118,211,0.16)" stroke="rgba(1,118,211,0.72)" stroke-width="1.5"/>
-          <text x="330" y="243" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="700" letter-spacing="0.02em" fill="rgba(237,232,224,0.95)">ARCHITECTURE</text>
+          <!-- NODE 0 · 0° (top) · DELIVERY MANAGEMENT -->
+          <g class="kt-n0">
+            <circle cx="250" cy="83"  r="46" fill="rgba(255,255,255,0.12)" filter="url(#ktglow)"/>
+            <circle cx="250" cy="83"  r="39" fill="rgba(8,18,45,0.85)"  stroke="rgba(255,255,255,0.52)" stroke-width="1.5"/>
+            <text x="250" y="79"  text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#EDE8E0">DELIVERY</text>
+            <text x="250" y="92"  text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(200,196,188,0.68)">MANAGEMENT</text>
+          </g>
 
-          <!-- PLATFORM & TECHNICAL -->
-          <circle cx="170" cy="240" r="32" fill="rgba(1,80,210,0.15)" stroke="rgba(1,100,220,0.68)" stroke-width="1.5"/>
-          <text x="170" y="237" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"   font-weight="700" letter-spacing="0.04em" fill="rgba(237,232,224,0.95)">PLATFORM</text>
-          <text x="170" y="248" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.03em" fill="rgba(100,155,255,0.82)">&amp; TECHNICAL</text>
+          <!-- NODE 1 · 40° (NE) · ENTERPRISE STRATEGY -->
+          <g class="kt-n1">
+            <circle cx="348" cy="119" r="46" fill="rgba(232,147,10,0.20)" filter="url(#ktglow)"/>
+            <circle cx="348" cy="119" r="39" fill="rgba(8,18,45,0.88)"  stroke="rgba(232,147,10,0.78)" stroke-width="1.5"/>
+            <text x="348" y="115" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#EDE8E0">ENTERPRISE</text>
+            <text x="348" y="128" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(232,147,10,0.82)">STRATEGY</text>
+          </g>
 
-          <!-- ════════════════════════════════
-               MIDDLE RING (r=26) — DOMAINS
-          ════════════════════════════════ -->
+          <!-- NODE 2 · 80° (E) · CRM COMPARISON -->
+          <g class="kt-n2">
+            <circle cx="400" cy="209" r="46" fill="rgba(255,255,255,0.10)" filter="url(#ktglow)"/>
+            <circle cx="400" cy="209" r="39" fill="rgba(8,18,45,0.85)"  stroke="rgba(255,255,255,0.46)" stroke-width="1.5"/>
+            <text x="400" y="205" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#EDE8E0">CRM</text>
+            <text x="400" y="218" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(200,196,188,0.65)">COMPARISON</text>
+          </g>
 
-          <!-- ENTERPRISE STRATEGY (top-right) -->
-          <circle cx="356" cy="134" r="26" fill="rgba(232,147,10,0.14)" stroke="rgba(232,147,10,0.68)" stroke-width="1.5"/>
-          <text x="356" y="130" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.95)">ENTERPRISE</text>
-          <text x="356" y="141" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.04em" fill="rgba(232,147,10,0.82)">STRATEGY</text>
+          <!-- NODE 3 · 120° (SE) · AI & FUTURE -->
+          <g class="kt-n3">
+            <circle cx="382" cy="311" r="46" fill="rgba(232,147,10,0.20)" filter="url(#ktglow)"/>
+            <circle cx="382" cy="311" r="39" fill="rgba(8,18,45,0.88)"  stroke="rgba(232,147,10,0.78)" stroke-width="1.5"/>
+            <text x="382" y="307" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" letter-spacing="0.04em" fill="#EDE8E0">AI &amp;</text>
+            <text x="382" y="320" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(232,147,10,0.82)">FUTURE</text>
+          </g>
 
-          <!-- AI & FUTURE (bottom-right) -->
-          <circle cx="356" cy="346" r="26" fill="rgba(232,147,10,0.14)" stroke="rgba(232,147,10,0.68)" stroke-width="1.5"/>
-          <text x="356" y="342" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.95)">AI &amp;</text>
-          <text x="356" y="353" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.04em" fill="rgba(232,147,10,0.82)">FUTURE</text>
+          <!-- NODE 4 · 160° (S) · CHANGE MANAGEMENT -->
+          <g class="kt-n4">
+            <circle cx="302" cy="378" r="46" fill="rgba(255,255,255,0.08)" filter="url(#ktglow)"/>
+            <circle cx="302" cy="378" r="39" fill="rgba(8,18,45,0.85)"  stroke="rgba(255,255,255,0.42)" stroke-width="1.5"/>
+            <text x="302" y="374" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#EDE8E0">CHANGE</text>
+            <text x="302" y="387" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(200,196,188,0.62)">MANAGEMENT</text>
+          </g>
 
-          <!-- INTEGRATION & DATA (bottom-left) -->
-          <circle cx="144" cy="346" r="26" fill="rgba(0,168,198,0.12)" stroke="rgba(0,168,198,0.62)" stroke-width="1.5"/>
-          <text x="144" y="342" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.04em" fill="rgba(237,232,224,0.95)">INTEGRATION</text>
-          <text x="144" y="353" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.04em" fill="rgba(0,168,198,0.82)">&amp; DATA</text>
+          <!-- NODE 5 · 200° (SW) · LICENSING & COMMERCIAL -->
+          <g class="kt-n5">
+            <circle cx="198" cy="378" r="46" fill="rgba(255,255,255,0.08)" filter="url(#ktglow)"/>
+            <circle cx="198" cy="378" r="39" fill="rgba(8,18,45,0.85)"  stroke="rgba(255,255,255,0.38)" stroke-width="1.5"/>
+            <text x="198" y="374" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.04em" fill="#EDE8E0">LICENSING</text>
+            <text x="198" y="387" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(200,196,188,0.58)">&amp; COMMERCIAL</text>
+          </g>
 
-          <!-- SECURITY & COMPLIANCE (top-left) -->
-          <circle cx="144" cy="134" r="26" fill="rgba(27,152,81,0.12)" stroke="rgba(27,152,81,0.62)" stroke-width="1.5"/>
-          <text x="144" y="130" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.95)">SECURITY</text>
-          <text x="144" y="141" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.03em" fill="rgba(27,185,100,0.82)">&amp; COMPLIANCE</text>
+          <!-- NODE 6 · 240° (W) · INTEGRATION & DATA -->
+          <g class="kt-n6">
+            <circle cx="118" cy="311" r="46" fill="rgba(0,168,198,0.20)" filter="url(#ktglow)"/>
+            <circle cx="118" cy="311" r="39" fill="rgba(8,18,45,0.88)"  stroke="rgba(0,168,198,0.70)" stroke-width="1.5"/>
+            <text x="118" y="307" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.04em" fill="#EDE8E0">INTEGRATION</text>
+            <text x="118" y="320" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(0,188,218,0.80)">&amp; DATA</text>
+          </g>
 
-          <!-- ════════════════════════════════
-               OUTER RING (r=20) — PRACTICE
-          ════════════════════════════════ -->
+          <!-- NODE 7 · 280° (NW) · PLATFORM & TECHNICAL -->
+          <g class="kt-n7">
+            <circle cx="100" cy="209" r="46" fill="rgba(1,118,211,0.24)" filter="url(#ktglow)"/>
+            <circle cx="100" cy="209" r="39" fill="rgba(8,18,45,0.90)"  stroke="rgba(1,118,211,0.80)" stroke-width="1.5"/>
+            <text x="100" y="205" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.04em" fill="#EDE8E0">PLATFORM</text>
+            <text x="100" y="218" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(110,168,255,0.80)">&amp; TECHNICAL</text>
+          </g>
 
-          <!-- DELIVERY MANAGEMENT (top) -->
-          <circle cx="250" cy="45" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <text x="250" y="42" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.82)">DELIVERY</text>
-          <text x="250" y="51" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="5.5" letter-spacing="0.04em" fill="rgba(237,232,224,0.48)">MANAGEMENT</text>
+          <!-- NODE 8 · 320° (NNW) · SECURITY & COMPLIANCE -->
+          <g class="kt-n8">
+            <circle cx="152" cy="119" r="46" fill="rgba(27,152,81,0.20)" filter="url(#ktglow)"/>
+            <circle cx="152" cy="119" r="39" fill="rgba(8,18,45,0.88)"  stroke="rgba(27,152,81,0.72)" stroke-width="1.5"/>
+            <text x="152" y="115" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.05em" fill="#EDE8E0">SECURITY</text>
+            <text x="152" y="128" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8"  letter-spacing="0.02em" fill="rgba(27,195,105,0.76)">&amp; COMPLIANCE</text>
+          </g>
 
-          <!-- CRM COMPARISON (right) -->
-          <circle cx="445" cy="240" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <text x="445" y="237" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.82)">CRM</text>
-          <text x="445" y="247" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="5.5" letter-spacing="0.04em" fill="rgba(237,232,224,0.48)">COMPARE</text>
-
-          <!-- CHANGE MANAGEMENT (bottom) -->
-          <circle cx="250" cy="435" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <text x="250" y="432" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6"   font-weight="700" letter-spacing="0.06em" fill="rgba(237,232,224,0.82)">CHANGE</text>
-          <text x="250" y="441" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="5.5" letter-spacing="0.04em" fill="rgba(237,232,224,0.48)">MANAGEMENT</text>
-
-          <!-- LICENSING & COMMERCIAL (left) -->
-          <circle cx="55" cy="240" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
-          <text x="55" y="237" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6"   font-weight="700" letter-spacing="0.05em" fill="rgba(237,232,224,0.82)">LICENSING</text>
-          <text x="55" y="246" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="5.5" letter-spacing="0.04em" fill="rgba(237,232,224,0.48)">&amp; COMM.</text>
-
-          <!-- ── Centre: pulsing core ── -->
-          <circle cx="250" cy="240" r="13" fill="rgba(232,147,10,0.55)" class="kt-cg" filter="url(#ktg)"/>
-          <circle cx="250" cy="240" r="6"  fill="#fff" opacity="0.9"/>
+          <!-- ══ CENTRE: ARCHITECTURE (core) ══ -->
+          <circle cx="250" cy="235" r="64"  fill="rgba(1,118,211,0.18)" filter="url(#ktcg)"/>
+          <circle cx="250" cy="235" r="52"  fill="rgba(4,16,58,0.94)"  stroke="rgba(1,118,211,0.92)" stroke-width="2"/>
+          <text x="250" y="229" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" letter-spacing="0.07em" fill="#EDE8E0">ARCHITECTURE</text>
+          <text x="250" y="244" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" letter-spacing="0.05em" fill="rgba(110,168,255,0.70)">CORE DOMAIN</text>
+          <!-- Heartbeat dot -->
+          <circle cx="250" cy="235" r="8" fill="rgba(232,147,10,0.62)">
+            <animate attributeName="r"       values="8;12;8"         dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.62;0.95;0.62" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="250" cy="235" r="3.5" fill="#ffffff" opacity="0.90"/>
         </svg>
       </div>
 
