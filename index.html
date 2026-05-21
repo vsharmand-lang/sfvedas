@@ -896,85 +896,121 @@
 
       <!-- Right: Salesforce ecosystem diagram -->
       <div class="hp-hero-diagram animate-fade-up" style="animation-delay:0.45s">
-        <svg viewBox="0 0 520 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 520 500" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <style>
-              @keyframes sf-orbit { to { transform: rotate(360deg); } }
-              @keyframes sf-pulse { 0%,100%{opacity:.25} 50%{opacity:.65} }
-              @keyframes sf-dot   { 0%,100%{opacity:.2} 50%{opacity:.9} }
-              .sf-ring { transform-origin: 260px 230px; animation: sf-orbit 40s linear infinite; }
-              .sf-glow { animation: sf-pulse 3.5s ease-in-out infinite; }
-              .sf-mid  { animation: sf-dot 2.5s ease-in-out infinite; }
-              .sf-mid-2{ animation: sf-dot 2.5s ease-in-out infinite; animation-delay:.8s; }
-              .sf-mid-3{ animation: sf-dot 2.5s ease-in-out infinite; animation-delay:1.6s; }
+              @keyframes sf-cw   { to { transform: rotate(360deg);  } }
+              @keyframes sf-ccw  { to { transform: rotate(-360deg); } }
+              @keyframes sf-halo { 0%,100%{opacity:.15} 50%{opacity:.45} }
+              @keyframes sf-cglo { 0%,100%{opacity:.3}  50%{opacity:.75} }
+              @keyframes sf-flow { to   { stroke-dashoffset: -20; } }
+              .sf-cw   { transform-origin: 260px 250px; animation: sf-cw  42s linear infinite; }
+              .sf-ccw  { transform-origin: 260px 250px; animation: sf-ccw 65s linear infinite; }
+              .sf-halo { animation: sf-halo 4s ease-in-out infinite; }
+              .sf-cglo { animation: sf-cglo 3s ease-in-out infinite; }
+              .sf-l1{stroke-dasharray:6 13;animation:sf-flow 1.9s linear infinite;}
+              .sf-l2{stroke-dasharray:6 13;animation:sf-flow 2.3s linear infinite;animation-delay:-.4s;}
+              .sf-l3{stroke-dasharray:6 13;animation:sf-flow 2.6s linear infinite;animation-delay:-.8s;}
+              .sf-l4{stroke-dasharray:6 13;animation:sf-flow 2.1s linear infinite;animation-delay:-1.1s;}
+              .sf-l5{stroke-dasharray:6 13;animation:sf-flow 2.4s linear infinite;animation-delay:-.2s;}
+              .sf-l6{stroke-dasharray:6 13;animation:sf-flow 2.0s linear infinite;animation-delay:-.6s;}
             </style>
+            <filter id="sf-glow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="4" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
           </defs>
 
-          <!-- Outer decorative ring -->
-          <circle cx="260" cy="230" r="200" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
-          <!-- Orbit ring (rotates slowly) -->
-          <circle cx="260" cy="230" r="145" stroke="rgba(232,147,10,0.18)" stroke-width="1" stroke-dasharray="3 13" class="sf-ring"/>
-          <!-- Inner halo (pulses) -->
-          <circle cx="260" cy="230" r="82" stroke="rgba(232,147,10,0.1)" stroke-width="1" class="sf-glow"/>
+          <!-- ── Depth rings ── -->
+          <circle cx="260" cy="250" r="218" stroke="rgba(255,255,255,0.025)" stroke-width="1"/>
+          <!-- Counter-rotating outer dashes (CCW) -->
+          <circle cx="260" cy="250" r="192" stroke="rgba(255,255,255,0.055)" stroke-width="1" stroke-dasharray="1 20" class="sf-ccw"/>
+          <!-- Main orbit ring (CW, saffron) -->
+          <circle cx="260" cy="250" r="160" stroke="rgba(232,147,10,0.22)" stroke-width="1" stroke-dasharray="3 14" class="sf-cw"/>
+          <!-- Inner halo ring -->
+          <circle cx="260" cy="250" r="92"  stroke="rgba(232,147,10,0.13)" stroke-width="1" class="sf-halo"/>
 
-          <!-- Connection lines -->
-          <line x1="260" y1="230" x2="260" y2="85"  stroke="rgba(1,118,211,0.30)"  stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="260" y1="230" x2="386" y2="158" stroke="rgba(0,168,198,0.28)"  stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="260" y1="230" x2="386" y2="302" stroke="rgba(1,100,210,0.32)"  stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="260" y1="230" x2="260" y2="375" stroke="rgba(232,147,10,0.48)" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="260" y1="230" x2="134" y2="302" stroke="rgba(27,152,81,0.28)"  stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="260" y1="230" x2="134" y2="158" stroke="rgba(120,80,210,0.28)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- ── Ripple rings from centre ── -->
+          <circle cx="260" cy="250" r="56" fill="none" stroke="rgba(232,147,10,0.5)" stroke-width="1.5">
+            <animate attributeName="r"       from="56"  to="175" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.5" to="0"   dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="260" cy="250" r="56" fill="none" stroke="rgba(232,147,10,0.28)" stroke-width="1">
+            <animate attributeName="r"       from="56"  to="175" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" from="0.35" to="0"  dur="3s" begin="1.5s" repeatCount="indefinite"/>
+          </circle>
 
-          <!-- Midpoint data-flow dots (staggered pulse) -->
-          <circle cx="260" cy="157" r="2.5" fill="rgba(1,118,211,0.8)"   class="sf-mid"/>
-          <circle cx="323" cy="194" r="2.5" fill="rgba(0,168,198,0.8)"   class="sf-mid-2"/>
-          <circle cx="323" cy="266" r="2.5" fill="rgba(1,100,210,0.85)"  class="sf-mid-3"/>
-          <circle cx="260" cy="302" r="2.5" fill="rgba(232,147,10,1)"    class="sf-mid"/>
-          <circle cx="197" cy="266" r="2.5" fill="rgba(27,152,81,0.8)"   class="sf-mid-2"/>
-          <circle cx="197" cy="194" r="2.5" fill="rgba(140,100,230,0.8)" class="sf-mid-3"/>
+          <!-- ── Orbiting dots on the main orbit ring ── -->
+          <circle cx="260" cy="90" r="5" fill="#E8930A" filter="url(#sf-glow)">
+            <animateTransform attributeName="transform" type="rotate" from="0 260 250" to="360 260 250" dur="9s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="260" cy="90" r="3.5" fill="rgba(232,147,10,0.65)" filter="url(#sf-glow)">
+            <animateTransform attributeName="transform" type="rotate" from="120 260 250" to="480 260 250" dur="9s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="260" cy="90" r="2.5" fill="rgba(232,147,10,0.35)">
+            <animateTransform attributeName="transform" type="rotate" from="240 260 250" to="600 260 250" dur="9s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Slow counter-orbit dot on outer ring -->
+          <circle cx="260" cy="58" r="2.5" fill="rgba(255,255,255,0.22)">
+            <animateTransform attributeName="transform" type="rotate" from="45 260 250" to="-315 260 250" dur="20s" repeatCount="indefinite"/>
+          </circle>
 
-          <!-- Center glow halo -->
-          <circle cx="260" cy="230" r="62" fill="rgba(232,147,10,0.06)" class="sf-glow"/>
+          <!-- ── Connection lines (animated data flow) ── -->
+          <line x1="260" y1="250" x2="260" y2="90"  stroke="rgba(1,118,211,0.5)"  stroke-width="2" stroke-linecap="round" class="sf-l1"/>
+          <line x1="260" y1="250" x2="399" y2="170" stroke="rgba(0,168,198,0.45)" stroke-width="2" stroke-linecap="round" class="sf-l2"/>
+          <line x1="260" y1="250" x2="399" y2="330" stroke="rgba(1,100,210,0.5)"  stroke-width="2" stroke-linecap="round" class="sf-l3"/>
+          <line x1="260" y1="250" x2="260" y2="410" stroke="rgba(232,147,10,0.6)" stroke-width="2" stroke-linecap="round" class="sf-l4"/>
+          <line x1="260" y1="250" x2="121" y2="330" stroke="rgba(27,152,81,0.45)" stroke-width="2" stroke-linecap="round" class="sf-l5"/>
+          <line x1="260" y1="250" x2="121" y2="170" stroke="rgba(140,100,230,0.45)" stroke-width="2" stroke-linecap="round" class="sf-l6"/>
 
-          <!-- ── CENTER NODE: Salesforce Platform ── -->
-          <circle cx="260" cy="230" r="46" fill="#0C1525" stroke="#E8930A" stroke-width="1.5"/>
-          <!-- Abstract cloud motif -->
-          <circle cx="253" cy="219" r="3.5" fill="rgba(232,147,10,0.55)"/>
-          <circle cx="261" cy="215" r="4.5" fill="rgba(232,147,10,0.55)"/>
-          <circle cx="269" cy="219" r="3.5" fill="rgba(232,147,10,0.55)"/>
-          <rect x="251" y="219" width="20" height="5" rx="1" fill="rgba(232,147,10,0.45)"/>
-          <text x="260" y="234" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="700" letter-spacing="0.16em" fill="#EDE8E0">SALESFORCE</text>
-          <text x="260" y="244" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.12em" fill="rgba(232,147,10,0.85)">PLATFORM</text>
+          <!-- ── Centre glow ── -->
+          <circle cx="260" cy="250" r="70" fill="rgba(232,147,10,0.07)" class="sf-cglo"/>
 
-          <!-- ── SALES CLOUD (top) ── -->
-          <circle cx="260" cy="85" r="34" fill="rgba(1,118,211,0.12)" stroke="rgba(1,118,211,0.6)" stroke-width="1.5"/>
-          <text x="260" y="81" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.1em" fill="rgba(237,232,224,0.92)">SALES</text>
-          <text x="260" y="92"  text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(60,150,255,0.82)">CLOUD</text>
+          <!-- ══════════════════════════
+               CENTRE NODE
+          ══════════════════════════ -->
+          <circle cx="260" cy="250" r="56" fill="#0B1422" stroke="#E8930A" stroke-width="2"/>
+          <!-- Salesforce cloud motif -->
+          <circle cx="251" cy="238" r="4.5"  fill="rgba(232,147,10,0.65)"/>
+          <circle cx="261" cy="233" r="6"    fill="rgba(232,147,10,0.65)"/>
+          <circle cx="271" cy="238" r="4.5"  fill="rgba(232,147,10,0.65)"/>
+          <rect   x="249" y="238" width="24" height="7" rx="2" fill="rgba(232,147,10,0.58)"/>
+          <text x="260" y="257" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" letter-spacing="0.14em" fill="#EDE8E0">SALESFORCE</text>
+          <text x="260" y="270" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="9"  letter-spacing="0.12em" fill="rgba(232,147,10,0.88)">PLATFORM</text>
 
-          <!-- ── MULESOFT (top-right) ── -->
-          <circle cx="386" cy="158" r="34" fill="rgba(0,168,198,0.1)" stroke="rgba(0,168,198,0.55)" stroke-width="1.5"/>
-          <text x="386" y="154" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.1em" fill="rgba(237,232,224,0.92)">MULE</text>
-          <text x="386" y="165" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(0,168,198,0.82)">SOFT</text>
+          <!-- ══════════════════════════
+               SATELLITE NODES
+          ══════════════════════════ -->
 
-          <!-- ── DATA CLOUD (bottom-right) ── -->
-          <circle cx="386" cy="302" r="34" fill="rgba(1,80,180,0.14)" stroke="rgba(1,110,220,0.58)" stroke-width="1.5"/>
-          <text x="386" y="298" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.1em" fill="rgba(237,232,224,0.92)">DATA</text>
-          <text x="386" y="309" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(80,160,255,0.82)">CLOUD</text>
+          <!-- SALES CLOUD (top) -->
+          <circle cx="260" cy="90" r="40" fill="rgba(1,118,211,0.13)" stroke="rgba(1,118,211,0.68)" stroke-width="1.5"/>
+          <text x="260" y="86"  text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" letter-spacing="0.1em"  fill="rgba(237,232,224,0.95)">SALES</text>
+          <text x="260" y="99"  text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" letter-spacing="0.1em"  fill="rgba(80,160,255,0.85)">CLOUD</text>
 
-          <!-- ── AGENTFORCE (bottom) ── -->
-          <circle cx="260" cy="375" r="34" fill="rgba(232,147,10,0.13)" stroke="rgba(232,147,10,0.65)" stroke-width="1.5"/>
-          <text x="260" y="371" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.08em" fill="rgba(237,232,224,0.92)">AGENT</text>
-          <text x="260" y="382" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(232,147,10,0.85)">FORCE</text>
+          <!-- MULESOFT (top-right) -->
+          <circle cx="399" cy="170" r="40" fill="rgba(0,168,198,0.11)" stroke="rgba(0,168,198,0.62)" stroke-width="1.5"/>
+          <text x="399" y="166" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" letter-spacing="0.1em"  fill="rgba(237,232,224,0.95)">MULE</text>
+          <text x="399" y="179" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" letter-spacing="0.1em"  fill="rgba(0,168,198,0.85)">SOFT</text>
 
-          <!-- ── SERVICE CLOUD (bottom-left) ── -->
-          <circle cx="134" cy="302" r="34" fill="rgba(27,152,81,0.1)" stroke="rgba(27,152,81,0.55)" stroke-width="1.5"/>
-          <text x="134" y="298" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="700" letter-spacing="0.09em" fill="rgba(237,232,224,0.92)">SERVICE</text>
-          <text x="134" y="309" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(27,180,100,0.82)">CLOUD</text>
+          <!-- DATA CLOUD (bottom-right) -->
+          <circle cx="399" cy="330" r="40" fill="rgba(1,80,180,0.14)" stroke="rgba(1,120,235,0.62)" stroke-width="1.5"/>
+          <text x="399" y="326" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" letter-spacing="0.1em"  fill="rgba(237,232,224,0.95)">DATA</text>
+          <text x="399" y="339" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" letter-spacing="0.1em"  fill="rgba(80,160,255,0.85)">CLOUD</text>
 
-          <!-- ── EXPERIENCE CLOUD (top-left) ── -->
-          <circle cx="134" cy="158" r="34" fill="rgba(120,80,210,0.1)" stroke="rgba(130,90,220,0.55)" stroke-width="1.5"/>
-          <text x="134" y="152" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" font-weight="700" letter-spacing="0.08em" fill="rgba(237,232,224,0.92)">EXPERIENCE</text>
-          <text x="134" y="163" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(160,120,255,0.82)">CLOUD</text>
+          <!-- AGENTFORCE (bottom) -->
+          <circle cx="260" cy="410" r="40" fill="rgba(232,147,10,0.13)" stroke="rgba(232,147,10,0.72)" stroke-width="1.5"/>
+          <text x="260" y="406" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="11" font-weight="700" letter-spacing="0.08em" fill="rgba(237,232,224,0.95)">AGENT</text>
+          <text x="260" y="419" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" letter-spacing="0.1em"  fill="rgba(232,147,10,0.88)">FORCE</text>
+
+          <!-- SERVICE CLOUD (bottom-left) -->
+          <circle cx="121" cy="330" r="40" fill="rgba(27,152,81,0.11)" stroke="rgba(27,152,81,0.62)" stroke-width="1.5"/>
+          <text x="121" y="326" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="10" font-weight="700" letter-spacing="0.09em" fill="rgba(237,232,224,0.95)">SERVICE</text>
+          <text x="121" y="339" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" letter-spacing="0.1em"  fill="rgba(27,185,100,0.85)">CLOUD</text>
+
+          <!-- EXPERIENCE CLOUD (top-left) -->
+          <circle cx="121" cy="170" r="40" fill="rgba(130,90,220,0.11)" stroke="rgba(145,105,235,0.62)" stroke-width="1.5"/>
+          <text x="121" y="165" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.07em" fill="rgba(237,232,224,0.95)">EXPERIENCE</text>
+          <text x="121" y="178" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" letter-spacing="0.1em"  fill="rgba(170,135,255,0.85)">CLOUD</text>
         </svg>
       </div>
 
