@@ -1524,9 +1524,9 @@ ul { list-style: none; }
   font-family: var(--font-mono);
   font-size: 0.68rem;
   font-weight: 600;
-  color: var(--text-secondary);
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
+  color: var(--sf-blue);
+  background: #E8F4FE;
+  border: 1px solid #C4E0F9;
   border-radius: 4px;
   padding: 2px 7px;
   letter-spacing: 0.05em;
