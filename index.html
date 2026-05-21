@@ -66,6 +66,19 @@
       max-width: 1160px;
       margin: 0 auto;
       width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 460px;
+      gap: 60px;
+      align-items: center;
+    }
+    .hp-hero-diagram {
+      flex-shrink: 0;
+      opacity: 0.82;
+      pointer-events: none;
+    }
+    @media (max-width: 960px) {
+      .hp-hero-body { grid-template-columns: 1fr; }
+      .hp-hero-diagram { display: none; }
     }
 
     .hp-eyebrow {
@@ -856,26 +869,115 @@
     <div class="hp-hero-glow-2"></div>
 
     <div class="hp-hero-body">
-      <p class="hp-eyebrow animate-fade-up" style="animation-delay:0.05s">
-        Deep Salesforce Knowledge
-      </p>
-      <h1 class="hp-hero-title animate-fade-up" style="animation-delay:0.18s">
-        The knowledge<br/>
-        Salesforce<br/>
-        <em>certification</em><br/>
-        <span class="line-indent">doesn't give you.</span>
-      </h1>
-      <p class="hp-hero-sub animate-fade-up" style="animation-delay:0.35s">
-        220 tutorials on the architecture decisions, delivery realities, and strategic questions that no training course prepares senior practitioners for.
-      </p>
-      <div class="hp-hero-actions animate-fade-up" style="animation-delay:0.5s">
-        <a href="pages/tutorials.html" class="hp-btn-primary">
-          Explore all 220 tutorials &nbsp;→
-        </a>
-        <a href="pages/about.html" class="hp-btn-ghost">
-          Why this exists
-        </a>
+
+      <!-- Left: text -->
+      <div class="hp-hero-text">
+        <p class="hp-eyebrow animate-fade-up" style="animation-delay:0.05s">
+          Deep Salesforce Knowledge
+        </p>
+        <h1 class="hp-hero-title animate-fade-up" style="animation-delay:0.18s">
+          The knowledge<br/>
+          Salesforce<br/>
+          <em>certification</em><br/>
+          <span class="line-indent">doesn't give you.</span>
+        </h1>
+        <p class="hp-hero-sub animate-fade-up" style="animation-delay:0.35s">
+          220 tutorials on the architecture decisions, delivery realities, and strategic questions that no training course prepares senior practitioners for.
+        </p>
+        <div class="hp-hero-actions animate-fade-up" style="animation-delay:0.5s">
+          <a href="pages/tutorials.html" class="hp-btn-primary">
+            Explore all 220 tutorials &nbsp;→
+          </a>
+          <a href="pages/about.html" class="hp-btn-ghost">
+            Why this exists
+          </a>
+        </div>
       </div>
+
+      <!-- Right: Salesforce ecosystem diagram -->
+      <div class="hp-hero-diagram animate-fade-up" style="animation-delay:0.45s">
+        <svg viewBox="0 0 520 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <style>
+              @keyframes sf-orbit { to { transform: rotate(360deg); } }
+              @keyframes sf-pulse { 0%,100%{opacity:.25} 50%{opacity:.65} }
+              @keyframes sf-dot   { 0%,100%{opacity:.2} 50%{opacity:.9} }
+              .sf-ring { transform-origin: 260px 230px; animation: sf-orbit 40s linear infinite; }
+              .sf-glow { animation: sf-pulse 3.5s ease-in-out infinite; }
+              .sf-mid  { animation: sf-dot 2.5s ease-in-out infinite; }
+              .sf-mid-2{ animation: sf-dot 2.5s ease-in-out infinite; animation-delay:.8s; }
+              .sf-mid-3{ animation: sf-dot 2.5s ease-in-out infinite; animation-delay:1.6s; }
+            </style>
+          </defs>
+
+          <!-- Outer decorative ring -->
+          <circle cx="260" cy="230" r="200" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+          <!-- Orbit ring (rotates slowly) -->
+          <circle cx="260" cy="230" r="145" stroke="rgba(232,147,10,0.18)" stroke-width="1" stroke-dasharray="3 13" class="sf-ring"/>
+          <!-- Inner halo (pulses) -->
+          <circle cx="260" cy="230" r="82" stroke="rgba(232,147,10,0.1)" stroke-width="1" class="sf-glow"/>
+
+          <!-- Connection lines -->
+          <line x1="260" y1="230" x2="260" y2="85"  stroke="rgba(1,118,211,0.30)"  stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="260" y1="230" x2="386" y2="158" stroke="rgba(0,168,198,0.28)"  stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="260" y1="230" x2="386" y2="302" stroke="rgba(1,100,210,0.32)"  stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="260" y1="230" x2="260" y2="375" stroke="rgba(232,147,10,0.48)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="260" y1="230" x2="134" y2="302" stroke="rgba(27,152,81,0.28)"  stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="260" y1="230" x2="134" y2="158" stroke="rgba(120,80,210,0.28)" stroke-width="1.5" stroke-linecap="round"/>
+
+          <!-- Midpoint data-flow dots (staggered pulse) -->
+          <circle cx="260" cy="157" r="2.5" fill="rgba(1,118,211,0.8)"   class="sf-mid"/>
+          <circle cx="323" cy="194" r="2.5" fill="rgba(0,168,198,0.8)"   class="sf-mid-2"/>
+          <circle cx="323" cy="266" r="2.5" fill="rgba(1,100,210,0.85)"  class="sf-mid-3"/>
+          <circle cx="260" cy="302" r="2.5" fill="rgba(232,147,10,1)"    class="sf-mid"/>
+          <circle cx="197" cy="266" r="2.5" fill="rgba(27,152,81,0.8)"   class="sf-mid-2"/>
+          <circle cx="197" cy="194" r="2.5" fill="rgba(140,100,230,0.8)" class="sf-mid-3"/>
+
+          <!-- Center glow halo -->
+          <circle cx="260" cy="230" r="62" fill="rgba(232,147,10,0.06)" class="sf-glow"/>
+
+          <!-- ── CENTER NODE: Salesforce Platform ── -->
+          <circle cx="260" cy="230" r="46" fill="#0C1525" stroke="#E8930A" stroke-width="1.5"/>
+          <!-- Abstract cloud motif -->
+          <circle cx="253" cy="219" r="3.5" fill="rgba(232,147,10,0.55)"/>
+          <circle cx="261" cy="215" r="4.5" fill="rgba(232,147,10,0.55)"/>
+          <circle cx="269" cy="219" r="3.5" fill="rgba(232,147,10,0.55)"/>
+          <rect x="251" y="219" width="20" height="5" rx="1" fill="rgba(232,147,10,0.45)"/>
+          <text x="260" y="234" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8" font-weight="700" letter-spacing="0.16em" fill="#EDE8E0">SALESFORCE</text>
+          <text x="260" y="244" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" letter-spacing="0.12em" fill="rgba(232,147,10,0.85)">PLATFORM</text>
+
+          <!-- ── SALES CLOUD (top) ── -->
+          <circle cx="260" cy="85" r="34" fill="rgba(1,118,211,0.12)" stroke="rgba(1,118,211,0.6)" stroke-width="1.5"/>
+          <text x="260" y="81" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.1em" fill="rgba(237,232,224,0.92)">SALES</text>
+          <text x="260" y="92"  text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(60,150,255,0.82)">CLOUD</text>
+
+          <!-- ── MULESOFT (top-right) ── -->
+          <circle cx="386" cy="158" r="34" fill="rgba(0,168,198,0.1)" stroke="rgba(0,168,198,0.55)" stroke-width="1.5"/>
+          <text x="386" y="154" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.1em" fill="rgba(237,232,224,0.92)">MULE</text>
+          <text x="386" y="165" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(0,168,198,0.82)">SOFT</text>
+
+          <!-- ── DATA CLOUD (bottom-right) ── -->
+          <circle cx="386" cy="302" r="34" fill="rgba(1,80,180,0.14)" stroke="rgba(1,110,220,0.58)" stroke-width="1.5"/>
+          <text x="386" y="298" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.1em" fill="rgba(237,232,224,0.92)">DATA</text>
+          <text x="386" y="309" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(80,160,255,0.82)">CLOUD</text>
+
+          <!-- ── AGENTFORCE (bottom) ── -->
+          <circle cx="260" cy="375" r="34" fill="rgba(232,147,10,0.13)" stroke="rgba(232,147,10,0.65)" stroke-width="1.5"/>
+          <text x="260" y="371" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="8.5" font-weight="700" letter-spacing="0.08em" fill="rgba(237,232,224,0.92)">AGENT</text>
+          <text x="260" y="382" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(232,147,10,0.85)">FORCE</text>
+
+          <!-- ── SERVICE CLOUD (bottom-left) ── -->
+          <circle cx="134" cy="302" r="34" fill="rgba(27,152,81,0.1)" stroke="rgba(27,152,81,0.55)" stroke-width="1.5"/>
+          <text x="134" y="298" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7.5" font-weight="700" letter-spacing="0.09em" fill="rgba(237,232,224,0.92)">SERVICE</text>
+          <text x="134" y="309" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(27,180,100,0.82)">CLOUD</text>
+
+          <!-- ── EXPERIENCE CLOUD (top-left) ── -->
+          <circle cx="134" cy="158" r="34" fill="rgba(120,80,210,0.1)" stroke="rgba(130,90,220,0.55)" stroke-width="1.5"/>
+          <text x="134" y="152" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="6.5" font-weight="700" letter-spacing="0.08em" fill="rgba(237,232,224,0.92)">EXPERIENCE</text>
+          <text x="134" y="163" text-anchor="middle" font-family="system-ui,-apple-system,sans-serif" font-size="7"   letter-spacing="0.08em" fill="rgba(160,120,255,0.82)">CLOUD</text>
+        </svg>
+      </div>
+
     </div>
 
     <div class="hp-stats-bar animate-fade-up" style="animation-delay:0.65s">
