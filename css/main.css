@@ -1156,6 +1156,58 @@ ul { list-style: none; }
   line-height: 1.5;
 }
 
+/* Sidebar next tutorial */
+.sidebar-next {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+.sidebar-next h4 {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--saffron);
+  margin-bottom: 12px;
+}
+.sidebar-next-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  transition: all var(--transition);
+  position: relative;
+}
+.sidebar-next-link:hover {
+  border-color: var(--saffron);
+  background: rgba(232,147,10,0.05);
+}
+.sidebar-next-id {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--saffron);
+  letter-spacing: 0.06em;
+}
+.sidebar-next-title {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+.sidebar-next-arrow {
+  font-size: 0.85rem;
+  color: var(--saffron);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
 /* Quiz */
 .quiz-section {
   background: var(--bg-secondary);

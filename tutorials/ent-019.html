@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Org Health Assessment: How to Diagnose a Struggling Salesforce Org | SFVedas</title>
+  <meta name="description" content="A structured framework for assessing Salesforce org health — technical debt signals, adoption gaps, governance failures, and how to build a remediation plan that leadership will fund." />
+  <meta property="og:title" content="Org Health Assessment: How to Diagnose a Struggling Salesforce Org" />
+  <meta property="og:description" content="A structured framework for assessing Salesforce org health — technical debt signals, adoption gaps, governance failures, and how to build a remediation plan that leadership will fund." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Org Health Assessment: How to Diagnose a Struggling Salesforce Org",
+    "description": "A structured framework for assessing Salesforce org health — technical debt signals, adoption gaps, governance failures, and how to build a remediation plan that leadership will fund.",
+    "author": {"@type": "Person", "name": "Vishal Sharma"},
+    "publisher": {"@type": "Organization", "name": "SFVedas"},
+    "datePublished": "2025-01-01",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sfvedas.com/tutorials/ent-019.html"}
+  }
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo">SF<span>Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html">Learning Paths</a></li>
+        <li><a href="../pages/about.html">About</a></li>
+        <li><a href="../pages/contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+    </div>
+  </nav>
+
+  <section class="tutorial-header">
+    <div class="container">
+      <a href="../pages/tutorials.html?tag=enterprise-strategy" class="back-link" style="color:var(--sage-green)">← Back to Enterprise Strategy</a>
+      <div class="card-badges" style="margin:1rem 0 0.75rem;">
+        <span class="card-id">ENT-019</span>
+        <span class="card-tag" style="color:var(--sage-green);background:rgba(45,125,82,0.08);">Enterprise Strategy</span>
+        <span class="card-read">22 min read</span>
+        <span class="card-audience">For: Solution Architects · CoE Leads · CTOs</span>
+      </div>
+      <h1>Org Health Assessment: How to Diagnose a Struggling Salesforce Org</h1>
+      <p class="tutorial-intro">Every organisation that has run Salesforce for more than three years has accumulated some form of org debt — unused customisations, undocumented automations, abandoned AppExchange packages, or adoption gaps that have never been addressed. The question is not whether the debt exists, but whether it is impairing the platform's ability to deliver value. A structured health assessment answers that question with evidence, not opinion.</p>
+      <div class="author-block">
+        <div class="author-avatar">VS</div>
+        <div>
+          <div class="author-name">Vishal Sharma</div>
+          <div class="author-title">Salesforce Architect · SFVedas Founder</div>
+        </div>
+      </div>
+
+      <ins class="adsbygoogle" style="display:block;margin-top:1.5rem;" data-ad-client="ca-pub-4584420180521124" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-stat-grid">
+      <div class="tutorial-stat-card">
+        <div class="tsn">4</div>
+        <div class="tsl">Assessment Dimensions</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">20+</div>
+        <div class="tsl">Health Signals</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">22 min</div>
+        <div class="tsl">Read Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <main class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <strong>What you'll learn:</strong> The four dimensions of org health, technical debt signals and how to surface them, adoption and governance health indicators, how to score and prioritise findings, and how to build a remediation plan that leadership will fund.
+        </div>
+
+        <h2 id="s1">What a Health Assessment Is — and Isn't</h2>
+        <p>An org health assessment is a systematic review of a Salesforce org across four dimensions: technical, adoption, governance, and data quality. Its purpose is to provide an evidence-based picture of the org's current state — what is working, what is degrading, and what is at risk of failure.</p>
+        <p>It is not a licence to rebuild from scratch. "The org is a mess, we should start over" is almost never the right conclusion. Rebuilding from scratch discards the institutional knowledge embedded in existing configuration, disrupts users who have adapted their workflows to the current system, and typically replicates the same governance failures that created the original problems. The output of a health assessment should be a prioritised remediation plan — specific interventions for specific problems — not a recommendation for wholesale replacement.</p>
+        <p>It is also not an audit. An audit is backwards-looking and compliance-focused. A health assessment is forward-looking and capability-focused. The question is not "did we follow our own policies?" but "is the org in a condition to support the next phase of platform investment?"</p>
+
+        <div class="callout callout--insight">
+          <strong>When to Run a Health Assessment:</strong> Before significant new investment (before a major implementation project), after a leadership change (new CTO, new platform owner), when symptoms appear (frequent errors, low adoption, slow delivery), or on a regular cycle (every 18-24 months as a standard platform discipline).
+        </div>
+
+        <h2 id="s2">Dimension 1: Technical Health</h2>
+        <p>Technical health covers the state of the org's code, configuration, and infrastructure. The signals of poor technical health are usually visible before you run any tools — users report errors, deployments take a long time, releases break unexpected things.</p>
+        <p><strong>Governor Limit proximity.</strong> Check SOQL queries, DML operations, and heap size usage in critical transactions. Apex code running close to governor limits is fragile — future changes may tip it into failures. Use Salesforce's Event Monitoring or Debug Logs to identify high-risk transactions.</p>
+        <p><strong>Automation layering.</strong> Count the total number of active automations (Flows, Workflow Rules, Process Builders, Apex Triggers) on your most-used objects (Lead, Opportunity, Contact, Case). More than 10-15 automations on a single object is a warning signal. Overlapping automations create unpredictable order-of-execution issues and make debugging nearly impossible. Check for deprecated automation types: all Workflow Rules and Process Builders should have been migrated to Flow by now; if they haven't, that is technical debt.</p>
+        <p><strong>Apex code quality.</strong> Review code coverage across all Apex classes. Classes below 75% coverage indicate undertested code. Look for hardcoded IDs, SOQL inside loops, and methods exceeding 200 lines — these are the most common code quality problems. Static analysis tools (PMD, Clayton) can automate this review.</p>
+        <p><strong>AppExchange package inventory.</strong> List all installed packages, their last upgrade date, and their active usage (does anyone use this?). Packages not upgraded in 12+ months are a compatibility risk. Packages with zero active usage should be evaluated for removal.</p>
+        <p><strong>Metadata volume.</strong> Are you approaching limits on custom objects (2,000), custom fields per object (500), or Flows? Approaching these limits constrains future development options. High metadata volume also correlates with complexity debt — the presence of many custom objects suggests previous decisions to build rather than configure.</p>
+
+        <h2 id="s3">Dimension 2: Adoption Health</h2>
+        <p>Adoption health assesses whether users are engaging with Salesforce in ways that generate business value. The signals of poor adoption health are operational: pipeline reports that don't match what sales managers believe, service metrics that don't reconcile with ticket volumes, and managers who compile performance data from spreadsheets rather than Salesforce reports.</p>
+        <p>Review the three-tier adoption framework from ENT-017: access adoption (are users logging in), process adoption (are they completing critical tasks), and insight adoption (are managers using Salesforce data for decisions). For each tier, establish the current baseline against expected targets for the org's maturity level.</p>
+        <p>Interview 8-10 users across different roles and business units. Ask: what do you use Salesforce for on a typical day, what do you find frustrating, what do you do outside Salesforce that you think should be in it? These interviews surface shadow processes — parallel tracking systems in spreadsheets or email that indicate where Salesforce is failing to support the user's actual workflow.</p>
+        <p>Interview 3-5 managers. Ask: when you review your team's performance, what data source do you use? Do you trust the Salesforce data? What would make you rely on it more? Manager trust in Salesforce data is the single most reliable indicator of overall adoption health.</p>
+
+        <h2 id="s4">Dimension 3: Governance Health</h2>
+        <p>Governance health assesses whether the processes, roles, and decision-making structures that should govern the platform are in place and functioning. Poor governance health is the root cause of most technical and adoption problems — it is what allows technical debt to accumulate and adoption problems to persist.</p>
+        <p>Check for the following governance signals:</p>
+        <p><strong>Change management process.</strong> Is there a documented change control process? Are all production changes deployed through a tested release pipeline, or are some changes made directly in production? Direct production changes are a strong signal of governance failure — they produce undocumented configuration, deployment conflicts, and data loss risk.</p>
+        <p><strong>Environment strategy.</strong> Does the org have a sandbox hierarchy (Developer/Developer Pro, Partial/Full sandbox) that reflects its complexity? Orgs without a Full sandbox cannot test realistic data volumes before deploying changes — this is a risk for any org with more than 100,000 records.</p>
+        <p><strong>Profile and permission set design.</strong> Are permissions managed through a well-designed permission set architecture, or through over-privileged profiles and ad hoc sharing rules? Too many profiles (more than 20 for most orgs) and too many sharing rules indicate governance erosion.</p>
+        <p><strong>Documentation.</strong> Is there current documentation for the data model, integration architecture, and key automations? Orgs where knowledge exists only in the heads of specific individuals are fragile — staff changes create knowledge loss that takes months to recover.</p>
+
+        <div class="callout callout--warning">
+          <strong>The "Frozen Org" Pattern:</strong> Some orgs have so much undocumented complexity that the team is afraid to make changes — every change breaks something unexpected. This is the end-state of governance failure. Identifying this pattern early, before it becomes total paralysis, is one of the most valuable outputs of a health assessment.
+        </div>
+
+        <h2 id="s5">Scoring, Prioritisation, and the Remediation Plan</h2>
+        <p>Assessment findings need to be scored by severity (critical/major/minor) and by impact (business impact of addressing vs not addressing). The combination of severity and impact determines prioritisation.</p>
+        <p>Critical findings — those that represent active risk of system failure, data loss, or compliance breach — should be addressed immediately, outside of normal release cycles if necessary. Examples: Apex code at governor limit proximity, production changes being made without testing, security vulnerabilities in permission design.</p>
+        <p>Major findings — those that are impairing adoption, slowing delivery, or creating significant technical debt — should be addressed in a structured remediation sprint within the next quarter. Examples: automation layering on critical objects, low adoption in key teams, undocumented integrations.</p>
+        <p>Minor findings — those that represent debt but not active impairment — should be addressed through ongoing housekeeping over the next 6-12 months. Examples: unused custom fields, outdated AppExchange packages, documentation gaps.</p>
+        <p>Present the remediation plan with business impact framing: not "we need to fix 47 technical issues" but "our current technical debt is adding X weeks to each release cycle, costing approximately £Y per month in delayed delivery. The following remediation will recover this within 6 months." This framing makes the remediation fundable as a business investment rather than a technical maintenance activity.</p>
+
+        <div class="key-takeaways">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li>Org health assessments are forward-looking and capability-focused — the output is a prioritised remediation plan, not a case for rebuilding from scratch.</li>
+            <li>Technical health checks include governor limit proximity, automation layering, Apex code quality, AppExchange inventory, and metadata volume.</li>
+            <li>Adoption health is assessed through quantitative metrics and qualitative interviews with users and managers — manager trust in Salesforce data is the strongest signal.</li>
+            <li>Governance health signals include change management process, environment strategy, permission design, and documentation currency.</li>
+            <li>The "frozen org" pattern — where the team fears making changes — is governance failure's end state; detecting it early is a key assessment value.</li>
+            <li>Present the remediation plan with business impact framing (time, cost, risk) to make it fundable as a business investment.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> What is the most reliable indicator of overall adoption health in an org?</p>
+            <button onclick="answer(this,'q1','wrong')">Daily login rate across all licensed users</button>
+            <button onclick="answer(this,'q1','right')">Whether managers trust Salesforce data enough to use it for performance reviews</button>
+            <button onclick="answer(this,'q1','wrong')">The number of custom reports and dashboards created</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> What does the "frozen org" pattern describe?</p>
+            <button onclick="answer(this,'q2','wrong')">An org where no new features have been released for 12 months</button>
+            <button onclick="answer(this,'q2','right')">An org so complex and undocumented that the team is afraid to make changes because everything breaks</button>
+            <button onclick="answer(this,'q2','wrong')">An org where all users have been deactivated due to a licence dispute</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> How should a remediation plan be framed to make it fundable at leadership level?</p>
+            <button onclick="answer(this,'q3','wrong')">As a list of technical issues that need to be resolved</button>
+            <button onclick="answer(this,'q3','wrong')">As a compliance requirement to meet security standards</button>
+            <button onclick="answer(this,'q3','right')">As a business investment with quantified cost of current debt and recovery timeline</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="ent-017.html" class="related-card">
+              <span class="related-id">ENT-017</span>
+              <span class="related-title">Measuring Salesforce Adoption: Metrics That Drive Executive Decisions</span>
+            </a>
+            <a href="ent-020.html" class="related-card">
+              <span class="related-id">ENT-020</span>
+              <span class="related-title">Post-Implementation Review: What Actually Went Wrong and Why</span>
+            </a>
+            <a href="ent-021.html" class="related-card">
+              <span class="related-id">ENT-021</span>
+              <span class="related-title">Salesforce CoE Maturity Model: Stages and Benchmarks</span>
+            </a>
+          </div>
+        </div>
+
+      </main>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>On This Page</h4>
+          <ul>
+            <li><a href="#s1">What a Health Assessment Is</a></li>
+            <li><a href="#s2">Technical Health</a></li>
+            <li><a href="#s3">Adoption Health</a></li>
+            <li><a href="#s4">Governance Health</a></li>
+            <li><a href="#s5">Scoring and Remediation</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-progress">
+          <h4>Your Progress</h4>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="sidebarProgress" style="width:0%"></div>
+          </div>
+          <p id="progressLabel" style="font-size:0.8rem;margin-top:0.4rem;">0% complete</p>
+        </div>
+
+        <div class="sidebar-download">
+          <h4>Resources</h4>
+          <ul>
+            <li>Org Health Assessment Checklist</li>
+            <li>Technical Debt Scoring Template</li>
+            <li>Remediation Plan Presentation Template</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="ent-020.html" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-020</span>
+            <span class="sidebar-next-title">Post-Implementation Review: What Actually Went Wrong and Why</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">SF<span>Vedas</span></div>
+        <p class="footer-tagline">Deep Salesforce knowledge for technology leaders.</p>
+      </div>
+      <div>
+        <h4>Enterprise Strategy</h4>
+        <ul>
+          <li><a href="../pages/tutorials.html?tag=enterprise-strategy">All Tutorials</a></li>
+          <li><a href="ent-001.html">Build vs Buy</a></li>
+          <li><a href="ent-002.html">Total Cost of Ownership</a></li>
+          <li><a href="ent-005.html">5-Year Platform View</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="../pages/tutorials.html">All Tutorials</a></li>
+          <li><a href="../pages/learning-paths.html">Learning Paths</a></li>
+          <li><a href="../pages/about.html">About</a></li>
+          <li><a href="../pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SFVedas. Built for Salesforce leaders.</p></div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const el = document.getElementById('tutorialContent');
+      const progressBar = document.getElementById('readingProgress');
+      const sidebarBar = document.getElementById('sidebarProgress');
+      const label = document.getElementById('progressLabel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, Math.round((scrolled / total) * 100));
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (sidebarBar) sidebarBar.style.width = pct + '%';
+      if (label) label.textContent = pct + '% complete';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="../js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

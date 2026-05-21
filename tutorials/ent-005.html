@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ENT-005: Salesforce as Enterprise Platform — The 5-Year Strategic View — SFVedas</title>
+  <meta name="description" content="How to think about Salesforce beyond the current implementation — platform evolution, strategic leverage, and the 5-year investment horizon."/>
+  <meta property="og:title" content="ENT-005: Salesforce as Enterprise Platform — The 5-Year Strategic View — SFVedas"/>
+  <meta property="og:description" content="How to think about Salesforce beyond the current implementation — platform evolution, strategic leverage, and the 5-year investment horizon."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ent-005.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ENT-005: Salesforce as Enterprise Platform — The 5-Year Strategic View — SFVedas"/>
+  <meta name="twitter:description" content="How to think about Salesforce beyond the current implementation — platform evolution, strategic leverage, and the 5-year investment horizon."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ENT-005: Salesforce as Enterprise Platform — The 5-Year Strategic View — SFVedas",
+  "description": "How to think about Salesforce beyond the current implementation — platform evolution, strategic leverage, and the 5-year investment horizon.",
+  "url": "https://sfvedas.com/tutorials/ent-005.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/ent-005.html",
+  "author": { "@type": "Person", "name": "Vishal Sharma", "url": "https://sfvedas.com/pages/about.html" },
+  "publisher": { "@type": "Organization", "name": "SFVedas", "url": "https://sfvedas.com", "logo": { "@type": "ImageObject", "url": "https://sfvedas.com/images/logo.svg" } },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+        <li><a href="../pages/advertise.html" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+      <a href="../pages/advertise.html" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=enterprise-strategy" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Enterprise Strategy</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ENT-005</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Enterprise Strategy</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: CTOs &amp; Senior Technology Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce as Enterprise Platform:<br/>The 5-Year Strategic View
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Most Salesforce investment decisions are made project by project — a Sales Cloud here, a Service Cloud there. The organisations that get the most from Salesforce are the ones that think about it as a strategic platform over a 5-year horizon, not as a series of discrete projects. This tutorial shows you how.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Strategy Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+    <div class="ad-unit">
+      <p class="ad-label">Advertisement</p>
+      <ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-4584420180521124" data-ad-slot=""></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <section style="padding: 0; background: var(--bg-card); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="tutorial-stat-grid" style="padding: 24px 0;">
+        <div class="tutorial-stat-card">
+          <span class="tsn">3 releases/yr</span>
+          <span class="tsl">Salesforce's platform evolves three times per year — your strategy must account for where the platform is heading, not just where it is today</span>
+        </div>
+        <div class="tutorial-stat-card">
+          <span class="tsn">Platform vs product</span>
+          <span class="tsl">Organisations that treat Salesforce as a platform achieve 2–3× the business value of those that treat it as a product</span>
+        </div>
+        <div class="tutorial-stat-card">
+          <span class="tsn">Year 3 inflection</span>
+          <span class="tsl">Most organisations reach their Salesforce strategic potential in Year 3–4 when internal capability matures and the data estate becomes valuable</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The distinction between treating Salesforce as a product vs treating it as a platform</li>
+            <li>The typical Salesforce maturity journey and where most organisations stall</li>
+            <li>How to develop a 5-year Salesforce strategic roadmap that extends beyond the current programme</li>
+            <li>The platform capabilities — Data Cloud, Agentforce, Industry Clouds — that represent the next wave of value</li>
+            <li>How to govern the Salesforce platform investment across multiple programmes and business units</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Product Thinking vs Platform Thinking</h2>
+
+        <p>There is a fundamental difference between organisations that get exceptional value from Salesforce and those that do not — and it is not how much they spend, nor which clouds they have licenced. It is whether they think about Salesforce as a product or as a platform.</p>
+
+        <p>Product thinking treats each Salesforce investment as a discrete project with a start date, an end date, and a defined scope. The Sales Cloud implementation delivers Sales Cloud. The Service Cloud implementation delivers Service Cloud. Success is measured at go-live. The relationship with the platform ends when the implementation does.</p>
+
+        <p>Platform thinking treats Salesforce as a strategic asset that compounds value over time. The data captured in Sales Cloud informs the Service Cloud. The customer insights from both inform marketing. The combined data becomes the foundation for AI-driven automation. The platform capabilities that Salesforce releases three times per year are evaluated against business strategy, not just the current project's requirements. Success is measured in business outcomes over years, not feature delivery over months.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>The Compounding Effect</strong>
+            <p>The value of the Salesforce platform compounds as more business processes and data sit within it. Year 1 value is the Sales Cloud functionality. Year 3 value is Sales + Service + Marketing working from a shared customer record. Year 5 value is AI models trained on three years of integrated customer behaviour data driving automation that was impossible in Year 1. This trajectory requires deliberate planning — it does not happen by default.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">The Salesforce Maturity Journey</h2>
+
+        <p>Organisations follow a recognisable maturity path with Salesforce. Understanding where you are on the path — and where you should be heading — is the foundation of 5-year strategic thinking.</p>
+
+        <p><strong>Stage 1: Deployment (Year 0-1).</strong> Core CRM functionality is live. Users are onboarded. The focus is adoption and basic process automation. Value is primarily operational — replacing manual processes with automated ones.</p>
+
+        <p><strong>Stage 2: Optimisation (Year 1-2).</strong> Usage patterns emerge. Processes are refined based on real-world experience. Reporting matures. The development backlog from the original implementation is being worked through. Internal Salesforce capability is developing. Value is incremental — doing existing things better.</p>
+
+        <p><strong>Stage 3: Integration (Year 2-3).</strong> Salesforce starts to connect with the broader enterprise data landscape. ERP integration provides financial context. Marketing automation connects sales and marketing motions. Service data informs sales account strategy. Value becomes strategic — connected data drives better decisions.</p>
+
+        <p><strong>Stage 4: Intelligence (Year 3-5).</strong> The integrated data estate becomes the foundation for AI-driven insight and automation. Einstein or Agentforce capabilities deliver recommendations, predictions, and autonomous actions based on the accumulated data. Customer Data Platform or Data Cloud provides a real-time unified customer view. Value is transformational — the platform enables things that were not previously possible.</p>
+
+        <p>Most organisations stall at Stage 2. They optimise what they have but never move to integration and intelligence. The reasons are consistent: no strategic roadmap beyond the current programme, no data architecture vision, no senior sponsorship for the next investment cycle, and an internal capability that is focused on support rather than advancement.</p>
+
+        <h2 id="s3">Building the 5-Year Roadmap</h2>
+
+        <p>A 5-year Salesforce strategic roadmap is not a project plan — it is a strategic intent document that guides investment decisions over the planning horizon. It has four components:</p>
+
+        <p><strong>Business capability ambition.</strong> What business capabilities will Salesforce enable in Year 5 that it does not enable today? This is expressed in business terms — not technology terms. "Real-time customer health scoring that enables account managers to intervene before a customer churns" is a business capability. "Implementing Einstein Prediction Builder" is a technology choice. Start with the capability, not the technology.</p>
+
+        <p><strong>Data strategy.</strong> What data needs to exist in Salesforce — or connected to Salesforce — for the Year 5 capabilities to be possible? What is the data quality and governance strategy to ensure that data is trustworthy? The organisations that reach Stage 4 maturity are the ones that invested in data quality and data architecture in Years 1-2, when it was not yet urgent.</p>
+
+        <p><strong>Capability sequencing.</strong> What must be true in Year 1 for Year 3 to be possible? Salesforce capabilities are interdependent. A Customer 360 view in Year 3 requires a clean, integrated customer data model established in Year 1. AI-driven opportunity scoring in Year 4 requires two years of quality opportunity data from which models can learn. The 5-year roadmap works backwards from ambition to identify Year 1 foundations.</p>
+
+        <p><strong>Investment envelope.</strong> What is the planned investment in the Salesforce platform over the 5-year period — by year, by programme, and by capability? This is not a precise commitment, but it signals the organisation's intent and prevents the common failure mode of approving Year 1 but starving Years 2-5 of investment.</p>
+
+        <h2 id="s4">The Next Wave: Data Cloud, Agentforce, Industry Clouds</h2>
+
+        <p>A 5-year strategic view must account for where the Salesforce platform is heading, not just where it is today. Three capability areas represent the primary value drivers of the next platform generation:</p>
+
+        <p><strong>Data Cloud.</strong> Salesforce's real-time Customer Data Platform. Data Cloud ingests data from any source — other Salesforce orgs, external data warehouses, streaming data feeds — and creates a unified customer profile that updates in real time. For organisations with complex, multi-channel customer relationships, Data Cloud represents a significant capability uplift over standard Salesforce data models. The strategic question is whether your Year 1-2 data architecture will make Data Cloud adoption in Year 3-4 straightforward or expensive.</p>
+
+        <p><strong>Agentforce.</strong> Salesforce's autonomous AI agent platform. Agentforce agents can handle customer service interactions, qualify sales leads, process routine back-office tasks, and take action in Salesforce on behalf of users — using natural language processing and decision models trained on org data. The value of Agentforce scales with data quality and volume. Organisations that have invested in clean, integrated data in Years 1-3 will get significantly more from Agentforce than those that have not.</p>
+
+        <p><strong>Industry Clouds.</strong> Salesforce's vertical cloud products — Financial Services Cloud, Health Cloud, Manufacturing Cloud, and others — embed industry-specific data models, compliance features, and pre-built processes that represent years of industry-specific development. For organisations in supported industries, the question is not "should we build or buy" — it is "when should we migrate from a generic Salesforce org to an Industry Cloud, and what does that migration require."</p>
+
+        <h2 id="s5">Governing the Platform Investment</h2>
+
+        <p>The 5-year Salesforce platform vision requires governance structures that operate at the platform level — above individual projects and business units. Without this, different programmes make inconsistent architectural decisions that constrain the platform's long-term potential.</p>
+
+        <p>The Platform Governance Board (or equivalent) owns the Salesforce strategic roadmap, approves major architectural decisions, resolves conflicts between business unit requirements, and manages the overall investment envelope. It is distinct from the operational CoE that manages day-to-day administration and development. It meets quarterly at minimum and has senior business sponsorship — not just IT representation.</p>
+
+        <p>The most common governance failure is letting individual programme teams make decisions that are optimal for their programme but sub-optimal for the platform. A data model decision made for Sales Cloud in Year 1 that constrains Service Cloud's data architecture in Year 2 is a platform-level decision that should have been governed at the platform level — not left to the Sales Cloud programme team.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The Question to Ask Every Year</strong>
+            <p>At your annual Salesforce strategy review, ask: "What would we need to have done differently in the past 12 months to make our Year 5 ambition more achievable?" This retrospective pressure tests whether current decisions are genuinely aligned with long-term strategy, or whether short-term expediency is accumulating into long-term constraints.</p>
+          </div>
+        </div>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Platform thinking treats Salesforce as a strategic asset that compounds value over time — product thinking treats each project as discrete and independent</li>
+            <li>Most organisations stall at Stage 2 (optimisation) and never reach Stage 3-4 (integration and intelligence) because they lack a strategic roadmap beyond the current programme</li>
+            <li>A 5-year roadmap has four components: business capability ambition, data strategy, capability sequencing, and investment envelope</li>
+            <li>Data Cloud, Agentforce, and Industry Clouds represent the next wave of Salesforce platform value — a strategic view must account for where these capabilities are heading</li>
+            <li>Year 1-2 data architecture and data quality investments are the primary determinant of Year 4-5 platform value — they are not optional cleanup work</li>
+            <li>Platform-level governance above individual programmes is essential to prevent short-term decisions that constrain long-term platform potential</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. An organisation has successfully implemented Sales Cloud and Service Cloud separately. The CTO asks whether they should now implement Marketing Cloud. What is the most strategically sound response?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Yes — completing the Customer 360 suite is always the right next step after Sales and Service Cloud</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. First assess data quality and integration between the existing Sales and Service Cloud orgs — Marketing Cloud's value is only fully realisable if customer data is clean, unified, and trustworthy. A poor data foundation makes a Marketing Cloud investment premature</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. No — Marketing Cloud is a separate product from Salesforce and should not be included in the Salesforce strategic roadmap</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Wait until Year 5 — Marketing Cloud is a Stage 4 maturity capability that should not be implemented before reaching full platform maturity</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. What is the primary reason most organisations stall at Stage 2 (optimisation) of the Salesforce maturity journey?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Salesforce platform limitations prevent organisations from reaching Stage 3 without premium add-on licences</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">B. No strategic roadmap beyond the current programme, combined with internal capability focused on support rather than advancement and no senior sponsorship for the next investment cycle</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Stage 2 organisations have already achieved maximum ROI from Salesforce — further investment does not produce proportional returns</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. The high cost of Salesforce licences prevents Stage 2 organisations from affording the additional clouds needed for Stage 3</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. An organisation plans to implement Agentforce for customer service automation in Year 4. What should their Year 1-2 data strategy prioritise to maximise Year 4 value?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Pre-purchase Agentforce licences in Year 1 to lock in current pricing before increases</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Focus only on the Agentforce use cases and defer data quality investment until Year 3</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Invest in data quality, data architecture, and process standardisation — Agentforce models are trained on org data, and the value of AI automation scales directly with the quality and volume of clean, structured data accumulated in Years 1-3</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Implement Data Cloud in Year 1 regardless of current data maturity — the platform capability must be in place before data quality work begins</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="ent-009.html" class="related-card">
+              <span class="card-id">ENT-009</span>
+              <h4>Salesforce Governance Framework: Decisions, Escalations, and Ownership</h4>
+            </a>
+            <a href="ent-023.html" class="related-card">
+              <span class="card-id">ENT-023</span>
+              <h4>Roadmap Planning for Salesforce: The 12-24-36 Month Framework</h4>
+            </a>
+            <a href="ent-008.html" class="related-card">
+              <span class="card-id">ENT-008</span>
+              <h4>Building a Centre of Excellence for Salesforce</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Product Thinking vs Platform Thinking</a></li>
+            <li><a href="#s2">The Salesforce Maturity Journey</a></li>
+            <li><a href="#s3">Building the 5-Year Roadmap</a></li>
+            <li><a href="#s4">Data Cloud, Agentforce, Industry Clouds</a></li>
+            <li><a href="#s5">Governing the Platform Investment</a></li>
+            <li><a href="#quiz">Checkpoint Quiz</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-download">
+          <h4>Resources</h4>
+          <a href="#" onclick="return false;"><span>📊</span> Salesforce Maturity Assessment</a>
+          <a href="#" onclick="return false;"><span>📋</span> 5-Year Roadmap Template</a>
+          <a href="#" onclick="return false;"><span>📄</span> Platform Governance Charter</a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="ent-006.html" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-006</span>
+            <span class="sidebar-next-title">Digital Transformation and Salesforce: Separating Hype from Reality</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html?tag=enterprise-strategy">Strategy</a><a href="../pages/tutorials.html?tag=architecture">Architecture</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      bar.style.width = progress + '%';
+      sidebar.style.width = progress + '%';
+      pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
