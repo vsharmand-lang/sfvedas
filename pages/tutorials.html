@@ -207,10 +207,21 @@
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      scrollbar-width: none;
-      padding-bottom: 20px;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--saffron) var(--bg-secondary);
     }
-    .tut-filters::-webkit-scrollbar { display: none; }
+    .tut-filters::-webkit-scrollbar {
+      height: 3px;
+    }
+    .tut-filters::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+      border-radius: 100px;
+    }
+    .tut-filters::-webkit-scrollbar-thumb {
+      background: var(--saffron);
+      border-radius: 100px;
+    }
     .tut-filter {
       font-family: var(--font-ui);
       font-size: 0.82rem;
