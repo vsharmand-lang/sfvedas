@@ -149,86 +149,97 @@
 
     /* ── Search + Filter bar ──────────────────── */
     .tut-controls {
-      background: rgba(248,245,240,0.97);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
+      background: rgba(248,245,240,0.96);
+      backdrop-filter: blur(24px) saturate(170%);
+      -webkit-backdrop-filter: blur(24px) saturate(170%);
+      border-bottom: 1px solid rgba(180,168,148,0.22);
       position: sticky;
-      top: 68px;
+      top: 62px;
       z-index: 100;
     }
     .tut-search-wrap {
       max-width: 1160px;
       margin: 0 auto;
-      padding: 24px 40px 0;
+      padding: 22px 40px 0;
     }
     .tut-search-row {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
     .tut-search-field {
       position: relative;
       flex: 1;
-      max-width: 520px;
+      max-width: 540px;
     }
     .tut-search-icon {
       position: absolute;
-      left: 18px;
+      left: 17px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-secondary);
-      opacity: 0.45;
+      opacity: 0.38;
       pointer-events: none;
       display: flex;
+      transition: opacity 0.2s;
     }
+    .tut-search-field:focus-within .tut-search-icon { opacity: 0.70; }
     .tut-search-input {
       width: 100%;
       font-family: var(--font-ui);
-      font-size: 0.95rem;
-      padding: 12px 18px 12px 46px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      background: var(--bg-card);
+      font-size: 0.90rem;
+      padding: 12px 20px 12px 46px;
+      border: 1.5px solid rgba(200,190,175,0.55);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.80);
       color: var(--text-primary);
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      box-shadow: 0 1px 3px rgba(30,30,46,0.05);
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      box-shadow: 0 1px 6px rgba(30,30,46,0.06), inset 0 1px 2px rgba(255,255,255,0.9);
+      letter-spacing: 0.01em;
     }
     .tut-search-input:focus {
       border-color: var(--saffron);
-      box-shadow: 0 0 0 3px rgba(232,147,10,0.09), 0 1px 3px rgba(30,30,46,0.05);
+      background: #fff;
+      box-shadow: 0 0 0 3.5px rgba(232,147,10,0.11), 0 1px 6px rgba(30,30,46,0.06);
     }
-    .tut-search-input::placeholder { color: var(--text-secondary); opacity: 0.5; }
+    .tut-search-input::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.42;
+      font-style: italic;
+    }
+
+    /* Count pill — saffron-tinted, vibrant number */
     .tut-count-pill {
       font-family: var(--font-ui);
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 7px 15px;
+      font-size: 0.80rem;
+      font-weight: 500;
+      padding: 8px 16px;
       border-radius: 100px;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
+      background: rgba(232,147,10,0.07);
+      border: 1.5px solid rgba(232,147,10,0.24);
       color: var(--text-secondary);
       white-space: nowrap;
       flex-shrink: 0;
       letter-spacing: 0.01em;
     }
-    .tut-count-pill span { color: var(--saffron); }
+    .tut-count-pill span {
+      color: var(--saffron-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
 
-    /* Filter row separator */
+    /* Filter row separator — gradient fade at edges */
     .tut-filter-sep {
-      height: 1px;
       max-width: 1160px;
       margin: 16px auto 0;
       padding: 0 40px;
-      background: transparent;
     }
     .tut-filter-sep::after {
       content: '';
       display: block;
       height: 1px;
-      background: var(--border);
-      opacity: 0.6;
+      background: linear-gradient(90deg, transparent, rgba(180,168,148,0.50) 15%, rgba(180,168,148,0.50) 85%, transparent);
     }
 
     /* Filter pills — edge-fade wrapper */
@@ -241,15 +252,15 @@
       content: '';
       position: absolute;
       top: 0; bottom: 0; right: 0;
-      width: 72px;
-      background: linear-gradient(90deg, transparent 0%, rgba(248,245,240,0.97) 100%);
+      width: 80px;
+      background: linear-gradient(90deg, transparent 0%, rgba(248,245,240,0.96) 100%);
       pointer-events: none;
       z-index: 2;
     }
     .tut-filters {
-      padding: 14px 40px 16px;
+      padding: 13px 40px 16px;
       display: flex;
-      gap: 6px;
+      gap: 7px;
       overflow-x: auto;
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -258,33 +269,35 @@
     .tut-filters::-webkit-scrollbar { display: none; }
     .tut-filter {
       font-family: var(--font-ui);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      padding: 7px 15px;
+      padding: 8px 17px;
       border-radius: 100px;
-      border: 1.5px solid var(--border);
-      background: var(--bg-card);
+      border: 1.5px solid rgba(190,180,165,0.45);
+      background: rgba(255,255,255,0.68);
       color: var(--text-secondary);
       cursor: pointer;
       transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
       flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(30,30,46,0.04);
     }
     .tut-filter:hover {
-      border-color: rgba(232,147,10,0.45);
+      border-color: rgba(232,147,10,0.48);
       color: var(--saffron-dark);
-      background: rgba(232,147,10,0.05);
+      background: rgba(232,147,10,0.06);
       transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(232,147,10,0.1);
+      box-shadow: 0 3px 10px rgba(232,147,10,0.11);
     }
     .tut-filter.active {
       border-color: transparent;
       color: #fff;
-      background: linear-gradient(135deg, var(--saffron) 0%, var(--saffron-dark) 100%);
-      box-shadow: 0 3px 12px rgba(232,147,10,0.38);
+      background: linear-gradient(135deg, var(--saffron-light) 0%, var(--saffron) 55%, var(--saffron-dark) 100%);
+      box-shadow: 0 3px 14px rgba(232,147,10,0.40), 0 1px 4px rgba(232,147,10,0.18);
       transform: translateY(-1px);
+      letter-spacing: 0.06em;
     }
 
     /* ── Tutorial grid & cards ────────────────── */
