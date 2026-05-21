@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/ai-012/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-012: Autonomous Agents in Customer Service: Real Implementation Patterns — SFVedas</title>
+  <meta name="description" content="How Agentforce autonomous agents are actually deployed in customer service — the architecture decisions, escalation design, and operational realities that determine whether deployments succeed."/>
+  <meta property="og:title" content="AI-012: Autonomous Agents in Customer Service: Real Implementation Patterns — SFVedas"/>
+  <meta property="og:description" content="How Agentforce autonomous agents are actually deployed in customer service — the architecture decisions, escalation design, and operational realities that determine whether deployments succeed."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ai-012/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AI-012: Autonomous Agents in Customer Service: Real Implementation Patterns — SFVedas"/>
+  <meta name="twitter:description" content="How Agentforce autonomous agents are actually deployed in customer service — the architecture decisions, escalation design, and operational realities that determine whether deployments succeed."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "AI-012: Autonomous Agents in Customer Service: Real Implementation Patterns — SFVedas",
+    "description": "How Agentforce autonomous agents are actually deployed in customer service — the architecture decisions, escalation design, and operational realities that determine whether deployments succeed.",
+    "url": "https://sfvedas.com/tutorials/ai-012/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-012/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=ai-future" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to AI &amp; Future</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">AI-012</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">AI &amp; Future</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Autonomous Agents in Customer Service: Real Implementation Patterns
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        The gap between Agentforce demos and production deployments is wider than most programmes expect — here is what actually determines success in autonomous customer service agents.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce AI Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>How Agentforce agents are structured for customer service — topics, actions, and the reasoning loop</li>
+            <li>The escalation design decisions that determine whether an agent is trusted or abandoned by customers</li>
+            <li>Data requirements: what the agent needs access to in order to resolve enquiries autonomously</li>
+            <li>Channel architecture — how agents integrate with web chat, SMS, email, and voice</li>
+            <li>How to measure autonomous resolution rate and what a realistic target looks like</li>
+            <li>The operational model needed to sustain agent performance after go-live</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Architecture of an Agentforce Customer Service Agent</h2>
+
+        <p>An Agentforce agent is not a chatbot with better language. It is a reasoning system that interprets customer intent, retrieves relevant data, decides on an action, executes it, and responds. The distinction matters because it changes how you design, test, and operate it.</p>
+
+        <p>The core structure has three layers. <strong>Topics</strong> define the domains the agent can handle — for example, Order Status, Returns, Billing Enquiry, Technical Support. Each topic has a natural language description that tells the agent's reasoning model when to apply it. <strong>Actions</strong> are the things the agent can do within a topic — query an order record, initiate a refund, create a case, look up a knowledge article. Actions are invoked via Flow, Apex, or external API calls, and each action has its own prompt template that shapes how the agent presents results. <strong>Guardrails</strong> are the rules that constrain agent behaviour — topics it cannot discuss, data it cannot share, actions it cannot take without human confirmation.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>The quality of your topic descriptions is the most underrated factor in agent accuracy. Vague or overlapping topic descriptions cause the agent to invoke the wrong topic — which produces wrong answers, not just unhelpful ones. Treat topic description writing as a precision engineering task, not a content task.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Escalation Design: The Make-or-Break Decision</h2>
+
+        <p>Every autonomous agent deployment lives or dies on its escalation design. Get it wrong and customers either get stuck in loops or escalate unnecessarily — both outcomes destroy trust faster than a well-designed human service ever would.</p>
+
+        <h3>When the Agent Must Escalate</h3>
+
+        <p>There are three categories of escalation that every customer service agent must handle cleanly. The first is <strong>explicit customer request</strong> — the customer asks to speak to a human. This must always be honoured immediately, without the agent attempting to deflect or re-engage. Any agent that creates friction around human escalation will generate regulatory and reputational risk.</p>
+
+        <p>The second is <strong>agent uncertainty</strong> — the agent recognises that it cannot resolve the enquiry with sufficient confidence. This requires a confidence threshold mechanism in your action design. If the agent's reasoning loop cannot reach a high-confidence resolution path after a defined number of steps, it should surface its uncertainty explicitly and offer escalation rather than guessing.</p>
+
+        <p>The third is <strong>high-stakes action</strong> — any action with significant financial, contractual, or sensitive data implications. Processing a refund above a defined threshold, closing an account, updating payment details — these should require human confirmation or routing, regardless of agent confidence. Define these boundaries in your guardrails configuration, not as an afterthought.</p>
+
+        <h3>Escalation Context Transfer</h3>
+
+        <p>When the agent escalates to a human agent, the conversation transcript, identified intent, and any data the agent retrieved must transfer cleanly to the human agent's workspace. An escalation that forces the customer to repeat themselves is not an escalation — it is an abandonment. This requires integration between your Agentforce deployment and your Service Console routing configuration, and it must be tested explicitly as part of your acceptance criteria.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Architects</strong>
+            <p>Do not allow your product team to set a "containment rate" KPI without pairing it with a customer satisfaction measurement. High containment rates achieved by making escalation difficult are a lagging indicator of customer trust erosion. Agents that genuinely resolve enquiries will show high containment and high CSAT — agents that trap customers show high containment and falling CSAT.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">Data Architecture: What the Agent Needs to Resolve Enquiries</h2>
+
+        <p>An autonomous agent is only as capable as the data it can access. For a customer service agent handling order, billing, and account enquiries, you need to define explicitly what data is accessible via agent actions — and what is not.</p>
+
+        <h3>Data Access via Salesforce Objects</h3>
+
+        <p>For data that lives in Salesforce — cases, orders, entitlements, knowledge articles — agent actions can query directly via SOQL through Flow or Apex. The agent's connected user (the integration user under which the agent runs) requires appropriate object and field permissions. Profile and permission set design for the agent user is a security architecture task, not a configuration detail. The principle of least privilege applies here with particular force: an agent that can access more data than it needs creates a data exposure risk that is harder to audit than a human agent.</p>
+
+        <h3>External System Integration</h3>
+
+        <p>Most customer service enquiries require data from systems outside Salesforce — ERP order management, billing platforms, logistics APIs, warranty databases. Agent actions that call external systems via Named Credentials and External Services are the standard pattern. Each external call adds latency to the agent's reasoning loop; a single enquiry that requires data from three external systems may take 8–15 seconds to resolve. Design your action architecture with this latency in mind, and test against real system response times, not sandbox mocks.</p>
+
+        <h3>Knowledge as a Resolution Surface</h3>
+
+        <p>Salesforce Knowledge integrated with Einstein Search underpins a significant proportion of autonomous resolutions — particularly for product queries, policy questions, and troubleshooting guides. The quality of the knowledge base is therefore a direct input to agent resolution rate. Programmes that deploy agents against an unstructured, inconsistent, or outdated knowledge base will see lower resolution rates than their pilot tests suggested, because pilot testing typically uses a curated subset of well-written articles.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Concept</strong>
+            <p>Knowledge base quality is an ongoing operational requirement for autonomous agents, not a one-time launch task. Each new product, policy change, or regulatory update that is not reflected in the knowledge base creates a resolution gap. Assign knowledge base ownership to a named operational role before go-live.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Channel Architecture</h2>
+
+        <p>Agentforce can be deployed across multiple channels — web chat (Messaging for In-App and Web), SMS, WhatsApp, and voice via Einstein Voice. Each channel has different constraints that affect your agent design.</p>
+
+        <p>Web chat is the standard first deployment channel and the easiest to control. The session is contained, the customer's context is clear, and rich formatting (cards, buttons, quick replies) improves resolution rates significantly. Design your web chat agent with structured responses where possible — offering ordered options rather than free-text choices reduces ambiguity in the agent's reasoning loop.</p>
+
+        <p>SMS and WhatsApp impose plaintext constraints and session continuity challenges. Customers may respond hours after the agent's last message, and the agent must reconstruct context from the conversation history. Token window limits on the underlying LLM mean that very long SMS conversations may lose early context. Design actions that persist key intent signals as structured data (Case fields, custom objects) so that the agent does not rely solely on the conversation transcript for context.</p>
+
+        <p>Voice via Einstein Voice adds speech-to-text transcription as an input layer. Transcription errors compound agent misunderstandings — "cancel my order" and "cancel my offer" are transcribed differently but sound similar. Voice agents require more defensive intent classification and more explicit confirmation steps before taking action. Deploy voice agents after you have proven your chat agent at scale, not in parallel.</p>
+
+        <h2 id="s5">Measuring Autonomous Resolution Rate</h2>
+
+        <p>Autonomous resolution rate (ARR) is the percentage of conversations handled entirely by the agent without human escalation. It is the headline metric for agent deployment ROI but is easily gamed and easily misunderstood.</p>
+
+        <p>A realistic ARR target for a well-scoped initial deployment is 30–45%. This assumes a focused topic set covering your highest-volume, most structured enquiry types — order status, password resets, FAQ deflection, simple account updates. Programmes that try to achieve high ARR by deploying the agent across every enquiry type simultaneously end up with a diluted topic set, weak action coverage, and a lower ARR than a narrower deployment would have produced.</p>
+
+        <p>ARR should always be measured alongside <strong>resolution quality</strong>. Post-conversation surveys and case re-open rates are the two most reliable proxies. An agent that "resolves" conversations by exhausting the customer rather than answering their question will show high ARR and increasing re-open rates — a combination that is worse than the pre-agent baseline.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Set your initial ARR target based on a realistic assessment of your knowledge base quality and action coverage, not on vendor case studies or internal aspirations. Then expand scope deliberately — add one new topic set at a time, measure ARR and CSAT for that topic before moving on. Phased expansion produces better long-term outcomes than broad initial deployments.</p>
+          </div>
+        </div>
+
+        <h2 id="s6">The Operational Model After Go-Live</h2>
+
+        <p>Autonomous agents are not deploy-and-forget systems. They require an operational model that covers three recurring activities: performance monitoring, topic and action refinement, and knowledge base maintenance.</p>
+
+        <p><strong>Performance monitoring</strong> means reviewing agent conversation logs at a sample level — not just aggregate metrics. Reading actual conversations reveals failure patterns that metrics miss: topics being invoked incorrectly, actions returning unhelpful data, customers expressing frustration that the sentiment model is not flagging. Allocate dedicated review time for this in your operational cadence.</p>
+
+        <p><strong>Topic and action refinement</strong> is the primary lever for improving ARR after go-live. When you see repeated escalations from a specific enquiry type, the solution is usually a refined topic description, an additional action, or better knowledge content — not a fundamental rebuild. The agent's reasoning capability is fixed by the underlying LLM; what you can change is the context you give it and the tools you make available to it.</p>
+
+        <p><strong>Model version management</strong> becomes relevant when Salesforce updates the underlying LLM. A model update that improves general capability can change agent behaviour in ways that your topic and guardrail configuration does not anticipate. Test against the new model version before allowing it to serve live traffic. This is an area where Salesforce's platform governance tools are still maturing — build explicit version testing into your operational runbook.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Agentforce agents are structured around Topics (domains), Actions (capabilities), and Guardrails (constraints) — the quality of topic descriptions is the single most impactful architectural input to agent accuracy</li>
+            <li>Escalation design is non-negotiable: explicit customer requests for a human must always be honoured immediately, and high-stakes actions must require human confirmation regardless of agent confidence</li>
+            <li>The agent user's data access permissions must be governed by least-privilege principles — agents have broader access than most integrations because they reason across topics</li>
+            <li>Knowledge base quality is a direct input to autonomous resolution rate — poor or outdated knowledge is the most common cause of lower-than-expected ARR in production</li>
+            <li>A realistic autonomous resolution rate target for a focused initial deployment is 30–45%; expand scope by topic incrementally rather than deploying broadly at launch</li>
+            <li>Pair ARR with customer satisfaction measurement — high containment achieved by blocking escalation is worse than the pre-agent baseline</li>
+            <li>Post-go-live operational cadence must include manual conversation log review, not just aggregate metrics, to identify failure patterns</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. An Agentforce deployment is showing an autonomous resolution rate of 72% but customer re-open rates have increased by 40% since launch. What does this most likely indicate?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. The agent's topic coverage is too narrow and should be expanded</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. The agent is "resolving" conversations without genuinely answering customer enquiries — likely by exhausting customers or deflecting rather than resolving</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. The knowledge base needs to be rebuilt from scratch</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. The LLM model version needs to be updated</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. Why should voice-channel agent deployment be sequenced after chat agent deployment at scale?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Voice requires a separate Agentforce licence that is more expensive</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. Salesforce does not yet support voice channels in Agentforce</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. Speech-to-text transcription errors compound agent misunderstandings, requiring more mature topic design and defensive action patterns that are best developed in chat first</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Voice interactions cannot be logged or audited in Salesforce</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. Which of the following is the correct security architecture principle for the Agentforce integration user?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. The integration user should have System Administrator profile to ensure the agent can access all data it might need</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Security for the agent user is managed automatically by Salesforce's AI Trust Layer</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. The agent user should share a profile with human service agents to ensure consistent data access</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">D. Least privilege — the agent user should have access only to the specific objects, fields, and records required to execute its defined actions</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../ai-013/" class="related-card">
+              <span class="card-id">AI-013</span>
+              <h4>AI Use Cases That Actually Deliver ROI in Salesforce</h4>
+            </a>
+            <a href="../ai-004/" class="related-card">
+              <span class="card-id">AI-004</span>
+              <h4>Agentforce Architecture: The Technical Foundation of Autonomous Agents</h4>
+            </a>
+            <a href="../ai-022/" class="related-card">
+              <span class="card-id">AI-022</span>
+              <h4>Einstein for Service: Case Summarisation, Recommendations, and Knowledge</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Architecture of an Agentforce Customer Service Agent</a></li>
+            <li><a href="#s2">Escalation Design: The Make-or-Break Decision</a></li>
+            <li><a href="#s3">Data Architecture: What the Agent Needs</a></li>
+            <li><a href="#s4">Channel Architecture</a></li>
+            <li><a href="#s5">Measuring Autonomous Resolution Rate</a></li>
+            <li><a href="#s6">The Operational Model After Go-Live</a></li>
+            <li><a href="#quiz">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ai-013/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-013</span>
+            <span class="sidebar-next-title">AI Use Cases That Actually Deliver ROI in Salesforce</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ai-011/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-011</span>
+            <span class="sidebar-next-title">Einstein Vision and Language: Image and NLP Capabilities Explained</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/ai-018/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-018: AI-Driven Analytics in CRM Analytics: From Descriptive to Prescriptive — SFVedas</title>
+  <meta name="description" content="How AI transforms CRM Analytics from a reporting tool into a prescriptive intelligence layer — the capability progression, architectural requirements, and where the value actually lives."/>
+  <meta property="og:title" content="AI-018: AI-Driven Analytics in CRM Analytics: From Descriptive to Prescriptive — SFVedas"/>
+  <meta property="og:description" content="How AI transforms CRM Analytics from a reporting tool into a prescriptive intelligence layer — the capability progression, architectural requirements, and where the value actually lives."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ai-018/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AI-018: AI-Driven Analytics in CRM Analytics: From Descriptive to Prescriptive — SFVedas"/>
+  <meta name="twitter:description" content="How AI transforms CRM Analytics from a reporting tool into a prescriptive intelligence layer — the capability progression, architectural requirements, and where the value actually lives."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-99QW4K310Y');</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI-018: AI-Driven Analytics in CRM Analytics: From Descriptive to Prescriptive — SFVedas","description":"How AI transforms CRM Analytics from a reporting tool into a prescriptive intelligence layer — the capability progression, architectural requirements, and where the value actually lives.","url":"https://sfvedas.com/tutorials/ai-018/","mainEntityOfPage":"https://sfvedas.com/tutorials/ai-018/","author":{"@type":"Person","name":"Vishal Sharma","url":"https://sfvedas.com/about/"},"publisher":{"@type":"Organization","name":"SFVedas","url":"https://sfvedas.com","logo":{"@type":"ImageObject","url":"https://sfvedas.com/images/logo.svg"}},"image":"https://sfvedas.com/images/og-default.png"}</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+  <div class="reading-progress" id="readingProgress"></div>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=ai-future" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to AI &amp; Future</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">AI-018</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">AI &amp; Future</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        AI-Driven Analytics in CRM Analytics: From Descriptive to Prescriptive
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Most CRM Analytics deployments stop at "what happened" — AI extends the capability to "what will happen" and "what should you do", but the architectural path from one to the other is not automatic.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce AI Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-4584420180521124" data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The four-stage analytics maturity model: descriptive, diagnostic, predictive, prescriptive</li>
+            <li>What CRM Analytics (formerly Tableau CRM / Einstein Analytics) provides at each stage natively</li>
+            <li>How Einstein Discovery adds predictive and prescriptive capability within CRM Analytics</li>
+            <li>The data architecture requirements for moving from descriptive to predictive analytics</li>
+            <li>Where Data Cloud fits as the unified data layer for advanced analytics</li>
+            <li>Common failure patterns when programmes attempt prescriptive analytics before the data foundation is ready</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Four-Stage Analytics Maturity Model</h2>
+
+        <p>The analytics maturity model describes the progression from reporting on the past to influencing the future. Each stage requires the previous one as a foundation — programmes that attempt to skip stages consistently fail to sustain the advanced capability they deploy.</p>
+
+        <p><strong>Descriptive analytics</strong> answers "what happened?" — dashboards, reports, and trend charts on historical CRM data. This is where most Salesforce deployments live. CRM Analytics (the dashboarding layer formerly known as Tableau CRM and Einstein Analytics) provides strong descriptive capability through its drag-and-drop dashboard builder, direct Salesforce data connectivity, and role-based access model.</p>
+
+        <p><strong>Diagnostic analytics</strong> answers "why did it happen?" — drill-down capability, cohort comparison, attribution analysis. CRM Analytics supports this through its SAQL query language, lens exploration, and custom chart types. This is where many deployments plateau — not because the tool lacks capability but because the data model is not structured to support the questions being asked.</p>
+
+        <p><strong>Predictive analytics</strong> answers "what will happen?" — Einstein Forecasting, Einstein Lead Scoring, Einstein Discovery predictions. This requires sufficient historical data with consistent labels and requires that the descriptive foundation is clean enough for the model to learn meaningful patterns.</p>
+
+        <p><strong>Prescriptive analytics</strong> answers "what should we do?" — Einstein Discovery's prescriptive recommendations, embedded in dashboards and surfaced in CRM Console. This is the highest-value tier and the least commonly reached. It requires predictive capability as a foundation plus a closed-loop between recommendation and action — which requires integration between the analytics layer and the operational CRM layer.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>Most analytics investment is wasted because organisations fund descriptive tools while expecting prescriptive outcomes. A better dashboard does not produce better decisions — better decisions require an analytical layer that tells decision-makers what to do, not just what happened. The tool investment required for prescriptive analytics is significant; the data and process investment required is larger.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Einstein Discovery: The Predictive and Prescriptive Engine</h2>
+
+        <p>Einstein Discovery is CRM Analytics' automated machine learning capability. It builds predictive models from your Salesforce data without requiring a data scientist to write model code, and surfaces its predictions and recommendations in three ways: as insights in the CRM Analytics dashboard, as fields written back to Salesforce records, and as prescriptive recommendations visible to users in context.</p>
+
+        <p>The model building process is largely automated. You select a target outcome (closed won, churn, case escalation), choose the data fields to include, and Einstein Discovery trains a model, evaluates it, and explains which factors most strongly predict the outcome. This democratisation of model building is genuinely valuable — it allows analytics teams without data science expertise to deploy predictive capability. But it does not eliminate the need for analytical rigour; models built on poor data, with insufficient outcome examples, or targeting outcome variables that are inconsistently defined will produce unreliable results regardless of the automation.</p>
+
+        <h3>Writeback: From Analytics to CRM Records</h3>
+
+        <p>Einstein Discovery's writeback capability pushes prediction scores and recommendations from the analytics model back to Salesforce object fields. This is the mechanism that closes the loop between analysis and action — an opportunity in the pipeline gets an Einstein Discovery churn risk score written to a field, which then triggers a Flow that creates a task for the account manager. This integration pattern converts a passive analytical insight into an active operational signal.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Concept</strong>
+            <p>The writeback pattern is what makes analytics prescriptive rather than merely predictive. A prediction score sitting in a dashboard requires a human to read the dashboard, interpret the score, and take action. A score written to a record field, combined with an automation that acts on it, removes human latency from the decision cycle entirely. This is the architectural difference between descriptive intelligence and operational intelligence.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">Data Architecture Requirements for Predictive Analytics</h2>
+
+        <p>Moving from descriptive to predictive analytics requires data architecture changes that most CRM Analytics deployments have not made. The three most common gaps are: insufficient historical outcome data, inconsistent field usage across the historical record, and missing data from external systems that are predictively significant.</p>
+
+        <p>Insufficient historical outcome data is the most common blocker. Einstein Discovery needs at least 400 positive outcome examples to train a reliable model (and performs better with 1,000+). If you have a 20% win rate and want to predict deal closure, you need at least 2,000 closed opportunities in Salesforce to have 400 won deals for the model to learn from. Programmes that have been on Salesforce for less than two years often do not meet this threshold.</p>
+
+        <p>Missing external data is the second common gap. Predictive models for sales and service outcomes often need signals from outside Salesforce — financial system data, website behaviour, product usage telemetry. These signals are not available in a Salesforce-only analytics architecture. Data Cloud is the correct architectural response: it unifies external and CRM data into a single profile that CRM Analytics can query as its data source, enabling predictive models that use the full signal set rather than just CRM data.</p>
+
+        <h2 id="s4">Where Data Cloud Fits</h2>
+
+        <p>Data Cloud is Salesforce's customer data platform — it ingests data from multiple sources, resolves customer identities across those sources, and produces a unified customer profile. For analytics purposes, it provides a richer, more complete data foundation than CRM data alone.</p>
+
+        <p>The architectural pattern for advanced CRM Analytics deployments is: Data Cloud as the data layer, CRM Analytics as the analysis and visualisation layer, Einstein Discovery as the model layer, and Salesforce CRM as the action layer. Data Cloud feeds CRM Analytics with unified profile data; CRM Analytics builds dashboards and feeds Einstein Discovery training sets; Einstein Discovery writes predictions back to CRM objects; CRM automation acts on those predictions.</p>
+
+        <p>This architecture requires investment in Data Cloud ingestion pipelines, identity resolution configuration, and CRM Analytics dataset design. It is not a trivial implementation, and it is not the right architecture for every analytics use case. For programmes where CRM data alone is sufficient to answer the relevant predictive questions, Salesforce-native data without Data Cloud is appropriate.</p>
+
+        <h2 id="s5">Failure Patterns in Advanced Analytics Deployments</h2>
+
+        <p>The most common failure pattern is deploying Einstein Discovery against historical data that reflects inconsistent CRM usage rather than real business behaviour. If close dates were routinely fictitious, stage updates were sporadic, and activity logging was inconsistent, the model learns those patterns rather than the underlying business dynamics. Cleaning the historical data before model training is not optional — it is the most important investment in the analytics programme.</p>
+
+        <p>The second failure pattern is prescriptive recommendations that are not acted upon. An Einstein Discovery model that identifies high-risk accounts and surfaces a recommendation in a dashboard produces no value if nobody looks at the dashboard or if looking at it creates no obligation to act. Prescriptive analytics requires a change management programme that defines who is responsible for acting on recommendations, by when, and how compliance is tracked. Without this, the analytical capability is built but the business value is not captured.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Start with diagnostic analytics before investing in predictive. The discipline of answering "why did it happen?" rigorously will reveal data quality problems, field usage inconsistencies, and missing data sources that will limit predictive capability — and it is far cheaper to find them at the diagnostic stage than after you have built a predictive model that does not perform.</p>
+          </div>
+        </div>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Analytics maturity progresses through four stages: descriptive → diagnostic → predictive → prescriptive — each stage requires the previous as a foundation</li>
+            <li>Einstein Discovery automates model building but does not eliminate the need for data quality and sufficient historical outcome examples (minimum 400 positive cases)</li>
+            <li>The writeback pattern — Einstein Discovery predictions written to Salesforce record fields — is what converts analytics into operational intelligence by connecting predictions to automations</li>
+            <li>Data Cloud is the correct architectural foundation for predictive models that need signals from outside Salesforce; Salesforce-native data is sufficient when CRM signals alone are adequate</li>
+            <li>Prescriptive recommendations without an accountable action process deliver no business value — change management is as important as the analytical capability</li>
+            <li>Invest in diagnostic analytics first — it reveals data quality and model readiness issues at lower cost than discovering them after a predictive model is built</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. A programme wants to use Einstein Discovery to predict deal churn risk. Their Salesforce org has a 15% win rate and 1,200 total closed opportunities. Is the data volume sufficient?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Yes — 1,200 opportunities exceeds Einstein Discovery's minimum threshold of 400</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. Marginally — with a 15% win rate, 1,200 opportunities yields only 180 won deals, well below the 400 positive outcome examples needed; the model will likely underperform</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. No — Einstein Discovery requires a minimum of 5,000 opportunities for sales prediction models</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Volume is irrelevant — Einstein Discovery uses sampling, so any dataset size is sufficient</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. What is the purpose of Einstein Discovery's writeback capability?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. It writes model training data back to Einstein Discovery datasets for continuous learning</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. It exports model predictions to an external data warehouse for long-term storage</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. It pushes prediction scores and recommendations from Einstein Discovery back to Salesforce record fields, enabling automations to act on predictions without requiring human dashboard review</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. It synchronises CRM Analytics dashboards with Tableau Server for enterprise distribution</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. Why should an organisation invest in diagnostic analytics before deploying Einstein Discovery for predictive modelling?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Salesforce requires a CRM Analytics diagnostic assessment to be completed before Einstein Discovery can be enabled</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Diagnostic analytics generates the training data that Einstein Discovery needs to build models</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Diagnostic analysis reveals data quality problems and field usage inconsistencies at lower cost — discovering these at the diagnostic stage is far cheaper than finding them after a predictive model has been built and underperforms</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Einstein Discovery cannot be trained until diagnostic dashboard adoption reaches 70% of users</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../ai-019/" class="related-card">
+              <span class="card-id">AI-019</span>
+              <h4>Evaluating AI Features at Go-Live: What to Measure</h4>
+            </a>
+            <a href="../ai-017/" class="related-card">
+              <span class="card-id">AI-017</span>
+              <h4>Einstein Forecasting: How the Model Works and When to Trust It</h4>
+            </a>
+            <a href="../ai-005/" class="related-card">
+              <span class="card-id">AI-005</span>
+              <h4>Data Cloud as the AI Foundation: Why Clean Data Wins</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Four-Stage Analytics Maturity Model</a></li>
+            <li><a href="#s2">Einstein Discovery: The Predictive and Prescriptive Engine</a></li>
+            <li><a href="#s3">Data Architecture Requirements</a></li>
+            <li><a href="#s4">Where Data Cloud Fits</a></li>
+            <li><a href="#s5">Failure Patterns in Advanced Analytics</a></li>
+            <li><a href="#quiz">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ai-019/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-019</span>
+            <span class="sidebar-next-title">Evaluating AI Features at Go-Live: What to Measure</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ai-017/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-017</span>
+            <span class="sidebar-next-title">Einstein Forecasting: How the Model Works and When to Trust It</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) opt.classList.add('correct');
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

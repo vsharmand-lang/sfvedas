@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/ai-019/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-019: Evaluating AI Features at Go-Live: What to Measure — SFVedas</title>
+  <meta name="description" content="The metrics framework for evaluating Salesforce AI feature performance at go-live — what to measure, how to baseline, and the signals that distinguish success from a false positive."/>
+  <meta property="og:title" content="AI-019: Evaluating AI Features at Go-Live: What to Measure — SFVedas"/>
+  <meta property="og:description" content="The metrics framework for evaluating Salesforce AI feature performance at go-live — what to measure, how to baseline, and the signals that distinguish success from a false positive."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ai-019/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AI-019: Evaluating AI Features at Go-Live: What to Measure — SFVedas"/>
+  <meta name="twitter:description" content="The metrics framework for evaluating Salesforce AI feature performance at go-live — what to measure, how to baseline, and the signals that distinguish success from a false positive."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-99QW4K310Y');</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI-019: Evaluating AI Features at Go-Live: What to Measure — SFVedas","description":"The metrics framework for evaluating Salesforce AI feature performance at go-live — what to measure, how to baseline, and the signals that distinguish success from a false positive.","url":"https://sfvedas.com/tutorials/ai-019/","mainEntityOfPage":"https://sfvedas.com/tutorials/ai-019/","author":{"@type":"Person","name":"Vishal Sharma","url":"https://sfvedas.com/about/"},"publisher":{"@type":"Organization","name":"SFVedas","url":"https://sfvedas.com","logo":{"@type":"ImageObject","url":"https://sfvedas.com/images/logo.svg"}},"image":"https://sfvedas.com/images/og-default.png"}</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+  <div class="reading-progress" id="readingProgress"></div>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=ai-future" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to AI &amp; Future</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">AI-019</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">AI &amp; Future</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Delivery Managers</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Evaluating AI Features at Go-Live: What to Measure
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        AI go-live is not a deployment milestone — it is the start of a measurement programme. Getting the metrics right before launch determines whether you know if it is working.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce AI Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-4584420180521124" data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The three-layer metrics framework for AI feature evaluation: technical, usage, and business outcome</li>
+            <li>How to establish baselines before go-live — what measurements must be in place to make post-launch comparison valid</li>
+            <li>Feature-specific metrics for the most commonly deployed Salesforce AI features</li>
+            <li>The signals that indicate a false positive — high usage metrics masking poor quality outcomes</li>
+            <li>How to structure a 30/60/90-day post-go-live review that drives actionable decisions</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Why Most AI Evaluations Fail</h2>
+
+        <p>AI features are routinely declared successful at go-live based on adoption metrics alone — users are engaging with the feature, so it must be working. This is the most common evaluation failure. Adoption tells you whether users are using a feature; it does not tell you whether the feature is producing the outcomes it was designed to produce.</p>
+
+        <p>A case triage agent that routes 95% of cases automatically has high adoption. But if 30% of those cases are misrouted and have to be manually corrected, the actual workflow impact is negative — the agent created more work than it saved. This kind of false positive is invisible without outcome measurement, and it is more common than programmes typically acknowledge.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>Establish your baseline metrics before go-live, not after. Post-hoc baselines are unreliable because memory and documentation of pre-AI performance are both imprecise. The measurement framework should be part of the delivery plan, not an afterthought following go-live.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">The Three-Layer Metrics Framework</h2>
+
+        <p>A complete AI evaluation framework has three layers, each measuring something different. All three are required; none is sufficient alone.</p>
+
+        <p><strong>Technical metrics</strong> measure whether the AI is functioning correctly: API success rate, latency (p50 and p99), error rate, confidence score distribution, and model accuracy (for classification features). These are monitoring metrics — they tell you whether the system is healthy. They should be tracked continuously, not just at go-live.</p>
+
+        <p><strong>Usage metrics</strong> measure whether users are engaging with the feature: feature activation rate, acceptance rate for AI suggestions (the proportion of AI-generated drafts or recommendations that users act on without modification), override rate (how often users reject or significantly edit AI output), and time-to-action (how quickly users act after receiving an AI recommendation). Usage metrics are leading indicators of business outcome — if users are consistently overriding AI suggestions, either the AI quality is poor or user trust has not been established.</p>
+
+        <p><strong>Business outcome metrics</strong> measure whether the deployment is delivering its intended value: case resolution time, first-contact resolution rate, sales pipeline progression rate, forecast accuracy, customer satisfaction scores. These are the metrics that translate into ROI. They typically require 4–8 weeks of post-go-live data to show statistically reliable differences from baseline.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Concept</strong>
+            <p>The acceptance rate for AI suggestions is the most revealing usage metric. A low acceptance rate (below 40%) indicates that the AI output quality is insufficient for users to trust it. A very high acceptance rate (above 90%) can indicate rubber-stamping — users accepting suggestions without review — which is a different risk. A healthy acceptance rate in the 60–80% range suggests that users are engaging critically and finding the AI genuinely useful.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">Feature-Specific Metrics</h2>
+
+        <p>Each AI feature type has metrics specific to its purpose. The following are the key measurement points for the most commonly deployed Salesforce AI features.</p>
+
+        <p><strong>Agentforce autonomous agents:</strong> autonomous resolution rate (conversations fully resolved without human escalation), escalation rate by reason (explicit customer request vs agent uncertainty vs high-stakes action), post-conversation CSAT score, case re-open rate for agent-resolved cases, average conversation duration.</p>
+
+        <p><strong>Einstein case triage:</strong> classification accuracy (validated by sampling 100 routed cases weekly and checking whether the assigned queue was correct), misroute rate, time from case creation to first queue assignment, volume of manually overridden routings.</p>
+
+        <p><strong>Einstein Lead Scoring:</strong> conversion rate of leads by score tier (high / medium / low), correlation between score and actual close — if high-scored leads are not converting at higher rates than low-scored leads after 90 days, the model is not performing), sales team score utilisation rate (are reps actually prioritising by score?).</p>
+
+        <p><strong>Generative email drafting:</strong> acceptance rate, edit distance (average words changed by users — a proxy for output quality), time saved per draft versus baseline, email response rate for AI-drafted versus manually written outreach.</p>
+
+        <h2 id="s4">Identifying False Positives</h2>
+
+        <p>A false positive in AI evaluation is a situation where headline metrics look positive but underlying quality or business impact is negative. The most common false positives to watch for:</p>
+
+        <p><strong>High autonomous resolution rate, rising re-open rate:</strong> agent is "resolving" conversations without genuinely answering questions. Customers contact again because the issue was not resolved, just closed.</p>
+
+        <p><strong>High email acceptance rate, falling response rates:</strong> users are accepting AI drafts because they trust the feature, but the AI-generated emails perform worse than manually written ones because they lack personalisation or relevant context.</p>
+
+        <p><strong>High classification confidence, high misroute rate:</strong> the model reports high confidence but is systematically wrong for a specific input category. Confidence score and accuracy are not the same — validate accuracy by sampling, not by reading confidence scores.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Architects</strong>
+            <p>Vanity metrics — feature usage counts, total AI interactions, "AI-assisted" case volumes — are the most commonly reported post-go-live metrics and the least useful for evaluating AI quality. Ensure your go-live reporting framework leads with outcome metrics, not activity metrics. A stakeholder presentation full of AI interaction counts obscures whether the AI is helping.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">The 30/60/90-Day Review Structure</h2>
+
+        <p>A structured post-go-live review cadence prevents AI deployments from drifting without visibility. Three review points produce the most actionable signal.</p>
+
+        <p><strong>30-day review</strong> focuses on technical and usage health: Is the system stable? Are API error rates acceptable? Are users engaging with the feature? Are there obvious quality failures in the output that need immediate action? Decisions at 30 days are typically operational — fix errors, address user training gaps, tune confidence thresholds.</p>
+
+        <p><strong>60-day review</strong> introduces business outcome data for the first time. Compare case resolution times, routing accuracy, or lead score conversion rates against baseline. This is the first moment at which you have statistically meaningful outcome data. Decisions at 60 days may include feature configuration changes, data quality remediation, or scope adjustments if certain use cases are not performing.</p>
+
+        <p><strong>90-day review</strong> is the first substantive ROI assessment. With 90 days of data, the noise from the go-live period is absorbed and the underlying performance trend is visible. This review should produce either confirmation of the business case or a decision to modify the deployment scope, retrain the model, or address the data quality issues that are limiting performance.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Pre-agree with stakeholders that the 90-day review may result in a deployment scope reduction. AI features that are not performing should be switched off or narrowed, not kept live because of sunk cost. A smaller deployment that genuinely works is worth more than a broad deployment with poor performance — and it is less damaging to user trust in AI capability broadly.</p>
+          </div>
+        </div>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Adoption metrics alone are insufficient — AI evaluation requires technical metrics, usage metrics, and business outcome metrics; all three layers are necessary</li>
+            <li>Baselines must be established before go-live — post-hoc baselines are unreliable and make outcome comparison invalid</li>
+            <li>Acceptance rate (60–80% is healthy) is the most revealing usage metric; very high rates may indicate rubber-stamping rather than genuine quality</li>
+            <li>False positives — high usage metrics masking poor outcomes — are common and require explicit outcome measurement to detect</li>
+            <li>The 30/60/90-day review structure separates operational stabilisation (30 days), initial outcome data (60 days), and substantive ROI assessment (90 days)</li>
+            <li>Pre-agree that the 90-day review can produce scope reduction — a smaller deployment that works is better than a broad deployment with poor quality</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. An Agentforce deployment shows a 78% autonomous resolution rate and very high user satisfaction scores from the programme team. Case re-open rates have increased by 35% since go-live. How should this be interpreted?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. The deployment is successful — high resolution rate and stakeholder satisfaction confirm the value</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. The re-open rate increase is unrelated to the AI deployment — it should be investigated separately</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">C. This is a false positive — the agent is closing conversations without genuinely resolving them, causing customers to re-contact; the re-open rate increase is the primary signal of poor quality despite high resolution rate</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. The resolution rate target should be raised to 90% to drive down re-open rates through volume</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. What does an AI suggestion acceptance rate of 94% most likely indicate?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. The AI is performing excellently — users trust the output enough to act on it almost every time</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">B. Users may be rubber-stamping suggestions without critical review — this is a potential trust risk, not just a quality signal, as errors are being propagated unchallenged</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. The training data was of sufficient quality that the model has near-perfect accuracy</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. The confidence threshold is set too high, filtering out lower-quality suggestions before they reach users</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. Why must AI feature baselines be established before go-live rather than estimated afterwards?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Salesforce requires pre-go-live baselines to be submitted as part of the AI feature activation process</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Post-hoc baselines can be retrieved from Salesforce audit logs if needed</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Memory and documentation of pre-AI performance are imprecise — post-hoc baselines introduce bias because teams unconsciously estimate in ways that flatter the deployment outcome</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. The Salesforce AI Trust Layer clears historical performance data at go-live for compliance reasons</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../ai-020/" class="related-card">
+              <span class="card-id">AI-020</span>
+              <h4>Building an AI Roadmap on the Salesforce Platform</h4>
+            </a>
+            <a href="../ai-013/" class="related-card">
+              <span class="card-id">AI-013</span>
+              <h4>AI Use Cases That Actually Deliver ROI in Salesforce</h4>
+            </a>
+            <a href="../ai-009/" class="related-card">
+              <span class="card-id">AI-009</span>
+              <h4>AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why Most AI Evaluations Fail</a></li>
+            <li><a href="#s2">The Three-Layer Metrics Framework</a></li>
+            <li><a href="#s3">Feature-Specific Metrics</a></li>
+            <li><a href="#s4">Identifying False Positives</a></li>
+            <li><a href="#s5">The 30/60/90-Day Review Structure</a></li>
+            <li><a href="#quiz">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ai-020/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-020</span>
+            <span class="sidebar-next-title">Building an AI Roadmap on the Salesforce Platform</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ai-018/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-018</span>
+            <span class="sidebar-next-title">AI-Driven Analytics in CRM Analytics: From Descriptive to Prescriptive</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) opt.classList.add('correct');
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

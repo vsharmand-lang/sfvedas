@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/ai-021/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-021: Salesforce and Large Language Models: Integration Patterns and Guardrails — SFVedas</title>
+  <meta name="description" content="How to integrate LLMs with Salesforce safely and effectively — prompt architecture, RAG patterns, guardrail design, and the performance trade-offs that matter in enterprise deployments."/>
+  <meta property="og:title" content="AI-021: Salesforce and Large Language Models: Integration Patterns and Guardrails — SFVedas"/>
+  <meta property="og:description" content="How to integrate LLMs with Salesforce safely and effectively — prompt architecture, RAG patterns, guardrail design, and the performance trade-offs that matter in enterprise deployments."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ai-021/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AI-021: Salesforce and Large Language Models: Integration Patterns and Guardrails — SFVedas"/>
+  <meta name="twitter:description" content="How to integrate LLMs with Salesforce safely and effectively — prompt architecture, RAG patterns, guardrail design, and the performance trade-offs that matter in enterprise deployments."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-99QW4K310Y');</script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"AI-021: Salesforce and Large Language Models: Integration Patterns and Guardrails — SFVedas","description":"How to integrate LLMs with Salesforce safely and effectively — prompt architecture, RAG patterns, guardrail design, and the performance trade-offs that matter in enterprise deployments.","url":"https://sfvedas.com/tutorials/ai-021/","mainEntityOfPage":"https://sfvedas.com/tutorials/ai-021/","author":{"@type":"Person","name":"Vishal Sharma","url":"https://sfvedas.com/about/"},"publisher":{"@type":"Organization","name":"SFVedas","url":"https://sfvedas.com","logo":{"@type":"ImageObject","url":"https://sfvedas.com/images/logo.svg"}},"image":"https://sfvedas.com/images/og-default.png"}</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+  <div class="reading-progress" id="readingProgress"></div>
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=ai-future" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to AI &amp; Future</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">AI-021</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">AI &amp; Future</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce and Large Language Models: Integration Patterns and Guardrails
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Connecting Salesforce to an LLM is trivial — designing the prompt architecture, RAG pattern, and guardrails that make it enterprise-safe is not.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce AI Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-4584420180521124" data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>How Salesforce's Einstein Trust Layer mediates between your org and external LLMs</li>
+            <li>The three primary LLM integration patterns and when each is appropriate</li>
+            <li>How to design Prompt Builder templates that produce consistent, safe enterprise output</li>
+            <li>Retrieval Augmented Generation (RAG) architecture within the Salesforce platform</li>
+            <li>Guardrail design: input filtering, output validation, and toxicity screening</li>
+            <li>Performance, cost, and latency trade-offs for different LLM deployment configurations</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">How Salesforce Connects to LLMs</h2>
+
+        <p>Salesforce does not run large language models on its own infrastructure for most use cases. Instead, it acts as an orchestration layer that routes prompts to configured LLM providers — currently OpenAI, Anthropic, Google, and Azure OpenAI through standard connectors, plus bring-your-own-model configurations for organisations with specific requirements. The <em>Einstein Trust Layer</em> is the component that sits between your Salesforce org and those external models.</p>
+
+        <p>The Trust Layer performs three functions: it strips personally identifiable information (PII) and sensitive CRM data from prompts before they leave the Salesforce boundary; it applies configured content filters to both inputs and outputs; and it maintains an audit log of every LLM interaction for compliance purposes. Understanding this architecture is essential before designing any LLM integration — it determines what data can reach the model, what the model can return, and what evidence exists for every interaction.</p>
+
+        <p>The three primary integration points into LLM capability from Salesforce are: <strong>Prompt Builder</strong> (declarative prompt templates with merge fields, used in flow, Apex, or from the UI); <strong>Agentforce Agent Actions</strong> (LLM-backed reasoning steps within autonomous agents); and <strong>Einstein Copilot Actions</strong> (user-initiated natural language requests handled by the Einstein Copilot). A fourth pattern — direct Apex callouts to external LLM APIs — bypasses Salesforce orchestration entirely and requires separate PII handling and audit architecture.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Architects</strong>
+            <p>Direct Apex callouts to external LLM APIs are tempting for their flexibility, but they bypass the Einstein Trust Layer entirely. This means PII masking, audit logging, and content filtering are your responsibility rather than Salesforce's. In most regulated industries, using the Einstein Trust Layer is not optional — it is the mechanism that makes LLM usage compliant with data residency and processing agreements. Evaluate the cost of building equivalent controls before choosing this route.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Prompt Builder Architecture for Enterprise Use</h2>
+
+        <p>Prompt Builder templates are the core mechanism for declarative LLM integration on Salesforce. A well-designed template is deterministic — it produces predictably structured output regardless of which specific record is used as input. Poorly designed templates produce outputs that vary wildly in format, length, and reliability, which makes downstream use in automations and agents fragile.</p>
+
+        <p>The anatomy of an effective enterprise prompt template has four components. First, a <em>system instruction</em> that defines the model's role, the output format it must produce, and explicit constraints on what it must not do. Second, <em>context injection</em> via merge fields that populate the prompt with specific, bounded CRM data — account name, recent case history, product entitlements. Third, the <em>task instruction</em> that specifies precisely what the model should generate. Fourth, an <em>output format specification</em> — JSON schema, length limit, field names — that makes the output machine-parseable downstream.</p>
+
+        <p>The most common prompt engineering mistake in enterprise Salesforce deployments is under-specifying the output format. A prompt that asks the model to "summarise the case" will produce outputs ranging from two sentences to ten paragraphs, varying by case complexity. A prompt that asks the model to produce a JSON object with exactly four fields — summary (max 80 words), sentiment (positive/neutral/negative), priority_signal (high/medium/low), recommended_action (max 40 words) — produces output that can be reliably stored in a custom field and displayed consistently in the UI.</p>
+
+        <pre><code class="language-json">{
+  "systemInstruction": "You are a Salesforce case analyst. Respond only with valid JSON matching the schema provided. Do not include explanation, preamble, or fields not in the schema.",
+  "outputSchema": {
+    "summary": "string, max 80 words",
+    "sentiment": "enum: positive | neutral | negative",
+    "priority_signal": "enum: high | medium | low",
+    "recommended_action": "string, max 40 words"
+  },
+  "contextFields": [
+    "Case.Subject",
+    "Case.Description",
+    "Case.Status",
+    "Case.Account.Name",
+    "Case.Contact.Name",
+    "Case.CreatedDate"
+  ]
+}</code></pre>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>LLM outputs become much more reliable when the model is given a concrete example of the expected output format (few-shot prompting) rather than a schema description alone. Including one worked example in the system instruction consistently improves format adherence across model families — particularly important when prompts run inside automated flows where a malformed response causes a flow fault rather than a visible error.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">Retrieval Augmented Generation Within Salesforce</h2>
+
+        <p><em>Retrieval Augmented Generation</em> (RAG) is the pattern of enriching a prompt with dynamically retrieved content before sending it to the LLM. Instead of relying on the model's training data to answer a question about your products or policies, you retrieve the relevant content from your knowledge base at query time and include it in the prompt. The model reasons against the retrieved content rather than its general training.</p>
+
+        <p>On the Salesforce platform, RAG is implemented through <strong>Einstein Search</strong> (semantic search over Salesforce objects and Knowledge articles) combined with Prompt Builder merge fields or Agent Actions. The retrieval step runs before the LLM call: a user query or context signal triggers a semantic search, the top-N results are retrieved, and their content is injected into the prompt as context. The model then generates a response grounded in that retrieved content.</p>
+
+        <p>The quality of RAG output is bounded by the quality of the retrieval index. An Einstein Search index built on a Knowledge base with stale, duplicated, or inconsistently structured articles will retrieve poor context, and the LLM will generate plausibly structured but factually incorrect responses. <em>Confident wrongness</em> — where the model produces a fluent, authoritative answer based on retrieved content that happens to be incorrect — is more damaging than obvious failure, because it erodes trust without producing a visible error.</p>
+
+        <p>Three architecture decisions are critical for production RAG deployments. First, <strong>chunk size</strong>: Knowledge articles must be broken into retrieval-appropriate chunks — typically 200–400 token sections — rather than retrieved as full articles. Full article retrieval fills the context window with irrelevant content and dilutes the relevant section. Second, <strong>metadata filtering</strong>: retrieved chunks should be filtered by metadata (product, business unit, geography) before being passed to the LLM, to prevent cross-contamination between content sets. Third, <strong>citation</strong>: the prompt template should instruct the model to reference the retrieved source for each claim, enabling downstream validation and user transparency.</p>
+
+        <h2 id="s4">Guardrail Design: Input Filtering, Output Validation, and Toxicity Screening</h2>
+
+        <p>Guardrails are the controls that prevent LLM integrations from producing outputs that are harmful, non-compliant, or off-brand. Effective guardrails operate at two points: before the prompt reaches the model (input guardrails) and before the model's output reaches the user or downstream process (output guardrails).</p>
+
+        <p><strong>Input guardrails</strong> include: PII masking (the Einstein Trust Layer handles this natively for standard Salesforce fields — custom PII fields require explicit configuration); topic restriction (instructing the model via system prompt not to respond to inputs outside a defined scope); injection attack prevention (blocking prompt injection attempts where user-supplied text attempts to override the system instruction). The last point is particularly relevant for agent deployments where user inputs flow directly into prompts — an unguarded agent can be instructed by a malicious or curious user to reveal its system prompt, bypass its guardrails, or produce off-topic output.</p>
+
+        <p><strong>Output guardrails</strong> include: format validation (checking that the output matches the expected JSON schema before it is stored or displayed — reject and regenerate if it does not); toxicity screening (the Einstein Trust Layer provides baseline toxicity filtering; more sophisticated deployments add classification calls before surfacing output); length enforcement (outputs that exceed maximum lengths indicate model non-compliance with instructions and should trigger a retry); and hallucination detection (for high-stakes outputs, a secondary LLM call that verifies factual claims in the primary output against the retrieved sources).</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Concept</strong>
+            <p>Guardrails are not a security afterthought — they are part of the core integration design. Architectures that treat guardrails as optional or add-on controls consistently discover their limitations in production, after real customer interactions. Design guardrails as first-class components with their own testing, monitoring, and iteration cycles. The question is not whether your guardrails will encounter edge cases, but when — and whether you have the observability to detect and fix them quickly.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">Performance, Cost, and Latency Trade-offs</h2>
+
+        <p>LLM integrations introduce latency and cost dimensions that standard Salesforce integrations do not have. A typical LLM call adds 800ms–3,000ms to a user interaction depending on model size, prompt length, and output length. This is acceptable for background processing and async automations; it is marginal for synchronous UI interactions; and it is unacceptable for operations that users experience as real-time (chat responses, typeahead suggestions).</p>
+
+        <p>Cost is driven by token volume: input tokens (the prompt, including all injected context) plus output tokens (the generated response). For deployments where the same prompt template runs thousands of times per day across a large user base, token costs compound quickly. The primary cost levers are: reducing prompt length (shorter system instructions, tighter context injection); caching common completions (identical prompts for the same record produce the same output — cache the result rather than making a new LLM call); choosing smaller models for lower-complexity tasks (case categorisation does not require the same model capability as multi-step reasoning); and batching asynchronous calls where user-facing latency is not a constraint.</p>
+
+        <p>Model selection is a performance, cost, and accuracy trade-off that should be made per use case rather than globally. A single enterprise deployment commonly uses three or more model configurations: a large frontier model for complex reasoning tasks (proposal generation, multi-document analysis), a medium model for standard generation tasks (case summaries, email drafting), and a small model for classification tasks (sentiment, priority, routing category). Defaulting every use case to the largest available model because "it's more capable" produces unnecessary cost and latency without proportionate accuracy improvement for simpler tasks.</p>
+
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>The Einstein Trust Layer is the mandatory mediation point between Salesforce and external LLMs — it handles PII masking, content filtering, and audit logging, and bypassing it requires building equivalent controls from scratch</li>
+            <li>Effective Prompt Builder templates specify output format precisely, including JSON schema and length constraints, to make LLM output machine-parseable and consistent across records</li>
+            <li>RAG quality is bounded by retrieval quality — stale, duplicated, or poorly structured knowledge content produces confident but incorrect LLM responses, which are more damaging than obvious failures</li>
+            <li>Guardrails must operate at both the input and output stages; output guardrails should include format validation, toxicity screening, and — for high-stakes outputs — hallucination detection via secondary LLM verification</li>
+            <li>Model selection should be per use case: large models for complex reasoning, medium models for generation tasks, small models for classification — defaulting to the largest model everywhere creates unnecessary cost without accuracy gains on simpler tasks</li>
+            <li>LLM calls add 800ms–3,000ms of latency; synchronous UI interactions require caching and model optimisation strategies; asynchronous processing is the default pattern for bulk operations</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. What is the primary function of the Einstein Trust Layer in a Salesforce LLM integration?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. It hosts the LLM model within Salesforce's own infrastructure to prevent data leaving the platform</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. It mediates between Salesforce and external LLM providers by masking PII, applying content filters, and maintaining an audit log before prompts are sent and before responses are returned</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. It manages the billing and token cost allocation for LLM calls made from Salesforce</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. It translates Salesforce SOQL queries into natural language for LLM consumption</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. A Prompt Builder template for case summarisation is producing outputs that range from two sentences to ten paragraphs depending on the case. What is the correct fix?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Switch to a larger LLM model which will produce more consistent outputs by default</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. Add a post-processing Apex step to truncate outputs longer than a defined character count</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. Redesign the prompt to specify an explicit JSON output schema with field-level length constraints, and include a worked example of the expected format in the system instruction</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Enable output caching to serve consistent results across similar cases</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. Why is "confident wrongness" a more serious risk than obvious LLM failure in a RAG deployment?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Confident wrong answers consume more tokens than obvious failures, increasing cost disproportionately</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Obvious failures trigger Salesforce platform errors that interrupt flow execution; confident wrong answers do not</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. A fluent, authoritative wrong answer erodes user trust without producing a visible error — users act on the incorrect output before the problem is detected, which is harder to recover from than a clear failure that prompts investigation</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Confident wrong answers are cached and served repeatedly to multiple users before they can be corrected</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../ai-022/" class="related-card">
+              <span class="card-id">AI-022</span>
+              <h4>Einstein for Service: Case Summarisation, Recommendations, and Knowledge</h4>
+            </a>
+            <a href="../ai-023/" class="related-card">
+              <span class="card-id">AI-023</span>
+              <h4>Responsible AI in CRM: A Framework for Tech Leaders</h4>
+            </a>
+            <a href="../ai-011/" class="related-card">
+              <span class="card-id">AI-011</span>
+              <h4>Einstein Vision and Language: When and How to Use Them</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">How Salesforce Connects to LLMs</a></li>
+            <li><a href="#s2">Prompt Builder Architecture for Enterprise Use</a></li>
+            <li><a href="#s3">Retrieval Augmented Generation Within Salesforce</a></li>
+            <li><a href="#s4">Guardrail Design: Input Filtering, Output Validation, and Toxicity Screening</a></li>
+            <li><a href="#s5">Performance, Cost, and Latency Trade-offs</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ai-022/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-022</span>
+            <span class="sidebar-next-title">Einstein for Service: Case Summarisation, Recommendations, and Knowledge</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ai-020/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-020</span>
+            <span class="sidebar-next-title">Building an AI Roadmap on the Salesforce Platform</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) opt.classList.add('correct');
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
