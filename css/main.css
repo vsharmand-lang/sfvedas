@@ -593,6 +593,9 @@ ul { list-style: none; }
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
 .tutorial-card::after {
   content: '';

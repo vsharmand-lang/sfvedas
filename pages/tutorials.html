@@ -773,8 +773,9 @@
       return;
     }
 
-    grid.innerHTML = filtered.map(t => `
-      <article class="tutorial-card${t.available ? '' : ' card--coming-soon'}" data-tag="${t.tag}">
+    grid.innerHTML = filtered.map(t => {
+      const tag = `data-tag="${t.tag}"`;
+      const meta = `
         <div class="card-meta">
           <span class="card-id">${t.id}</span>
           <span class="card-tag">${TAG_LABELS[t.tag]}</span>
@@ -786,13 +787,12 @@
             <div class="author-avatar">VS</div>
             <span>Vishal Sharma</span>
           </div>
-          ${t.available
-            ? `<a href="../tutorials/${t.slug}.html" class="card-link">Read →</a>`
-            : `<span class="card-soon">Coming Soon</span>`
-          }
-        </div>
-      </article>
-    `).join('');
+          ${t.available ? `<span class="card-link">Read →</span>` : `<span class="card-soon">Coming Soon</span>`}
+        </div>`;
+      return t.available
+        ? `<a href="../tutorials/${t.slug}.html" class="tutorial-card" ${tag}>${meta}</a>`
+        : `<article class="tutorial-card card--coming-soon" ${tag}>${meta}</article>`;
+    }).join('');
   }
 
   // Filter buttons (new class .tut-filter)
