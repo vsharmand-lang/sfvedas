@@ -821,7 +821,7 @@
   },
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://sfvedas.com/pages/tutorials.html?q={search_term_string}",
+    "target": "https://sfvedas.com/tutorials/?q={search_term_string}",
     "query-input": "required name=search_term_string"
   }
 }
@@ -837,10 +837,10 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html" class="nav-link active">Home</a></li>
-        <li><a href="pages/tutorials.html" class="nav-link">Tutorials</a></li>
-        <li><a href="pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
-        <li><a href="pages/about.html" class="nav-link">About</a></li>
-        <li><a href="pages/advertise.html" class="nav-link">Advertise</a></li>
+        <li><a href="tutorials/" class="nav-link">Tutorials</a></li>
+        <li><a href="learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="about/" class="nav-link">About</a></li>
+        <li><a href="advertise/" class="nav-link">Advertise</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
@@ -853,10 +853,10 @@
     </div>
     <div class="nav-mobile" id="navMobile">
       <a href="index.html" class="nav-link">Home</a>
-      <a href="pages/tutorials.html" class="nav-link">Tutorials</a>
-      <a href="pages/learning-paths.html" class="nav-link">Learning Paths</a>
-      <a href="pages/about.html" class="nav-link">About</a>
-      <a href="pages/advertise.html" class="nav-link">Advertise</a>
+      <a href="tutorials/" class="nav-link">Tutorials</a>
+      <a href="learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="about/" class="nav-link">About</a>
+      <a href="advertise/" class="nav-link">Advertise</a>
     </div>
   </nav>
 
@@ -885,10 +885,10 @@
           220 tutorials on the architecture decisions, delivery realities, and strategic questions that no training course prepares senior practitioners for.
         </p>
         <div class="hp-hero-actions animate-fade-up" style="animation-delay:0.5s">
-          <a href="pages/tutorials.html" class="hp-btn-primary">
+          <a href="tutorials/" class="hp-btn-primary">
             Explore all 220 tutorials &nbsp;→
           </a>
-          <a href="pages/about.html" class="hp-btn-ghost">
+          <a href="about/" class="hp-btn-ghost">
             Why this exists
           </a>
         </div>
@@ -1050,7 +1050,7 @@
             <p>Trailhead is excellent for beginners. Certification content is excellent for passing exams. But there is a layer above that — the architecture tradeoffs, the delivery situations that go wrong, the commercial questions nobody answers honestly — where almost nothing has been written down properly.</p>
             <p>SFVedas exists for that layer. Written for <strong>architects, delivery managers, and tech leaders</strong> who are already fluent in Salesforce and need to go deeper.</p>
           </div>
-          <a href="pages/about.html" class="hp-aud-link hp-reveal hp-reveal-delay-3" style="margin-top:8px">
+          <a href="about/" class="hp-aud-link hp-reveal hp-reveal-delay-3" style="margin-top:8px">
             Read the full story →
           </a>
         </div>
@@ -1093,7 +1093,7 @@
       <p class="hp-intro hp-reveal hp-reveal-delay-2">Every tutorial is built around a question a senior practitioner would actually ask — not a beginner learning the platform, but someone making real decisions.</p>
 
       <div class="hp-library-table hp-reveal hp-reveal-delay-2">
-        <a href="pages/tutorials.html?tag=architecture" class="hp-lib-row">
+        <a href="tutorials/?tag=architecture" class="hp-lib-row">
           <div class="hp-lib-count">50</div>
           <div class="hp-lib-info">
             <h3>Architecture &amp; Platform</h3>
@@ -1101,7 +1101,7 @@
           </div>
           <div class="hp-lib-arrow">→</div>
         </a>
-        <a href="pages/tutorials.html?tag=delivery" class="hp-lib-row">
+        <a href="tutorials/?tag=delivery" class="hp-lib-row">
           <div class="hp-lib-count">50</div>
           <div class="hp-lib-info">
             <h3>Delivery Management</h3>
@@ -1109,7 +1109,7 @@
           </div>
           <div class="hp-lib-arrow">→</div>
         </a>
-        <a href="pages/tutorials.html?tag=ai-agentforce" class="hp-lib-row">
+        <a href="tutorials/?tag=ai-agentforce" class="hp-lib-row">
           <div class="hp-lib-count">35</div>
           <div class="hp-lib-info">
             <h3>AI &amp; the Future</h3>
@@ -1117,7 +1117,7 @@
           </div>
           <div class="hp-lib-arrow">→</div>
         </a>
-        <a href="pages/tutorials.html?tag=integration-data" class="hp-lib-row">
+        <a href="tutorials/?tag=integration-data" class="hp-lib-row">
           <div class="hp-lib-count">20</div>
           <div class="hp-lib-info">
             <h3>Integration &amp; Data</h3>
@@ -1125,7 +1125,7 @@
           </div>
           <div class="hp-lib-arrow">→</div>
         </a>
-        <a href="pages/tutorials.html?tag=crm-comparisons" class="hp-lib-row">
+        <a href="tutorials/?tag=crm-comparisons" class="hp-lib-row">
           <div class="hp-lib-count">20</div>
           <div class="hp-lib-info">
             <h3>CRM Comparisons</h3>
@@ -1133,7 +1133,7 @@
           </div>
           <div class="hp-lib-arrow">→</div>
         </a>
-        <a href="pages/tutorials.html" class="hp-lib-row">
+        <a href="tutorials/" class="hp-lib-row">
           <div class="hp-lib-count">50</div>
           <div class="hp-lib-info">
             <h3>Security, Licensing &amp; Change Management</h3>
@@ -1163,19 +1163,19 @@
           <span class="hp-aud-tag">Solution Architects</span>
           <h3>You design systems that live for a decade.</h3>
           <p>This is content for architects who need to understand the platform at a depth that certification content does not reach — and who need to defend their design decisions when the requirements change.</p>
-          <a href="pages/learning-paths.html#architect" class="hp-aud-link">Start here →</a>
+          <a href="learning-paths/#architect" class="hp-aud-link">Start here →</a>
         </div>
         <div class="hp-aud-card hp-reveal hp-reveal-delay-1">
           <span class="hp-aud-tag">Delivery Managers</span>
           <h3>You are responsible when things go wrong.</h3>
           <p>Practical frameworks for the situations that no training course prepares you for — scope changes, programme recovery, stakeholder management, and go-lives that test your nerve.</p>
-          <a href="pages/learning-paths.html#delivery" class="hp-aud-link">Start here →</a>
+          <a href="learning-paths/#delivery" class="hp-aud-link">Start here →</a>
         </div>
         <div class="hp-aud-card hp-reveal hp-reveal-delay-2">
           <span class="hp-aud-tag">Tech Leaders &amp; CTOs</span>
           <h3>You make the decisions that cost millions.</h3>
           <p>Strategic analysis written for leaders who need an honest perspective — not produced by someone with a commercial interest in Salesforce being the answer. Includes when to walk away.</p>
-          <a href="pages/learning-paths.html#strategist" class="hp-aud-link">Start here →</a>
+          <a href="learning-paths/#strategist" class="hp-aud-link">Start here →</a>
         </div>
       </div>
     </div>
@@ -1217,7 +1217,7 @@
           </div>
           <h2>83 tutorials live — <em>and growing.</em></h2>
         </div>
-        <a href="pages/tutorials.html" class="hp-latest-viewall">View all tutorials →</a>
+        <a href="tutorials/" class="hp-latest-viewall">View all tutorials →</a>
       </div>
       <div class="hp-latest-grid">
         <a href="tutorials/arch-001.html" class="hp-tut-card hp-reveal">
@@ -1323,19 +1323,19 @@
         <div class="footer-links">
           <div class="footer-col">
             <h4>Learn</h4>
-            <a href="pages/tutorials.html">All Tutorials</a>
-            <a href="pages/learning-paths.html">Learning Paths</a>
+            <a href="tutorials/">All Tutorials</a>
+            <a href="learning-paths/">Learning Paths</a>
           </div>
           <div class="footer-col">
             <h4>About</h4>
-            <a href="pages/about.html">Our Story</a>
-            <a href="pages/about.html#vishal">Vishal Sharma</a>
+            <a href="about/">Our Story</a>
+            <a href="about/#vishal">Vishal Sharma</a>
           </div>
           <div class="footer-col">
             <h4>Topics</h4>
-            <a href="pages/tutorials.html?tag=architecture">Architecture</a>
-            <a href="pages/tutorials.html?tag=delivery-management">Delivery</a>
-            <a href="pages/tutorials.html?tag=enterprise-strategy">Strategy</a>
+            <a href="tutorials/?tag=architecture">Architecture</a>
+            <a href="tutorials/?tag=delivery-management">Delivery</a>
+            <a href="tutorials/?tag=enterprise-strategy">Strategy</a>
           </div>
         </div>
       </div>
