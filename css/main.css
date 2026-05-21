@@ -1697,7 +1697,7 @@ ul { list-style: none; }
   padding: 20px;
   margin-bottom: 20px;
 }
-.progress-track {
+.progress-track, .progress-bar-wrap {
   height: 8px;
   background: var(--bg-secondary);
   border-radius: 100px;
