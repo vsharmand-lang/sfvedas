@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DEL-009: Salesforce Project Estimation — SFVedas</title>
+  <meta name="description" content="Why Salesforce project estimates are wrong, where the surprises come from, and a practical framework for building estimates that survive contact with reality."/>
+  <meta property="og:title" content="DEL-009: Salesforce Project Estimation — SFVedas"/>
+  <meta property="og:description" content="Why Salesforce project estimates are wrong, where the surprises come from, and a practical framework for building estimates that survive contact with reality."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/del-009.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="DEL-009: Salesforce Project Estimation — SFVedas"/>
+  <meta name="twitter:description" content="Why Salesforce project estimates are wrong, where the surprises come from, and a practical framework for building estimates that survive contact with reality."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "DEL-009: Salesforce Project Estimation — SFVedas",
+  "description": "Why Salesforce project estimates are wrong, where the surprises come from, and a practical framework for building estimates that survive contact with reality.",
+  "url": "https://sfvedas.com/tutorials/del-009.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/del-009.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+        <li><a href="../pages/advertise.html" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+      <a href="../pages/advertise.html" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=delivery-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Delivery Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">DEL-009</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Delivery Management</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Delivery Managers</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce Project Estimation: The Honest Guide
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Why Salesforce project estimates are wrong, where the surprises come from, and a practical framework for building estimates that survive contact with reality.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Delivery Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<!-- CONTENT -->
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Why Salesforce project estimates are structurally optimistic — and the specific forces that make them that way</li>
+            <li>The full anatomy of a Salesforce programme estimate, broken down by phase with realistic percentage ranges</li>
+            <li>Where the configuration vs customisation boundary creates the most damaging estimation errors</li>
+            <li>Why data migration consistently runs over, and the only estimation approach that reliably controls it</li>
+            <li>How to build, defend, and protect an estimate under commercial pressure without losing the client relationship</li>
+          </ul>
+        </div>
+
+        <!-- SECTION 1 -->
+        <h2 id="s1">Why Every Salesforce Estimate Is Wrong</h2>
+
+        <p>The estimate is wrong before it leaves the room. This is not a reflection on the people who produced it — it is a structural property of how Salesforce estimates are created, what information is available when they are created, and the commercial dynamics that shape them.</p>
+
+        <p>Understanding why estimates fail is not an academic exercise. It changes how you present them, how you protect them, and how you have the early conversations with clients and sponsors that are the only reliable way to avoid the cost overruns and schedule delays that define most Salesforce programmes.</p>
+
+        <h3>The Optimism Bias in Consulting Estimates</h3>
+
+        <p>Consulting firms produce estimates in a competitive context. The estimate is part of a proposal. The proposal is evaluated partly on price. There is a structural incentive to produce an estimate that is compelling — which in practice means an estimate that is low enough to win the work. This incentive exists not because consulting firms are dishonest, but because the people producing the estimate are often genuinely optimistic. They are estimating against a requirements document that describes what the client wants, not what the client actually needs. They are drawing on experience from previous projects where the happy path was followed — not from the projects where the surprises happened. And they are producing the estimate in a period of two to four weeks, before any discovery has been done, when the unknowns genuinely cannot be quantified.</p>
+
+        <p>The result is not deliberate misrepresentation. It is optimism bias applied systematically by people who are incentivised to win work and who don't yet know what they don't know.</p>
+
+        <h3>Discovery Estimates vs Build Estimates vs Production Estimates</h3>
+
+        <p>There are actually three estimates in any Salesforce programme, and confusing them is the source of enormous misalignment.</p>
+
+        <p>The <strong>discovery estimate</strong> is produced before any discovery has been done. It is based on a high-level requirements document, previous project analogies, and assumption-heavy order-of-magnitude thinking. It is the number in the proposal. It can be right to within 50% in either direction and still be considered a reasonable estimate at that stage — because the information needed to be more precise does not yet exist.</p>
+
+        <p>The <strong>build estimate</strong> is produced after discovery, when user stories have been written, technical architecture has been agreed, and the integration landscape is understood. This estimate can realistically be accurate to within 20%. This is the estimate that should be used for project budgeting and contract scope.</p>
+
+        <p>The <strong>production estimate</strong> — the one that reflects what the project actually cost — is known only at the end. On well-managed programmes, it is within 10-15% of the build estimate. On poorly managed programmes, it can be twice the discovery estimate.</p>
+
+        <p>The problem occurs when clients treat the discovery estimate as if it were the production estimate. They budget for it, get board approval for it, and hold the delivery team accountable to it. When the build estimate comes in 40% higher after a proper discovery, it is not because the delivery team has inflated their numbers. It is because the discovery revealed complexity that was genuinely unknown when the first number was produced. Managing this expectation proactively — before discovery begins — is one of the most important things a delivery manager can do.</p>
+
+        <h3>The Things That Always Take Longer</h3>
+
+        <p>Three workstreams consistently take longer than estimated, on every project, regardless of how experienced the team is.</p>
+
+        <p><strong>Data migration</strong> always takes longer because the source system is always more complex than the data dictionary suggests, the data quality is always worse than the business believes, and the volume is almost always higher than the initial record count indicates. This is covered in depth in section four.</p>
+
+        <p><strong>Integration</strong> always takes longer because the downstream systems are documented at a higher level of abstraction than the actual API reality, because API rate limits and authentication edge cases are discovered during build rather than design, and because integration testing requires the cooperation of teams who have their own delivery pressures and don't treat your integration as their priority.</p>
+
+        <p><strong>User acceptance testing</strong> always takes longer because the business users who conduct UAT are doing it alongside their day jobs, because UAT reveals requirements gaps that were not visible during design, and because the defect resolution cycle in UAT has a non-linear relationship with the number of defects found.</p>
+
+        <h3>The Things That Always Get Underestimated</h3>
+
+        <p>Change management, training, and hypercare are estimated as a percentage of the technical build cost in most proposals. This approach consistently underestimates the effort required. A complex Salesforce implementation that touches five hundred users across ten business functions requires a change management and training programme that is a significant delivery workstream in its own right — not a bolt-on activity that one person can manage alongside the technical delivery. The typical underestimate is 50% of what is actually needed. The typical consequence is a technically successful go-live followed by a adoption failure that damages the programme's perceived success for twelve months.</p>
+
+        <!-- SECTION 2 -->
+        <h2 id="s2">The Anatomy of a Salesforce Estimate</h2>
+
+        <p>A complete Salesforce programme estimate has eight components. Most estimates that I have reviewed are missing at least two of them — usually data migration and change management, which are, not coincidentally, the two workstreams most likely to overrun.</p>
+
+        <p>The following breakdown is based on mid-sized Salesforce programmes: typically twelve to twenty months in duration, one to three clouds, fifty to three hundred users, three to eight integrations, and a data migration from one or two legacy systems. The percentages represent realistic ranges from programmes that tracked actuals against estimates.</p>
+
+        <table style="width:100%;border-collapse:collapse;font-family:var(--font-ui);font-size:0.85rem;margin:24px 0;">
+          <thead>
+            <tr style="background:var(--bg-secondary);">
+              <th style="padding:10px 12px;text-align:left;border:1px solid var(--border);font-weight:600;">Phase</th>
+              <th style="padding:10px 12px;text-align:left;border:1px solid var(--border);font-weight:600;">% of Total Budget</th>
+              <th style="padding:10px 12px;text-align:left;border:1px solid var(--border);font-weight:600;">Common Underestimate Causes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;">Discovery</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">5–10%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">Stakeholder availability; integration complexity discovered late; scope creep from business analysis</td>
+            </tr>
+            <tr style="background:var(--bg-secondary);">
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;">Design</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">8–12%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">Decision-making delays; data model iterations; integration design rounds</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;">Build (Configuration &amp; Custom Dev)</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">25–35%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">Configuration/customisation boundary underestimated; managed package complexity; rework from design changes</td>
+            </tr>
+            <tr style="background:var(--bg-secondary);">
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;">System Test &amp; Integration Test</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">8–12%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">Integration test environment availability; third-party API stability; defect volume higher than estimated</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;">UAT</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">8–12%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">Business user availability; scope additions mid-UAT; defect remediation cycles</td>
+            </tr>
+            <tr style="background:var(--bg-secondary);">
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;">Data Migration</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">10–20%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">Data quality remediation; volume surprises; mapping complexity; multiple rehearsals required</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;">Training &amp; Change Management</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">8–15%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">Scope of affected users underestimated; materials development time; delivery logistics</td>
+            </tr>
+            <tr style="background:var(--bg-secondary);">
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;">Go-Live &amp; Hypercare</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">5–8%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);">Hypercare duration extended by stabilisation issues; post-go-live scope additions</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px;border:1px solid var(--border);font-weight:600;background:rgba(232,147,10,0.06);">Project Management Overhead</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);background:rgba(232,147,10,0.06);">10–15%</td>
+              <td style="padding:10px 12px;border:1px solid var(--border);background:rgba(232,147,10,0.06);">Often excluded from initial estimates; includes governance, reporting, vendor management, client management</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>Two things are worth noting about this breakdown. First, the build phase — the thing most people mean when they say "the project" — is typically only 25–35% of the total budget. Second, the three consistently underestimated phases (data migration, training and change management, and hypercare) together represent 23–43% of the total. If your estimate is missing them or treating them as minor line items, your estimate is wrong by definition.</p>
+
+        <h3>Why Sprints Are Not a Reliable Estimating Unit</h3>
+
+        <p>Agile delivery has encouraged the habit of estimating in sprints. "We think this will take about twelve sprints" is a common form of estimate on Salesforce programmes. The problem is that sprint velocity is not stable across a programme. Sprint velocity in the first quarter of a build — when the team is establishing working patterns, discovering integration complexity, and iterating on design decisions — is consistently lower than sprint velocity in the middle of the build. And sprint velocity in the final quarter drops again, as testing, rework, and scope management consume capacity that was nominally allocated to build. An estimate expressed in sprints without a velocity assumption and a velocity trend adjustment is not an estimate — it is a guess with a structured appearance.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="s3">The Configuration vs Customisation Trap</h2>
+
+        <p>The single most common source of Salesforce estimate overruns — beyond data migration, which is its own category — is the misclassification of work as "configuration" when it is actually "customisation." The financial and schedule implications of getting this wrong are significant.</p>
+
+        <h3>Why "It's Just Configuration" Estimates Are Dangerous</h3>
+
+        <p>Configuration — point-and-click setup of standard Salesforce features — is fast. An experienced Salesforce administrator can configure a standard Sales Cloud implementation, including custom fields, page layouts, workflows, and basic reports, in a matter of weeks. When an estimate is built on the assumption that the majority of the build is configuration, the daily rate and effort assumptions that underpin it are administrator-level, not developer-level.</p>
+
+        <p>The problem occurs when those configuration assumptions encounter the reality of the client's requirements. Business processes that involve complex conditional logic, dynamic screen behaviour, real-time integration responses, or non-standard user interface requirements cannot be delivered through point-and-click configuration. They require custom development — Lightning Web Components, Apex classes, platform events, or custom APIs. Developer effort is typically two to three times slower than configuration effort for equivalent functional output, and developer day rates are 30–60% higher. An estimate that assumed configuration and encounters customisation is wrong in both effort and cost.</p>
+
+        <h3>Lightning Web Components vs Point-and-Click</h3>
+
+        <p>The boundary between standard Salesforce UI and custom Lightning Web Component development is not always visible in a requirements document. A requirement that says "the user should be able to see a summary of related records in a dynamic panel on the account page" sounds like a configuration task. It may be achievable with standard Related Lists — or it may require a custom LWC that queries multiple objects, handles conditional rendering, and integrates with an external API for real-time data. The difference in effort between these two approaches is substantial: the first takes hours, the second takes days or weeks.</p>
+
+        <p>The right approach in estimation is to classify every UI requirement explicitly as standard, declarative (Flow, standard components), or custom development — and to validate that classification against a technical architect before the estimate is finalised. Requirements that remain classified as "TBD" or "configuration" without technical validation are estimation risks, not estimates.</p>
+
+        <h3>Managed Packages: The Estimate Multiplier Nobody Mentions</h3>
+
+        <p>Many Salesforce programmes involve managed packages — third-party applications installed from the AppExchange. Field Service Lightning, nCino, Veeva, Vlocity (now Salesforce Industries), and Copado are common examples. The presence of a managed package in the solution architecture is an estimate multiplier that is almost never adequately accounted for.</p>
+
+        <p>Managed packages introduce their own data models, their own configuration paradigms, their own governor limit implications, and their own release cycles. Configuration work that would take a day in standard Salesforce may take a week in a managed package whose documentation is incomplete and whose support response time is measured in business days. Integration work that involves managed package objects is subject to the package vendor's API design choices, which may be significantly less straightforward than standard Salesforce APIs. And managed package bugs — of which there are always some — cannot be fixed by the delivery team. They require a support case with the vendor, which has its own timeline entirely outside the delivery team's control.</p>
+
+        <h3>Integration Complexity: Where the Real Work Hides</h3>
+
+        <p>Integration estimates are among the most variable in Salesforce programmes. A straightforward REST API integration with a modern system that has well-documented endpoints, reasonable rate limits, and responsive technical support from the downstream team can be completed in one to two weeks. A bidirectional integration with a legacy ERP system using SOAP APIs, requiring custom transformation logic, with a downstream team that has limited availability and a change control process that takes four weeks, can consume two to three months.</p>
+
+        <p>The factors that determine integration complexity — and therefore integration effort — are not always visible in the requirements document. They are discovered through direct conversation with the teams who own the downstream systems: what is the API documentation quality, what are the rate limits, what is the authentication model, what is the availability of a sandbox environment, and who is the named technical contact. An integration estimate produced without these answers is an assumption, not an estimate.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Concept</strong>
+            <p>For every integration in scope, your estimate should include an explicit integration complexity classification: Simple (well-documented REST API, responsive team, sandbox available), Medium (standard API but complex transformation or limited documentation), or Complex (legacy system, SOAP/custom protocol, limited documentation, constrained team availability). The effort range between Simple and Complex is typically 5x. Any estimate that treats all integrations as Simple is almost certainly wrong.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <h2 id="s4">Data Migration: The Budget Killer</h2>
+
+        <p>Data migration is the workstream most likely to blow your budget. It is also the workstream most likely to be underestimated at proposal stage, underresourced during the project, and underplanned until it becomes a crisis. Understanding why it consistently overruns is essential to managing it.</p>
+
+        <h3>Why Data Migration Always Takes 2x Longer Than Estimated</h3>
+
+        <p>The root cause is that data migration effort is not primarily a technical challenge — it is a data quality challenge. And data quality is almost always worse than the business believes it to be. The business's assessment of their own data is typically based on how the data looks to users in the legacy system interface, not on what is actually in the database. Legacy systems often have been modified over years to hide data quality problems from users — screens that filter out null values, reports that exclude incomplete records, processes that route around bad data. When you extract the raw data and look at what is actually there, you find things that nobody in the business knew existed.</p>
+
+        <p>The second cause is that initial volume estimates are usually based on "active" record counts. In practice, data migration requires decisions about historical data, archived data, soft-deleted records, and data that was never properly closed out. A legacy system with 500,000 "active" accounts may have 2.3 million total account records when historical data is included. The business decision about what to migrate, what to archive, and what to discard takes time — and it is never as simple as it sounds.</p>
+
+        <h3>Source System Complexity</h3>
+
+        <p>Legacy systems were designed to serve the needs of their era, not to export cleanly to a modern CRM. Common source system complications include: multiple instances of the same data (the same customer exists in three regional instances of the legacy system), non-standard field encodings (status codes that mean different things in different business units), relationships between records that are not formally enforced at the database level (parent records that reference child records that no longer exist), and data that exists in attached files, notes, or email threads rather than structured fields.</p>
+
+        <p>Each of these complications requires a decision about how it will be handled in Salesforce — and each decision requires input from the business. The volume of decisions required in a complex data migration is consistently underestimated. A typical enterprise data migration requires hundreds of explicit business decisions about data handling — decisions that cannot be made by the technical team alone and that take time to work through with stakeholders who have limited availability.</p>
+
+        <h3>Data Quality Remediation</h3>
+
+        <p>Once the source data has been extracted and profiled, a data quality remediation exercise is almost always required before migration can proceed. This typically includes: deduplication of customer and contact records, standardisation of address and phone number formats, backfilling of mandatory fields that are blank in the legacy system, resolution of orphaned relationships, and correction of encoding errors. This work is underestimated in virtually every programme I have reviewed, for a simple reason: until the data has been profiled, the scale of the problem is unknown. Estimating data quality remediation without a data profiling exercise is like estimating a building renovation without a structural survey.</p>
+
+        <h3>The Only Safe Approach</h3>
+
+        <p>Estimate data migration as a separate workstream with its own budget and its own ring-fenced contingency. Do not fold it into the build estimate or treat it as a percentage of the technical delivery cost. The two have different cost drivers, different risk profiles, and different dependency structures.</p>
+
+        <p>The minimum estimate methodology for data migration is: data profiling exercise (two to four weeks, depending on source system complexity), data quality remediation estimate based on profiling findings, mapping specification effort (based on object and field count, not record count), migration tool build and testing, and a minimum of three full dress rehearsals timed against the go-live window. Each of these components should be estimated independently and summed — not estimated as a total and then allocated backwards.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning</strong>
+            <p>If your data migration estimate was produced without a data profiling exercise on the actual source system data, it is a guess. It may be a well-informed guess, but it is not an estimate in any meaningful sense. Before committing to a data migration budget and timeline, invest two to four weeks in extracting and profiling the real source data. The cost of this exercise is trivial compared to the cost of discovering data quality problems in month six of the project.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <h2 id="s5">How to Build an Estimate That Survives Scrutiny</h2>
+
+        <p>A robust Salesforce project estimate has five components beyond the phase-by-phase effort numbers: a methodology, an assumptions log, a contingency structure, a change control framework, and a communication approach. Most estimates have the numbers. Most are missing the other four.</p>
+
+        <h3>Bottom-Up vs Top-Down Estimation</h3>
+
+        <p><strong>Bottom-up estimation</strong> means estimating each user story, integration, and data migration component individually and summing the results. It is the most accurate approach, but it requires detailed requirements — which means it can only be done after discovery. Bottom-up estimates are appropriate for the build estimate and for formal contract commitments.</p>
+
+        <p><strong>Top-down estimation</strong> means estimating at the phase or workstream level based on project analogies and experience benchmarks. It is faster, requires less information, and is appropriate for the discovery estimate and for initial budget planning. The risk is that top-down estimates anchor expectations before the bottom-up analysis has been done, creating a situation where the discovery estimate becomes the budget target and the build estimate is treated as an overrun.</p>
+
+        <p>The right approach is to use top-down at proposal stage with explicit, visible caveats about the information that is not yet available, and to commit to a bottom-up re-estimate after discovery before any formal budget or contract commitment is made.</p>
+
+        <h3>Story Points vs Hours vs Days</h3>
+
+        <p>The delivery manager's perspective on estimation units is different from the developer's perspective. Story points are useful for sprint planning and velocity tracking. They are not useful for budget conversations with clients and sponsors. When you present an estimate to a CFO, "this programme will take approximately 1,400 story points" means nothing. When you say "this programme will take approximately 18 months and cost £X," that is a number they can work with.</p>
+
+        <p>The translation from story points to hours to cost requires: a velocity assumption (stories per sprint), a sprint duration, and a team composition (number and seniority of resources, and their day rates). Each of these introduces variance. When presenting estimates to stakeholders, be explicit about what assumptions you are making and what would cause those assumptions to change.</p>
+
+        <h3>Contingency: How Much, Where, and How to Defend It</h3>
+
+        <p>Contingency is the most contentious element of any estimate. Clients perceive it as padding. Delivery teams know it is essential. The way to make contingency defensible is to make it specific rather than generic.</p>
+
+        <p>A "10% contingency" appended to the bottom of an estimate is not defensible — it looks like padding because it is padding. A contingency that is broken down by risk — "5% data migration contingency against the risk that data quality profiling reveals remediation requirements beyond the current scope; 3% integration contingency against the risk that downstream API documentation does not reflect current system behaviour; 2% scope contingency against the risk of requirements elaboration during design" — is a risk-informed reserve, not padding. It can be defended because each component can be traced to a specific risk that the client will recognise.</p>
+
+        <p>A realistic contingency for a mid-sized Salesforce programme with reasonable discovery is 15–20% of the total build and testing cost, declining to 5–10% by the start of the build phase as risks are resolved. Any estimate with less than 10% contingency on a first-pass discovery estimate is dangerously exposed.</p>
+
+        <h3>The Assumptions Log</h3>
+
+        <p>The assumptions log is the document that protects both the delivery team and the client. It is a written record of every assumption that the estimate is built on. It serves as the baseline against which scope change can be identified: when the project reality differs from an assumption in the log, that difference is a change control item. Without an assumptions log, every scope discussion is a negotiation based on memory and interpretation. With one, it is a factual question: does the current situation match the assumption? If not, what is the impact?</p>
+
+        <p>The assumptions log should cover: the scope of included and excluded functionality, integration assumption (including system, protocol, and team availability), data migration assumption (source system, object and field scope, data quality expectation), team composition and availability, client responsibilities (who provides access, who makes decisions, who does UAT), and environmental assumptions (sandbox availability, release windows).</p>
+
+        <h3>Change Control</h3>
+
+        <p>Without change control, estimates are meaningless. This is not an exaggeration. A project that begins with a well-structured estimate and no change control process will almost inevitably end with a significant cost overrun, because scope additions — even small, individually reasonable ones — accumulate. The cumulative effect of fifty "small" scope additions, each of which takes two days to deliver, is one hundred days of unplanned effort. At a blended day rate of £800, that is £80,000 of cost that was not in the original estimate.</p>
+
+        <p>Change control does not mean refusing to change scope. It means making scope additions visible, estimating them explicitly, and obtaining approval before the work begins. A delivery manager who allows scope additions to be absorbed without change control is not being flexible — they are consuming their contingency and then their margin without the client's awareness that this is happening.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>The assumptions log and change control process are not bureaucratic overhead — they are the mechanisms that make a commercial relationship sustainable. Clients who understand that scope changes are priced separately are not clients who are being nickel-and-dimed. They are clients who have a clear, honest picture of what they are buying and what it costs. Clients who do not have this clarity are the ones who feel overcharged at the end of the project, regardless of whether the delivery team was fair.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <h2 id="s6">Defending the Estimate to Stakeholders</h2>
+
+        <p>Building a rigorous estimate is one skill. Presenting it under commercial pressure and defending it against challenge is a different skill — and it is the one that determines whether the rigour you applied in production translates into a project that is set up to succeed.</p>
+
+        <h3>The Commercial Pressure to Compress Estimates</h3>
+
+        <p>The pressure to compress estimates comes from two directions. From the client side, it comes from budget constraints, internal comparisons with previous projects, and the natural tendency to negotiate any quoted price. From the consulting firm side, it comes from the desire to win the work, the concern that a high estimate will lose the bid, and sometimes from senior stakeholders who override the delivery team's estimate based on commercial appetite.</p>
+
+        <p>The most important thing to understand about this pressure is that accepting it has asymmetric consequences. If you accept a compressed estimate and the project delivers on time and budget, the commercial team looks smart. If you accept a compressed estimate and the project overruns — which is the more likely outcome — the delivery team owns the problem. The people who pushed for the compression are rarely held accountable for the consequences. This asymmetry means that the delivery manager has a professional obligation to maintain the integrity of the estimate, even under pressure.</p>
+
+        <h3>Presenting a Range Rather Than a Point Estimate</h3>
+
+        <p>A single number is not an estimate — it is a target. A range is an estimate. For a discovery estimate, the range should be explicit: "Based on what we know now, this programme is likely to cost between £X and £Y, with the range reflecting the following unresolved uncertainties." The upper bound should represent what the project would cost if the key risks materialise. The lower bound should represent the cost if conditions are favourable.</p>
+
+        <p>Clients who push back on ranges and demand a single number are asking you to remove the uncertainty from the estimate without providing the information that would reduce it. The right response is to explain what would be required to narrow the range — typically, a properly scoped discovery phase — and to be clear that providing a single number before that discovery is done would not be an accurate estimate, regardless of what that number is.</p>
+
+        <h3>When to Walk Away</h3>
+
+        <p>There are briefs where the commercial terms make delivery success impossible. A fixed-price contract at a price that does not cover the realistic cost of delivery is not a challenging project — it is a loss-making contract that will damage the client relationship, the delivery team's wellbeing, and the firm's reputation. The signals that a brief is commercially impossible include: the client's budget is fixed at a level below the bottom of your realistic range; the client is not willing to fund a discovery phase before committing to a fixed-price build; or the timeline is fixed at a duration that is physically incompatible with the scope. In these situations, the professional response is to describe clearly what can be delivered within the constraints, and to be honest that the full scope cannot be delivered at the quoted price and timeline. Firms that sign commercially impossible briefs and then manage the consequences have a survival strategy, not a delivery strategy.</p>
+
+        <!-- SECTION 7 -->
+        <h2 id="s7">The Post-Project Estimate Review</h2>
+
+        <p>Most firms produce estimates at the start of projects and never formally compare them to actuals at the end. This is one of the most significant missed learning opportunities in professional services delivery. The data that a post-project review generates is the foundation of accurate future estimates — and it is the only way to move from optimism-based estimation to evidence-based estimation.</p>
+
+        <h3>Tracking Actuals vs Estimates Per Phase</h3>
+
+        <p>The comparison should be done at phase level, not just at total project level. A project that came in on total budget but ran 40% over in data migration and 30% under in change management has not performed as estimated — it has had two significant misses that cancelled each other out by accident. Phase-level tracking reveals where your estimation methodology is systematically wrong.</p>
+
+        <p>The data to capture: estimated effort per phase, actual effort per phase, variance, and the primary cause of the variance. The cause classification should be at least three categories: scope change (the brief changed from the estimate), estimation error (the original scope was estimated incorrectly), and execution issue (the scope was correctly estimated but executed less efficiently than planned). Most overruns contain elements of all three — but separating them is essential for improving future estimates.</p>
+
+        <h3>What the Data Tells You After Three Projects</h3>
+
+        <p>After three projects with tracked actuals, patterns become visible that are invisible in a single project's data. You will find that your data migration estimates are systematically 70% of actual cost. You will find that integration effort for legacy SOAP systems consistently runs 150% of estimate. You will find that your UAT estimates assume a defect density that is consistently half of what you actually encounter. Each of these findings is a calibration point for future estimates.</p>
+
+        <p>The value of this data compounds over time. A firm that has tracked actuals across twenty projects has a significantly better basis for estimation than a firm that estimates from first principles each time. It can provide ranges with genuine statistical confidence, not just intuition. It can show clients the variance distribution from historical projects, which turns the contingency conversation from a negotiation into a data presentation.</p>
+
+        <h3>Building Your Own Benchmark Estimates</h3>
+
+        <p>Industry benchmark estimates — "a standard Sales Cloud implementation takes X weeks" — are not reliable for your team. They are averages across all firms, all team compositions, all client environments. Your team's velocity at a given scope and complexity is specific to your team's experience, tooling, and working practices. The only estimates that are genuinely predictive for your team are estimates calibrated against your team's own historical performance.</p>
+
+        <p>The investment required is not large: a consistent time-tracking discipline across projects, a phase taxonomy that is consistent across projects, and a quarterly review of actuals vs estimates. The return on that investment — in the form of bids that win on credibility rather than price, projects that deliver on their estimates, and client relationships that survive the delivery phase — is substantial.</p>
+
+        <h3>The Estimate Conversation You Should Have at the Start of Every Project</h3>
+
+        <p>At the start of every project, before any work begins, have an explicit conversation with the executive sponsor about the estimate's basis, its assumptions, and its limitations. Cover three things: what information the estimate was based on, what has changed since the estimate was produced, and what the process will be if scope or assumptions change during delivery. This conversation takes thirty minutes. The alternative — discovering mid-project that the sponsor thought the estimate was fixed-price when it was time-and-materials, or that they thought data migration was included when it was excluded — can consume months of relationship repair.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>The single highest-return investment in accurate Salesforce project estimation is a well-scoped discovery phase before any build commitment is made. A four-to-six week discovery that costs £30,000–£60,000 and produces a bottom-up build estimate, a tested assumptions log, and a validated data migration scope will prevent far more than its cost in overruns and rework. Clients who resist paying for discovery are clients who will hold you accountable for an estimate that was built without the information needed to be accurate. That is not a relationship dynamic that ends well for either party.</p>
+          </div>
+        </div>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Discovery estimates, build estimates, and production estimates are different things — the confusion between them is the single most common source of stakeholder misalignment on Salesforce programmes</li>
+            <li>A complete estimate has eight components; data migration, change management, and hypercare are the three most commonly missing or underweighted</li>
+            <li>The configuration vs customisation boundary is the most dangerous estimation assumption — any requirement that is not explicitly validated by a technical architect should be treated as a customisation risk</li>
+            <li>Data migration should always be estimated as a separate workstream with ring-fenced contingency, and never without a prior data profiling exercise on the actual source data</li>
+            <li>Contingency should be risk-referenced, not percentage-based — each contingency component should trace to a named, specific risk that the client can verify</li>
+            <li>The assumptions log and change control process are the mechanisms that make estimates defensible during delivery — without them, the estimate is only relevant before the project starts</li>
+            <li>Post-project actuals tracking is the foundation of credible future estimates — firms that track this data are in a fundamentally different position to firms that estimate from first principles each time</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. A client has a fixed budget of £500,000 for a Salesforce programme. After a four-week discovery, your bottom-up estimate comes in at £720,000–£850,000. What is the correct response?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Re-scope the estimate until it fits within £500,000 by reducing contingency and optimising the team composition</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. Present the £500,000 estimate to win the work and manage the overrun through change control later</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">C. Present the honest range, explain the specific scope items that drive the cost, and offer the client a choice: reduced scope within their budget, or increased budget for the full scope — with the risks of each option clearly explained</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Walk away immediately — any fixed-budget brief that does not match the estimate is commercially impossible</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. A requirements document describes the following: "Users need to see a real-time credit score for each account, displayed on the account page, updated when the account record is saved." How should this be classified for estimation purposes?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Configuration — this can be achieved with a standard Salesforce formula field and a workflow rule</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. Declarative customisation — this can be achieved with a standard Flow and a screen component</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. Custom development — this requires an LWC for display, an Apex callout to an external credit API triggered on save, error handling, and integration testing; it should be estimated as a custom development item with an integration component</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Out of scope — real-time external data is not possible in Salesforce due to Governor Limits</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. A project is tracking 35% over budget in the data migration workstream. The project manager attributes this to "data quality issues that were unforeseen." What should the post-project review record as the primary cause of variance?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Execution issue — the data migration team should have managed data quality more efficiently</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Scope change — data quality remediation was not in scope and should have been raised as a change request</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Estimation error — data quality remediation is a predictable component of data migration that was not adequately assessed at estimation stage, most likely because no data profiling exercise was conducted on the source system</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Client issue — the client was responsible for data quality and should absorb the cost</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="del-001.html" class="related-card">
+              <span class="card-id">DEL-001</span>
+              <h4>Running a Discovery Workshop</h4>
+            </a>
+            <a href="del-007.html" class="related-card">
+              <span class="card-id">DEL-007</span>
+              <h4>Managing a Big Bang Go-Live</h4>
+            </a>
+            <a href="cha-002.html" class="related-card">
+              <span class="card-id">CHA-002</span>
+              <h4>Why Implementations Fail</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why Every Salesforce Estimate Is Wrong</a></li>
+            <li><a href="#s2">The Anatomy of a Salesforce Estimate</a></li>
+            <li><a href="#s3">The Configuration vs Customisation Trap</a></li>
+            <li><a href="#s4">Data Migration: The Budget Killer</a></li>
+            <li><a href="#s5">How to Build an Estimate That Survives Scrutiny</a></li>
+            <li><a href="#s6">Defending the Estimate to Stakeholders</a></li>
+            <li><a href="#s7">The Post-Project Estimate Review</a></li>
+            <li><a href="#quiz">Checkpoint</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="cha-002.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Why Implementations Fail →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

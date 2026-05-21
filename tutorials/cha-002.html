@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="../images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHA-002: Why Salesforce Implementations Fail — SFVedas</title>
+  <meta name="description" content="The real reasons Salesforce programmes fail — and why they're almost never the technical ones. A change management diagnosis for delivery leaders who want to see the problems before they become crises."/>
+  <meta property="og:title" content="CHA-002: Why Salesforce Implementations Fail — SFVedas"/>
+  <meta property="og:description" content="The real reasons Salesforce programmes fail — and why they're almost never the technical ones. A change management diagnosis for delivery leaders who want to see the problems before they become crises."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/cha-002.html"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CHA-002: Why Salesforce Implementations Fail — SFVedas"/>
+  <meta name="twitter:description" content="The real reasons Salesforce programmes fail — and why they're almost never the technical ones. A change management diagnosis for delivery leaders who want to see the problems before they become crises."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="../css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "CHA-002: Why Salesforce Implementations Fail — SFVedas",
+  "description": "The real reasons Salesforce programmes fail — and why they're almost never the technical ones. A change management diagnosis for delivery leaders who want to see the problems before they become crises.",
+  "url": "https://sfvedas.com/tutorials/cha-002.html",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/cha-002.html",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/pages/about.html"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="../pages/tutorials.html" class="nav-link active">Tutorials</a></li>
+        <li><a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a></li>
+        <li><a href="../pages/about.html" class="nav-link">About</a></li>
+        <li><a href="../pages/advertise.html" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="../pages/tutorials.html" class="nav-link">Tutorials</a>
+      <a href="../pages/learning-paths.html" class="nav-link">Learning Paths</a>
+      <a href="../pages/about.html" class="nav-link">About</a>
+      <a href="../pages/advertise.html" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="../pages/tutorials.html?tag=change-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Change Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">CHA-002</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Change Management</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Delivery Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Why Salesforce Implementations Fail: The Change Management Diagnosis
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        The real reasons Salesforce programmes fail — and why they're almost never the technical ones. A change management diagnosis for delivery leaders who want to see the problems before they become crises.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<!-- CONTENT -->
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The six root causes that explain the majority of Salesforce implementation failures — and none of them are primarily technical</li>
+            <li>How to identify stakeholder misalignment and decision-rights gaps in the first two weeks of a programme before they calcify</li>
+            <li>Why user adoption is a programme design problem, not a training problem — and what the distinction costs you</li>
+            <li>How requirements get corrupted through the project lifecycle, and the specific intervention points that prevent it</li>
+            <li>The data quality conversation most delivery leaders defer, and why that deferral always becomes a crisis at migration</li>
+            <li>A practical change management toolkit: the five questions to ask in week one, the weekly risk indicators, and the escalation approach that preserves credibility</li>
+          </ul>
+        </div>
+
+        <!-- SECTION 1 -->
+        <h2 id="s1">The Diagnosis Nobody Wants to Make</h2>
+
+        <p>When a Salesforce implementation fails, the post-mortem usually blames the technology. The system was too complex. The customisations were poorly designed. The integration with the legacy ERP never worked properly. The vendor over-promised. These are convenient diagnoses because they point outward — at the platform, at the partner, at the scope. They rarely point at the room where the post-mortem is being held.</p>
+
+        <p>The honest version of that post-mortem is almost always a change management failure. Not in the generic, consultant-speak sense of "change management wasn't done well." In the specific, traceable sense that the programme ran into a set of entirely predictable problems — stakeholder misalignment, scope that nobody controlled, users who never intended to adopt the system, data that everyone knew was broken — and those problems were visible weeks or months before they became crises. They just weren't named.</p>
+
+        <p>This tutorial names them. Not as a retrospective exercise, but as a diagnostic framework you can apply at the start of a programme, at the midpoint, and at any moment when your instinct is telling you something is wrong but you can't quite articulate what.</p>
+
+        <p>I've run or overseen enough Salesforce implementations to have seen every failure mode described in this tutorial play out in real programmes, sometimes multiple times in the same programme. The pattern recognition is not theoretical. The warning signs I'll describe appear, reliably, in weeks two through eight of a programme. If you know what to look for, you have time to act. If you don't, you'll be writing a post-mortem about the technology.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>The Standish Group's CHAOS Report consistently finds that fewer than 30% of large enterprise software projects succeed by their own criteria. When researchers drill into the failure causes, technical issues account for a minority. Requirements problems, stakeholder misalignment, and user adoption failures dominate. Salesforce implementations are not immune to this pattern — they are, if anything, more susceptible to it because the platform's ease of customisation makes scope creep structurally easier.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <h2 id="s2">The Six Root Causes of Salesforce Implementation Failure</h2>
+
+        <p>Before working through each cause in depth, it's useful to see the full set together. Six patterns account for the overwhelming majority of Salesforce programme failures. They rarely appear in isolation — programmes typically fail for two or three of these reasons simultaneously, which is part of why the failure feels sudden even when the trajectory was visible.</p>
+
+        <h3>1. Stakeholder Misalignment: Different Definitions of Done</h3>
+
+        <p>The business sponsor believes the programme is delivering a tool that will transform how the sales team works. The IT lead believes it's delivering a configured instance of Salesforce Sales Cloud. The operations director believes it's delivering an integration with the ERP. The Salesforce partner believes it's delivering the requirements documented in the statement of work. None of them are wrong — they simply have never been in the same room long enough to discover they're describing different programmes.</p>
+
+        <p><strong>Warning signs in weeks 2–8:</strong> Status meetings where different attendees describe the programme's objectives in incompatible ways. A requirements document that has been reviewed and signed off by IT but never presented to the business sponsor. Scope decisions being made at the working level without visibility to programme governance. Steering committee meetings where the agenda is all RAG status and no decisions.</p>
+
+        <h3>2. Scope Creep Enabled by Lack of Change Control</h3>
+
+        <p>Salesforce's customisation model makes it easy to add things. A new field here, a new workflow there, a report that one regional VP needs for their monthly review. Each addition is small. None of them individually feels like a scope change. Collectively, they represent months of additional build, testing, and training — none of which appears in the project plan, the budget, or the go-live criteria.</p>
+
+        <p><strong>Warning signs in weeks 2–8:</strong> User story counts that grow between sprint planning sessions without a corresponding change request. Build velocity that slows without an obvious cause. A product backlog that is being refined upward, not downward, as the programme progresses. Developers answering requirement questions directly from business stakeholders, bypassing the business analyst.</p>
+
+        <h3>3. User Adoption Failure: The System Goes Live, Nobody Uses It</h3>
+
+        <p>This is the failure mode that most often gets attributed to the technology. "The system is too complicated." "It doesn't work the way we work." "We preferred the old system." What's actually happening is that the programme was designed to deliver a configured system, and adoption was treated as a training event rather than a programme workstream. The users weren't involved in design. Their feedback wasn't incorporated. Their workflows weren't mapped. On go-live day, they were handed login credentials and a training manual.</p>
+
+        <p><strong>Warning signs in weeks 2–8:</strong> User representatives absent from design workshops. Process maps built by business analysts without validation from the people who do the work. A training plan that's a single line in the project plan rather than a named workstream with a named owner. Super-user selection left to "after the build is done."</p>
+
+        <h3>4. Data Quality Denial: Known Problems Deferred to Post-Go-Live</h3>
+
+        <p>Almost every organisation moving to Salesforce knows their data has problems. Duplicate accounts. Contacts with no email addresses. Opportunities with no close dates. Accounts associated with territories that no longer exist. The data quality assessment, when it happens at all, produces a report that everyone reads and nobody acts on — because remediating data quality is unglamorous work that doesn't appear in a product roadmap, and because the business owners who need to clean the data don't have capacity allocated to do it.</p>
+
+        <p><strong>Warning signs in weeks 2–8:</strong> A data migration plan that includes the phrase "data quality remediation to be completed by business in parallel." Data quality metrics not included in the go/no-go criteria. Migration scripts written against source data that hasn't been profiled. A data owner identified on the RACI who hasn't been in a migration meeting.</p>
+
+        <h3>5. Executive Sponsorship in Name Only</h3>
+
+        <p>Every Salesforce programme has an executive sponsor. They are named on the project charter, they appear in the kickoff slide deck, and they attend the monthly steering committee. They do not make decisions. Requests for direction go unanswered for weeks. Escalations are deferred to the next steering committee. When a critical design decision requires a call between two business directors who disagree, the sponsor is unavailable. The programme manager learns to work around the sponsor, which means the programme has no executive authority and every hard decision gets deferred or compromised.</p>
+
+        <p><strong>Warning signs in weeks 2–8:</strong> Steering committee meetings that end without decisions recorded. Escalations that cycle back to the programme level without resolution. A sponsor who asks for "a summary deck" rather than engaging with the detail. A pattern of "let's take that offline" that never results in an offline conversation.</p>
+
+        <h3>6. Requirements Captured but Not Validated Against Actual Usage</h3>
+
+        <p>The discovery workshops run. Requirements are documented. The business analyst produces a requirements specification that accurately reflects what stakeholders said in workshops. None of the stakeholders in those workshops actually do the work being described — they manage the people who do. The people who do the work are never consulted. At UAT, for the first time, actual end users open the system and discover that it doesn't reflect how the work actually happens. The gap between the documented requirements and the actual requirements is six months of build.</p>
+
+        <p><strong>Warning signs in weeks 2–8:</strong> Workshop attendees who are all management-level. User stories that don't have an identifiable user behind them. Acceptance criteria written by the business analyst rather than validated with the user. No process observation or shadowing in the discovery phase.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="s3">Stakeholder Alignment: What It Actually Requires</h2>
+
+        <p>Stakeholder alignment is one of the most over-used phrases in project management and one of the least well-executed activities in practice. Being aligned doesn't mean everyone has been invited to a meeting. It means everyone who has decision-making authority over the programme outcome has a shared understanding of what the programme is trying to achieve, and a shared model of how decisions will be made when the programme encounters problems — which it will.</p>
+
+        <h3>Decision Rights: The Single Most Important Thing to Establish in Week One</h3>
+
+        <p>The most valuable thing you can do in the first week of a Salesforce programme is not write a project plan. It's answer this question clearly: <em>who has the authority to make which decisions, and what happens when those people disagree?</em></p>
+
+        <p>This means mapping decision rights explicitly. Not a generic RACI matrix with "A" columns filled in by job title. A specific document that answers: who decides when a requirement is out of scope? Who decides when a design trade-off is made between user experience and delivery timeline? Who decides whether the programme goes live if data quality is below threshold? Who decides if the budget needs to increase?</p>
+
+        <p>The reason this is the most important thing to establish in week one is that you have the most leverage before the programme is under pressure. Once a programme is in flight, any discussion of decision rights becomes political — it reads as either a power grab or a defensive manoeuvre. In week one, it reads as good governance.</p>
+
+        <h3>The RACI Matrix That Nobody Follows vs the One That Works</h3>
+
+        <p>Every programme has a RACI. Most of them are produced by the programme manager, reviewed briefly, and never consulted again. The RACI that actually gets used is different in two ways.</p>
+
+        <p>First, it's built with the stakeholders, not for them. The programme manager facilitates a conversation where the stakeholders themselves agree on accountability. When the VP of Sales agrees in a room with the CIO that she is accountable for business requirements sign-off, she is more likely to honour that accountability than if she received an email with a RACI attached.</p>
+
+        <p>Second, it's specific about the consequences of the "A." Accountable doesn't mean "receives a copy." It means: if this deliverable is late or wrong, this person's name is on it. That specificity is uncomfortable to introduce, which is exactly why it's valuable. Resistance to it in week one is a signal worth paying attention to.</p>
+
+        <h3>Champions and Blockers: How to Identify and Manage Both</h3>
+
+        <p>Every Salesforce programme has people who will actively make it succeed and people who will quietly ensure it doesn't. Identifying both early is one of the most important pieces of intelligence a delivery leader can develop.</p>
+
+        <p>Champions are not just enthusiastic stakeholders. A champion is someone with credibility among their peers who is willing to be publicly associated with the programme's success. Their value is not in attending steering committees — it's in the informal influence they carry in corridors and team meetings. A sales director who tells her team that the new system is going to be good for them is worth more than any training communication you can send.</p>
+
+        <p>Blockers operate differently. They rarely oppose the programme openly. They miss meetings. They send deputies who can't make decisions. They raise process concerns in escalation meetings that, coincidentally, require months of investigation. They are frequently senior people who feel threatened by the change the programme represents — not because they're obstructionist by nature, but because nobody has spent any time understanding what they're worried about. The most effective intervention for a blocker is a direct conversation with them, alone, in which you ask what success looks like for them. The answer is usually more specific and more addressable than you expect.</p>
+
+        <h3>Board-Level vs Operational Sponsorship: You Need Both</h3>
+
+        <p>A common mistake is to conflate the executive sponsor with the person who can resolve operational blockers. The board-level sponsor provides air cover — they signal to the organisation that this programme matters and that non-cooperation has consequences. But they cannot resolve a dispute between the head of sales operations and the head of IT about data ownership. That requires an operational sponsor who is close enough to the detail to make informed calls, and senior enough to make them stick.</p>
+
+        <p>On a programme of any significant scale, you need two named sponsors: one at the executive level who will intervene when politics threaten the programme, and one at the operational level who attends the programme weekly and can make design decisions. If you have only one, you have a gap — and that gap will be where your hardest decisions disappear.</p>
+
+        <h3>The Mid-Programme Stakeholder Map Refresh</h3>
+
+        <p>Stakeholder maps are produced at the start of a programme and then filed. In a twelve-month programme, the organisation changes. People leave. Reporting lines shift. A new CRO arrives who has strong views about CRM. Ignoring these changes means the programme's political map is months out of date at the moment when stakeholder management matters most — the final stretch before go-live.</p>
+
+        <p>A mid-programme stakeholder map refresh — typically at the three-to-six month mark — should be a standard delivery practice. It takes half a day. It asks who has changed in the stakeholder landscape, what the new entrants' positions are, and whether any of the original alignment assumptions need to be revisited. The fact that most programmes don't do this is a symptom of treating stakeholder management as a planning activity rather than an ongoing delivery activity.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>The mid-programme stakeholder refresh is most valuable precisely when the programme is most pressured — typically at the six-to-eight month mark on a twelve-month programme, when the build is behind, the budget is under pressure, and the original champions are starting to distance themselves. That is exactly when you need to know who your real supporters are, and it's not a good time to be discovering that the political landscape has shifted.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <h2 id="s4">User Adoption: The Problem That Starts Before Go-Live</h2>
+
+        <p>User adoption failure is the failure mode that most reliably gets reattributed to technology problems after the fact. "The system is clunky." "The interface doesn't make sense for our business." "It takes too many clicks to do what we need." These observations may be accurate. They are not the root cause. The root cause is that user adoption was not designed into the programme from the beginning.</p>
+
+        <h3>Why Training Is Not the Same as Adoption</h3>
+
+        <p>Training is the transfer of procedural knowledge: how to create a record, how to run a report, how to advance an opportunity stage. Adoption is the sustained change in how people do their work. These require different interventions and different timelines.</p>
+
+        <p>Training can be delivered in a week before go-live. Adoption takes months and requires that users have a reason to change their behaviour — not just the capability to use the new system. That reason is almost never "because we have a new system." It is usually one of: the new system makes my specific job demonstrably easier, my manager is using the new system and expects me to as well, or the old way of doing things is no longer available.</p>
+
+        <p>Programmes that treat training as the adoption strategy are doing one of these three things: delivering capability without motivation, without reinforcement, or without removing the old option. All three produce the same result: people are trained, go-live happens, usage figures are low at 90 days, and the post-mortem attributes it to the technology.</p>
+
+        <h3>The Adoption Metrics That Matter vs the Ones That Get Reported</h3>
+
+        <p>The adoption metric most commonly reported is login rate: what percentage of licensed users logged in this week. This metric is nearly useless. A user who logs in to check their email notifications and then continues managing their pipeline in a spreadsheet is counted as an active user.</p>
+
+        <p>The adoption metrics that actually tell you whether the system is being used for its intended purpose are process completion rates: what percentage of opportunities were advanced through the defined stages in the system (versus being updated in bulk at end of month)? What percentage of customer contacts created in the last 30 days have a complete data record? What percentage of cases were resolved within the system workflow versus resolved by email with a retrospective update?</p>
+
+        <p>These metrics require that you define your intended usage patterns before go-live, instrument the system to measure them, and have someone whose job it is to review them weekly in the 90 days post-go-live. On most programmes, none of these three preconditions exist.</p>
+
+        <h3>Super-Users: Selection, Role, and Numbers</h3>
+
+        <p>The super-user model is well-established in enterprise software deployments. It works when it's done properly and fails visibly when it isn't.</p>
+
+        <p>Super-users work when: they are selected by the users they will support (or at minimum with their input), not assigned by management; they are given meaningful system access that lets them answer questions without escalating to IT; they have protected time allocated to the super-user role and are not expected to maintain full productivity in their day job simultaneously; and they are connected to each other and to the programme team so that common questions get consistent answers.</p>
+
+        <p>Super-users fail when they are the most IT-literate people in the team rather than the most respected. Technical aptitude is less important than peer credibility. The super-user who their colleagues trust to give them a straight answer about whether the new system is actually better is worth far more than the one who knows how to configure dashboards.</p>
+
+        <p>On headcount: a ratio of one super-user per fifteen to twenty users is the minimum for a successful deployment. Programmes that try to run one super-user per fifty users typically find that the super-user is overwhelmed, questions go unanswered, and adoption plateaus at whatever level it reaches in the first two weeks — which is always lower than target.</p>
+
+        <h3>Change Network Design: Adoption Is a Peer Influence Problem</h3>
+
+        <p>People change their behaviour because of peer influence far more than because of management directives or training. The change network — the group of people who will carry the adoption message through the organisation — is therefore the most important adoption infrastructure a programme can build. It is also the one most commonly omitted from programme plans.</p>
+
+        <p>A change network is distinct from the super-user network. Super-users provide technical support. Change network members provide social proof: they are the people whose visible adoption of the new system signals to their peers that the change is real and positive. They do not need to be enthusiasts. They need to be respected, and they need to be willing to use the system visibly and speak honestly about it.</p>
+
+        <h3>The 90-Day Post-Go-Live Adoption Plan</h3>
+
+        <p>Go-live is not the end of the adoption challenge. For most programmes it is the beginning of the hardest phase. Users are encountering the system under real work conditions for the first time. The gap between the designed experience and the actual experience becomes visible. Early adopters are managing their own confusion while also fielding questions from their colleagues.</p>
+
+        <p>A 90-day post-go-live adoption plan should include: weekly adoption metric reviews with named owners, a feedback mechanism that captures user experience issues quickly enough to be acted on, a sprint cadence for fixing high-impact usability issues identified post-go-live, and a named accountability for adoption outcomes in month three. That last point is the most commonly absent: every programme has a named owner for go-live, but very few have a named owner for the adoption outcome.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning</strong>
+            <p>The 30-day post-go-live adoption figure is not a reliable indicator of programme success. Users in the first 30 days are using the system because they have no choice — the old system has been switched off, or because there is still programme team presence reinforcing usage. The meaningful figure is at 90 days, when the programme team has stepped back and usage is self-sustaining. If you don't measure at 90 days with a named owner accountable for the result, you will not know whether the adoption challenge was actually solved.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <h2 id="s5">Requirements: The Gap Between Captured and Correct</h2>
+
+        <p>Requirements failure is the most technically complex of the six root causes, because it happens through a series of individually reasonable decisions that collectively produce a system that doesn't reflect what the business actually needs. Nobody in the process is trying to document the wrong thing. The failure is structural.</p>
+
+        <h3>The Discovery Workshop That Produces 400 Sticky Notes and No Decisions</h3>
+
+        <p>The discovery workshop is the most common first act of a Salesforce implementation. A room full of stakeholders. Sticky notes on whiteboards. A business analyst facilitating. At the end of the day, the business analyst has a photograph of the whiteboard and a commitment to document the outputs. Three weeks later, a requirements specification appears that faithfully records everything that was said — and makes none of the trade-offs implicit in those conversations explicit.</p>
+
+        <p>The sticky-note workshop produces inputs. Requirements are outputs. The gap between them is the set of decisions that need to be made about priority, scope, and design. Those decisions cannot be made by the business analyst alone. They require the stakeholders who will be accountable for the outcomes. A discovery process that does not end with a set of prioritised, scoped, decision-quality requirements — not a list, a set of decisions — has not produced requirements. It has produced a problem backlog.</p>
+
+        <h3>How Requirements Get Corrupted Through the Project Lifecycle</h3>
+
+        <p>Requirements that start as business intent go through several translations before they become built functionality. The business stakeholder describes a need. The business analyst captures a requirement. The architect designs a solution. The developer implements a component. The tester writes a test case. At each translation, information is lost, assumptions are introduced, and the original intent drifts further from what gets built.</p>
+
+        <p>This is not a Salesforce-specific problem. It is fundamental to software development, which is why practices like continuous stakeholder involvement, short feedback loops, and working software as the measure of progress exist. On Salesforce programmes that run large-scale discovery phases followed by multi-month build phases, the translation chain is at its longest. By the time the business sees the system at UAT, the requirement has been through six people. The original intent is sometimes unrecognisable.</p>
+
+        <h3>The "That's Not What I Meant" Conversation at UAT</h3>
+
+        <p>Every delivery leader who has run a Salesforce programme has had this conversation. The stakeholder opens the system at UAT, looks at a screen, and says: "that's not what I meant." What they mean is: the system does what I said, but it doesn't do what I needed.</p>
+
+        <p>The diagnosis for this conversation is almost always the same: the requirement was written without acceptance criteria, or the acceptance criteria were written by someone other than the person who will be doing the accepting. A requirement without acceptance criteria is not a requirement. It is a description of intent. Whether the implementation satisfies that intent is a judgement call — and judgement calls made by developers or business analysts in the absence of the business stakeholder produce the "that's not what I meant" response at UAT.</p>
+
+        <h3>Acceptance Criteria: Written Before Build, Not During UAT</h3>
+
+        <p>Acceptance criteria must be written before the build begins, by or with the business stakeholder who will sign off the functionality, and in terms that can be tested against a working system. "The system should be easy to use" is not an acceptance criterion. "A sales representative should be able to create an opportunity from a lead record in fewer than three clicks" is an acceptance criterion.</p>
+
+        <p>The value of pre-build acceptance criteria is not just technical — it's political. When a stakeholder has written or co-written the criteria against which their own sign-off will be assessed, the "that's not what I meant" conversation changes character. The question is no longer whether the system meets their expectations; it is whether the system meets the criteria they agreed to. That is a fundamentally different conversation, and a much more productive one.</p>
+
+        <h3>The Sign-Off Process That Actually Holds Up</h3>
+
+        <p>Sign-off processes fail when they are treated as administrative events rather than governance events. A stakeholder who receives a PDF requirements document and returns a signed email has not actually reviewed the requirements. They have acknowledged receipt. The sign-off that holds up under challenge has three properties: the stakeholder has reviewed the requirements against a working prototype or wireframe (not a text document), the sign-off is explicit about what is being confirmed (scope, not quality), and the consequences of the sign-off are clear (changes after this point go through change control).</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Principle</strong>
+            <p>The test of a requirements process is not whether requirements exist. It is whether the delivery team and the business stakeholders share the same understanding of what is being built and what done looks like. Any process that produces documented requirements without that shared understanding has produced paperwork, not requirements. The shared understanding is the output; the document is evidence of it.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <h2 id="s6">Data Quality: The Deferred Crisis</h2>
+
+        <p>Data quality is the issue that every experienced delivery leader knows about, half of them raise, and almost none of them successfully resolve. The pattern is consistent enough to be predictable: a data quality assessment is commissioned, it finds problems, the findings are presented to the business, the business acknowledges the problems and commits to remediation, and three months later the problems are still there because nobody with the authority to act has prioritised the work.</p>
+
+        <h3>Why Data Quality Issues Are Always Discovered at Migration, Never Before</h3>
+
+        <p>This is not literally true, but it describes the experience of most programmes. Data quality assessments are commissioned early and find general categories of problems. What they don't find, because they don't look, are the specific records that will fail the migration scripts. Those records are discovered at migration — which is typically in the final two to three months of the programme, when there is no remaining contingency to fix them.</p>
+
+        <p>The reason assessments don't find specific records is that they're profiling exercises, not migration dry runs. A profile tells you that 23% of Account records have no associated address. A dry run tells you which 23% — and whether those accounts are the ones you were planning to migrate first, and whether the accounts with no address are the ones associated with your top 100 customers.</p>
+
+        <p>Running migration dry runs from month two of a programme rather than month eight is the single most effective data quality intervention a delivery leader can make. It converts a late crisis into an early problem — which is a fundamentally different thing to manage.</p>
+
+        <h3>The Business Owner Who Owns Data but Hasn't Looked at It</h3>
+
+        <p>Data has an owner on the RACI. That owner is typically a senior business stakeholder — VP of Sales Operations, Head of Customer Data, Chief Data Officer. Their accountability on the RACI is "Accountable for data quality." In practice, the last time they looked at the actual data was when the last CRM was implemented, which was six years ago.</p>
+
+        <p>The programme cannot remediate data that the business hasn't reviewed. And the business will not review data unless someone creates a specific forcing function: a named owner, a defined scope of review, a timeline with milestones, and a consequence for non-completion. "The business will clean up the data in parallel with the build" is not a data quality plan. It is a statement of optimism.</p>
+
+        <h3>Data Quality Remediation Timelines: What "We'll Fix It in the Migration" Actually Means</h3>
+
+        <p>When a business stakeholder says "we'll fix it in the migration," what they mean is: the programme team will write migration scripts that transform the data from its current state into an acceptable state. This is sometimes a legitimate plan — transformation rules can address formatting inconsistencies, normalise picklist values, apply default values for missing fields. What it cannot do is create data that doesn't exist, disambiguate genuinely ambiguous records, or make a business decision about which duplicate to keep.</p>
+
+        <p>The records that require human review — duplicates, records with conflicting information, records that are associated with the wrong account — cannot be fixed in migration scripts. They require a business person to look at each one and make a decision. If there are 50,000 such records and the remediation timeline is six weeks, the delivery leader needs to calculate whether the business has the capacity to review approximately 1,200 records per day for six weeks, or whether the go-live date needs to move.</p>
+
+        <h3>The Go/No-Go Data Quality Threshold</h3>
+
+        <p>Every programme needs a data quality threshold that is a genuine go/no-go gate, not a target. The threshold should be defined before migration testing begins, agreed with the executive sponsor and data owner, expressed in terms of specific measurable criteria (not "acceptable quality"), and accompanied by a clear statement of what happens if the threshold is not met on the planned go-live date.</p>
+
+        <p>The reason most programmes don't have this is that agreeing to a genuine go/no-go gate requires someone to be willing to say "we might delay the go-live for data quality reasons." That conversation is uncomfortable in week three of a programme. It is far more uncomfortable on the week before go-live. The discomfort is an argument for having it in week three, not an argument for deferring it.</p>
+
+        <!-- SECTION 7 -->
+        <h2 id="s7">The Delivery Leader's Change Management Toolkit</h2>
+
+        <p>The preceding sections have described what goes wrong and why. This section is about what to do — specifically, the practical tools that let a delivery leader identify and address change management problems before they become programme-ending crises.</p>
+
+        <h3>The Five Questions to Ask in Week One of Any Programme</h3>
+
+        <p>These questions are not diagnostic in the sense of testing the organisation's health. They are diagnostic in the sense of making the health of the programme visible to the people who are accountable for it. Ask them directly, in separate conversations, and compare the answers.</p>
+
+        <ol>
+          <li><strong>"What does success look like for you personally when this programme is done?"</strong> — asks each stakeholder to articulate their personal definition of success, which will usually reveal whether the programme's stated objectives align with individual stakeholder motivations.</li>
+          <li><strong>"Who has the authority to change the scope of this programme?"</strong> — tests decision rights. If different stakeholders give different answers, you have a governance gap.</li>
+          <li><strong>"What does the data we're migrating look like today, and who last looked at it?"</strong> — surfaces data quality awareness and data ownership clarity simultaneously.</li>
+          <li><strong>"How will we know in six months whether the users have actually adopted the new system?"</strong> — tests whether adoption has been designed in or left to chance.</li>
+          <li><strong>"What would have to be true for this programme to fail?"</strong> — the most valuable question, because it asks stakeholders to name the risks they're aware of but haven't said out loud. The answers are almost always more specific and more concerning than anything on the risk register.</li>
+        </ol>
+
+        <h3>The Weekly Change Management Health Indicator</h3>
+
+        <p>A weekly change management health check takes 20 minutes and answers six questions on a simple red/amber/green basis: Are decision rights being exercised as agreed? Is scope change going through change control? Is adoption design progressing against plan? Are data quality milestones being met? Is executive sponsorship active and visible? Are requirements being validated (not just documented)?</p>
+
+        <p>The value of this check is not the RAG status itself — it's the discipline of asking the questions weekly, which forces the programme team to look at change management as an ongoing delivery activity rather than an upfront planning exercise. A change management health check that goes amber on "adoption design" in week six is actionable. The same problem discovered in week twenty is a crisis.</p>
+
+        <h3>How to Escalate a Change Management Problem Without Losing Credibility</h3>
+
+        <p>Escalating a change management problem is politically complex. Saying "our stakeholder alignment is poor" reads as a criticism of the sponsor. Saying "user adoption is at risk" reads as predicting failure. The framing that works is decision-focused rather than problem-focused.</p>
+
+        <p>The escalation that lands is: "I need a decision from the steering committee on [specific issue] by [specific date] because [specific consequence]. Here are the three options and my recommendation." This framing treats the change management problem as a governance gap rather than a people problem, makes the ask concrete rather than atmospheric, and gives the sponsor something to do rather than something to be concerned about.</p>
+
+        <p>Delivery leaders who raise change management problems without a specific ask tend to get sympathy and no action. Delivery leaders who raise them with a specific decision request tend to get a decision — which may be "not our problem," but that at least moves the accountability somewhere.</p>
+
+        <h3>The Retrospective Framework That Surfaces the Real Issues</h3>
+
+        <p>Standard Agile retrospectives ask three questions: what went well, what didn't, what should we change. On Salesforce programmes with significant change management challenges, this format reliably produces surface-level observations ("the sprint planning sessions are too long") rather than structural ones ("the business stakeholders are not available to answer requirements questions in sprint, which is why the sprint planning sessions are too long").</p>
+
+        <p>A change management retrospective adds a fourth question to the standard set: <em>"What problem did we not talk about this sprint?"</em> This question is deliberately uncomfortable. It asks the team to name what they avoided naming — the stakeholder who isn't engaged, the data quality issue that nobody acted on, the scope that was added without challenge. The answer to this question, asked honestly, is usually more valuable than everything in the first three answers combined.</p>
+
+        <p>Conducting this retrospective with external facilitation — someone not from the programme team — dramatically increases the honesty of the answers. The programme team's social dynamics will suppress uncomfortable truths if the facilitator is the programme manager. An external facilitator creates the psychological safety to say what the team already knows but hasn't said.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Salesforce implementation failure is almost always a change management failure — stakeholder misalignment, scope creep, adoption failure, data quality deferral, nominal sponsorship, or invalidated requirements — not a technology failure</li>
+            <li>The warning signs for all six root causes are visible in weeks two through eight of a programme; the failures become visible at UAT or go-live because that's when they're looked for, not because that's when they start</li>
+            <li>Decision rights are the most important governance artefact in a Salesforce programme and the one most often left implicit; making them explicit in week one is the highest-leverage governance action available</li>
+            <li>User adoption is a programme design problem, not a training problem; training transfers capability, adoption requires motivation, reinforcement, and the removal of alternatives — all of which must be designed before go-live</li>
+            <li>Acceptance criteria must be written before build begins, by or with the business stakeholders who will sign off the functionality; requirements without pre-agreed acceptance criteria produce UAT disputes, not UAT sign-offs</li>
+            <li>Data quality remediation cannot be completed in migration scripts; records that require human review must have a named owner, a defined scope, a timeline, and allocated business capacity — "the business will clean it up in parallel" is not a plan</li>
+            <li>The five week-one diagnostic questions, the weekly change management health check, and the "what problem did we not talk about" retrospective are the three highest-leverage change management interventions available to a delivery leader</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. A steering committee meeting ends without any decisions being recorded, and the executive sponsor asks for "a summary deck" ahead of the next session. Which root cause does this most directly indicate?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Requirements captured but not validated against actual usage</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. Scope creep enabled by lack of change control</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">C. Executive sponsorship in name only — the sponsor is present but not making decisions</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. User adoption failure — the sponsor doesn't understand the system well enough to engage</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. A business analyst reports that 30% of Account records have incomplete address data. The business owner says "we'll clean that up in the migration." What is the most important immediate action for the delivery leader?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Accept the commitment and record it in the risk register</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. Write migration scripts that apply a default value to all incomplete addresses</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. Calculate how many records require human review, map that against available business capacity, and present the gap as a named delivery risk with a specific resolution proposal</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Exclude incomplete records from the migration scope and migrate them post-go-live</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. At 30 days post-go-live, the programme reports a 78% login rate, which is above the 70% target. The delivery leader is concerned about adoption. What additional metric would most directly test whether the 78% login rate reflects genuine adoption?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Number of support tickets raised by users in the first 30 days</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Average session duration per logged-in user</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. The percentage of opportunities advanced through pipeline stages within the system (versus bulk-updated retrospectively or managed outside the system)</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. The number of users who completed post-go-live training</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="del-001.html" class="related-card">
+              <span class="card-id">DEL-001</span>
+              <h4>Discovery Workshop</h4>
+            </a>
+            <a href="del-007.html" class="related-card">
+              <span class="card-id">DEL-007</span>
+              <h4>Big Bang Go-Live</h4>
+            </a>
+            <a href="del-009.html" class="related-card">
+              <span class="card-id">DEL-009</span>
+              <h4>Project Estimation</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Diagnosis Nobody Wants to Make</a></li>
+            <li><a href="#s2">The Six Root Causes of Failure</a></li>
+            <li><a href="#s3">Stakeholder Alignment</a></li>
+            <li><a href="#s4">User Adoption</a></li>
+            <li><a href="#s5">Requirements: Captured vs Correct</a></li>
+            <li><a href="#s6">Data Quality: The Deferred Crisis</a></li>
+            <li><a href="#s7">The Delivery Leader's Toolkit</a></li>
+            <li><a href="#quiz">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint Quiz</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-cta">
+          <h4>Continue Learning</h4>
+          <a href="del-001.html" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Next: Delivery Library →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="../pages/tutorials.html">All Tutorials</a><a href="../pages/learning-paths.html">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="../pages/about.html">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="../pages/tutorials.html">Architecture</a><a href="../pages/tutorials.html">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="../js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
