@@ -136,7 +136,9 @@
 
     /* ── Search + Filter bar ──────────────────── */
     .tut-controls {
-      background: var(--bg);
+      background: rgba(248,245,240,0.97);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 68px;
@@ -145,7 +147,7 @@
     .tut-search-wrap {
       max-width: 1160px;
       margin: 0 auto;
-      padding: 28px 40px 0;
+      padding: 24px 40px 0;
     }
     .tut-search-row {
       display: flex;
@@ -163,90 +165,113 @@
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-secondary);
-      opacity: 0.5;
+      opacity: 0.45;
       pointer-events: none;
       display: flex;
     }
     .tut-search-input {
       width: 100%;
       font-family: var(--font-ui);
-      font-size: 0.97rem;
-      padding: 14px 18px 14px 48px;
+      font-size: 0.95rem;
+      padding: 12px 18px 12px 46px;
       border: 1.5px solid var(--border);
-      border-radius: 12px;
+      border-radius: 10px;
       background: var(--bg-card);
       color: var(--text-primary);
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
-      box-shadow: 0 1px 4px rgba(30,30,46,0.04);
+      box-shadow: 0 1px 3px rgba(30,30,46,0.05);
     }
     .tut-search-input:focus {
       border-color: var(--saffron);
-      box-shadow: 0 0 0 3px rgba(232,147,10,0.1), 0 1px 4px rgba(30,30,46,0.04);
+      box-shadow: 0 0 0 3px rgba(232,147,10,0.09), 0 1px 3px rgba(30,30,46,0.05);
     }
-    .tut-search-input::placeholder { color: var(--text-secondary); opacity: 0.55; }
+    .tut-search-input::placeholder { color: var(--text-secondary); opacity: 0.5; }
     .tut-count-pill {
       font-family: var(--font-ui);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      padding: 8px 16px;
+      padding: 7px 15px;
       border-radius: 100px;
       background: var(--bg-secondary);
       border: 1px solid var(--border);
       color: var(--text-secondary);
       white-space: nowrap;
       flex-shrink: 0;
+      letter-spacing: 0.01em;
     }
     .tut-count-pill span { color: var(--saffron); }
 
-    /* Filter pills */
-    .tut-filters {
+    /* Filter row separator */
+    .tut-filter-sep {
+      height: 1px;
+      max-width: 1160px;
+      margin: 16px auto 0;
+      padding: 0 40px;
+      background: transparent;
+    }
+    .tut-filter-sep::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background: var(--border);
+      opacity: 0.6;
+    }
+
+    /* Filter pills — edge-fade wrapper */
+    .tut-filters-wrap {
+      position: relative;
       max-width: 1160px;
       margin: 0 auto;
-      padding: 16px 40px 0;
+    }
+    .tut-filters-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; right: 0;
+      width: 72px;
+      background: linear-gradient(90deg, transparent 0%, rgba(248,245,240,0.97) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .tut-filters {
+      padding: 14px 40px 16px;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
-      padding-bottom: 12px;
-      scrollbar-width: thin;
-      scrollbar-color: var(--saffron) var(--bg-secondary);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      align-items: center;
     }
-    .tut-filters::-webkit-scrollbar {
-      height: 3px;
-    }
-    .tut-filters::-webkit-scrollbar-track {
-      background: var(--bg-secondary);
-      border-radius: 100px;
-    }
-    .tut-filters::-webkit-scrollbar-thumb {
-      background: var(--saffron);
-      border-radius: 100px;
-    }
+    .tut-filters::-webkit-scrollbar { display: none; }
     .tut-filter {
       font-family: var(--font-ui);
-      font-size: 0.82rem;
+      font-size: 0.76rem;
       font-weight: 600;
-      padding: 7px 16px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 7px 15px;
       border-radius: 100px;
       border: 1.5px solid var(--border);
       background: var(--bg-card);
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
       flex-shrink: 0;
-      letter-spacing: 0.01em;
     }
     .tut-filter:hover {
-      border-color: var(--saffron);
-      color: var(--saffron);
+      border-color: rgba(232,147,10,0.45);
+      color: var(--saffron-dark);
       background: rgba(232,147,10,0.05);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(232,147,10,0.1);
     }
     .tut-filter.active {
-      border-color: var(--saffron);
+      border-color: transparent;
       color: #fff;
-      background: var(--saffron);
-      box-shadow: 0 2px 8px rgba(232,147,10,0.3);
+      background: linear-gradient(135deg, var(--saffron) 0%, var(--saffron-dark) 100%);
+      box-shadow: 0 3px 12px rgba(232,147,10,0.38);
+      transform: translateY(-1px);
     }
 
     /* ── Tutorial grid & cards ────────────────── */
@@ -445,18 +470,21 @@
         </div>
       </div>
     </div>
-    <div class="tut-filters" id="filterBar">
-      <button class="tut-filter active" data-tag="all">All Topics</button>
-      <button class="tut-filter" data-tag="architecture">Architecture</button>
-      <button class="tut-filter" data-tag="platform-technical">Platform &amp; Technical</button>
-      <button class="tut-filter" data-tag="integration-data">Integration &amp; Data</button>
-      <button class="tut-filter" data-tag="enterprise-strategy">Enterprise Strategy</button>
-      <button class="tut-filter" data-tag="ai-future">AI &amp; Future</button>
-      <button class="tut-filter" data-tag="delivery-management">Delivery Management</button>
-      <button class="tut-filter" data-tag="crm-comparison">CRM Comparison</button>
-      <button class="tut-filter" data-tag="security-compliance">Security &amp; Compliance</button>
-      <button class="tut-filter" data-tag="licensing-commercial">Licensing &amp; Commercial</button>
-      <button class="tut-filter" data-tag="change-management">Change Management</button>
+    <div class="tut-filter-sep"></div>
+    <div class="tut-filters-wrap">
+      <div class="tut-filters" id="filterBar">
+        <button class="tut-filter active" data-tag="all">All Topics</button>
+        <button class="tut-filter" data-tag="architecture">Architecture</button>
+        <button class="tut-filter" data-tag="platform-technical">Platform &amp; Technical</button>
+        <button class="tut-filter" data-tag="integration-data">Integration &amp; Data</button>
+        <button class="tut-filter" data-tag="enterprise-strategy">Enterprise Strategy</button>
+        <button class="tut-filter" data-tag="ai-future">AI &amp; Future</button>
+        <button class="tut-filter" data-tag="delivery-management">Delivery Management</button>
+        <button class="tut-filter" data-tag="crm-comparison">CRM Comparison</button>
+        <button class="tut-filter" data-tag="security-compliance">Security &amp; Compliance</button>
+        <button class="tut-filter" data-tag="licensing-commercial">Licensing &amp; Commercial</button>
+        <button class="tut-filter" data-tag="change-management">Change Management</button>
+      </div>
     </div>
   </div>
 
