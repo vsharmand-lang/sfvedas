@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stakeholder Management in Salesforce Programmes: The Hard Truths | SFVedas</title>
+  <meta name="description" content="Navigate the real stakeholder dynamics in enterprise Salesforce programmes — sponsor disengagement, competing priorities, political resistance, and how to manage all of it." />
+  <meta property="og:title" content="Stakeholder Management in Salesforce Programmes: The Hard Truths" />
+  <meta property="og:description" content="Navigate the real stakeholder dynamics in enterprise Salesforce programmes — sponsor disengagement, competing priorities, political resistance, and how to manage all of it." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Stakeholder Management in Salesforce Programmes: The Hard Truths",
+    "description": "Navigate the real stakeholder dynamics in enterprise Salesforce programmes — sponsor disengagement, competing priorities, political resistance, and how to manage all of it.",
+    "author": {"@type": "Person", "name": "Vishal Sharma"},
+    "publisher": {"@type": "Organization", "name": "SFVedas"},
+    "datePublished": "2025-01-01",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sfvedas.com/tutorials/ent-013/"}
+  }
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">SF<span>Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/" class="active">Tutorials</a></li>
+        <li><a href="/learning-paths/">Learning Paths</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../pages/contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+    </div>
+  </nav>
+
+  <section class="tutorial-header">
+    <div class="container">
+      <a href="/tutorials/?tag=enterprise-strategy" class="back-link" style="color:var(--sage-green)">← Back to Enterprise Strategy</a>
+      <div class="card-badges" style="margin:1rem 0 0.75rem;">
+        <span class="card-id">ENT-013</span>
+        <span class="card-tag" style="color:var(--sage-green);background:rgba(45,125,82,0.08);">Enterprise Strategy</span>
+        <span class="card-read">20 min read</span>
+        <span class="card-audience">For: Programme Managers · CTOs · Delivery Leads</span>
+      </div>
+      <h1>Stakeholder Management in Salesforce Programmes: The Hard Truths</h1>
+      <p class="tutorial-intro">Most Salesforce programme failures have a people problem at their core — a disengaged sponsor, a resistant business lead, competing factions with irreconcilable priorities, or a delivery team that confused technical delivery with programme success. Stakeholder management is not a soft skill. It is a programme discipline with techniques, tools, and early warning signals.</p>
+      <div class="author-block">
+        <div class="author-avatar">VS</div>
+        <div>
+          <div class="author-name">Vishal Sharma</div>
+          <div class="author-title">Salesforce Architect · SFVedas Founder</div>
+        </div>
+      </div>
+
+      <ins class="adsbygoogle" style="display:block;margin-top:1.5rem;" data-ad-client="ca-pub-4584420180521124" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-stat-grid">
+      <div class="tutorial-stat-card">
+        <div class="tsn">4</div>
+        <div class="tsl">Stakeholder Archetypes</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">5</div>
+        <div class="tsl">Resistance Patterns</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">20 min</div>
+        <div class="tsl">Read Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <main class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <strong>What you'll learn:</strong> The four stakeholder archetypes in Salesforce programmes, five resistance patterns and how to address each, sponsor engagement techniques, escalation design, and how to read early warning signals before a programme derails.
+        </div>
+
+        <h2 id="s1">The Stakeholder Problem Nobody Talks About</h2>
+        <p>Salesforce programme post-mortems are full of technical explanations: the data migration was harder than expected, the integration took longer, the requirements changed mid-sprint. These are real — but they are rarely the root cause. The root cause is almost always that the right people were not sufficiently engaged at the right time, and when the programme hit a difficult moment, there was nobody with the authority and will to unblock it.</p>
+        <p>Stakeholder management in Salesforce programmes has three components that are often conflated. <strong>Stakeholder identification</strong> — knowing who has influence over the programme, even if they are not formally on the governance structure. <strong>Stakeholder engagement</strong> — the ongoing work of keeping the right people informed, consulted, and invested. <strong>Stakeholder alignment</strong> — the deliberate effort to resolve conflicts between stakeholders before those conflicts derail delivery.</p>
+        <p>Most programmes do a reasonable job of identification. They struggle with engagement — particularly as the programme progresses past initial excitement into the messy middle. They almost universally underinvest in alignment — treating stakeholder conflicts as communication problems when they are actually interest conflicts that require negotiation.</p>
+
+        <div class="callout callout--insight">
+          <strong>Insight:</strong> A stakeholder who was enthusiastic at kickoff and is now unresponsive is not a communication problem. It means the programme is no longer serving their interests, or they believe it won't succeed. Investigate the cause; don't just increase communication frequency.
+        </div>
+
+        <h2 id="s2">The Four Stakeholder Archetypes</h2>
+        <p>In practice, stakeholders in Salesforce programmes fall into four archetypes. Understanding which archetype you are dealing with determines how you engage.</p>
+        <p><strong>The Champion</strong> has a personal stake in the programme's success — often because their team's effectiveness is directly tied to the outcome. Champions will advocate internally, unlock budget, and escalate blockers on your behalf. They are your most valuable stakeholders. Invest time in keeping them informed, successful, and visible. Their credibility rises and falls with the programme's performance.</p>
+        <p><strong>The Reluctant Participant</strong> has been told to engage but does not see personal benefit in the programme. They will attend meetings, provide cursory approvals, and disengage when anything competes for their time. The mistake is treating them as engaged because they are present. Reluctant participants need to be given a stake — a visible win, a problem the programme will solve for them specifically, or a consequence of non-engagement that is made explicit.</p>
+        <p><strong>The Active Resistor</strong> is working against the programme — sometimes overtly, more often through delay, objection, or selective withholding of information. Active resistance usually has a reason: the programme threatens their team's scope, their budget, their headcount, or their personal relationships with displaced vendors. The response is not escalation (which makes them more resistant) but understanding and, where possible, addressing the underlying concern.</p>
+        <p><strong>The Passive Bystander</strong> is neither for nor against the programme. They have influence but are not exercising it. In a healthy programme, bystanders are fine. In a programme under political pressure, bystanders who could have defended the programme do not — and their silence is interpreted as withdrawal of support. Engage bystanders with specific, low-effort asks: a brief endorsement at an all-hands, a review of an output, a quote for a communication. Small investment, meaningful insurance.</p>
+
+        <h2 id="s3">The Five Resistance Patterns</h2>
+        <p>Stakeholder resistance is not monolithic. The response that works for one pattern will backfire on another.</p>
+        <p><strong>Scope resistance</strong> — "This is bigger/more complex than we agreed." Often legitimate. The response is either to demonstrate that the scope is correct and was understood, or to acknowledge scope creep honestly and re-baseline. Defending original scope when it has genuinely changed destroys credibility.</p>
+        <p><strong>Prioritisation resistance</strong> — "We have bigger priorities right now." A signal that the programme has lost competitive position in the stakeholder's agenda. The response is to make the cost of delay explicit: what business outcome is deferred by every month of delay? Vague urgency does not work — specific financial or operational impact does.</p>
+        <p><strong>Process resistance</strong> — "We don't want to change how we work." The most common and most underestimated form of resistance. Technology is rarely the obstacle; process change is. Involve the resistant teams in process design early. Process change imposed on people will be quietly circumvented; process change co-designed will be adopted.</p>
+        <p><strong>Trust resistance</strong> — "We don't believe the programme will deliver." Often the residue of a previous failed technology programme. The response is demonstration, not assertion. Deliver something small and visible early. Show working software to real users. Trust is rebuilt through evidence, not promises.</p>
+        <p><strong>Political resistance</strong> — "This programme benefits Department A at Department B's expense." The hardest to address directly because it cannot be acknowledged openly. The response is to design benefits that are visible for all affected departments, involve resistant teams in decision-making, and use the sponsor's authority to set expectations about acceptable political behaviour.</p>
+
+        <div class="callout callout--warning">
+          <strong>Hard Truth:</strong> You cannot manage political resistance at the delivery level. It must be managed at the sponsor level. If your sponsor is not willing to address it, the programme will absorb it as delivery friction indefinitely. This is a programme risk that should be surfaced explicitly in your risk register.
+        </div>
+
+        <h2 id="s4">Sponsor Engagement: What It Actually Requires</h2>
+        <p>Programme sponsors in Salesforce programmes are often senior enough to provide political cover but busy enough to be perpetually unavailable. The delivery team's job is to make sponsorship as easy and effective as possible — not to depend on sponsors to be proactively engaged.</p>
+        <p>The sponsor engagement model that works: a one-page programme dashboard delivered weekly (never more than one page — if you need more, you are reporting, not communicating), a 30-minute monthly conversation (not a status meeting — a decisions meeting: here are the three decisions we need you to make or endorse this month), and a pre-agreed escalation protocol (you define the categories of decision that require sponsor involvement; the sponsor pre-commits to a response time).</p>
+        <p>Sponsor disengagement is a programme risk, not a communication failure. When a sponsor starts cancelling the monthly meeting, delegating to a junior representative, or taking longer than pre-agreed to respond to escalations, document it as a risk. Have the conversation directly: "I need to understand your availability over the next quarter — here are the decisions I'll need you involved in." This is not confrontational; it is professional risk management.</p>
+
+        <h2 id="s5">Early Warning Signals and the Stakeholder Health Score</h2>
+        <p>Programmes rarely collapse suddenly. They degrade over time, and the degradation is visible in stakeholder behaviour if you know what to look for.</p>
+        <p>Maintain a simple stakeholder health score — not a sophisticated RAG model, just a weekly assessment of four signals for each key stakeholder: attendance at programme governance, responsiveness to requests, tone in communications (escalating or settled), and action follow-through. When two or more signals are amber for the same stakeholder for two or more weeks, intervene directly.</p>
+        <p>The intervention should be a private conversation, not a formal escalation. "I've noticed you've been less available over the past few weeks. I want to understand if there's something about the programme direction I should know." This conversation surfaces concerns before they become programme-threatening problems. Most stakeholders who are disengaging are doing so because of a specific concern that they haven't raised formally. Give them a safe channel to raise it.</p>
+
+        <div class="callout callout--tip">
+          <strong>Practical Tip:</strong> Run a stakeholder retrospective at the end of each programme phase — not just a delivery retrospective. Ask each key stakeholder: what worked well, what was frustrating, what would you change? The answers tell you whether stakeholder health is improving or degrading, and they make stakeholders feel heard, which is itself a form of engagement.
+        </div>
+
+        <div class="key-takeaways">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li>Most Salesforce programme failures have a stakeholder problem at their core — not just a technical one. Stakeholder management is a programme discipline, not a soft skill.</li>
+            <li>The four archetypes — Champion, Reluctant Participant, Active Resistor, Passive Bystander — each require different engagement approaches.</li>
+            <li>Five resistance patterns (scope, prioritisation, process, trust, political) each require a different response; applying the wrong one makes the situation worse.</li>
+            <li>Political resistance cannot be managed at the delivery level — it requires sponsor-level intervention and should be tracked as a programme risk.</li>
+            <li>Sponsor engagement requires structure: weekly one-page dashboard, monthly decisions meeting, pre-agreed escalation protocol.</li>
+            <li>Stakeholder disengagement is detectable early — track four signals weekly and intervene privately before problems become programme-threatening.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> A stakeholder who was enthusiastic at kickoff but is now unresponsive most likely indicates what?</p>
+            <button onclick="answer(this,'q1','wrong')">A communication frequency problem</button>
+            <button onclick="answer(this,'q1','right')">The programme is no longer serving their interests or they believe it won't succeed</button>
+            <button onclick="answer(this,'q1','wrong')">The programme is progressing too slowly</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> Which resistance pattern requires sponsor-level intervention rather than delivery-level management?</p>
+            <button onclick="answer(this,'q2','wrong')">Process resistance</button>
+            <button onclick="answer(this,'q2','wrong')">Trust resistance</button>
+            <button onclick="answer(this,'q2','right')">Political resistance</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> What is the recommended cadence for the monthly sponsor interaction?</p>
+            <button onclick="answer(this,'q3','wrong')">A full status review of all programme workstreams</button>
+            <button onclick="answer(this,'q3','right')">A 30-minute decisions meeting covering the three decisions needed from the sponsor that month</button>
+            <button onclick="answer(this,'q3','wrong')">A written report covering RAG status across all milestones</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="../ent-020/" class="related-card">
+              <span class="card-id">ENT-020</span>
+              <h4>Post-Implementation Review: What Actually Went Wrong and Why</h4>
+            </a>
+            <a href="../ent-022/" class="related-card">
+              <span class="card-id">ENT-022</span>
+              <h4>Making the Case to the Board: Salesforce Investment Language That Works</h4>
+            </a>
+            <a href="../ent-009/" class="related-card">
+              <span class="card-id">ENT-009</span>
+              <h4>Salesforce Governance Framework: Decisions, Escalations, and Ownership</h4>
+            </a>
+          </div>
+        </div>
+
+      </main>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>On This Page</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Stakeholder Problem</a></li>
+            <li><a href="#s2">Four Stakeholder Archetypes</a></li>
+            <li><a href="#s3">Five Resistance Patterns</a></li>
+            <li><a href="#s4">Sponsor Engagement</a></li>
+            <li><a href="#s5">Early Warning Signals</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-progress">
+          <h4>Your Progress</h4>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="sidebarProgress" style="width:0%"></div>
+          </div>
+          <p id="progressLabel" style="font-size:0.8rem;margin-top:0.4rem;">0% complete</p>
+        </div>
+
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ent-014/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-014</span>
+            <span class="sidebar-next-title">Decommissioning Legacy CRMs: Migration vs Coexistence Strategies</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ent-012/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-012</span>
+            <span class="sidebar-next-title">Enterprise Architecture and Salesforce: Fitting the Platform into the Big Picture</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">SF<span>Vedas</span></div>
+        <p class="footer-tagline">Deep Salesforce knowledge for technology leaders.</p>
+      </div>
+      <div>
+        <h4>Enterprise Strategy</h4>
+        <ul>
+          <li><a href="/tutorials/?tag=enterprise-strategy">All Tutorials</a></li>
+          <li><a href="../ent-001/">Build vs Buy</a></li>
+          <li><a href="../ent-002/">Total Cost of Ownership</a></li>
+          <li><a href="../ent-005/">5-Year Platform View</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="/tutorials/">All Tutorials</a></li>
+          <li><a href="/learning-paths/">Learning Paths</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="../pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SFVedas. Built for Salesforce leaders.</p></div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const el = document.getElementById('tutorialContent');
+      const progressBar = document.getElementById('readingProgress');
+      const sidebarBar = document.getElementById('sidebarProgress');
+      const label = document.getElementById('progressLabel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, Math.round((scrolled / total) * 100));
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (sidebarBar) sidebarBar.style.width = pct + '%';
+      if (label) label.textContent = pct + '% complete';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

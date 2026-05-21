@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Legacy System Integration: The Patterns That Actually Work | SFVedas</title>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Legacy System Integration: The Patterns That Actually Work | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-014/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Legacy System Integration: The Patterns That Actually Work | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Legacy System Integration: The Patterns That Actually Work | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-014/",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-014/",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-014</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Legacy System Integration: The Patterns That Actually Work
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Legacy systems are the most common integration challenge in enterprise Salesforce projects. They are often the systems you cannot modernise, cannot replace, and cannot ignore. The integration patterns that work with legacy systems are different from those that work with modern APIs — and the wrong choice creates technical debt that compounds for years.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>What makes a legacy system "legacy" from an integration perspective</li>
+      <li>The anti-corruption layer pattern: why it exists and how to implement it</li>
+      <li>File-based integration: the pattern that outlasts everything else</li>
+      <li>Database-level integration: when and why it's sometimes the only option</li>
+      <li>The strangler fig pattern for gradually replacing legacy integrations</li>
+      <li>Operational considerations for integration with systems that cannot be changed</li>
+    </ul>
+  </div>
+
+  <h2 id="s1">What Makes a System Legacy from an Integration Perspective</h2>
+  <p>A system is "legacy" from an integration perspective when it has one or more of these characteristics: it cannot be modified to add new API endpoints or event publishing capabilities, it runs protocols that modern systems do not natively support (IBM MQ, AS/400 data queues, mainframe CICS transactions, SFTP file drops), it has undocumented data structures that require reverse engineering to map, or it has availability windows that preclude real-time integration. All of these constraints are common. The integration architecture must accommodate the legacy system as it is, not as you wish it were.</p>
+  <p>The most common legacy integration scenarios in Salesforce projects are: SAP ERP (primarily R/3 or S/4 with IDOCs, RFC, and BAPI interfaces), IBM Mainframe systems (COBOL-based, file-based or MQ-based), Oracle EBS/PeopleSoft (SOAP-heavy, with proprietary message structures), and older Siebel CRM systems (the ironic common scenario of migrating from Siebel to Salesforce while keeping Siebel running in parallel for years). Each has specific integration characteristics that determine the appropriate pattern.</p>
+  <p>The key principle for legacy integration architecture: minimize the blast radius of the legacy system's constraints. If SAP only supports batch IDOC files, that batch file interface should terminate as early as possible in the integration stack — ideally at a transformation layer that converts IDOCs to standard REST/JSON for the rest of the integration. Allowing SAP-specific data structures to flow all the way through to Salesforce creates a fragile coupling that makes future system replacement expensive.</p>
+
+  <div class="callout callout--insight">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>The legacy system is not your fault, but the integration debt is:</strong> Legacy system constraints are inherited technical reality. But the integration architecture you build around them is your choice. A well-designed anti-corruption layer around a mainframe interface isolates the legacy constraints to a single adapter. A poorly designed direct coupling spreads those constraints across every system that touches Salesforce.
+    </div>
+  </div>
+
+  <h2 id="s2">The Anti-Corruption Layer Pattern</h2>
+  <p>The anti-corruption layer (ACL) is a translation layer between a legacy system and modern systems that prevents the legacy system's data model and semantics from "corrupting" the clean domain model of the modern system. In Salesforce integration architecture, the ACL sits between the legacy system's interface (IDOC, flat file, SOAP web service) and the Salesforce API, translating in both directions.</p>
+  <p>An SAP-to-Salesforce ACL does three things: it receives data from SAP in SAP's native format (IDOC XML, typically), it transforms the SAP data model to the Salesforce data model (mapping SAP Business Partner fields to Salesforce Account fields, handling SAP-specific code values and reference tables), and it calls the Salesforce REST API with the transformed data. In the opposite direction, it receives Salesforce data via Platform Events or Apex callouts, transforms it to SAP's expected format, and calls SAP via RFC or writes to SAP's inbound interface queues.</p>
+  <p>MuleSoft is the most commonly used platform for ACL implementation at enterprise scale — its DataWeave transformation language and SAP connector make the translation layer maintainable. For simpler scenarios, a lightweight Node.js or Python microservice can serve as the ACL without the MuleSoft infrastructure cost. The key requirement is that the ACL is the only system that knows about both the legacy and modern data models — if Salesforce Apex code starts importing SAP-specific data structures, the anti-corruption boundary has been violated.</p>
+
+  <pre><code class="language-java">// DataWeave ACL transformation: SAP IDOC Customer to Salesforce Account
+%dw 2.0
+output application/json
+---
+{
+  "records": payload.IDOC.E1KNA1M map (customer) -> {
+    "Name": customer.NAME1 ++ (
+      if (customer.NAME2 != null) " " ++ customer.NAME2 else ""
+    ),
+    "External_SAP_ID__c": customer.KUNNR,
+    "BillingStreet": customer.STRAS,
+    "BillingCity": customer.ORT01,
+    "BillingPostalCode": customer.PSTLZ,
+    "BillingCountry": lookupCountryCode(customer.LAND1),
+    "Phone": customer.TELF1,
+    "Industry": mapSapIndustry(customer.BRSCH)
+  }
+}</code></pre>
+
+  <h2 id="s3">File-Based Integration: The Durable Pattern</h2>
+  <p>File-based integration — where data is exchanged as structured files (CSV, XML, JSON, fixed-width) written to and read from a shared location (SFTP server, S3 bucket, network share) — is the oldest integration pattern and still the most widely used in legacy system integration. Its durability is earned: files are visible, auditable, retryable, and independent of the availability of either system at the moment of exchange.</p>
+  <p>The SFTP-based file drop pattern works as follows: the legacy system generates a file of changed records on a schedule and deposits it to an SFTP server. The integration layer (MuleSoft SFTP connector, a Lambda function, a Python script) picks up the file, transforms it, and loads it to Salesforce via Bulk API. Both the file drop and the transformation-load step are asynchronous — neither system needs to be available simultaneously, and failures in the loading stage leave the file intact for retry.</p>
+  <p>File integrity is the critical design consideration. Files must be delivered completely before the integration layer processes them. The common pattern for atomicity is write-then-rename: the legacy system writes the file with a .tmp extension, and renames it to .csv only when the write is complete. The integration layer processes only .csv files, ignoring .tmp files. This prevents the integration from processing a partially written file that arrives during a legacy system write operation.</p>
+
+  <h2 id="s4">Database-Level Integration: When and Why</h2>
+  <p>Direct database integration — connecting to the legacy system's database directly (via JDBC for Oracle/SQL Server, via DB2 connectors for IBM systems) rather than through an API — is sometimes the only available interface. Many legacy systems do not expose APIs and cannot be modified to add them. The only way to extract or inject data is directly through the database. This pattern is used for read-heavy scenarios (extracting historical data for migration, populating a data warehouse) more than for operational bidirectional sync.</p>
+  <p>Database-level integration bypasses the legacy application's business logic, validation rules, and audit trail. Writing records directly to a legacy system's database — even if technically possible — creates data that the application layer is unaware of and has not validated. This can break the application's referential integrity, trigger rules, and consistency guarantees. Direct database writes to production legacy systems should be treated as a last resort, never a design pattern, and should always involve the legacy system's vendor or owner to confirm what is safe.</p>
+  <p>For read-only extraction, direct database access is safer but still carries risks: it adds load to the production database, it exposes the legacy system's internal data model (which may change without notice), and it bypasses the security model of the application layer. Use read replicas (database secondaries) for extraction wherever available. Never run heavy ETL queries against a primary production database during business hours.</p>
+
+  <h2 id="s5">The Strangler Fig: Gradual Replacement</h2>
+  <p>The strangler fig pattern (coined by Martin Fowler) describes a strategy for gradually replacing a legacy system by building new functionality around it until the legacy system can be decommissioned. In Salesforce integration architecture, this often applies when the goal is to replace a legacy CRM or ERP with Salesforce over a multi-year timeline — not in a single big-bang migration, but by incrementally moving capabilities and data to Salesforce while keeping the legacy system running for the functions not yet migrated.</p>
+  <p>The integration architecture during a strangler fig migration must support a hybrid state: some customer data in Salesforce, some in the legacy system, with a synchronisation layer maintaining consistency between them. The integration complexity during this phase is significant — conflict resolution, data ownership routing (which system is authoritative for which records), and the operational overhead of maintaining two live systems simultaneously. This is the cost of the lower-risk migration approach.</p>
+  <p>The exit criterion for strangler fig is clear: a function is fully moved to Salesforce when both the data and the business process have been migrated, no users are accessing that function in the legacy system, and the integration point for that function can be decommissioned. Tracking migration completeness by function rather than by record count is the correct metric — a system is not replaced until its functions are replaced, not just its data.</p>
+
+  <div class="callout callout--tip">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Document the legacy interface contract formally:</strong> Legacy systems often have undocumented interfaces that only specific individuals understand. Before designing the integration, document the interface contract formally: what data the legacy system produces, what format it uses, what the timing is, what error conditions it can return, and who owns it. This documentation protects the integration team when the legacy system changes — and it always changes.
+    </div>
+  </div>
+
+  <div class="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>Legacy systems are defined by integration constraints: no API capability, unsupported protocols (SFTP, IBM MQ, RFC), undocumented data structures, or restricted availability windows. The architecture must accommodate these constraints as-is.</li>
+      <li>The anti-corruption layer (ACL) pattern isolates legacy data models and semantics from the Salesforce domain model. The ACL is the only component that knows both data models — Salesforce code should never import legacy-specific data structures directly.</li>
+      <li>File-based integration (SFTP drop, S3, network share) is the most durable pattern for legacy systems that cannot expose real-time APIs. Use write-then-rename file atomicity to prevent partial file processing.</li>
+      <li>Direct database integration bypasses the legacy application's business logic and should be used only for read-only extraction, on read replicas, during off-peak hours. Direct writes to legacy production databases are a last resort, not a design pattern.</li>
+      <li>The strangler fig pattern enables gradual legacy system replacement without big-bang risk, but requires a hybrid-state integration architecture with conflict resolution and data ownership routing during the transition period.</li>
+      <li>Document the legacy interface contract formally before implementation — including format, timing, error conditions, and ownership — to protect against undocumented changes and knowledge loss when legacy system owners change.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A Salesforce integration with SAP is designed so that SAP's IDOC Customer segment structure is directly mapped to Salesforce custom fields — the Salesforce Account object has fields named "KUNNR", "LAND1", and "BRSCH" to match SAP field names. What architectural problem does this create?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">SAP field names exceed Salesforce's 40-character field name limit — this is a technical error that will prevent deployment</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">The SAP data model has "corrupted" the Salesforce domain model — SAP-specific terminology is now embedded in Salesforce, violating the anti-corruption principle. Any future SAP field rename or SAP decommission requires Salesforce field changes. A clean ACL would map KUNNR to External_SAP_ID__c, LAND1 to BillingCountry, and BRSCH to Industry.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Using SAP field names in Salesforce improves maintainability by making the mapping explicit — this is actually a best practice for SAP-Salesforce integration</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A legacy system drops CSV files to an SFTP server every hour. The integration team observes that occasionally a partial file is picked up and processed, creating incomplete data in Salesforce. What is the correct fix?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Increase the polling interval on the SFTP connector from 1 minute to 15 minutes to ensure files are fully written before pickup</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Implement write-then-rename atomicity: the legacy system writes files with a .tmp extension and renames to .csv only when the write is complete. The integration connector processes only .csv files, eliminating the partial file pickup problem.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Add a record count footer line to the CSV file and validate the count before processing — reject files where the count doesn't match</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. During a strangler fig migration from a legacy CRM to Salesforce, 40% of customer records are now managed in Salesforce and 60% remain in the legacy CRM. A new marketing campaign requires segmenting ALL customers. What does the integration architecture need to support?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Pause the campaign until 100% of customers are migrated to Salesforce — cross-system segmentation is architecturally impractical</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">A unified view of customers across both systems — either by reading from both Salesforce and the legacy CRM into a shared analytics layer (data warehouse or Data Cloud), or by temporarily importing legacy CRM customer IDs into Salesforce as read-only records with a "legacy" source flag for the duration of the campaign</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Run two separate campaigns — one from Salesforce for the 40% migrated customers and one from the legacy CRM for the remaining 60%</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../intg-015/" class="related-card">
+              <span class="card-id">INTG-015</span>
+              <h4>iPaaS Platforms and Salesforce: Boomi, Workato, Zapier at Enterprise Scale</h4>
+            </a>
+            <a href="../intg-013/" class="related-card">
+              <span class="card-id">INTG-013</span>
+              <h4>Data Cloud Unification: Identity Resolution at Scale</h4>
+            </a>
+            <a href="../intg-016/" class="related-card">
+              <span class="card-id">INTG-016</span>
+              <h4>JSON and XML Processing in Apex: Performance Trade-offs</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">What Makes a System Legacy</a></li>
+            <li><a href="#s2">The Anti-Corruption Layer Pattern</a></li>
+            <li><a href="#s3">File-Based Integration</a></li>
+            <li><a href="#s4">Database-Level Integration</a></li>
+            <li><a href="#s5">The Strangler Fig Pattern</a></li>
+            <li><a href="#quiz">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../intg-015/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-015</span>
+            <span class="sidebar-next-title">iPaaS Platforms and Salesforce: Boomi, Workato, Zapier at Enterprise Scale</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../intg-013/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-013</span>
+            <span class="sidebar-next-title">Data Cloud Unification: Identity Resolution at Scale</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

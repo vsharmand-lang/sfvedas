@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Cloud as the AI Foundation: Why Clean Data Wins | SFVedas</title>
+  <meta name="description" content="Why Data Cloud is the foundational layer for Salesforce AI features, how unified profiles are built, what data readiness actually requires, and where organisations consistently fail."/>
+  <meta property="og:title" content="Data Cloud as the AI Foundation: Why Clean Data Wins | SFVedas"/>
+  <meta property="og:description" content="Why Data Cloud is the foundational layer for Salesforce AI features, how unified profiles are built, what data readiness actually requires, and where organisations consistently fail."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ai-005/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Data Cloud as the AI Foundation: Why Clean Data Wins | SFVedas"/>
+  <meta name="twitter:description" content="Why Data Cloud is the foundational layer for Salesforce AI features, how unified profiles are built, what data readiness actually requires, and where organisations consistently fail."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Data Cloud as the AI Foundation: Why Clean Data Wins | SFVedas",
+    "description": "Why Data Cloud is the foundational layer for Salesforce AI features, how unified profiles are built, what data readiness actually requires, and where organisations consistently fail.",
+    "url": "https://sfvedas.com/tutorials/ai-005/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-005/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": { "@type": "ImageObject", "url": "https://sfvedas.com/images/logo.svg" }
+    },
+    "image": "https://sfvedas.com/images/og-default.svg"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=ai-future" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to AI &amp; Future</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">AI-005</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">AI &amp; Future</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Data Cloud as the AI Foundation: Why Clean Data Wins
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Every Salesforce AI feature — from Einstein to Agentforce — is bounded by the quality and completeness of the data it operates on, and Data Cloud is the layer that determines that ceiling.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce AI &amp; Platform Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Why AI output quality is directly bounded by the data quality feeding it</li>
+            <li>What Data Cloud actually does and how it fits into the Salesforce AI stack</li>
+            <li>How unified profiles are constructed and what identity resolution involves in practice</li>
+            <li>How to assess data readiness before committing to an AI use case</li>
+            <li>The most common data preparation failures and how they manifest in AI feature quality</li>
+            <li>The governance structures needed to maintain data quality over time</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Why Data Quality Is the Binding Constraint on AI</h2>
+        <p>The marketing narrative around Salesforce AI features focuses heavily on the model: new architectures, more parameters, better reasoning. The operational reality is that the model is almost never the limiting factor in enterprise deployments. The limiting factor is the data. A state-of-the-art LLM grounded with fragmented, stale, or inconsistently structured CRM data will produce fragmented, stale, or inconsistent outputs. The model amplifies what it receives.</p>
+        <p>This matters architecturally because it resequences the work. Before you evaluate which Einstein feature to activate, before you design an Agentforce agent, before you purchase Data Cloud licences, you need an honest assessment of your current data state. Organisations that skip this step and proceed directly to AI feature activation spend most of their project time debugging outputs that are actually data problems, not model problems.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>The ceiling on AI quality is your data quality ceiling:</strong> No amount of prompt engineering, model fine-tuning, or feature configuration compensates for missing, duplicated, or inconsistently structured source data. Data Cloud does not fix data problems — it surfaces them at scale. Invest in data quality before investing in AI features.
+          </div>
+        </div>
+
+        <h2 id="s2">What Data Cloud Does in the AI Stack</h2>
+        <p>Data Cloud is Salesforce's customer data platform — a real-time data unification layer that ingests data from multiple sources, resolves identity across those sources, and constructs unified customer profiles that other Salesforce products can act on. In the context of AI, Data Cloud is the grounding layer: when an Agentforce agent or Einstein feature needs to understand who a customer is, Data Cloud is the authoritative source of that unified view.</p>
+        <p>The core architecture is built around three concepts: Data Streams (the ingestion pipeline from source systems), Data Model Objects (the mapped and standardised representation of that data in Data Cloud's schema), and Unified Profiles (the resolved, deduplicated view of each customer assembled from across all ingested data streams). The Einstein semantic layer — the component that makes Data Cloud data queryable by AI features — sits on top of unified profiles and applies the business context and relationships needed for meaningful AI reasoning.</p>
+        <p><strong>Data Cloud is not a data warehouse replacement:</strong> A common mischaracterisation is that Data Cloud is simply a new place to store data. It is not. It is a real-time activation layer. Data Cloud ingests from your existing systems — Salesforce orgs, external CRMs, data warehouses, event streams — and produces the unified profile view that AI features can consume. The source of truth remains wherever it was; Data Cloud creates the unified view from it.</p>
+
+        <h2 id="s3">Unified Profiles and Identity Resolution</h2>
+        <p>The unified profile is the central output of Data Cloud. For each customer, Data Cloud assembles a single profile from all the records that refer to that customer across every connected system. The challenge — and it is a genuine engineering challenge, not a configuration task — is determining which records across different systems refer to the same person.</p>
+        <p>Identity resolution uses match rules to compare records across data streams. You define the attributes that constitute a match — email address, phone number, loyalty ID, account number — and the confidence thresholds that determine whether two records are merged into a single unified profile or kept separate. Conservative thresholds reduce false merges but leave fragmented profiles. Aggressive thresholds produce clean unified profiles but risk incorrectly merging records that belong to different people.</p>
+        <p>In practice, identity resolution quality depends almost entirely on the consistency of key identifiers in the source data. If email addresses are inconsistently formatted across systems, or if phone numbers include international prefixes in some systems but not others, or if account numbers use different formatting conventions, the match rules will fail to resolve what should be obvious duplicates. The identity resolution configuration is where you discover exactly how inconsistent your source systems actually are.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Identity resolution does not clean data — it exposes dirty data:</strong> When Data Cloud fails to correctly merge records that should be unified, the cause is almost always inconsistent source data, not a misconfigured match rule. Attempting to resolve this by loosening match thresholds without fixing the source data produces incorrect merges. Fix the source formatting inconsistencies first, then validate that identity resolution produces the expected unified profile count.
+          </div>
+        </div>
+
+        <h2 id="s4">Data Readiness Assessment</h2>
+        <p>A data readiness assessment should be conducted before any AI use case is formally scoped. The assessment has three components: completeness (are the fields the AI feature depends on populated consistently?), accuracy (do those field values reflect reality?), and freshness (is the data current enough to be actionable?).</p>
+        <p><strong>Completeness</strong> is measured by population rate. For each field that an AI feature uses as signal — lead industry, account segment, contact job title, opportunity product line — calculate the percentage of records where that field is populated. A field with less than 60% population is unlikely to be a reliable signal source. For many organisations, this exercise alone reveals that three or four of the fields they believed were mandatory in their CRM are effectively optional in practice.</p>
+        <p><strong>Accuracy</strong> is harder to measure systematically. Spot checks against the source of record, comparison against external enrichment data, and rep surveys about whether the data they see in Salesforce reflects their actual customers are the practical approaches. The accuracy question you are trying to answer is: would the AI feature make the same decision a well-informed human would make if given this data?</p>
+        <p><strong>Freshness</strong> varies by feature. An Agentforce agent handling a live customer service interaction needs current account and case data — data that is hours stale may be tolerable, but days stale creates real errors. A predictive lead scoring model trained on annual data is less sensitive to freshness than a real-time next-best-action recommendation engine.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Run a data readiness sprint before any AI project kickoff:</strong> Spend two to three days pulling field population rates, sampling accuracy against source systems, and validating identity resolution across your top customer segments. The findings will either confirm you are ready to proceed or surface the data work that needs to happen before the AI project starts — preventing months of debugging downstream.
+          </div>
+        </div>
+
+        <h2 id="s5">Common Data Preparation Failures</h2>
+        <p>The failures that sink AI projects at the data layer are predictable. Understanding them before you encounter them is the most efficient way to avoid them.</p>
+        <p><strong>Segment collapse:</strong> When AI features use account or contact segmentation fields (industry, tier, size) to personalise outputs, and those fields are populated inconsistently — some records use "Financial Services", others use "Finance", others use "FinServ" — the AI sees these as distinct segments with small populations rather than one large segment. The personalisation fails because no segment is large enough to generate meaningful patterns. Standardising picklist values and running a one-time data normalisation before AI activation is not optional.</p>
+        <p><strong>Historical data gaps:</strong> Many AI features require historical interaction data — past purchases, past cases, past email engagement — to generate personalised recommendations. If that historical data lives in a legacy system that was never migrated to Salesforce, or if it was purged as part of a data cleanup, the AI feature starts with no history and cannot produce useful outputs until sufficient new history accumulates. This is a multi-month delay that surprises organisations who assumed their Salesforce data was the complete picture.</p>
+        <p><strong>Permission-driven gaps:</strong> If the AI feature queries records that users in certain roles or territories cannot see due to sharing rules, the unified profile it builds for those customers will be incomplete — missing the data that only certain users can access. Einstein features that run in system context may see more than the Einstein features that run as a specific user. Validating the effective query scope of each AI feature against your sharing model is a necessary architecture step.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>AI output quality is a direct function of data quality — the model amplifies what it receives, so fragmented or inconsistent source data produces fragmented or inconsistent AI outputs regardless of the model's sophistication.</li>
+            <li>Data Cloud is a real-time activation and unification layer, not a data warehouse — it ingests from your existing systems and produces unified customer profiles for AI features to consume.</li>
+            <li>Identity resolution quality depends on the consistency of key identifiers across source systems; mismatched formats are the primary cause of failed profile merges, not misconfigured match rules.</li>
+            <li>A data readiness assessment covering completeness, accuracy, and freshness should be completed before any AI use case is formally scoped — it is far cheaper to discover data problems before project kickoff than during delivery.</li>
+            <li>Picklist value inconsistency, missing historical data, and permission-driven query gaps are the three most common data preparation failures that degrade AI feature quality in production.</li>
+            <li>Governance structures — data steward ownership, picklist change control, population rate monitoring — are required to maintain AI feature quality as the org evolves over time.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> An organisation activates Einstein Next Best Action but finds the recommendations are generic and unhelpful. The consultant identifies that the "Customer Segment" field — a key signal for the feature — is only populated on 35% of account records. What should be done first?</p>
+            <button onclick="answer(this,'q1','wrong')">Reconfigure the Einstein model to use a different field as the primary signal</button>
+            <button onclick="answer(this,'q1','wrong')">Purchase additional Einstein credits to improve model training volume</button>
+            <button onclick="answer(this,'q1','right')">Improve the population rate of the Customer Segment field before expecting the feature to produce meaningful recommendations</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> During Data Cloud identity resolution setup, the team finds that records that should be merged into a single unified profile are remaining as separate profiles. What is the most likely root cause?</p>
+            <button onclick="answer(this,'q2','wrong')">Data Cloud's identity resolution algorithm has a known limitation with B2B account data</button>
+            <button onclick="answer(this,'q2','right')">Key identifier fields (such as email or phone) are formatted inconsistently across source systems, preventing match rules from recognising records as the same person</button>
+            <button onclick="answer(this,'q2','wrong')">The match threshold is set too aggressively, causing records to be kept separate when they should be merged</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> What is the correct description of Data Cloud's role in the Salesforce AI stack?</p>
+            <button onclick="answer(this,'q3','wrong')">A replacement for the Salesforce data warehouse that stores all customer records in a new schema</button>
+            <button onclick="answer(this,'q3','wrong')">A machine learning platform that trains Einstein models on ingested customer data</button>
+            <button onclick="answer(this,'q3','right')">A real-time unification layer that ingests data from multiple sources, resolves identity, and produces unified customer profiles for AI features to consume</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="../ai-003/" class="related-card">
+              <span class="card-id">AI-003</span>
+              <h4>AI-Powered Lead Scoring: How It Actually Works in Salesforce</h4>
+            </a>
+            <a href="../ai-006/" class="related-card">
+              <span class="card-id">AI-006</span>
+              <h4>Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes</h4>
+            </a>
+            <a href="../intg-010/" class="related-card">
+              <span class="card-id">INTG-010</span>
+              <h4>Master Data Management with Salesforce: The Myths vs Reality</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why Data Quality Is the Binding Constraint on AI</a></li>
+            <li><a href="#s2">What Data Cloud Does in the AI Stack</a></li>
+            <li><a href="#s3">Unified Profiles and Identity Resolution</a></li>
+            <li><a href="#s4">Data Readiness Assessment</a></li>
+            <li><a href="#s5">Common Data Preparation Failures</a></li>
+            <li><a href="#quiz">Check Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ai-006/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-006</span>
+            <span class="sidebar-next-title">Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ai-004/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-004</span>
+            <span class="sidebar-next-title">Agentforce Architecture: The Technical Foundation of Autonomous Agents</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

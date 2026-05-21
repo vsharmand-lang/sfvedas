@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes | SFVedas</title>
+  <meta name="description" content="A technical guide to Salesforce Prompt Builder — template types, grounding with CRM data, prompt engineering principles, versioning, governance, and common failure modes."/>
+  <meta property="og:title" content="Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes | SFVedas"/>
+  <meta property="og:description" content="A technical guide to Salesforce Prompt Builder — template types, grounding with CRM data, prompt engineering principles, versioning, governance, and common failure modes."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ai-006/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes | SFVedas"/>
+  <meta name="twitter:description" content="A technical guide to Salesforce Prompt Builder — template types, grounding with CRM data, prompt engineering principles, versioning, governance, and common failure modes."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes | SFVedas",
+    "description": "A technical guide to Salesforce Prompt Builder — template types, grounding with CRM data, prompt engineering principles, versioning, governance, and common failure modes.",
+    "url": "https://sfvedas.com/tutorials/ai-006/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-006/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": { "@type": "ImageObject", "url": "https://sfvedas.com/images/logo.svg" }
+    },
+    "image": "https://sfvedas.com/images/og-default.svg"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=ai-future" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to AI &amp; Future</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">AI-006</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">AI &amp; Future</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Prompt Builder is the declarative layer for grounding LLM calls with real CRM data — and the quality of your prompts determines the quality of every AI-generated output in your Salesforce deployment.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce AI &amp; Platform Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>What Prompt Builder does and how it fits into the Einstein and Agentforce stack</li>
+            <li>The three prompt template types and when each is appropriate</li>
+            <li>How grounding works and how to inject CRM data into prompts correctly</li>
+            <li>Prompt engineering principles that produce consistent, enterprise-quality outputs</li>
+            <li>How to test, version, and govern prompt templates across a delivery lifecycle</li>
+            <li>The common prompt failures that produce inconsistent or unusable AI outputs</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">What Prompt Builder Actually Does</h2>
+        <p>Prompt Builder is Salesforce's declarative tool for creating, managing, and deploying prompt templates. A prompt template is a structured instruction to an LLM that combines static text (the instructions and context framing) with dynamic content merged from Salesforce records (the grounding data). When a user triggers an Einstein feature — generating a call summary, drafting a renewal email, summarising a case — Prompt Builder assembles the final prompt by merging the template instructions with live data retrieved from the org, then sends the complete prompt to the LLM.</p>
+        <p>The key architectural role Prompt Builder plays is separating the "what to do" (the template instructions) from the "what data to use" (the merge fields and grounding queries). This separation means that changes to how AI features behave — the tone of generated content, the fields they reference, the output format — can be made by editing prompt templates rather than touching Apex code or configuration. For large deployments where non-technical team members need to tune AI behaviour, this separation is significant.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Prompt templates are the business logic layer for AI:</strong> Just as Flows contain declarative automation logic that can be changed without code deployments, prompt templates contain the AI behavioural logic that can be changed without Apex deployments. Treat prompt template design with the same rigour you apply to Flow design — unclear instructions produce unpredictable behaviour at scale.
+          </div>
+        </div>
+
+        <h2 id="s2">Prompt Template Types</h2>
+        <p>Prompt Builder supports three template types, each serving a distinct use case. Choosing the wrong type is a common source of configuration complexity that is easily avoided by understanding what each type is optimised for.</p>
+        <p><strong>Field Generation templates</strong> generate content that populates a specific field on a Salesforce record. The output is deterministic in format — it writes to a defined field — and typically short and structured. Use this type for auto-populating case summaries, generating a meeting debrief that writes back to an activity record, or creating a product description that populates a custom text field on an opportunity line item.</p>
+        <p><strong>Flex templates</strong> are the most general-purpose type. They produce free-form content that is surfaced to a user in context — a drafted email, a generated response to a customer query, a suggested next-step recommendation. Flex templates are used by Einstein for Work and are the primary template type for Agentforce Actions that generate textual output. The user typically reviews the output before it is acted upon.</p>
+        <p><strong>Sales Email templates</strong> are a specialised subtype of Flex templates optimised for email composition. They have built-in merge field support for contact, account, and opportunity data, and they integrate directly with the Einstein Sales Emails feature in the email composer. For standard sales email use cases, using this type rather than a generic Flex template provides better default behaviour and tighter integration with the Sales Cloud UI.</p>
+
+        <h2 id="s3">Grounding with CRM Data</h2>
+        <p>Grounding is the process of injecting real CRM data into a prompt before it is sent to the LLM. In Prompt Builder, grounding is done through merge fields — placeholders in the template that are replaced with actual field values when the prompt is assembled. A merge field like <code>{!$Record.Account.Name}</code> is replaced with the actual account name before the prompt reaches the LLM.</p>
+        <p>More sophisticated grounding uses related record traversal — including data from related objects, not just the record the template is invoked on. A case summary template can ground with data from the related account, the case's contact, the most recent case comment, and the products associated with the account's active contracts. Each of these requires a separate merge field referencing the appropriate relationship path.</p>
+        <p>The constraint on grounding is the LLM context window. Every field value you include in the prompt consumes context tokens. A template that attempts to include the full text of the last 20 case comments plus the complete account history will routinely hit the context limit, causing truncation. Effective grounding is selective: include the data that is genuinely necessary for the LLM to produce the desired output, not everything that might be relevant. This requires understanding what signals actually matter for the specific output you are generating.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Grounding quality matters more than instruction quality:</strong> A well-written prompt template with poor grounding — missing key context fields, stale data, or sparsely populated merge fields — will produce worse outputs than a simply-written template with comprehensive, accurate grounding. Audit which fields are consistently populated before designing merge field selections for a template.
+          </div>
+        </div>
+
+        <h2 id="s4">Prompt Engineering Principles</h2>
+        <p>Enterprise prompt engineering is not the same as personal LLM usage. Prompts that produce excellent results in ad hoc testing often perform inconsistently at scale because they rely on LLM defaults that vary across model versions, token budget differences, or edge cases in the merge field data. Prompts designed for enterprise consistency need to be deliberately structured to remove ambiguity.</p>
+        <p><strong>Specify the output format explicitly:</strong> If the LLM should produce three bullet points, say "Output exactly three bullet points." If it should produce a paragraph of no more than 100 words, say "Write one paragraph of no more than 100 words." Vague instructions like "write a brief summary" produce outputs that vary in length from two sentences to six paragraphs depending on the input data. Format specification reduces variance.</p>
+        <p><strong>Define the persona and audience in the system instruction:</strong> "You are a senior Salesforce account executive writing to a CFO at a manufacturing company" produces more appropriate tone and vocabulary than "write an email". The more specific the persona and audience definition, the more consistent the output register and content focus.</p>
+        <p><strong>Separate instruction from data in the prompt structure:</strong> The most reliable prompt structure for Salesforce enterprise use is: system instruction (role, constraints, output format) → grounding data (the CRM fields that provide context) → task instruction (exactly what to do with the data). This ordering mirrors how LLMs prioritise context and produces more reliable instruction-following than mixing instructions and data throughout the prompt.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Test with adversarial merge field data, not just clean examples:</strong> Prompt templates that work correctly with populated, well-formatted merge fields often fail when fields are blank, contain unexpected characters, or hold edge-case values. Test every template with empty fields, very long field values, special characters, and multilingual content before deploying to production. Blank merge fields are the most common cause of confusing AI outputs in live environments.
+          </div>
+        </div>
+
+        <h2 id="s5">Testing, Versioning, and Governance</h2>
+        <p>Prompt Builder includes a preview panel that lets you test a template against a specific record before deploying it. This is the minimum viable testing approach, but for enterprise deployments it is insufficient on its own. A single test record confirms the template works for that record; it does not confirm it works correctly across the distribution of records it will encounter in production.</p>
+        <p>For rigorous testing, maintain a test dataset — a curated set of 20–30 records that covers the range of values, field population rates, and edge cases your template will encounter. Run the template against all records in the test dataset after any change and review the outputs for regressions. This is the prompt equivalent of a unit test suite.</p>
+        <p>Prompt Builder supports template versioning — each saved version of a template is preserved and can be rolled back to. Treat version management like code: document what changed and why in the template description field, use meaningful naming conventions for versions, and do not overwrite the active production version without validating the change against your test dataset. Changes to a prompt template that is used in a high-volume Agentforce agent can produce immediate visible changes in every agent conversation — there is no gradual rollout.</p>
+
+        <h2 id="s6">Common Prompt Failures</h2>
+        <p>The failures that degrade prompt template quality in production follow identifiable patterns. Most are avoidable if you understand them before deployment.</p>
+        <p><strong>Hallucination from undergrounding:</strong> When a template asks the LLM to write about the customer's product usage or recent interactions but does not include actual product or interaction data in the grounding, the LLM fills the gap with plausible-sounding but fabricated content. The fix is always to add the relevant data as merge fields, not to rewrite the instructions to be more emphatic about accuracy.</p>
+        <p><strong>Register mismatch:</strong> A template designed for B2B enterprise communication that is invoked in the context of a consumer support case produces inappropriately formal responses. If a single template is used across different customer segments with different communication norms, it needs explicit persona switching based on account or case type — either through conditional merge fields or separate templates for each segment.</p>
+        <p><strong>Instruction drift at scale:</strong> Prompt templates that work correctly for short, simple inputs often ignore parts of their instructions when the grounding data is long and complex. The LLM loses track of specific format requirements buried in the middle of a long prompt as the context fills. Critical constraints (output format, maximum length, prohibited content) should be positioned at the end of the prompt, immediately before the task instruction, not buried in the system framing at the beginning.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Prompt Builder is the declarative layer for managing AI behavioural logic — it separates the template instructions from the CRM data grounding, enabling non-code changes to how AI features behave.</li>
+            <li>The three template types — Field Generation, Flex, and Sales Email — serve distinct use cases; using the wrong type for a use case adds unnecessary configuration complexity.</li>
+            <li>Grounding quality (which fields you include and how consistently they are populated) matters more than instruction quality — incomplete grounding is the primary cause of hallucinated content in enterprise AI features.</li>
+            <li>Specify output format, persona, and audience explicitly in prompt instructions; vague instructions produce high-variance outputs that are impossible to quality-control at scale.</li>
+            <li>Test prompt templates against a curated dataset covering edge cases — including blank fields, very long values, and multilingual content — not just clean representative records.</li>
+            <li>Treat prompt template versioning like code versioning: document changes, do not overwrite active production versions without validation, and maintain rollback capability for high-volume templates.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> A prompt template generates a case summary and writes the output back to a summary field on the case record. Which template type is most appropriate?</p>
+            <button onclick="answer(this,'q1','right')">Field Generation, because the output is written to a specific record field</button>
+            <button onclick="answer(this,'q1','wrong')">Flex, because it is a general-purpose content generation task</button>
+            <button onclick="answer(this,'q1','wrong')">Sales Email, because it involves account and contact data from the related case</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> A prompt template for generating sales call debrief notes is producing outputs that include fabricated details about products the customer never mentioned. What is the most likely cause?</p>
+            <button onclick="answer(this,'q2','wrong')">The LLM model version has a known accuracy issue with sales content</button>
+            <button onclick="answer(this,'q2','right')">The template instructs the LLM to include product details but does not ground the prompt with actual product data, causing the LLM to hallucinate plausible-sounding content</button>
+            <button onclick="answer(this,'q2','wrong')">The template is using a Flex type when it should be using a Field Generation type</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> After updating a prompt template used in a high-volume Agentforce agent, the team immediately receives user complaints about changed agent behaviour. What process should have been followed before the change was deployed?</p>
+            <button onclick="answer(this,'q3','wrong')">The template update should have been submitted as a change request to Salesforce support for review before activation</button>
+            <button onclick="answer(this,'q3','wrong')">A feature flag should have been used to route only 10% of agent sessions to the new template version initially</button>
+            <button onclick="answer(this,'q3','right')">The updated template should have been tested against a curated dataset of representative records and validated before overwriting the active production version</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="../ai-002/" class="related-card">
+              <span class="card-id">AI-002</span>
+              <h4>Einstein GPT and Generative AI in Salesforce: Real vs Marketed</h4>
+            </a>
+            <a href="../ai-005/" class="related-card">
+              <span class="card-id">AI-005</span>
+              <h4>Data Cloud as the AI Foundation: Why Clean Data Wins</h4>
+            </a>
+            <a href="../ai-007/" class="related-card">
+              <span class="card-id">AI-007</span>
+              <h4>Einstein Copilot: Current State and Where It's Heading</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">What Prompt Builder Actually Does</a></li>
+            <li><a href="#s2">Prompt Template Types</a></li>
+            <li><a href="#s3">Grounding with CRM Data</a></li>
+            <li><a href="#s4">Prompt Engineering Principles</a></li>
+            <li><a href="#s5">Testing, Versioning, and Governance</a></li>
+            <li><a href="#s6">Common Prompt Failures</a></li>
+            <li><a href="#quiz">Check Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ai-007/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-007</span>
+            <span class="sidebar-next-title">Einstein Copilot: Current State and Where It's Heading</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ai-005/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-005</span>
+            <span class="sidebar-next-title">Data Cloud as the AI Foundation: Why Clean Data Wins</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

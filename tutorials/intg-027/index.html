@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns | SFVedas</title>
+  <meta name="description" content="A deep-dive into B2B integration patterns for Salesforce — EDI standards, AS2 protocol, order-to-cash flows, trading partner management, and governance for high-stakes data exchange."/>
+      <meta property="og:title" content="B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns | SFVedas"/>
+  <meta property="og:description" content="A deep-dive into B2B integration patterns for Salesforce — EDI standards, AS2 protocol, order-to-cash flows, trading partner management, and governance for high-stakes data exchange."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-027/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns | SFVedas"/>
+  <meta name="twitter:description" content="A deep-dive into B2B integration patterns for Salesforce — EDI standards, AS2 protocol, order-to-cash flows, trading partner management, and governance for high-stakes data exchange."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns | SFVedas",
+  "description": "A deep-dive into B2B integration patterns for Salesforce — EDI standards, AS2 protocol, order-to-cash flows, trading partner management, and governance for high-stakes data exchange.",
+  "url": "https://sfvedas.com/tutorials/intg-027/",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-027/",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-027</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        B2B Integration with Salesforce: EDI, AS2, and Enterprise Patterns
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        B2B integration is not the same as internal systems integration. When your trading partners send purchase orders over AS2 in X12 format, or when you need to confirm shipments to a retailer's EDI system, Salesforce becomes one node in a compliance-governed data exchange. Understanding these patterns is essential for manufacturers, distributors, and retailers running Salesforce as their commercial backbone.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn...</span>
+          <ul>
+            <li>Why B2B integration is architecturally different from internal API integration</li>
+            <li>EDI standards: X12, EDIFACT, and what they mean for Salesforce data mapping</li>
+            <li>AS2 protocol: how trading partner authentication and message signing work</li>
+            <li>Order-to-cash integration patterns and where Salesforce fits in the chain</li>
+            <li>Partner portal vs direct API: the two models for external partner integration</li>
+            <li>Governance and compliance considerations for high-stakes B2B data exchange</li>
+          </ul>
+        </div>
+
+        <h2>B2B Integration Is Not Regular Integration</h2>
+        <p>Internal system integration — connecting Salesforce to your ERP, your data warehouse, your marketing automation platform — happens within a controlled environment where all parties can negotiate protocols, modify schemas, and align on timelines. B2B integration is fundamentally different: your trading partners dictate the protocol, the message format, and often the timeline. You adapt to them, not the other way around.</p>
+        <p>In manufacturing, retail, and distribution, B2B integration typically means EDI (Electronic Data Interchange) — a set of data standards for business documents (purchase orders, invoices, shipment notices, inventory feeds) that has been in use since the 1970s. EDI is not modern, it is not elegant, and it is not going away. Major retailers (Walmart, Target, Amazon Vendor Central) and manufacturers require EDI compliance as a condition of doing business. Salesforce implementations at companies in these sectors must either interface with EDI infrastructure or operate entirely outside the commercial transaction flow — which is rarely acceptable.</p>
+        <p>The architectural implication is that Salesforce typically does not speak EDI natively. There is a translation layer — either a specialist B2B integration platform, a middleware solution, or a VAN (Value-Added Network) — that converts between EDI format and the REST/SOAP APIs Salesforce understands. Designing this architecture correctly determines whether Salesforce becomes the system of record for commercial transactions or a downstream consumer of data from a legacy EDI system.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>VANs are not optional for many enterprises:</strong> A Value-Added Network is a third-party service that receives, translates, and routes EDI messages between trading partners. For enterprises with hundreds of trading partners, each on different transaction sets and acknowledgment requirements, a VAN handles the complexity of partner onboarding, message routing, and functional acknowledgments (FA). Trying to manage this directly is one of the architectural mistakes that takes years to undo.
+          </div>
+        </div>
+
+        <h2>EDI Standards: X12, EDIFACT, and Salesforce Data Mapping</h2>
+        <p>The two dominant EDI standards are ANSI X12 (used primarily in North America) and UN/EDIFACT (used primarily in Europe and internationally). Each standard defines transaction sets — numbered message types for specific business documents. In X12: 850 is a Purchase Order, 855 is a Purchase Order Acknowledgment, 856 is an Advance Ship Notice (ASN), 810 is an Invoice, 820 is a Payment Order/Remittance Advice. Each transaction set has a defined segment structure with required, optional, and conditional elements.</p>
+        <p>Mapping EDI transaction sets to Salesforce objects is the core translation challenge. An X12 850 Purchase Order maps to a Salesforce Order with Order Products — but the mapping is never clean. EDI fields like the Buyer's Party Identifier, the allowances and charges segments, the carrier routing instructions, and the packaging details have no direct equivalents in standard Salesforce objects. The mapping requires custom fields on Order and OrderItem, plus potentially custom objects for packaging, routing, and party identifiers.</p>
+        <p>The translation process introduces data quality risk at every step. EDI messages arrive as flat, positional text files — a single wrong character in the ISA (Interchange Control Header) segment will cause the entire message to fail validation. The EDI translator parses the raw file, validates it against the standard and the trading partner's specific implementation guide (which often deviates from the standard), and generates a functional acknowledgment (997/999 in X12) confirming receipt. Only after successful acknowledgment is the translated data passed to Salesforce for order creation.</p>
+
+        <pre><code class="language-sql">-- Simplified X12 850 Purchase Order (illustrative structure)
+ISA*00*          *00*          *ZZ*BUYERID        *ZZ*SUPPLIERID     *260515*1430*^*00501*000000001*0*P*:~
+GS*PO*BUYERID*SUPPLIERID*20260515*1430*1*X*005010~
+ST*850*0001~
+BEG*00*SA*PO-2026-00812**20260515~   -- PO Number: PO-2026-00812
+REF*DP*DEPT-42~                       -- Department number
+DTM*002*20260522~                     -- Required delivery date
+N1*BY*ACME RETAIL*92*ACME001~         -- Buyer identification
+N1*ST*ACME DC CHICAGO*92*DC-CHI~      -- Ship-to location
+PO1*1*100*EA*24.50**VP*SKU-98765~    -- 100 units @ $24.50 each
+CTT*1~                                -- Transaction totals: 1 line
+SE*9*0001~
+GE*1*1~
+IEA*1*000000001~
+
+-- This maps to Salesforce as:
+-- Order: PO-2026-00812, Ship By: 2026-05-22, Bill-To: ACME001
+-- OrderItem: Product SKU-98765, Qty 100, Unit Price $24.50</code></pre>
+
+        <h2>AS2 Protocol: Trading Partner Authentication and Message Signing</h2>
+        <p>AS2 (Applicability Statement 2) is the transport protocol used to exchange EDI messages over the internet. It replaced the older VAN-based leased-line model for many trading relationships, allowing direct machine-to-machine EDI exchange over HTTPS. AS2 adds message signing (using digital certificates to prove the message came from the claimed sender and was not tampered with) and optional encryption (using the receiver's public key) on top of standard HTTPS transport.</p>
+        <p>Each AS2 trading relationship requires certificate exchange. Your organisation and your trading partner each have an AS2 certificate — a private key you hold and a public key you share with your partner. Messages you send are signed with your private key; your partner verifies the signature using your public key. Messages you receive are signed with your partner's private key; you verify using their public key. Certificate management — generating, distributing, renewing, and revoking these certificates — is an operational overhead that is easy to underestimate. A certificate expiry in a live trading relationship causes immediate message rejection, which means order processing stops until the certificate is renewed and both sides are updated.</p>
+        <p>Salesforce does not have a native AS2 endpoint. The AS2 gateway — the component that handles certificate management, message signing and verification, acknowledgment generation, and protocol-level retries — is always an external component. MuleSoft, Sterling B2B Integrator, TrueCommerce, DiCentral, and SPS Commerce are common choices. The gateway sits in front of Salesforce: inbound EDI messages arrive at the AS2 gateway, are translated to JSON or XML, and are then sent to Salesforce via REST API. Outbound messages are pulled from Salesforce, translated to EDI, signed, and sent to the partner's AS2 endpoint.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>MDN (Message Disposition Notification) is not optional:</strong> AS2 requires a synchronous MDN — a receipt acknowledgment returned immediately when a message is received and processed by the AS2 gateway. Many trading partner SLAs require MDN within seconds. If your AS2 gateway is down or slow, MDNs are not sent, and your partner's system marks messages as failed and retries — potentially sending duplicate orders. AS2 gateway availability is a direct dependency of order intake.
+          </div>
+        </div>
+
+        <h2>Order-to-Cash Integration Patterns</h2>
+        <p>In a Salesforce-centred order-to-cash flow for B2B commerce, the integration touchpoints span the full transaction lifecycle. A typical pattern for a manufacturer using Salesforce as the order management system looks like this: the retailer sends an X12 850 Purchase Order via AS2; the EDI gateway translates it and creates a Salesforce Order with Products; Salesforce triggers an order acknowledgment workflow that sends back an X12 855 via the same gateway; the warehouse management system (WMS) receives the fulfillment pick ticket from Salesforce; the WMS sends the shipment confirmation back to Salesforce; Salesforce triggers the outbound X12 856 ASN to the retailer; the retailer's receiving dock scans the ASN against the physical delivery; and finally the X12 810 Invoice is sent once goods are accepted.</p>
+        <p>Each step in this chain is a potential synchronization point failure. The 855 acknowledgment must be sent within the retailer's SLA window (often 24 hours from PO receipt). The ASN must be sent before the physical delivery arrives — a retailer that receives goods without an ASN may refuse the shipment or impose a chargeback. These are not soft business rules; they are contractual obligations with financial penalties for non-compliance. Salesforce workflow automation that generates these outbound messages must be reliable, monitored, and able to handle re-processing of failures without creating duplicates.</p>
+        <p>The critical architectural question in order-to-cash integration is: which system is the authoritative source for order status? If the ERP drives shipment confirmation and updates Salesforce, Salesforce must handle out-of-order updates gracefully (a shipment update arriving before the order line is fully processed). If Salesforce drives the process, the ERP must poll or subscribe to Salesforce order status changes. Mixed authority — where both systems can update order status — creates conflict resolution problems that are expensive to debug in production.</p>
+
+        <h2>Partner Portal vs Direct API: Two Models for External Integration</h2>
+        <p>Not all B2B integration is EDI. For technology sector, professional services, and distribution companies where trading partners are more technically sophisticated, two distinct integration models compete: the partner portal model and the direct API model.</p>
+        <p>The partner portal model uses Salesforce Experience Cloud to expose a branded self-service portal where partners log in, create orders, check inventory, submit service requests, and download documents. The partner's users interact directly with Salesforce data through the portal UI. Integration is human-mediated — the partner's staff do the data entry. This model is simpler to implement, provides good UX for casual users, and requires no technical integration capability on the partner side. Its limitation is scale and accuracy: manual data entry is slow and error-prone at volume.</p>
+        <p>The direct API model exposes Salesforce REST or SOAP APIs to partner systems for machine-to-machine integration. The partner's ERP or order management system places orders directly via API call. This scales well and eliminates manual entry errors. Its complications are partner technical capability (many partners cannot build API integrations), authentication management (each partner needs OAuth credentials or certificates), and versioning (the Salesforce API version in use by a partner may lag years behind the current release). Large enterprises with many trading partners may operate both models simultaneously — API integration for sophisticated partners, portal for smaller ones.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Connected App per trading partner:</strong> In the direct API model, issue a separate Connected App with distinct OAuth credentials for each trading partner. This allows granular rate limit monitoring, immediate revocation if a partner's credentials are compromised, and per-partner API usage reporting. A single shared Connected App used by all partners loses this visibility and makes revocation an all-or-nothing operation.
+          </div>
+        </div>
+
+        <h2>Governance for High-Stakes B2B Data Exchange</h2>
+        <p>B2B integration carries operational and financial risk that justifies governance overhead that would be disproportionate for internal integrations. Chargebacks from EDI non-compliance can be 1-5% of invoice value per incident. A missed ASN for a large shipment to a major retailer can cost tens of thousands of dollars in a single transaction. This risk profile demands monitoring, audit trails, and operational runbooks that go beyond what most Salesforce implementations apply to internal integrations.</p>
+        <p>At minimum, every B2B message exchange should be logged: timestamp, partner identifier, message type, message ID (ISA control number for EDI), processing status (acknowledged, failed, re-queued), and the Salesforce record created or updated. This log is the evidence trail for chargeback disputes — "we sent the ASN at 14:32 on May 15th; here is the MDN confirming receipt" is the difference between absorbing a chargeback and disputing it successfully. Salesforce Big Objects or an external log store are appropriate for long-term retention of this audit trail.</p>
+        <p>Trading partner onboarding — the process of setting up a new B2B integration relationship — should have a formal runbook covering: certificate exchange and testing for AS2 relationships, test transaction exchange in a staging environment against the partner's test systems, functional acknowledgment testing, and production cutover with parallel processing for the first week. Partners that are onboarded quickly and informally are the ones that create operational incidents during peak trading periods. Budget three to six weeks for each new AS2 trading partner relationship in project plans.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>B2B integration requires adapting to trading partners' protocols and timelines, not the other way around — EDI compliance is often a contractual prerequisite enforced with financial penalties.</li>
+            <li>ANSI X12 (North America) and UN/EDIFACT (international) define the transaction sets used in B2B commerce. An X12 850 is a Purchase Order, 856 is an ASN, 810 is an Invoice. Mapping these to Salesforce objects requires custom fields and often custom objects.</li>
+            <li>AS2 provides transport-level message signing and optional encryption. Certificate management (renewal, distribution, revocation) is an ongoing operational responsibility — certificate expiry stops order processing immediately.</li>
+            <li>Salesforce does not natively handle AS2 or EDI translation. An external EDI gateway or B2B platform (MuleSoft, Sterling, TrueCommerce) always sits between the EDI network and Salesforce's REST API.</li>
+            <li>In order-to-cash flows, authoritative system-of-record for order status must be clearly defined — mixed authority between Salesforce and an ERP creates conflict resolution problems that are expensive to resolve.</li>
+            <li>Issue separate Connected App credentials per trading partner in direct API models to enable granular monitoring, rate limit enforcement, and selective revocation.</li>
+            <li>Every B2B message exchange should be audited with timestamp, partner ID, message type, and processing status. This log is the evidence trail for chargeback disputes and compliance investigations.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A manufacturer using Salesforce for order management sends an X12 856 ASN to a major retailer, but the shipment physically arrives before the ASN is transmitted due to a pipeline processing delay. What is the likely consequence?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The retailer will accept the shipment and process the ASN when it arrives — late ASNs are common and generally tolerated</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">The retailer may refuse the shipment or impose a chargeback for EDI non-compliance — ASN must arrive before goods in most retailer trading partner agreements</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The AS2 gateway will hold the shipment until the ASN is acknowledged, preventing the delivery from occurring</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A trading partner's AS2 certificate expires over a weekend. On Monday morning, the partner begins sending Purchase Orders but all messages are rejected. What is the immediate cause and fix?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The partner's AS2 gateway IP address changed — update the IP whitelist on your AS2 endpoint</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">The partner's signing certificate is expired — your AS2 gateway rejects messages whose signatures it cannot verify against the known certificate. The partner must renew their certificate and share the new public key certificate with you for import into your AS2 gateway before messages will be accepted again</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Your AS2 gateway's inbound certificate has expired — renew your certificate and send the updated public key to all trading partners</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. An enterprise runs both a Salesforce Experience Cloud partner portal and direct REST API integration for its 200 trading partners. A security incident compromises the API credentials of one large partner. What is the correct response using best-practice architecture?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Rotate the shared Connected App credentials used by all partners and notify all 200 partners to update their integration configurations</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Revoke the compromised partner's individual Connected App credentials immediately — because each partner has separate credentials, only that partner's integration is disrupted while the incident is investigated</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Disable the Experience Cloud portal for all partners until the incident is investigated, since portal and API credentials may share the same OAuth configuration</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../intg-026/" class="related-card">
+              <span class="card-id">INTG-026</span>
+              <h4>Salesforce Data Pipelines: From Ingestion to CRM Analytics</h4>
+            </a>
+            <a href="../intg-025/" class="related-card">
+              <span class="card-id">INTG-025</span>
+              <h4>API-First vs Integration-First Architecture: The Strategic Choice</h4>
+            </a>
+            <a href="../intg-001/" class="related-card">
+              <span class="card-id">INTG-001</span>
+              <h4>MuleSoft vs Salesforce Native Integration: The Decision Framework</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">B2B Integration Is Not Regular Integration</a></li>
+            <li><a href="#">EDI Standards: X12, EDIFACT, and Salesforce Data Mapping</a></li>
+            <li><a href="#">AS2 Protocol: Trading Partner Authentication and Message Signing</a></li>
+            <li><a href="#">Order-to-Cash Integration Patterns</a></li>
+            <li><a href="#">Partner Portal vs Direct API</a></li>
+            <li><a href="#">Governance for High-Stakes B2B Data Exchange</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../intg-026/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-026</span>
+            <span class="sidebar-next-title">Salesforce Data Pipelines: From Ingestion to CRM Analytics</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

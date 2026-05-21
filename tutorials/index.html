@@ -424,9 +424,9 @@
 
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
-      <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
       <ul class="nav-links">
-        <li><a href="../index.html" class="nav-link">Home</a></li>
+        <li><a href="/" class="nav-link">Home</a></li>
         <li><a href="./" class="nav-link active">Tutorials</a></li>
         <li><a href="../learning-paths/" class="nav-link">Learning Paths</a></li>
         <li><a href="../about/" class="nav-link">About</a></li>
@@ -438,7 +438,7 @@
       </div>
     </div>
     <div class="nav-mobile" id="navMobile">
-      <a href="../index.html" class="nav-link">Home</a>
+      <a href="/" class="nav-link">Home</a>
       <a href="./" class="nav-link">Tutorials</a>
       <a href="../learning-paths/" class="nav-link">Learning Paths</a>
       <a href="../about/" class="nav-link">About</a>
@@ -708,7 +708,7 @@
     <div class="container">
       <div class="footer-inner">
         <div class="footer-brand">
-          <a href="../index.html" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
           <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
           <p class="footer-domain">sfvedas.com</p>
         </div>
@@ -1026,7 +1026,7 @@
           ${t.available ? `<span class="card-link">Read →</span>` : `<span class="card-soon">Coming Soon</span>`}
         </div>`;
       return t.available
-        ? `<a href="${t.slug}.html" class="tutorial-card" ${tag}>${meta}</a>`
+        ? `<a href="${t.slug}/" class="tutorial-card" ${tag}>${meta}</a>`
         : `<article class="tutorial-card card--coming-soon" ${tag}>${meta}</article>`;
     }).join('');
   }

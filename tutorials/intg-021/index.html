@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRM Analytics Connect: Live Data vs Imported Data Trade-offs | SFVedas</title>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="CRM Analytics Connect: Live Data vs Imported Data Trade-offs | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-021/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CRM Analytics Connect: Live Data vs Imported Data Trade-offs | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "CRM Analytics Connect: Live Data vs Imported Data Trade-offs | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-021/",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-021/",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-021</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        CRM Analytics Connect: Live Data vs Imported Data Trade-offs
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        CRM Analytics (formerly Tableau CRM, formerly Einstein Analytics) can operate in two fundamentally different data modes: importing data into its own columnar store, or querying live Salesforce data directly. The choice between these modes shapes dashboard performance, data freshness, and the complexity of your data pipeline.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>How CRM Analytics stores data: the dataset model and its columnar storage architecture</li>
+      <li>Live connections via Salesforce Direct and the SAQL vs direct SOQL query model</li>
+      <li>Dataflow and Recipe-based ETL: importing, transforming, and joining data into datasets</li>
+      <li>When to use live data vs imported datasets for different analytics use cases</li>
+      <li>Data freshness guarantees: schedule-based sync limitations and near-real-time options</li>
+      <li>External data ingestion: bringing non-Salesforce data into CRM Analytics</li>
+    </ul>
+  </div>
+
+  <h2 id="s1">The CRM Analytics Data Architecture</h2>
+  <p>CRM Analytics (CRMA) is a native Salesforce analytics platform that operates on a separate analytical data engine within the Salesforce platform. Its primary data storage model is the <strong>Dataset</strong> — a columnar, compressed, indexed snapshot of data imported into CRMA's analytical engine. Datasets are the foundation of CRMA dashboards and lenses; they are what makes CRMA fast at aggregations, filtering, and cross-object queries that Salesforce reports cannot efficiently handle.</p>
+  <p>Columnar storage in CRMA means data is stored column-by-column (all values for "Amount" together, all values for "StageName" together) rather than row-by-row. This is highly optimised for analytical query patterns — when a dashboard filters by StageName and aggregates Amount, CRMA reads only those two columns from storage. This physical storage optimisation is why CRMA dashboards handle millions of rows with sub-second response times that would be impossible with SOQL against the transactional Salesforce database.</p>
+  <p>CRMA supports a second data access mode: <strong>Live connections</strong> that query Salesforce data directly without importing it into CRMA datasets. Live connections use SOQL-like queries that execute against the live Salesforce org in real-time. This provides always-current data but gives up CRMA's columnar query performance — live connection queries have the same performance characteristics (and governor limits) as SOQL queries against the standard Salesforce database.</p>
+
+  <div class="callout callout--insight">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>CRMA is not a BI tool bolted onto Salesforce:</strong> CRMA's analytical engine is a distinct platform from the Salesforce transactional database. Its columnar store, its AI/ML capabilities (Einstein Discovery), and its SAQL query language are separate from Salesforce's SOQL and report engine. Think of CRMA as a purpose-built analytics platform that happens to be licensed and embedded within Salesforce — not as "Salesforce reports with extra features."
+    </div>
+  </div>
+
+  <h2 id="s2">Dataflows and Recipes: Importing Data into CRMA</h2>
+  <p>The primary method of getting Salesforce data into CRMA datasets is through <strong>Dataflows</strong> (the original CRMA ETL mechanism) or <strong>Recipes</strong> (the newer, more visual approach). Both tools extract data from Salesforce objects, apply transformation steps (joins, aggregations, field calculations, filters), and output the result to one or more CRMA datasets.</p>
+  <p>A typical Dataflow for a Sales Analytics dashboard might join Opportunity, Account, User, and Quota records into a single denormalised dataset that the dashboard queries with a single SAQL query rather than traversing relationships at query time. This denormalisation is intentional — CRMA's columnar engine excels at flat, wide datasets that precompute the joins that would otherwise happen at query time in SOQL.</p>
+  <p>Recipes provide a visual, drag-and-drop interface for building the same ETL logic that Dataflows implement in JSON configuration. Recipes support all the same operations — joins, aggregations, formulas, filters, buckets — with a more accessible UX. The key operational difference: Recipes run on the newer CRMA compute infrastructure and generally have better performance for complex multi-step transformations than equivalent Dataflows on large datasets.</p>
+
+  <pre><code class="language-java">// CRMA SAQL query against a pre-built dataset
+// This queries an Opportunity dataset (denormalized, pre-joined)
+q = load "opportunities_v2";
+q = filter q by 'CloseDate_Year' == "2026";
+q = group q by 'Account.Industry', 'StageName';
+q = foreach q generate
+    'Account.Industry' as 'Industry',
+    'StageName' as 'Stage',
+    sum('Amount') as 'TotalAmount',
+    count() as 'OpportunityCount';
+q = order q by 'TotalAmount' desc;
+q = limit q 100;
+// Fast sub-second response on 5M+ rows because of columnar storage</code></pre>
+
+  <h2 id="s3">Live Connections: When Real-Time Beats Performance</h2>
+  <p>Live connections (Salesforce Direct) query Salesforce data in real-time without any import step. A CRMA dashboard built on a live connection always reflects the current state of Salesforce — a manager dashboard showing open opportunities by rep would show changes made moments ago, whereas an imported dataset would show data from the last scheduled sync (typically several hours old).</p>
+  <p>The performance trade-off is significant. A live connection query against 500,000 Opportunity records executes as a SOQL query against the Salesforce transactional database, taking 5-30 seconds or more depending on the query complexity and org load. The same query against a CRMA dataset takes under 1 second. For dashboards with sub-second performance requirements or very large datasets, live connections are not appropriate.</p>
+  <p>Live connections are appropriate for: small datasets where query performance is acceptable (executive-level dashboards showing totals across thousands rather than millions of records), use cases where data freshness within minutes is a business requirement (real-time operations dashboards for call center managers), and data that changes too frequently to justify the overhead of a scheduled sync (hourly or more frequent changes).</p>
+
+  <h2 id="s4">Data Freshness: Schedule-Based Sync and Its Limits</h2>
+  <p>The primary limitation of imported CRMA datasets is data freshness. Dataflows and Recipes run on schedules — typically nightly, every few hours, or at minimum intervals of 1 hour on most CRMA configurations. Dashboard users see data that is hours old, not minutes old. For most executive and management analytics use cases (pipeline reviews, forecasting, historical trend analysis), this latency is acceptable. For operational use cases (queue management, real-time SLA monitoring), it is not.</p>
+  <p>CRMA's incremental sync capability reduces dataset refresh time for large objects by extracting only records changed since the last sync, using the SystemModstamp field as the delta cursor. An incremental Recipe for a 10-million-record Opportunity dataset that runs hourly might only process 5,000-10,000 changed records per run — taking minutes rather than hours. Incremental sync requires careful Recipe design to handle deletes correctly (deleted records are not captured by SystemModstamp incremental queries) and to correctly merge incremental updates into the full dataset.</p>
+  <p>For near-real-time CRMA dashboards that must show data within minutes of a Salesforce change, the architecture requires a streaming ingestion path: publishing Platform Events or CDC events to an external processing layer that pushes updates to CRMA via the CRMA External Data API. This is a complex architecture that is only justified for operational dashboards with strict freshness requirements.</p>
+
+  <h2 id="s5">External Data Ingestion for Multi-Source Analytics</h2>
+  <p>One of CRMA's significant advantages over standard Salesforce reports is its ability to blend Salesforce data with data from external sources. The External Data API allows non-Salesforce CSV data to be uploaded into CRMA datasets. Financial data from an ERP, product performance data from a marketing platform, web analytics from Google Analytics — all can be imported into CRMA and joined with Salesforce data in Recipes to build unified cross-system dashboards.</p>
+  <p>The architecture for external data ingestion is: extract data from the external system, transform it to CRMA's expected CSV format, and upload via the External Data API. The upload creates or updates a CRMA dataset. This dataset can then be joined with Salesforce-sourced datasets in a Recipe to produce the blended analytical dataset. The join key is typically a Salesforce Account ID or External ID that exists in both datasets.</p>
+  <p>CRMA's AI/ML capabilities (Einstein Discovery) work against any dataset — including those containing external data. A predictive model that combines Salesforce opportunity characteristics with external product usage metrics and financial health indicators from an ERP can produce significantly more accurate predictions than a model trained only on Salesforce CRM data. This multi-source dataset capability is the key architectural advantage of CRMA over standard Salesforce reporting.</p>
+
+  <div class="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>CRMA datasets use columnar storage optimised for analytical aggregations — this is why CRMA handles millions of rows with sub-second response times that SOQL against the transactional database cannot match.</li>
+      <li>Dataflows and Recipes are CRMA's ETL mechanisms for importing Salesforce data into datasets. Denormalising related objects into a single wide dataset at import time enables efficient single-query analytics without relationship traversal at query time.</li>
+      <li>Live connections query Salesforce data in real-time (always current) but at SOQL performance — 5-30+ seconds for large datasets. Use live connections for small datasets or high-freshness requirements; use imported datasets for performance-sensitive large-scale analytics.</li>
+      <li>Imported datasets are typically hours old due to scheduled sync. Incremental sync via SystemModstamp reduces sync duration for large objects. Near-real-time freshness requires a streaming ingestion architecture via Platform Events and the External Data API.</li>
+      <li>Incremental sync does not capture deletes — design Recipes to handle deleted records separately (typically via a full refresh at lower frequency alongside incremental updates).</li>
+      <li>External Data API enables non-Salesforce data (ERP, marketing platforms, web analytics) to be joined with Salesforce data in CRMA Recipes, creating unified cross-system analytics dashboards that standard Salesforce reporting cannot produce.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A call center manager needs a real-time operations dashboard showing open Case queue by priority and agent, updated within 2 minutes of any Case status change. Should this dashboard use a live connection or an imported dataset?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Imported dataset — configure a Recipe to run every 2 minutes for near-real-time freshness</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Live connection — the 2-minute freshness requirement and the operational dashboard nature (not historical analytics) make live connection appropriate. The Case count for a single call center is likely small enough (thousands) for acceptable live query performance.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Neither — real-time operational dashboards should use standard Salesforce reports, not CRMA</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A CRMA Recipe uses incremental sync based on SystemModstamp to update the Opportunity dataset hourly. After running for 6 months, a data analyst notices that Opportunity records deleted in Salesforce are still appearing in CRMA dashboards. What is the cause?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The Recipe has a bug — incremental sync automatically removes deleted records from the dataset on each run</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Incremental sync based on SystemModstamp only captures created and updated records — deleted records have no SystemModstamp update and are not captured by incremental queries. A separate delete-capture mechanism (querying the Recycle Bin or using CDC) is required, or a periodic full refresh that replaces the dataset.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">CRMA datasets automatically expire deleted records after 90 days — the analyst needs to wait for the expiry period</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. A sales leader wants a CRMA dashboard showing Opportunity win rate alongside product usage metrics from a SaaS platform (not in Salesforce). What CRMA capability enables this?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">This is not possible in CRMA — dashboards can only combine data from Salesforce objects, not external platforms</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">CRMA's External Data API allows the SaaS platform's usage metrics (exported as CSV) to be imported as a CRMA dataset. A Recipe then joins this dataset with the Salesforce Opportunity dataset on a shared Account ID or External ID key, producing the blended dataset the dashboard queries.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Use a live connection to the SaaS platform's REST API — CRMA live connections support any REST API endpoint</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../intg-022/" class="related-card">
+              <span class="card-id">INTG-022</span>
+              <h4>Salesforce Schema Design for Analytics: Facts, Dimensions, and Relationships</h4>
+            </a>
+            <a href="../intg-020/" class="related-card">
+              <span class="card-id">INTG-020</span>
+              <h4>Data Archiving Strategy: Moving Records Out Without Breaking Reports</h4>
+            </a>
+            <a href="../intg-023/" class="related-card">
+              <span class="card-id">INTG-023</span>
+              <h4>The Middleware Decision: When You Need an ESB vs Point-to-Point</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The CRMA Data Architecture</a></li>
+            <li><a href="#s2">Dataflows and Recipes</a></li>
+            <li><a href="#s3">Live Connections</a></li>
+            <li><a href="#s4">Data Freshness and Sync</a></li>
+            <li><a href="#s5">External Data Ingestion</a></li>
+            <li><a href="#quiz">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../intg-022/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-022</span>
+            <span class="sidebar-next-title">Salesforce Schema Design for Analytics: Facts, Dimensions, and Relationships</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../intg-020/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-020</span>
+            <span class="sidebar-next-title">Data Archiving Strategy: Moving Records Out Without Breaking Reports</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

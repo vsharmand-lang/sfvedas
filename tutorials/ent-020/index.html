@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post-Implementation Review: What Actually Went Wrong and Why | SFVedas</title>
+  <meta name="description" content="Run a post-implementation review that generates genuine organisational learning — how to surface what actually went wrong, avoid blame culture, and turn findings into lasting improvements." />
+  <meta property="og:title" content="Post-Implementation Review: What Actually Went Wrong and Why" />
+  <meta property="og:description" content="Run a post-implementation review that generates genuine organisational learning — how to surface what actually went wrong, avoid blame culture, and turn findings into lasting improvements." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Post-Implementation Review: What Actually Went Wrong and Why",
+    "description": "Run a post-implementation review that generates genuine organisational learning — how to surface what actually went wrong, avoid blame culture, and turn findings into lasting improvements.",
+    "author": {"@type": "Person", "name": "Vishal Sharma"},
+    "publisher": {"@type": "Organization", "name": "SFVedas"},
+    "datePublished": "2025-01-01",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sfvedas.com/tutorials/ent-020/"}
+  }
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">SF<span>Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/" class="active">Tutorials</a></li>
+        <li><a href="/learning-paths/">Learning Paths</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../pages/contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+    </div>
+  </nav>
+
+  <section class="tutorial-header">
+    <div class="container">
+      <a href="/tutorials/?tag=enterprise-strategy" class="back-link" style="color:var(--sage-green)">← Back to Enterprise Strategy</a>
+      <div class="card-badges" style="margin:1rem 0 0.75rem;">
+        <span class="card-id">ENT-020</span>
+        <span class="card-tag" style="color:var(--sage-green);background:rgba(45,125,82,0.08);">Enterprise Strategy</span>
+        <span class="card-read">20 min read</span>
+        <span class="card-audience">For: Programme Managers · CTOs · Delivery Leads</span>
+      </div>
+      <h1>Post-Implementation Review: What Actually Went Wrong and Why</h1>
+      <p class="tutorial-intro">The post-implementation review (PIR) is the most consistently underperformed governance activity in Salesforce programmes. Most PIRs are polite retrospectives that document what the team chose to make visible — the near misses get glossed over, the structural failures get labelled "lessons learned" without being systemically addressed, and the same problems recur in the next programme. A PIR that generates genuine learning requires a different approach.</p>
+      <div class="author-block">
+        <div class="author-avatar">VS</div>
+        <div>
+          <div class="author-name">Vishal Sharma</div>
+          <div class="author-title">Salesforce Architect · SFVedas Founder</div>
+        </div>
+      </div>
+
+      <ins class="adsbygoogle" style="display:block;margin-top:1.5rem;" data-ad-client="ca-pub-4584420180521124" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-stat-grid">
+      <div class="tutorial-stat-card">
+        <div class="tsn">5</div>
+        <div class="tsl">Root Cause Categories</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">3</div>
+        <div class="tsl">PIR Stages</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">20 min</div>
+        <div class="tsl">Read Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <main class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <strong>What you'll learn:</strong> Why most PIRs fail to generate learning, the three-stage PIR model, five root cause categories for Salesforce programme problems, how to create psychological safety for honest reporting, and how to convert findings into lasting organisational improvements.
+        </div>
+
+        <h2 id="s1">Why Most PIRs Generate No Learning</h2>
+        <p>There are four structural reasons why most post-implementation reviews fail to generate organisational learning:</p>
+        <p><strong>Timing.</strong> PIRs conducted immediately after go-live capture delivery team fatigue, not considered reflection. The team is exhausted, some members have already left or moved to new assignments, and the organisation's attention has shifted to hypercare. The richest PIR insights come from a review conducted 3-6 months post-go-live, when the dust has settled, adoption data is available, and the genuine operational impact of implementation decisions can be assessed.</p>
+        <p><strong>Scope.</strong> Most PIRs review the delivery process (did we deliver what we said we would?) rather than the business outcomes (did the programme achieve what it was supposed to achieve?). A PIR that says "we delivered on time and on budget" while the adoption rate is 40% and the business benefits have not materialised has measured the wrong thing.</p>
+        <p><strong>Psychological safety.</strong> Participants in PIRs are usually asked to reflect on decisions they made. Without strong psychological safety — the genuine belief that honest reflection will not be used against them — they will report what is safe to report, not what is true. The most important failures are usually the most politically sensitive ones, and they will not surface unless the review explicitly protects candour.</p>
+        <p><strong>Action commitment.</strong> PIR findings that are not converted to committed actions with owners and timelines are not lessons learned; they are lessons noted. The difference between an organisation that learns from its PIRs and one that doesn't is whether the findings produce change. If the same findings appear in every PIR, the organisation is noting, not learning.</p>
+
+        <div class="callout callout--insight">
+          <strong>Timing Recommendation:</strong> Run two PIRs. A 30-day PIR at go-live to capture delivery process learnings while they are fresh. A 90-day PIR to assess adoption, business benefit realisation, and operational stability. The 90-day PIR generates the more valuable insights — but requires explicit scheduling and sponsorship commitment at programme start.
+        </div>
+
+        <h2 id="s2">The Three-Stage PIR Model</h2>
+        <p><strong>Stage 1 — Data collection (individual, anonymous).</strong> Before any group discussion, collect individual written responses to three questions: (1) What went well that we should deliberately repeat? (2) What created the most significant problems, and what was the root cause? (3) What decision, made differently, would have most changed the outcome? Collect these anonymously — or at minimum, with a commitment that responses will be aggregated rather than attributed. Anonymous collection surfaces concerns that would not emerge in a group setting where social dynamics influence disclosure.</p>
+        <p><strong>Stage 2 — Root cause analysis (group, facilitated).</strong> Present the aggregated themes from Stage 1 to a group that includes delivery team, business stakeholders, and sponsor representation. For each major theme, conduct a structured root cause analysis — five whys or fishbone diagram. The goal is to get from "the data migration took too long" to "the data migration took too long because the data quality assessment was conducted at architecture phase rather than discovery, so the team did not know about the duplicate record problem until week 8 of the migration." The second version is actionable; the first is not.</p>
+        <p><strong>Stage 3 — Action planning (committed owners).</strong> Convert each finding into an action with a named owner and a completion date. Actions should address system causes, not individual behaviour. "Train the delivery team on data migration assessment" is a systemic improvement. "Tell the next project manager not to underestimate data migration" is not — it relies on individual behaviour change rather than process change. Review the action list 90 days after the PIR to assess completion. If actions are not being completed, the PIR has generated paperwork, not learning.</p>
+
+        <h2 id="s3">Five Root Cause Categories</h2>
+        <p>Analysis of Salesforce programme PIRs consistently identifies five root cause categories. Knowing these categories in advance allows you to structure the investigation rather than letting it meander.</p>
+        <p><strong>Requirements and scope.</strong> The most common category. Includes: requirements that were too high-level and produced misunderstood scope, requirements that changed materially without a formal change control process, and scope that was added incrementally ("scope creep") without corresponding schedule or budget adjustment. The systemic fix is a more rigorous discovery process and a formal change control mechanism — not better requirements writing by individual consultants.</p>
+        <p><strong>Stakeholder engagement.</strong> Includes: sponsor disengagement at critical decision points, business SMEs who were not available when needed, and political resistance that was not surfaced or managed. The systemic fix is an explicit stakeholder engagement plan with defined commitments from each stakeholder and a governance mechanism for escalating non-compliance.</p>
+        <p><strong>Technical estimation.</strong> Includes: integrations that were more complex than estimated, data migrations that took longer than projected, and custom development that exceeded effort estimates. The systemic fix is better estimation methodology — including discovery spikes before committing to estimates for complex technical work — and contingency budgeting for known unknowns.</p>
+        <p><strong>Adoption and change management.</strong> Includes: insufficient training, process change that was inadequately communicated, and user resistance that was not anticipated. The systemic fix is treating adoption and change management as funded workstreams with their own milestones and resources, not as activities bolted on to the technical delivery.</p>
+        <p><strong>Governance and decision-making.</strong> Includes: decisions that were made by the wrong people, decisions that were escalated too late, and decisions that were made but not documented or communicated. The systemic fix is a decision authority matrix (RACI) defined before the programme begins, with an explicit escalation path for decisions that cannot be made at delivery level.</p>
+
+        <div class="callout callout--key">
+          <strong>The "Individual Failure" Trap:</strong> Root cause analysis that concludes with "the project manager should have done X better" or "the architect should have identified Y earlier" is not root cause analysis — it is blame assignment. System causes (inadequate process, unclear roles, insufficient discovery) are actionable. Individual behaviour causes are not, because the next individual will make the same decisions in the same system.
+        </div>
+
+        <h2 id="s4">Creating Psychological Safety for Honest Reporting</h2>
+        <p>Psychological safety in a PIR is not created by saying "this is a safe space." It is created by the specific behaviours of the leaders present — primarily the sponsor and the programme manager.</p>
+        <p>The sponsor needs to model vulnerability: share a decision they made that contributed to problems, and what they would do differently. This permission from authority is what makes it safe for others to be equally honest. A sponsor who sits in the PIR as an evaluator will produce a PIR full of carefully managed disclosures.</p>
+        <p>The facilitator needs to enforce a "no name, no blame" norm: observations about what went wrong are directed at processes, decisions, and systems — not at individuals. When participants start attributing problems to individual performance, the facilitator redirects: "What process or structure allowed that individual to be in that position, or make that decision without adequate support?"</p>
+        <p>Document the PIR outcomes and findings, and share them with the team. The act of sharing findings — rather than locking the PIR report in a governance folder — demonstrates that the review was genuine. If the findings are shared, participants will know their candour was treated seriously, and future PIR participants will trust the process.</p>
+
+        <h2 id="s5">Converting Findings to Lasting Improvement</h2>
+        <p>The test of a PIR is not whether it produces good findings. It is whether those findings change what the organisation does next time. Three mechanisms convert findings to lasting improvement.</p>
+        <p><strong>Process change.</strong> Findings that identify missing or inadequate processes should produce updated process documentation. If the finding is "we didn't have a data quality assessment process in discovery," the output is a data quality assessment process document that is now part of the standard discovery methodology. Not a note to "remember to do data quality assessment" — a documented, repeatable process.</p>
+        <p><strong>Template and artefact updates.</strong> Findings that identify gaps in standard artefacts (project charter, requirements template, risk register) should produce updated templates. These templates are the most durable form of organisational learning — they encode lessons into the tools that the next team will use from day one.</p>
+        <p><strong>Programme initiation checklist.</strong> Maintain a programme initiation checklist that is updated after every PIR. Before the next programme starts, the checklist is reviewed: "In our last PIR, we found that adoption planning was insufficient. The initiation checklist now requires an adoption and change management plan as a gate to phase 2 approval." This mechanism ensures that lessons from one programme actively influence the next one.</p>
+
+        <div class="key-takeaways">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li>Most PIRs fail to generate learning due to wrong timing, wrong scope (delivery vs outcomes), insufficient psychological safety, and lack of committed action.</li>
+            <li>Run two PIRs: 30-day for delivery process learnings, 90-day for adoption and business benefit realisation.</li>
+            <li>The three-stage model — anonymous data collection, facilitated root cause analysis, committed action planning — produces more honest and actionable findings.</li>
+            <li>Five root cause categories cover most programme failures: requirements/scope, stakeholder engagement, technical estimation, adoption/change management, and governance.</li>
+            <li>Root cause analysis that ends at individual behaviour is blame assignment, not learning — system causes are the only actionable target.</li>
+            <li>Lasting improvement comes from process change, template updates, and a programme initiation checklist updated after every PIR.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> When is the optimal timing for a PIR that assesses adoption and business benefit realisation?</p>
+            <button onclick="answer(this,'q1','wrong')">Immediately at go-live, while memories are fresh</button>
+            <button onclick="answer(this,'q1','right')">3-6 months post go-live, when adoption data is available and operational impact can be assessed</button>
+            <button onclick="answer(this,'q1','wrong')">12 months after go-live, during the annual planning cycle</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> In Stage 1 of the three-stage PIR model, why is anonymous collection recommended?</p>
+            <button onclick="answer(this,'q2','wrong')">To protect participants from legal liability</button>
+            <button onclick="answer(this,'q2','right')">To surface concerns that would not emerge in a group setting due to social dynamics</button>
+            <button onclick="answer(this,'q2','wrong')">To comply with GDPR data minimisation requirements</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> Why are "individual behaviour" root causes not actionable?</p>
+            <button onclick="answer(this,'q3','wrong')">Because individuals cannot change their behaviour</button>
+            <button onclick="answer(this,'q3','wrong')">Because individuals are protected by employment law</button>
+            <button onclick="answer(this,'q3','right')">Because the next individual will make the same decisions in the same system — only system changes prevent recurrence</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="../ent-013/" class="related-card">
+              <span class="card-id">ENT-013</span>
+              <h4>Stakeholder Management in Salesforce Programmes: The Hard Truths</h4>
+            </a>
+            <a href="../ent-019/" class="related-card">
+              <span class="card-id">ENT-019</span>
+              <h4>Org Health Assessment: How to Diagnose a Struggling Salesforce Org</h4>
+            </a>
+            <a href="../ent-006/" class="related-card">
+              <span class="card-id">ENT-006</span>
+              <h4>Digital Transformation and Salesforce: Separating Hype from Reality</h4>
+            </a>
+          </div>
+        </div>
+
+      </main>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>On This Page</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why PIRs Generate No Learning</a></li>
+            <li><a href="#s2">Three-Stage PIR Model</a></li>
+            <li><a href="#s3">Five Root Cause Categories</a></li>
+            <li><a href="#s4">Creating Psychological Safety</a></li>
+            <li><a href="#s5">Converting Findings to Improvement</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-progress">
+          <h4>Your Progress</h4>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="sidebarProgress" style="width:0%"></div>
+          </div>
+          <p id="progressLabel" style="font-size:0.8rem;margin-top:0.4rem;">0% complete</p>
+        </div>
+
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ent-021/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-021</span>
+            <span class="sidebar-next-title">Salesforce Centre of Excellence Maturity Model: Stages and Benchmarks</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ent-019/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-019</span>
+            <span class="sidebar-next-title">Org Health Assessment: How to Diagnose a Struggling Salesforce Org</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">SF<span>Vedas</span></div>
+        <p class="footer-tagline">Deep Salesforce knowledge for technology leaders.</p>
+      </div>
+      <div>
+        <h4>Enterprise Strategy</h4>
+        <ul>
+          <li><a href="/tutorials/?tag=enterprise-strategy">All Tutorials</a></li>
+          <li><a href="../ent-001/">Build vs Buy</a></li>
+          <li><a href="../ent-002/">Total Cost of Ownership</a></li>
+          <li><a href="../ent-005/">5-Year Platform View</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="/tutorials/">All Tutorials</a></li>
+          <li><a href="/learning-paths/">Learning Paths</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="../pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SFVedas. Built for Salesforce leaders.</p></div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const el = document.getElementById('tutorialContent');
+      const progressBar = document.getElementById('readingProgress');
+      const sidebarBar = document.getElementById('sidebarProgress');
+      const label = document.getElementById('progressLabel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, Math.round((scrolled / total) * 100));
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (sidebarBar) sidebarBar.style.width = pct + '%';
+      if (label) label.textContent = pct + '% complete';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

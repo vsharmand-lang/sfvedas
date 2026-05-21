@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Cloud Unification: Identity Resolution at Scale | SFVedas</title>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Data Cloud Unification: Identity Resolution at Scale | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-013/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Data Cloud Unification: Identity Resolution at Scale | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Data Cloud Unification: Identity Resolution at Scale | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-013/",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-013/",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-013</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Data Cloud Unification: Identity Resolution at Scale
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Identity resolution is the hardest part of building a Customer Data Platform. In Data Cloud, it is also the part most commonly misconfigured. This tutorial goes deep on how Data Cloud's identity resolution actually works — the algorithms, the data structures, and the failure modes you will encounter at scale.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>How Data Cloud's identity resolution algorithm works under the hood</li>
+      <li>The role of the Individual, Contact Point, and Party Identifier DMOs in matching</li>
+      <li>Ruleset types: deterministic matching vs probabilistic matching, and when to use each</li>
+      <li>The identity graph: how edges are created, how profiles are merged, and what the unified Individual looks like</li>
+      <li>Common misconfiguration patterns that produce over-merge and under-merge failures</li>
+      <li>Measuring resolution quality and the iterative tuning process</li>
+    </ul>
+  </div>
+
+  <h2 id="s1">The Identity Resolution Problem</h2>
+  <p>A modern consumer interacts with a brand across a dozen channels — website visits as an anonymous cookie, email opens as a hashed email, in-store purchases as a loyalty card, customer service calls as a phone number, and CRM records as a name and company. Each of these interactions generates a separate identifier in a separate system. Identity resolution is the process of determining that all these identifiers belong to the same real person and linking them into a single unified profile.</p>
+  <p>The challenge is that no single identifier is universal. Email addresses change. People use multiple email addresses. Phone numbers are shared within households. Cookies are cleared and regenerated. Names have variations (legal name vs. preferred name, maiden name vs. married name). A resolution algorithm that is too strict (requires exact matches on multiple identifiers) will produce many separate profiles for the same person. One that is too lenient (matches on weak identifiers like common names) will merge profiles that belong to different people. Calibrating this balance is the core challenge of identity resolution configuration.</p>
+  <p>Data Cloud approaches this through configurable rulesets — ordered sequences of matching rules that each specify which identifiers to match on, whether matching must be exact or approximate, and the confidence threshold at which a match is accepted. The output is an identity graph — a network of nodes (individual source records) connected by edges (match relationships) that Data Cloud traverses to determine which records should be unified into the same Unified Individual profile.</p>
+
+  <div class="callout callout--insight">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Identity resolution is not a one-time configuration:</strong> The matching rules you deploy in month one will not be optimal at month twelve. As new data sources are onboarded, as the customer base grows, and as you measure resolution quality against known ground truth, rulesets require iterative tuning. Budget for ongoing resolution quality analysis as an operational activity, not just a one-time configuration task.
+    </div>
+  </div>
+
+  <h2 id="s2">The Data Model Foundation: Individuals, Contact Points, Party Identifiers</h2>
+  <p>Identity resolution in Data Cloud operates on three foundational DMO types. The <strong>Individual DMO</strong> represents a single entity in a single source system — one Contact record from Salesforce CRM, one registered user from the e-commerce platform, one loyalty member from the POS system. Each source system contributes Individual records.</p>
+  <p>The <strong>Contact Point DMOs</strong> (Contact Point Email, Contact Point Phone, Contact Point Address) represent the specific identifier values associated with an Individual — the email address associated with a CRM Contact, the phone number from a loyalty member record. Contact Points are how the identity resolution engine finds connections between Individual records that share a common identifier across different sources.</p>
+  <p>The <strong>Party Identifier DMO</strong> represents system-specific identifiers — a Salesforce Record ID, a loyalty member ID, a cookie value, a device ID. Party Identifiers link Individual records to their unique identifiers in each source system. When two Individuals from different source systems share a Party Identifier value (e.g., the same email address), the resolution engine uses this as evidence that they may represent the same person.</p>
+
+  <pre><code class="language-sql">-- Conceptual view of identity resolution data model
+-- Individual: one per source-system entity
+Individual_Source: { Id, SourceSystem, SourceRecordId, Name, ... }
+
+-- Contact Point Email: email addresses per Individual
+ContactPointEmail: { IndividualId, EmailAddress, isPrimary }
+
+-- Party Identifier: cross-system linking identifiers
+PartyIdentifier: {
+  IndividualId,
+  IdentifierType: 'email' | 'phone' | 'loyalty_id' | 'cookie',
+  IdentifierValue: 'john.smith@example.com'
+}
+
+-- Resolution creates a Unified Individual linking matched records:
+UnifiedIndividual: {
+  UnifiedId,
+  SourceIndividuals: [crm-contact-001, ecomm-user-445, loyalty-mb-78],
+  PrimaryEmail: 'john.smith@example.com',
+  IdentityGraph: { edges: [...match relationships...] }
+}</code></pre>
+
+  <h2 id="s3">Deterministic vs Probabilistic Matching</h2>
+  <p><strong>Deterministic matching</strong> uses exact matches on high-confidence identifiers. Two Individual records match deterministically if they share the same email address, the same phone number, or the same loyalty member ID. Deterministic matches produce high-precision results — when two records share an exact email address, there is high confidence they represent the same person. False matches from deterministic rules are rare but do occur (shared email addresses within families, corporate email addresses used by multiple employees over time).</p>
+  <p><strong>Probabilistic matching</strong> uses weighted scoring across multiple weaker signals. Two records score highly if they share a similar name (phonetic match), a similar address (normalised and compared), and a similar phone number (last 7 digits match). No single signal is definitive, but the combination exceeds a configurable confidence threshold. Probabilistic matching captures matches that deterministic rules miss but produces more false positives, particularly at large scale where coincidental attribute similarity increases.</p>
+  <p>Best practice for ruleset design is deterministic-first, probabilistic-as-supplement. Deterministic rules run first and capture high-confidence matches quickly. Probabilistic rules run on records that deterministic rules did not match, capturing the remaining lower-confidence connections. This ordered approach maximises precision for the easy matches and applies probabilistic scoring only where it is genuinely needed — avoiding the false positive amplification that comes from applying probabilistic matching to records that could be matched deterministically.</p>
+
+  <h2 id="s4">The Identity Graph and Profile Merging</h2>
+  <p>When identity resolution runs, it produces an identity graph — a directed graph where nodes are Individual records and edges represent match relationships. A cluster of connected nodes (nodes connected directly or transitively via match edges) constitutes a single Unified Individual. The resolution engine traverses these clusters and creates a Unified Individual record for each, inheriting attributes from all the source Individual records in the cluster according to survivorship rules.</p>
+  <p>Survivorship rules determine which attribute value "wins" when multiple source records have different values for the same attribute — name, address, email. Data Cloud supports several survivorship strategies: "most recent" (use the value from the most recently modified source record), "most complete" (use the first non-null value found, ordered by source priority), and "source priority" (always use the value from the highest-priority source system, regardless of recency). Define survivorship rules explicitly for every key attribute — allowing them to default can produce unexpected profile values.</p>
+  <p>Profile merging is not instantaneous — identity resolution runs as a batch job on a configurable schedule (hourly, every 4 hours, daily, depending on data volume and org configuration). When a new Individual record is ingested, it does not immediately appear in the Unified Individual profile. It participates in resolution at the next scheduled run. This latency window is architectural — design downstream processes that depend on unified profiles to tolerate it.</p>
+
+  <h2 id="s5">Over-Merge and Under-Merge Failure Modes</h2>
+  <p><strong>Over-merge</strong> occurs when the resolution algorithm incorrectly links records that belong to different people into a single Unified Individual profile. Common causes: matching on email domains rather than full email addresses (merging everyone at the same company), probabilistic matching with a too-low confidence threshold, or matching on non-unique phone numbers (shared household numbers or call center phone numbers used as customer service contacts). Over-merged profiles contaminate personalisation — sending a "welcome back" email based on a profile that combined two different customers' purchase histories creates incorrect recommendations.</p>
+  <p><strong>Under-merge</strong> occurs when the resolution algorithm fails to link records that do belong to the same person, leaving multiple separate Unified Individual profiles for the same real customer. Common causes: email address format variations (john@company.com vs. j.smith@company.com for the same person), phone number format differences (+1-555-0101 vs. 5550101), or missing Party Identifier mapping for a source system. Under-merged profiles cause duplicate communications — the same customer receiving the same promotional email twice from two separate profile activations.</p>
+  <p>Measuring resolution quality requires a ground truth dataset — a sample of known-same-person records that you can test the resolution rules against. Resolution quality metrics are precision (what percentage of matches are correct) and recall (what percentage of true same-person pairs were matched). Improving precision reduces over-merges; improving recall reduces under-merges. These metrics trade off against each other — a stricter ruleset improves precision at the cost of recall. Set target thresholds based on the business impact of each error type in your specific use case.</p>
+
+  <div class="callout callout--tip">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Email normalisation before ingestion:</strong> Email address matching is the highest-confidence deterministic rule in most rulesets. But email addresses are frequently inconsistent in source systems — uppercase, leading/trailing spaces, alias variations (john+salesforce@gmail.com vs. john@gmail.com). Normalise email addresses to lowercase and strip whitespace before ingestion into Data Cloud. This single pre-processing step typically improves deterministic match rates by 5-15%.
+    </div>
+  </div>
+
+  <div class="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>Identity resolution creates Unified Individual profiles by matching Individual records across source systems using Contact Points and Party Identifiers as matching keys. The output is an identity graph of connected source records.</li>
+      <li>Deterministic matching (exact identifier matches) provides high precision; probabilistic matching (weighted scoring across multiple weak signals) captures additional matches at the cost of more false positives. Use deterministic-first, probabilistic-as-supplement.</li>
+      <li>Survivorship rules determine which attribute value is used in the Unified Individual when source systems disagree. Define survivorship explicitly for all key attributes — defaults produce surprising results.</li>
+      <li>Identity resolution runs as a batch job — newly ingested records do not immediately appear in Unified Individual profiles. Downstream processes must tolerate this latency window.</li>
+      <li>Over-merge (incorrectly combining different people) and under-merge (failing to combine the same person) are the two failure modes. Measure both using a ground truth test dataset, and set precision/recall targets based on the relative business impact of each error type.</li>
+      <li>Email normalisation (lowercase, trim whitespace) before ingestion is the highest-ROI pre-processing step for improving deterministic match rates in Data Cloud.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. A Data Cloud ruleset uses probabilistic matching as the primary (only) rule, with a confidence threshold of 70%. At scale with 50 million profiles, the team observes many unified profiles that appear to combine different customers. What is the most likely cause?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The Data Cloud org has insufficient storage for 50 million profiles — adding storage will improve matching accuracy</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">At large scale, coincidental attribute similarity across different people becomes statistically significant — probabilistic matching with a 70% threshold will generate over-merges between different people who happen to share similar names and partial addresses. Add deterministic rules first and reserve probabilistic matching for unresolved records.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The identity resolution job is running too frequently — increasing the interval between runs will allow more data to accumulate and improve match accuracy</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A retail customer appears twice in marketing campaign activations receiving duplicate emails. Investigation shows two separate Unified Individual profiles for the same person — one from Salesforce CRM and one from the e-commerce platform. The person's email address is "John.Smith@example.com" in CRM and "john.smith@example.com" in the e-commerce system. What is the most likely cause and fix?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Email matching is case-sensitive in Data Cloud by default — enable case-insensitive matching in the email Contact Point ruleset configuration</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">The email addresses are identical when normalised to lowercase but were not normalised before ingestion. Pre-processing email addresses to lowercase before Data Cloud ingestion (in the data transformation layer) would allow the deterministic email match to link these two Individual records.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The two source systems need to be reconfigured to use the same email address format before Data Cloud can match them</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. After a scheduled identity resolution run, an analyst queries a Unified Individual profile and finds the billing address from an e-commerce record rather than the verified address from Salesforce CRM, even though the CRM record was updated more recently. What most likely explains this?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Data Cloud always uses the first-ingested source record for address survivorship — there is no way to configure this behavior</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">The survivorship rule for address is configured as "source priority" with e-commerce set as higher priority than CRM, or it defaulted to a rule that does not match the expectation. Review and update the survivorship rule for the address attribute to use "most recent" or set CRM as higher source priority.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The Salesforce CRM source connector has not fully synced the updated record — the address will correct itself at the next full sync</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../intg-014/" class="related-card">
+              <span class="card-id">INTG-014</span>
+              <h4>Legacy System Integration: The Patterns That Actually Work</h4>
+            </a>
+            <a href="../intg-012/" class="related-card">
+              <span class="card-id">INTG-012</span>
+              <h4>GraphQL for Salesforce: What It Means and Why It Matters</h4>
+            </a>
+            <a href="../intg-015/" class="related-card">
+              <span class="card-id">INTG-015</span>
+              <h4>iPaaS Platforms and Salesforce: Boomi, Workato, Zapier at Enterprise Scale</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Identity Resolution Problem</a></li>
+            <li><a href="#s2">Individuals, Contact Points, Identifiers</a></li>
+            <li><a href="#s3">Deterministic vs Probabilistic Matching</a></li>
+            <li><a href="#s4">Identity Graph and Profile Merging</a></li>
+            <li><a href="#s5">Over-Merge and Under-Merge</a></li>
+            <li><a href="#quiz">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../intg-014/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-014</span>
+            <span class="sidebar-next-title">Legacy System Integration: The Patterns That Actually Work</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../intg-012/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-012</span>
+            <span class="sidebar-next-title">GraphQL for Salesforce: What It Means and Why It Matters</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

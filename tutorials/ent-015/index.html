@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salesforce and ERP Integration: SAP, Oracle, and the Boundaries of Each | SFVedas</title>
+  <meta name="description" content="A deep guide to integrating Salesforce with SAP and Oracle ERP systems — integration patterns, data boundary decisions, common failure modes, and middleware selection." />
+  <meta property="og:title" content="Salesforce and ERP Integration: SAP, Oracle, and the Boundaries of Each" />
+  <meta property="og:description" content="A deep guide to integrating Salesforce with SAP and Oracle ERP systems — integration patterns, data boundary decisions, common failure modes, and middleware selection." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Salesforce and ERP Integration: SAP, Oracle, and the Boundaries of Each",
+    "description": "A deep guide to integrating Salesforce with SAP and Oracle ERP systems — integration patterns, data boundary decisions, common failure modes, and middleware selection.",
+    "author": {"@type": "Person", "name": "Vishal Sharma"},
+    "publisher": {"@type": "Organization", "name": "SFVedas"},
+    "datePublished": "2025-01-01",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sfvedas.com/tutorials/ent-015/"}
+  }
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">SF<span>Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/" class="active">Tutorials</a></li>
+        <li><a href="/learning-paths/">Learning Paths</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../pages/contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+    </div>
+  </nav>
+
+  <section class="tutorial-header">
+    <div class="container">
+      <a href="/tutorials/?tag=enterprise-strategy" class="back-link" style="color:var(--sage-green)">← Back to Enterprise Strategy</a>
+      <div class="card-badges" style="margin:1rem 0 0.75rem;">
+        <span class="card-id">ENT-015</span>
+        <span class="card-tag" style="color:var(--sage-green);background:rgba(45,125,82,0.08);">Enterprise Strategy</span>
+        <span class="card-read">25 min read</span>
+        <span class="card-audience">For: Solution Architects · CTOs · Integration Leads</span>
+      </div>
+      <h1>Salesforce and ERP Integration: SAP, Oracle, and the Boundaries of Each</h1>
+      <p class="tutorial-intro">ERP integration is the most technically complex and politically charged element of most enterprise Salesforce programmes. SAP and Oracle are not just systems — they are organisational power centres with their own governance, their own change control processes, and their own champions who are protective of what lives where. Getting ERP integration right requires as much political intelligence as technical expertise.</p>
+      <div class="author-block">
+        <div class="author-avatar">VS</div>
+        <div>
+          <div class="author-name">Vishal Sharma</div>
+          <div class="author-title">Salesforce Architect · SFVedas Founder</div>
+        </div>
+      </div>
+
+      <ins class="adsbygoogle" style="display:block;margin-top:1.5rem;" data-ad-client="ca-pub-4584420180521124" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-stat-grid">
+      <div class="tutorial-stat-card">
+        <div class="tsn">4</div>
+        <div class="tsl">Integration Patterns</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">6</div>
+        <div class="tsl">Boundary Decision Points</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">25 min</div>
+        <div class="tsl">Read Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <main class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <strong>What you'll learn:</strong> The natural boundary between Salesforce and ERP, six data boundary decisions, four integration patterns, SAP-specific and Oracle-specific considerations, middleware selection criteria, and how to manage ERP team politics.
+        </div>
+
+        <h2 id="s1">The Natural Boundary Between Salesforce and ERP</h2>
+        <p>Salesforce and ERP systems serve fundamentally different purposes. Salesforce is designed to manage relationships, interactions, and the pipeline of value: prospects becoming customers, opportunities becoming orders, cases becoming resolutions. ERP is designed to manage the execution and accounting of that value: orders becoming shipments, shipments becoming invoices, invoices becoming revenue recognised on the balance sheet.</p>
+        <p>The natural boundary sits at the point of order creation. Everything upstream of a committed order — lead management, opportunity management, quoting, configuration — belongs in Salesforce. Everything downstream — order fulfilment, inventory management, financial accounting, manufacturing scheduling — belongs in ERP. The integration boundary is the order handoff.</p>
+        <p>In practice, this boundary is contested. Sales leaders want order status visible in Salesforce. Finance wants contract value visible in ERP. Service teams want billing history accessible without leaving Salesforce. Each of these is a legitimate need, and each can be satisfied without moving the system of record — by surfacing read-only data from ERP in Salesforce via integration, rather than by duplicating data ownership.</p>
+
+        <div class="callout callout--insight">
+          <strong>Key Principle:</strong> Visibility is not the same as ownership. A service agent seeing an invoice status in Salesforce does not mean Salesforce owns the invoice. Design integrations to provide visibility across the boundary; resist pressure to move system-of-record responsibility across it.
+        </div>
+
+        <h2 id="s2">Six Data Boundary Decisions</h2>
+        <p>Before any integration work begins, six data boundary questions must have explicit, documented answers. These decisions drive everything downstream: the integration patterns chosen, the middleware selected, the governance processes established.</p>
+        <p><strong>1. Account/Customer Master.</strong> Is the customer master in Salesforce (Account), in ERP (Customer/Business Partner), or in a third MDM system? This determines which system gets written first when a new customer is onboarded, and which system's record governs in case of conflict. Most organisations give Salesforce ownership of the prospect/customer relationship pre-order, and ERP ownership post-order — but the synchronisation between them must be bidirectional and conflict-managed.</p>
+        <p><strong>2. Product/Price Master.</strong> ERP systems typically own the product master (material master in SAP, items in Oracle). Salesforce CPQ requires product and pricing data. The decision: does Salesforce replicate the ERP product master, or does it maintain its own? Replication keeps pricing consistent but requires synchronisation. Independent maintenance allows flexibility but creates divergence risk. Most large organisations replicate from ERP to Salesforce, with Salesforce unable to create products that don't exist in ERP.</p>
+        <p><strong>3. Order Status.</strong> Who creates the order? If Salesforce CPQ is quoting and the quote converts to an order, does Salesforce create an order record in ERP (via integration), or does a human re-key the order in ERP? The "Salesforce creates order in ERP" model is operationally elegant but integration-complex. The "human re-keys" model is operationally wasteful but simpler to implement. For high-volume order environments, automation is essential; for low-volume, bespoke orders, manual handoff may be acceptable.</p>
+        <p><strong>4. Inventory Availability.</strong> Sales teams using CPQ need to know if the product they are quoting is available. This requires a near-real-time call to ERP inventory systems. The integration is typically a synchronous callout from Salesforce to an ERP API. Latency, availability, and what to show the user when the ERP system is unavailable must be designed explicitly.</p>
+        <p><strong>5. Invoice and Payment Status.</strong> Service agents handling billing queries need invoice status. The options: replicate invoice data to Salesforce in batch (simple but stale), provide a real-time lookup from Salesforce to ERP (fresh but complex), or open a deep link to ERP in the service agent's browser (simple but breaks workflow). The right answer depends on query volume and latency tolerance.</p>
+        <p><strong>6. Credit and Risk Data.</strong> Finance teams in ERP manage credit limits and risk flags. Sales teams need to know if a customer is on credit hold before processing a quote. This is a Tier 1 integration requirement — the data must be current and available. Design this integration with a defined fallback behaviour: what does the system show if ERP is unavailable?</p>
+
+        <h2 id="s3">Four Integration Patterns</h2>
+        <p><strong>Pattern 1 — Request/Response (Synchronous).</strong> Salesforce makes an API call to ERP and waits for a response within the user's interaction. Used for: inventory availability checks, credit limit verification, order submission confirmation. Requirements: ERP must expose a stable API, response time must be under 5 seconds, circuit breaker pattern required to handle ERP unavailability gracefully.</p>
+        <p><strong>Pattern 2 — Event-driven (Asynchronous).</strong> A business event in one system triggers a message that the other system processes. Salesforce Change Data Capture (CDC) or Platform Events are typically the Salesforce producer. SAP Business Events or Oracle Integration Cloud are typical ERP consumers/producers. Used for: order status updates, customer record synchronisation, invoice creation notifications. Requires a message broker (MuleSoft Anypoint, Azure Service Bus, or similar) to handle ordering, retry, and dead-letter queuing.</p>
+        <p><strong>Pattern 3 — Batch ETL.</strong> Scheduled data extraction and load, typically nightly. Used for: product master replication, historical order data, financial period data. Simplest to implement; highest latency. Appropriate only for data that does not need to be current within the business day.</p>
+        <p><strong>Pattern 4 — Salesforce-Initiated Write-Through.</strong> An action in Salesforce (quote approval, opportunity close) triggers a write to ERP through middleware. Used for: order creation, customer provisioning. The most technically complex pattern — it requires ERP API stability, error handling, and a compensation mechanism (what to do in Salesforce if the ERP write fails).</p>
+
+        <div class="callout callout--key">
+          <strong>Middleware Selection:</strong> MuleSoft (Salesforce-native ecosystem, highest cost), Boomi (mid-market, strong Salesforce connector library), Azure Integration Services (strong if Azure is the enterprise cloud platform), and SAP Integration Suite (strong for SAP-centric organisations, especially for SAP S/4HANA). The selection should align with your enterprise integration platform strategy, not be driven solely by the Salesforce programme.
+        </div>
+
+        <h2 id="s4">SAP-Specific Considerations</h2>
+        <p>SAP introduces specific technical and organisational considerations. On the technical side: SAP S/4HANA exposes OData APIs (via SAP API Business Hub) that are well-documented and stable — prefer these over direct BAPI/RFC calls, which are lower-level, harder to version, and require more SAP-side maintenance. For on-premise SAP, the SAP Integration Suite or an on-premise MuleSoft runtime may be required to bridge the connectivity gap.</p>
+        <p>The SAP data model is more complex than Salesforce's. A Salesforce Account maps to SAP's Business Partner, which may have multiple roles (customer, vendor, employee) and complex address and relationship structures. The mapping work is not trivial — budget two to three weeks of dedicated analysis for the Account-to-Business Partner mapping before integration development begins.</p>
+        <p>Organisationally: SAP teams operate on different change control cycles to Salesforce teams. SAP changes may require six-week lead times; Salesforce changes can be deployed in days. Design integration APIs to be loosely coupled and versioned, so that Salesforce can evolve independently of SAP's release schedule.</p>
+
+        <h2 id="s5">Oracle-Specific Considerations</h2>
+        <p>Oracle ERP Cloud (Fusion) exposes REST APIs that are generally well-suited to Salesforce integration. Oracle E-Business Suite (EBS), the older on-premise version, has a more complex API landscape — custom integrations often go through Oracle Integration Cloud (OIC), which is Oracle's iPaaS offering.</p>
+        <p>Oracle's data model for customers (Party, Account, Site) has its own complexity distinct from Salesforce's Account-Contact-Address model. The Oracle Trading Community Architecture (TCA) model is particularly intricate — customer relationships, site uses, and account hierarchies do not map directly to Salesforce. A detailed data model mapping document is essential before integration design begins.</p>
+        <p>Oracle Fusion is increasingly being positioned by Oracle as a CRM replacement in addition to ERP. Organisations with Oracle Fusion may face internal pressure to use Oracle's CRM capabilities rather than Salesforce. The integration architecture should be designed to be non-duplicative — if Salesforce is selected for CRM, Oracle's CRM modules should be turned off or limited to the capabilities that genuinely don't exist in Salesforce.</p>
+
+        <div class="callout callout--warning">
+          <strong>Political Reality:</strong> ERP teams — SAP or Oracle — frequently resist Salesforce integrations that give Salesforce write access to ERP. Frame integration requests as "Salesforce sends a message; ERP decides what to do with it" rather than "Salesforce writes to ERP." This framing is technically equivalent but politically easier to approve through ERP change control.
+        </div>
+
+        <div class="key-takeaways">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li>The natural Salesforce/ERP boundary is the order handoff — Salesforce owns upstream engagement, ERP owns downstream execution.</li>
+            <li>Six data boundary decisions must be documented before integration design begins: Account master, Product/Price master, Order creation, Inventory availability, Invoice status, and Credit data.</li>
+            <li>Four integration patterns serve different needs: synchronous request/response, event-driven async, batch ETL, and write-through. Each has specific use cases and failure mode requirements.</li>
+            <li>For SAP: prefer OData APIs over BAPI/RFC; plan two to three weeks for Account-to-Business Partner mapping; account for SAP's longer change control cycles in integration design.</li>
+            <li>For Oracle: understand the TCA data model before integration design; ensure Oracle CRM modules are turned off if Salesforce is selected for CRM.</li>
+            <li>Frame Salesforce-to-ERP writes as "Salesforce sends a message; ERP decides" — this reduces ERP team resistance through change control processes.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> Where does the natural boundary between Salesforce and ERP typically sit?</p>
+            <button onclick="answer(this,'q1','wrong')">At the customer onboarding stage</button>
+            <button onclick="answer(this,'q1','right')">At the point of order creation — upstream is Salesforce, downstream is ERP</button>
+            <button onclick="answer(this,'q1','wrong')">At the invoice generation stage</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> Which integration pattern is most appropriate for real-time inventory availability checks from Salesforce CPQ?</p>
+            <button onclick="answer(this,'q2','right')">Request/Response (synchronous)</button>
+            <button onclick="answer(this,'q2','wrong')">Event-driven (asynchronous)</button>
+            <button onclick="answer(this,'q2','wrong')">Batch ETL</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> For SAP integration, which API approach is preferred over BAPI/RFC calls?</p>
+            <button onclick="answer(this,'q3','wrong')">Direct database queries via SAP HANA</button>
+            <button onclick="answer(this,'q3','right')">OData APIs via SAP API Business Hub</button>
+            <button onclick="answer(this,'q3','wrong')">SAP GUI scripting via web browser</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="../ent-012/" class="related-card">
+              <span class="card-id">ENT-012</span>
+              <h4>Enterprise Architecture and Salesforce: Fitting the Platform into the Big Picture</h4>
+            </a>
+            <a href="../ent-014/" class="related-card">
+              <span class="card-id">ENT-014</span>
+              <h4>Decommissioning Legacy CRMs: Migration vs Coexistence Strategies</h4>
+            </a>
+            <a href="../ent-001/" class="related-card">
+              <span class="card-id">ENT-001</span>
+              <h4>The Build vs Buy Decision for Salesforce Customisation</h4>
+            </a>
+          </div>
+        </div>
+
+      </main>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>On This Page</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Natural Boundary</a></li>
+            <li><a href="#s2">Six Data Boundary Decisions</a></li>
+            <li><a href="#s3">Four Integration Patterns</a></li>
+            <li><a href="#s4">SAP-Specific Considerations</a></li>
+            <li><a href="#s5">Oracle-Specific Considerations</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-progress">
+          <h4>Your Progress</h4>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="sidebarProgress" style="width:0%"></div>
+          </div>
+          <p id="progressLabel" style="font-size:0.8rem;margin-top:0.4rem;">0% complete</p>
+        </div>
+
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ent-016/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-016</span>
+            <span class="sidebar-next-title">Cloud Strategy and Salesforce: PaaS Tradeoffs in 2026</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ent-014/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-014</span>
+            <span class="sidebar-next-title">Decommissioning Legacy CRMs: Migration vs Coexistence Strategies</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">SF<span>Vedas</span></div>
+        <p class="footer-tagline">Deep Salesforce knowledge for technology leaders.</p>
+      </div>
+      <div>
+        <h4>Enterprise Strategy</h4>
+        <ul>
+          <li><a href="/tutorials/?tag=enterprise-strategy">All Tutorials</a></li>
+          <li><a href="../ent-001/">Build vs Buy</a></li>
+          <li><a href="../ent-002/">Total Cost of Ownership</a></li>
+          <li><a href="../ent-005/">5-Year Platform View</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="/tutorials/">All Tutorials</a></li>
+          <li><a href="/learning-paths/">Learning Paths</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="../pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SFVedas. Built for Salesforce leaders.</p></div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const el = document.getElementById('tutorialContent');
+      const progressBar = document.getElementById('readingProgress');
+      const sidebarBar = document.getElementById('sidebarProgress');
+      const label = document.getElementById('progressLabel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, Math.round((scrolled / total) * 100));
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (sidebarBar) sidebarBar.style.width = pct + '%';
+      if (label) label.textContent = pct + '% complete';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ENT-008: Building a Centre of Excellence for Salesforce — SFVedas</title>
+  <meta name="description" content="How to design, staff, and operate a Salesforce Centre of Excellence that delivers sustained platform value beyond the initial implementation."/>
+  <meta property="og:title" content="ENT-008: Building a Centre of Excellence for Salesforce — SFVedas"/>
+  <meta property="og:description" content="How to design, staff, and operate a Salesforce Centre of Excellence that delivers sustained platform value beyond the initial implementation."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ent-008/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ENT-008: Building a Centre of Excellence for Salesforce — SFVedas"/>
+  <meta name="twitter:description" content="How to design, staff, and operate a Salesforce Centre of Excellence that delivers sustained platform value beyond the initial implementation."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ENT-008: Building a Centre of Excellence for Salesforce — SFVedas",
+  "description": "How to design, staff, and operate a Salesforce Centre of Excellence that delivers sustained platform value beyond the initial implementation.",
+  "url": "https://sfvedas.com/tutorials/ent-008/",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/ent-008/",
+  "author": { "@type": "Person", "name": "Vishal Sharma", "url": "https://sfvedas.com/about/" },
+  "publisher": { "@type": "Organization", "name": "SFVedas", "url": "https://sfvedas.com", "logo": { "@type": "ImageObject", "url": "https://sfvedas.com/images/logo.svg" } },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=enterprise-strategy" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Enterprise Strategy</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ENT-008</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Enterprise Strategy</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: CTOs, IT Directors &amp; Salesforce Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Building a Centre of Excellence<br/>for Salesforce
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        The Salesforce partner leaves, the programme team disbands, and suddenly nobody owns the platform. The Centre of Excellence is the structure that prevents that. This tutorial covers what a CoE does, how to staff it, and how to build one that creates lasting value rather than becoming a governance bottleneck.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Strategy Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+    <div class="ad-unit">
+      <ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-4584420180521124" data-ad-slot=""></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <section style="padding: 0; background: var(--bg-card); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="tutorial-stat-grid" style="padding: 24px 0;">
+        <div class="tutorial-stat-card">
+          <span class="tsn">2 models</span>
+          <span class="tsl">Centralised vs federated CoE — the choice determines how much control vs agility the organisation has over its Salesforce platform</span>
+        </div>
+        <div class="tutorial-stat-card">
+          <span class="tsn">5 core roles</span>
+          <span class="tsl">Admin, Developer, Architect, BA/Product Owner, and CoE Lead — the minimum viable staffing model for a functioning CoE</span>
+        </div>
+        <div class="tutorial-stat-card">
+          <span class="tsn">Year 2 inflection</span>
+          <span class="tsl">CoEs that survive and grow past Year 2 are those that demonstrate business value, not just platform stability</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>What a Salesforce CoE does and why organisations that skip it pay the price post-implementation</li>
+            <li>The two CoE operating models — centralised and federated — and when each is appropriate</li>
+            <li>The five core roles every Salesforce CoE needs, and the minimum viable staffing model</li>
+            <li>How to scope and fund the CoE in the original business case, not as an afterthought</li>
+            <li>The governance responsibilities of the CoE and how to avoid becoming a bottleneck</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">What Happens Without a CoE</h2>
+
+        <p>The Salesforce implementation goes live. The partner team reduces to a hypercare support arrangement, then disengages. The programme team disperses back to their business-as-usual roles. A single Salesforce Administrator — usually the most technical person who was involved in the programme — is left holding the keys to a complex, business-critical platform.</p>
+
+        <p>Without a CoE, what follows is predictable. The development backlog accumulates because there is no team to clear it. Changes are made inconsistently because there is no architectural oversight. The platform drifts from best practice as each point solution is implemented without regard for the whole. Technical debt accumulates. Release management becomes informal. Security and compliance gaps emerge. And the single admin, increasingly overwhelmed, eventually leaves — taking institutional knowledge with them.</p>
+
+        <p>The Centre of Excellence is the structural solution to this problem. It is the permanent internal capability that owns the Salesforce platform after the implementation partner exits.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>What a CoE Does</strong>
+            <p>A Salesforce CoE has four functions: (1) Platform operations — keeping the org healthy, compliant, and performant. (2) Delivery — building the ongoing development backlog. (3) Governance — ensuring architectural consistency and managing change requests. (4) Enablement — growing the organisation's Salesforce capability and supporting users. All four are necessary; many CoEs focus only on the first two and neglect governance and enablement.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Centralised vs Federated CoE</h2>
+
+        <p>The first design decision for a CoE is whether it is centralised or federated.</p>
+
+        <p><strong>Centralised CoE.</strong> A single team owns Salesforce across the entire organisation. All requests, all development, all governance flows through this team. The benefits are consistency, quality control, and efficient use of specialist skills. The risks are that the central team becomes a bottleneck — business units experience slow delivery and work around the governance rather than through it. Centralised CoEs work well when the Salesforce footprint is primarily in one or two business units and the volume of change requests is manageable by a single team.</p>
+
+        <p><strong>Federated CoE.</strong> Each major business unit has its own Salesforce capability (admins, developers), coordinated by a central platform team that owns architecture standards, shared components, and cross-org governance. Business units have speed and autonomy; the central team ensures consistency. Federated CoEs work well for large, multi-cloud, multi-division Salesforce deployments where a centralised team cannot keep pace with demand. The risk is inconsistency if the coordination function is weak.</p>
+
+        <h2 id="s3">The Five Core Roles</h2>
+
+        <p>A minimum viable Salesforce CoE requires five capabilities, delivered by dedicated roles:</p>
+
+        <p><strong>Salesforce Administrator.</strong> Day-to-day platform operations: user management, configuration, report and dashboard maintenance, first-line support, release management for Salesforce tri-annual releases. The Admin is the operational heartbeat of the CoE. For a single-cloud org with under 500 users, one Admin may be sufficient. Complex multi-cloud orgs typically need 2-4 Admins.</p>
+
+        <p><strong>Salesforce Developer.</strong> Custom Apex, LWC, integration code, complex automation. Not all orgs need a full-time developer — low-customisation orgs can meet developer needs with a fractional arrangement or partner retainer. But any org with a meaningful custom development estate needs dedicated internal developer capability.</p>
+
+        <p><strong>Solution Architect.</strong> Architectural governance, technical standards, integration design, review of significant changes. The Architect ensures that the org remains coherent and maintainable as it evolves. Without an Architect function, technical decisions accumulate inconsistently and the org degrades.</p>
+
+        <p><strong>Business Analyst / Product Owner.</strong> The business-facing role. Translates business requirements into Salesforce work items, manages the development backlog, coordinates user acceptance, and ensures that what the CoE builds actually meets business needs. The BA/PO is the bridge between the CoE and its stakeholders.</p>
+
+        <p><strong>CoE Lead.</strong> Senior leadership accountability for the Salesforce platform. Reports to the CTO or IT Director, owns the platform roadmap, manages the CoE budget, and represents Salesforce interests in business strategy discussions. The CoE Lead is the person who ensures the platform receives the investment it needs and that the CoE's value is understood at senior level.</p>
+
+        <h2 id="s4">Funding the CoE in the Business Case</h2>
+
+        <p>The most common CoE failure mode is not structural — it is financial. The implementation gets funded. The CoE does not, or gets funded at a fraction of what it needs. The result is a well-built platform maintained by an understaffed team that cannot keep pace with demand.</p>
+
+        <p>The CoE should be funded in the original implementation business case as a permanent operating cost, not as an afterthought approved separately. A useful funding formula: the CoE annual operating cost (salaries, tools, training) should be approximately 20-30% of the implementation cost, per year, indefinitely. This accounts for administration, development, and governance capacity appropriate to the org's complexity.</p>
+
+        <p>For a £2M Salesforce implementation, budget £400,000-600,000 per year for the CoE. This sounds significant — it is. It is also significantly less than the cost of re-engaging the implementation partner to fix problems that accumulate from an under-resourced CoE.</p>
+
+        <h2 id="s5">Governance Without Becoming a Bottleneck</h2>
+
+        <p>CoEs that are perceived as bottlenecks — slow, bureaucratic, unhelpful — lose influence. Business units work around them, make independent decisions, and the CoE becomes irrelevant to the most important platform decisions. Avoiding this requires deliberate design of the governance model.</p>
+
+        <p><strong>Tiered change management.</strong> Not all changes need the same governance overhead. Routine configuration changes (new user, new picklist value, new report) should be processed quickly, with light-touch approval. Medium complexity changes (new flow, new integration point) need architectural review. High complexity changes (new data model, new custom development, new AppExchange package) need formal CoE review and architectural sign-off. Applying heavyweight governance to routine changes destroys velocity.</p>
+
+        <p><strong>Service level commitments.</strong> The CoE should publish and meet service level commitments: routine changes within 2 business days, medium changes within 2 weeks, architectural reviews within 4 weeks. Without SLAs, "the CoE is slow" becomes an unfalsifiable complaint. With them, performance is measurable and manageable.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The CoE's Primary Currency: Trust</strong>
+            <p>A CoE's influence comes from the trust of its stakeholders. It builds trust by delivering on its commitments, saying no with a reason and an alternative, and demonstrating that its governance exists to protect the platform — not to protect the CoE's territory. CoEs that are seen as business partners rather than IT gatekeepers consistently receive better stakeholder engagement and more strategic investment.</p>
+          </div>
+        </div>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Without a CoE, post-implementation platforms accumulate technical debt, inconsistent architecture, and operational fragility — the partner exit is the trigger, not the cause</li>
+            <li>A Salesforce CoE has four functions: platform operations, delivery, governance, and enablement — all four are necessary</li>
+            <li>Centralised CoEs deliver consistency; federated CoEs deliver speed and autonomy — choose based on organisation size, platform complexity, and change volume</li>
+            <li>The five core roles are Admin, Developer, Architect, BA/Product Owner, and CoE Lead — all five are needed; the minimum viable staffing depends on org complexity</li>
+            <li>Budget the CoE at 20-30% of implementation cost per year — underfunded CoEs produce the conditions for expensive platform failure</li>
+            <li>Tiered change management with SLAs prevents the CoE from becoming a bottleneck — govern proportionately, not uniformly</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. A large financial services organisation with 3,000 Salesforce users across four business divisions is designing its post-implementation operating model. What CoE structure is most appropriate?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Centralised CoE — a single team ensures consistency and prevents divisions from making independent decisions</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. Federated CoE — four divisions at this scale will generate more demand than a centralised team can handle; federated delivery with central architectural governance provides speed and consistency</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. No formal CoE — at this scale the organisation should outsource all Salesforce support to a managed service partner</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Centralised CoE for governance only, with all development done by individual business units independently</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. The CoE is perceived by business stakeholders as slow and unhelpful. Every change request — from adding a new user to major new automation — goes through the same 4-week review process. What is the root cause and fix?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. The CoE is understaffed — add headcount to process all requests within 1 week</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">B. Uniform governance overhead regardless of change complexity — implement tiered change management where routine changes are processed in 1-2 days with light-touch approval and only high-complexity changes require full architectural review</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. The CoE should remove all governance and let business units make changes without oversight</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Publish a backlog of all pending requests so stakeholders can see the CoE is busy</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. A £3M Salesforce implementation business case shows zero ongoing CoE investment post-go-live. What is the most significant risk this creates?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Salesforce will not renew the licence without a documented CoE in place</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">B. The platform will be maintained by a single overwhelmed admin or none at all — technical debt, inconsistent architecture, and security gaps will accumulate until either a crisis forces emergency investment or the platform degrades to the point where a reimplementation is needed</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. The implementation partner will not exit without a CoE commitment from the client</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Business users will not adopt the platform without a visible internal support team</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../ent-009/" class="related-card">
+              <span class="card-id">ENT-009</span>
+              <h4>Salesforce Governance Framework: Decisions, Escalations, and Ownership</h4>
+            </a>
+            <a href="../ent-021/" class="related-card">
+              <span class="card-id">ENT-021</span>
+              <h4>Salesforce Centre of Excellence Maturity Model: Stages and Benchmarks</h4>
+            </a>
+            <a href="../ent-002/" class="related-card">
+              <span class="card-id">ENT-002</span>
+              <h4>Total Cost of Ownership: The Salesforce Numbers Nobody Shares</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">What Happens Without a CoE</a></li>
+            <li><a href="#s2">Centralised vs Federated CoE</a></li>
+            <li><a href="#s3">The Five Core Roles</a></li>
+            <li><a href="#s4">Funding the CoE</a></li>
+            <li><a href="#s5">Governance Without Bottleneck</a></li>
+            <li><a href="#quiz">Checkpoint Quiz</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ent-009/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-009</span>
+            <span class="sidebar-next-title">Salesforce Governance Framework: Decisions, Escalations, and Ownership</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ent-007/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-007</span>
+            <span class="sidebar-next-title">Vendor Lock-In Risk: How Dependent Should You Be on Salesforce?</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/?tag=enterprise-strategy">Strategy</a><a href="/tutorials/?tag=delivery-management">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      bar.style.width = progress + '%';
+      sidebar.style.width = progress + '%';
+      pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

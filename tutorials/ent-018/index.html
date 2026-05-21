@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Salesforce Ecosystem: Partners, ISVs, and Building Your Support Network | SFVedas</title>
+  <meta name="description" content="Navigate the Salesforce partner ecosystem — how to select implementation partners, evaluate ISV products, build a healthy partner network, and avoid common ecosystem traps." />
+  <meta property="og:title" content="The Salesforce Ecosystem: Partners, ISVs, and Building Your Support Network" />
+  <meta property="og:description" content="Navigate the Salesforce partner ecosystem — how to select implementation partners, evaluate ISV products, build a healthy partner network, and avoid common ecosystem traps." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Salesforce Ecosystem: Partners, ISVs, and Building Your Support Network",
+    "description": "Navigate the Salesforce partner ecosystem — how to select implementation partners, evaluate ISV products, build a healthy partner network, and avoid common ecosystem traps.",
+    "author": {"@type": "Person", "name": "Vishal Sharma"},
+    "publisher": {"@type": "Organization", "name": "SFVedas"},
+    "datePublished": "2025-01-01",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sfvedas.com/tutorials/ent-018/"}
+  }
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">SF<span>Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/" class="active">Tutorials</a></li>
+        <li><a href="/learning-paths/">Learning Paths</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../pages/contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+    </div>
+  </nav>
+
+  <section class="tutorial-header">
+    <div class="container">
+      <a href="/tutorials/?tag=enterprise-strategy" class="back-link" style="color:var(--sage-green)">← Back to Enterprise Strategy</a>
+      <div class="card-badges" style="margin:1rem 0 0.75rem;">
+        <span class="card-id">ENT-018</span>
+        <span class="card-tag" style="color:var(--sage-green);background:rgba(45,125,82,0.08);">Enterprise Strategy</span>
+        <span class="card-read">18 min read</span>
+        <span class="card-audience">For: CTOs · Procurement Leads · Platform Leaders</span>
+      </div>
+      <h1>The Salesforce Ecosystem: Partners, ISVs, and Building Your Support Network</h1>
+      <p class="tutorial-intro">The Salesforce ecosystem — comprising thousands of implementation partners, ISV application providers, and professional service firms — is one of the platform's greatest assets and one of its greatest sources of risk. Navigating it well separates organisations that get strong delivery outcomes from those that accumulate implementation debt, unsupported AppExchange products, and partner dependencies they can't exit.</p>
+      <div class="author-block">
+        <div class="author-avatar">VS</div>
+        <div>
+          <div class="author-name">Vishal Sharma</div>
+          <div class="author-title">Salesforce Architect · SFVedas Founder</div>
+        </div>
+      </div>
+
+      <ins class="adsbygoogle" style="display:block;margin-top:1.5rem;" data-ad-client="ca-pub-4584420180521124" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-stat-grid">
+      <div class="tutorial-stat-card">
+        <div class="tsn">5</div>
+        <div class="tsl">Partner Selection Criteria</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">4</div>
+        <div class="tsl">ISV Evaluation Factors</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">18 min</div>
+        <div class="tsl">Read Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <main class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <strong>What you'll learn:</strong> The partner ecosystem landscape, five criteria for selecting implementation partners, ISV evaluation framework, how to avoid AppExchange sprawl, building a healthy multi-partner model, and managing partner transitions.
+        </div>
+
+        <h2 id="s1">The Partner Ecosystem Landscape</h2>
+        <p>The Salesforce partner ecosystem has several distinct segments, each serving different purposes and requiring different selection criteria.</p>
+        <p><strong>Global System Integrators (GSIs)</strong> — Accenture, Deloitte, Capgemini, IBM, Infosys — offer large teams, global delivery capabilities, and broad Salesforce practice depth. They are appropriate for enterprise-scale programmes, multi-cloud deployments, and organisations that need a single accountable delivery partner across multiple workstreams. The trade-off: GSIs are expensive, hierarchical, and often deploy less experienced staff on delivery work after the account team wins the engagement. Governance of the actual resource mix is critical.</p>
+        <p><strong>Boutique Salesforce specialists</strong> — mid-size firms (100-500 employees) with deep Salesforce expertise but narrower industry or product specialisation. Often deliver more experienced consultants at a lower blended rate than GSIs. Appropriate for focused implementations (Sales Cloud, Service Cloud, a specific cloud) where industry-specific knowledge is more important than breadth. The trade-off: capacity constraints — they may not have surge capacity for large programmes and may be absorbed by competing priorities.</p>
+        <p><strong>Salesforce direct professional services</strong> — Salesforce's own delivery capability, accessed through Success Plans or project-based engagements. Deepest product knowledge; limited by availability and by the nature of Salesforce's conflict with its partner channel. Useful for complex technical challenges (Hyperforce migrations, Data Cloud implementations) where product knowledge is the primary requirement.</p>
+        <p><strong>Independent Salesforce Contractors</strong> — individual consultants or small firms. High expertise, high flexibility, highest delivery risk on large programmes due to limited bench depth and contractual fragility. Appropriate for specific roles (an architect or technical lead supplementing an in-house team) rather than as primary delivery partners.</p>
+
+        <div class="callout callout--insight">
+          <strong>Insight:</strong> Partner tier (Platinum, Gold, etc.) is a marketing metric, not a delivery quality indicator. Two Platinum SIs can have completely different delivery quality. Evaluate partners on reference calls with clients in comparable organisations, on the specific CVs of the people who will be assigned, and on the governance model they propose — not on their tier badge.
+        </div>
+
+        <h2 id="s2">Five Criteria for Selecting Implementation Partners</h2>
+        <p><strong>1. Relevant experience.</strong> Has the partner delivered a comparable engagement — similar size, similar industry, similar Salesforce products — in the last 24 months? Ask for three client references and call them. Ask specifically: what went wrong, how did the partner respond, and would you use them again? One "no" on the last question is disqualifying.</p>
+        <p><strong>2. Named resource quality.</strong> Who specifically will be on your engagement? Request CVs for the lead architect, programme manager, and team lead. Verify certifications. Ask whether the proposed resources are currently available or whether they will be finishing other projects. A strong named team that rotates out mid-engagement is worse than a consistently adequate team that stays. Require named resource continuity clauses in contracts.</p>
+        <p><strong>3. Knowledge transfer commitment.</strong> What is the partner's explicit plan to build your internal team's capability? Partners who create dependency rather than building capability are optimising for their own long-term revenue, not your organisational interests. Require a knowledge transfer workplan as a contract deliverable.</p>
+        <p><strong>4. Governance model.</strong> How does the partner propose to manage scope, risk, and change? A partner who says "we'll work agile and sort it out" without a clear governance framework will be very difficult to hold accountable. Require a written programme governance document as part of the statement of work.</p>
+        <p><strong>5. Commercial model transparency.</strong> Fixed-price contracts shift delivery risk to the partner but incentivise scope gaming. Time-and-materials contracts shift risk to the customer but require strong internal governance to prevent scope creep. Hybrid models (fixed-price phases with T&M for change requests) require clear scope documentation upfront. Understand which model the partner is proposing and why, and negotiate appropriately.</p>
+
+        <h2 id="s3">ISV Evaluation: The AppExchange Decision Framework</h2>
+        <p>The AppExchange has over 7,000 applications. The average enterprise Salesforce org has 20-40 AppExchange packages installed. Many of those packages are underused, not supported, or creating technical debt. ISV selection discipline prevents AppExchange sprawl.</p>
+        <p>Four factors determine whether an AppExchange product should be installed:</p>
+        <p><strong>1. Functional fit.</strong> Does the ISV product solve the specific problem better than custom development or native Salesforce configuration? If the gap between what Salesforce provides natively and what the business needs is small, the overhead of managing an AppExchange dependency (upgrades, compatibility, vendor relationship) may not be justified.</p>
+        <p><strong>2. ISV stability.</strong> How large and financially stable is the ISV? Check their funding history, their customer list, and their Salesforce AppExchange listing age. A startup ISV with 50 customers and seed funding is a meaningful business continuity risk for a core capability. For mission-critical functionality, prefer ISVs with 3+ years on AppExchange, 500+ customers, and clear revenue sustainability.</p>
+        <p><strong>3. Managed package architecture.</strong> Is the package well-architected? Does it create excessive custom objects, Governor Limit pressure, or hard dependencies on Salesforce internals that could break with platform updates? Request a technical architecture review from your Salesforce architect before installing any managed package in production. The AppExchange security review assesses security, not architecture quality.</p>
+        <p><strong>4. Exit strategy.</strong> If the ISV is acquired, pivots, or shuts down, how dependent are you on their product? For deeply embedded ISV products, understand what data is stored in managed objects (which you cannot access if the package is removed) and what the migration path is to native Salesforce functionality or an alternative.</p>
+
+        <div class="callout callout--warning">
+          <strong>AppExchange Sprawl:</strong> The most common ISV governance failure is evaluating packages at point of installation but not reviewing them periodically. Run an annual AppExchange inventory review: for each installed package, ask — is it actively used, is the vendor still viable, is the functionality now available natively? Decommission packages that fail this review. Every installed package adds upgrade coordination overhead and potential compatibility risk.
+        </div>
+
+        <h2 id="s4">Building a Healthy Multi-Partner Model</h2>
+        <p>Large Salesforce programmes often involve multiple partners — an SI delivering the implementation, an ISV providing specialised functionality, Salesforce Professional Services advising on architecture, and potentially a managed service provider running BAU operations post-go-live. Managing these relationships requires deliberate design.</p>
+        <p>Designate a primary accountable partner for each workstream — avoid situations where two partners share accountability for the same outcome, as this reliably results in each blaming the other when problems arise. Define the interfaces between partner workstreams explicitly: who is responsible for integration testing between the SI's Salesforce work and the ISV's managed package? Who owns the architecture decision when there is a conflict between the SI's approach and the ISV's recommendation?</p>
+        <p>Maintain an internal Salesforce architect role — even if it is a single person — who is not employed by any partner. This person's job is to make architectural decisions that are in your organisation's interest, not in the partner's interest. Without this internal capability, architectural decisions will default to whatever the primary SI recommends, which may or may not align with your long-term platform goals.</p>
+
+        <h2 id="s5">Managing Partner Transitions</h2>
+        <p>The decision to change implementation partner mid-programme or at programme completion is one of the most disruptive events in a Salesforce programme. Managing it well requires preparation before the transition, not just good intentions during it.</p>
+        <p>Every engagement with a delivery partner should include documentation requirements that assume the partner will be replaced: comprehensive technical documentation of all custom development, data dictionary for all custom objects and fields, a runbook for deployment processes, and handover documentation for any integrations. These requirements should be in the contract as deliverables, not left as informal expectations.</p>
+        <p>For planned transitions (programme end, moving to a managed service model), allow 4-6 weeks of parallel running between the outgoing and incoming partner. For unplanned transitions (partner failure, contractual dispute), the documentation quality you required upfront determines how difficult the transition is. Organisations that required good documentation typically take 6-8 weeks to transition. Organisations that did not may take 6-8 months.</p>
+
+        <div class="key-takeaways">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li>The ecosystem has four distinct partner segments (GSIs, boutiques, Salesforce PS, contractors) — choose based on programme scale, expertise needed, and budget, not partner tier badge.</li>
+            <li>Evaluate partners on five criteria: relevant experience with references, named resource quality, knowledge transfer commitment, governance model, and commercial model transparency.</li>
+            <li>ISV selection requires four-factor evaluation: functional fit, ISV stability, managed package architecture, and exit strategy.</li>
+            <li>Conduct an annual AppExchange inventory review — decommission underused, unsupported, or now-redundant packages to reduce technical debt.</li>
+            <li>In multi-partner models, designate a primary accountable partner per workstream and maintain an internal architect role that is not partner-employed.</li>
+            <li>Documentation requirements should be contractual deliverables — they determine how difficult a partner transition will be if one becomes necessary.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> What is the most reliable indicator of an implementation partner's delivery quality?</p>
+            <button onclick="answer(this,'q1','wrong')">Their Salesforce partner tier (Platinum, Gold, etc.)</button>
+            <button onclick="answer(this,'q1','right')">Reference calls with clients from comparable engagements in the last 24 months</button>
+            <button onclick="answer(this,'q1','wrong')">The number of certifications on their profile</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> Which ISV evaluation factor addresses what happens if the vendor is acquired or shuts down?</p>
+            <button onclick="answer(this,'q2','wrong')">Functional fit</button>
+            <button onclick="answer(this,'q2','wrong')">ISV stability</button>
+            <button onclick="answer(this,'q2','right')">Exit strategy</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> Why is maintaining an internal Salesforce architect role important in a multi-partner model?</p>
+            <button onclick="answer(this,'q3','wrong')">To avoid paying partner rates for architecture work</button>
+            <button onclick="answer(this,'q3','right')">To make architectural decisions in the organisation's interest, not the partner's interest</button>
+            <button onclick="answer(this,'q3','wrong')">To manage AppExchange package installations</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="../ent-001/" class="related-card">
+              <span class="card-id">ENT-001</span>
+              <h4>The Build vs Buy Decision for Salesforce Customisation</h4>
+            </a>
+            <a href="../ent-008/" class="related-card">
+              <span class="card-id">ENT-008</span>
+              <h4>Building a Centre of Excellence for Salesforce</h4>
+            </a>
+            <a href="../ent-013/" class="related-card">
+              <span class="card-id">ENT-013</span>
+              <h4>Stakeholder Management in Salesforce Programmes: The Hard Truths</h4>
+            </a>
+          </div>
+        </div>
+
+      </main>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>On This Page</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Partner Ecosystem Landscape</a></li>
+            <li><a href="#s2">Five Partner Selection Criteria</a></li>
+            <li><a href="#s3">ISV Evaluation Framework</a></li>
+            <li><a href="#s4">Multi-Partner Model</a></li>
+            <li><a href="#s5">Partner Transitions</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-progress">
+          <h4>Your Progress</h4>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="sidebarProgress" style="width:0%"></div>
+          </div>
+          <p id="progressLabel" style="font-size:0.8rem;margin-top:0.4rem;">0% complete</p>
+        </div>
+
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ent-019/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-019</span>
+            <span class="sidebar-next-title">Org Health Assessment: How to Diagnose a Struggling Salesforce Org</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ent-017/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-017</span>
+            <span class="sidebar-next-title">Measuring Salesforce Adoption: Metrics That Drive Executive Decisions</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">SF<span>Vedas</span></div>
+        <p class="footer-tagline">Deep Salesforce knowledge for technology leaders.</p>
+      </div>
+      <div>
+        <h4>Enterprise Strategy</h4>
+        <ul>
+          <li><a href="/tutorials/?tag=enterprise-strategy">All Tutorials</a></li>
+          <li><a href="../ent-001/">Build vs Buy</a></li>
+          <li><a href="../ent-002/">Total Cost of Ownership</a></li>
+          <li><a href="../ent-005/">5-Year Platform View</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="/tutorials/">All Tutorials</a></li>
+          <li><a href="/learning-paths/">Learning Paths</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="../pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SFVedas. Built for Salesforce leaders.</p></div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const el = document.getElementById('tutorialContent');
+      const progressBar = document.getElementById('readingProgress');
+      const sidebarBar = document.getElementById('sidebarProgress');
+      const label = document.getElementById('progressLabel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, Math.round((scrolled / total) * 100));
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (sidebarBar) sidebarBar.style.width = pct + '%';
+      if (label) label.textContent = pct + '% complete';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Custom Labels and Translation Workbench at Scale | SFVedas</title>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Custom Labels and Translation Workbench at Scale | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/plat-007/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Custom Labels and Translation Workbench at Scale | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Custom Labels and Translation Workbench at Scale | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/plat-007/",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-007/",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=platform-technical" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Platform &amp; Technical</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">PLAT-007</span>
+        <span class="card-tag" style="background:rgba(0,112,210,0.08);color:var(--sf-blue);border-color:rgba(0,112,210,0.2);">Platform &amp; Technical</span>
+        <span class="card-read">15 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Custom Labels and Translation Workbench at Scale
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+    <div class="section-summary">
+      <h3>What You'll Learn</h3>
+      <p>How Custom Labels work under the hood, when they become unmanageable, strategies for naming conventions and namespace hygiene, and how Translation Workbench fits into enterprise-grade multi-language deployments.</p>
+    </div>
+
+    <h2>Why Custom Labels Deserve Architectural Attention</h2>
+    <p>Custom Labels are often the last thing an architect thinks about and the first thing that breaks during a global rollout. They start as a convenient way to externalise strings — error messages, button text, email subjects — but grow into a sprawling metadata layer that nobody owns, nobody documents, and everybody depends on.</p>
+    <p>At the 500+ label mark, teams start hitting real problems: naming collisions, stale labels that no component uses, duplicated values with slightly different wordings, and Translation Workbench exports that are 80% redundant. A disciplined approach from day one prevents months of painful cleanup.</p>
+
+    <div class="callout callout--insight">
+      <strong>Insight</strong>
+      Custom Labels are global by default. Any Apex class, any LWC, any Flow in any package in your org can read any label. This is a feature and a hazard — a label renamed or deleted can silently break something on the other side of the org.
+    </div>
+
+    <h2>How Custom Labels Are Stored and Resolved</h2>
+    <p>Each Custom Label is an XML metadata file inside the <code>labels/</code> directory, collected into a single <code>CustomLabels.labels-meta.xml</code> file in SFDX projects. At runtime, Salesforce resolves labels through a locale stack:</p>
+    <ol>
+      <li>User's personal language setting</li>
+      <li>Profile default language</li>
+      <li>Org-level default language</li>
+      <li>Fall back to the label's master value if no translation exists</li>
+    </ol>
+    <p>The resolution happens server-side for Apex and Visualforce, and client-side for LWC via the <code>@salesforce/label</code> import.</p>
+
+    <div class="code-block">// LWC — importing a custom label
+import SAVE_BUTTON from '@salesforce/label/c.Save_Button_Label';
+import ERROR_REQUIRED from '@salesforce/label/c.Validation_Required_Field';
+
+export default class MyForm extends LightningElement {
+  label = { saveButton: SAVE_BUTTON, errorRequired: ERROR_REQUIRED };
+}
+
+// Apex — using a label
+String msg = System.Label.Account_Save_Success;
+
+// Visualforce
+&lt;apex:outputText value="{!$Label.c.Account_Save_Success}" /&gt;</div>
+
+    <div class="callout callout--key">
+      <strong>Key Point</strong>
+      In LWC, labels are tree-shaken at build time — only imported labels are bundled. In Apex, all labels are available at runtime with no bundle cost. This means unused labels in Apex are invisible waste; in LWC they are genuinely inert.
+    </div>
+
+    <h2>Naming Conventions That Scale</h2>
+    <p>The most impactful decision you make about Custom Labels is the naming scheme. A flat namespace ("ErrorMessage", "SaveButton") degrades immediately. A hierarchical scheme using underscores as separators survives a 2,000-label org:</p>
+
+    <div class="code-block">// Pattern: &lt;Domain&gt;_&lt;Object&gt;_&lt;Context&gt;_&lt;Type&gt;
+
+// Good
+Account_Save_Success_Toast
+Account_Delete_Confirm_Modal_Body
+Quote_LineItem_Tax_Tooltip
+Validation_Required_Field_Error
+
+// Bad
+SaveSuccess          // no domain
+acct_err_1           // cryptic abbreviation
+Button_Label_New     // backwards hierarchy
+SuccessMessage       // reused across 40 features</div>
+
+    <p>Adopt a governance rule: no label gets merged without a Jira ticket referencing the feature it belongs to. This creates an audit trail when labels need to be retired.</p>
+
+    <div class="callout callout--tip">
+      <strong>Tip</strong>
+      Define a prefix taxonomy and enforce it in code review: <code>Validation_</code> for field/input errors, <code>Toast_</code> for notification messages, <code>Modal_</code> for dialog content, <code>Field_Help_</code> for help text. New contributors should know where their label belongs before they create it.
+    </div>
+
+    <h2>Translation Workbench Architecture</h2>
+    <p>Translation Workbench (TWB) extends Custom Labels to support multiple languages. It also handles field labels, picklist values, page layouts, and custom object names — not just labels. Understanding the full scope matters because translating labels in isolation misses half the user-facing text.</p>
+    <p>The translation pipeline has three stages:</p>
+    <ul>
+      <li><strong>Enable language:</strong> From Setup &gt; Translation Language Settings. This creates the language record and enables TWB exports for that locale.</li>
+      <li><strong>Export for translation:</strong> Metadata API exports a ZIP with language-specific XML files. Third-party translation vendors receive these XML files.</li>
+      <li><strong>Import translated content:</strong> Import the translated ZIP back, or use the UI to paste values directly for small volumes.</li>
+    </ul>
+
+    <div class="code-block">&lt;!-- CustomLabels.labels-meta.xml structure --&gt;
+&lt;CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
+  &lt;labels&gt;
+    &lt;fullName&gt;Account_Save_Success_Toast&lt;/fullName&gt;
+    &lt;categories&gt;Account,Toast&lt;/categories&gt;
+    &lt;language&gt;en_US&lt;/language&gt;
+    &lt;protected&gt;false&lt;/protected&gt;
+    &lt;shortDescription&gt;Toast shown after account save&lt;/shortDescription&gt;
+    &lt;value&gt;Account saved successfully.&lt;/value&gt;
+  &lt;/labels&gt;
+&lt;/CustomLabels&gt;</div>
+
+    <div class="callout callout--warning">
+      <strong>Warning</strong>
+      TWB does not version translations. If you re-export after adding new labels, your translation vendor receives a new export that may overlap with previous work. Always track which labels were exported in which batch to avoid duplicate translation spend.
+    </div>
+
+    <h2>Translation at Scale: Governance Patterns</h2>
+    <p>Global deployments with 5+ active languages create workflow complexity. The labels added in a summer release need translation before go-live, which means translation vendors need 2-3 weeks lead time, which means the export must happen before UAT even finishes. This creates pressure to freeze labels early.</p>
+    <p>Proven patterns for managing this:</p>
+    <ul>
+      <li><strong>Label freeze window:</strong> Declare a "label freeze" date 4 weeks before release go-live. New features after that date either use existing labels or defer to the next release.</li>
+      <li><strong>Translation memory:</strong> Use a CAT (computer-assisted translation) tool like Crowdin or Phrase that maintains a TM database. Near-duplicate labels cost a fraction of full translation cost.</li>
+      <li><strong>English-first fallback:</strong> For power-user or admin-facing labels that are not customer-visible, English fallback is acceptable. Document this policy so translators don't waste effort.</li>
+      <li><strong>Automated delta detection:</strong> Script a comparison between the current labels export and the last translated export to identify only new/changed labels. This makes translation faster and cheaper.</li>
+    </ul>
+
+    <h2>Labels in Managed Packages</h2>
+    <p>If you are building a managed package (1GP or 2GP), Custom Labels live in the package namespace. Subscribers see them as <code>namespace__LabelName</code>. This has important implications:</p>
+    <ul>
+      <li>Subscribers cannot directly edit your package labels. They can override them by creating a label with the same name in their default namespace.</li>
+      <li>Translation Workbench translations in your packaging org deploy with the package — subscribers do not need to re-translate.</li>
+      <li>In 2GP, labels can be declared as public or protected. Protected labels cannot be overridden by subscribers.</li>
+    </ul>
+
+    <div class="callout callout--insight">
+      <strong>Insight</strong>
+      For ISV products, the ability for subscribers to override labels is a feature — it lets enterprise customers rebrand your UI text without you shipping a custom build. Use protected labels only for strings that must remain exact (legal disclaimers, compliance text).
+    </div>
+
+    <h2>Cleaning Up: Label Retirement at Scale</h2>
+    <p>Deleting a Custom Label is a destructive metadata operation that cannot be rolled back from Setup. Before deletion, confirm that no Apex, LWC, Flow, or Visualforce references the label. The safest approach:</p>
+    <ol>
+      <li>Search the full codebase (including Flow metadata XML) for the label API name.</li>
+      <li>Remove all references in a single PR/changeset.</li>
+      <li>Deploy the reference-removal to production.</li>
+      <li>Delete the label from the org (via Metadata API delete or Setup UI).</li>
+      <li>Remove from source control and deploy the deletion manifest.</li>
+    </ol>
+    <p>Never delete a label and remove its references in the same deployment — the deployment order is not guaranteed, and a timing window can cause a null reference error in production.</p>
+
+    <div class="key-takeaways">
+      <h2>Key Takeaways</h2>
+      <ul>
+        <li>Custom Labels are global metadata — naming conventions and ownership matter from day one.</li>
+        <li>Use a hierarchical naming scheme: Domain_Object_Context_Type.</li>
+        <li>Translation Workbench translates more than labels: it also handles picklists, page layouts, and object names.</li>
+        <li>Plan a label freeze window 4 weeks before go-live to give vendors adequate lead time.</li>
+        <li>In managed packages, subscribers can override non-protected labels — use this as a customisation mechanism.</li>
+        <li>Label deletion is irreversible — remove references before removing the label, never simultaneously.</li>
+      </ul>
+    </div>
+
+    <div class="quiz-section" id="quiz">
+      <h2>Check Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. In LWC, what happens to Custom Labels that are imported but never referenced in the template or controller?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">They still load at runtime via the global label registry</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">They are tree-shaken at build time and not bundled</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">They cause a compile error in the LWC toolchain</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. You need to retire a Custom Label that is referenced in three LWC components. What is the correct sequence?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Delete the label and the references in one combined deployment</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Remove all references first, deploy to production, then delete the label in a separate step</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Mark the label as protected so it cannot be used, then delete it later</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. Which Translation Workbench capability is NOT available for Custom Labels specifically?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Exporting labels to XML for third-party translation vendors</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Providing locale-based fallback to the master language value</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">Versioning translations so rollback to a previous translation is possible</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../plat-008/" class="related-card">
+              <span class="card-id">PLAT-008</span>
+              <h4>Salesforce Connect: Federated Data Without Migration</h4>
+            </a>
+            <a href="../plat-006/" class="related-card">
+              <span class="card-id">PLAT-006</span>
+              <h4>Visualforce in 2026: What's Still Worth Knowing</h4>
+            </a>
+            <a href="../plat-009/" class="related-card">
+              <span class="card-id">PLAT-009</span>
+              <h4>OmniStudio: What It Is, When It's Worth It, When It Isn't</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+                              <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#">Why Custom Labels Deserve Architectural Attention</a></li>
+            <li><a href="#">How Custom Labels Are Stored and Resolved</a></li>
+            <li><a href="#">Naming Conventions That Scale</a></li>
+            <li><a href="#">Translation Workbench Architecture</a></li>
+            <li><a href="#">Translation at Scale: Governance Patterns</a></li>
+            <li><a href="#">Labels in Managed Packages</a></li>
+            <li><a href="#">Cleaning Up: Label Retirement at Scale</a></li>
+            <li><a href="#">Key Takeaways</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../plat-008/" class="sidebar-next-link">
+            <span class="sidebar-next-id">PLAT-008</span>
+            <span class="sidebar-next-title">Salesforce Connect: Federated Data Without Migration</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../plat-006/" class="sidebar-next-link">
+            <span class="sidebar-next-id">PLAT-006</span>
+            <span class="sidebar-next-title">Visualforce in 2026: What's Still Worth Knowing</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

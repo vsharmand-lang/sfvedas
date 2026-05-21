@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ENT-006: Digital Transformation and Salesforce — Separating Hype from Reality — SFVedas</title>
+  <meta name="description" content="What digital transformation actually means for Salesforce programmes — separating the marketing language from the real organisational change."/>
+  <meta property="og:title" content="ENT-006: Digital Transformation and Salesforce — Separating Hype from Reality — SFVedas"/>
+  <meta property="og:description" content="What digital transformation actually means for Salesforce programmes — separating the marketing language from the real organisational change."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ent-006/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="ENT-006: Digital Transformation and Salesforce — Separating Hype from Reality — SFVedas"/>
+  <meta name="twitter:description" content="What digital transformation actually means for Salesforce programmes — separating the marketing language from the real organisational change."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ENT-006: Digital Transformation and Salesforce — Separating Hype from Reality — SFVedas",
+  "description": "What digital transformation actually means for Salesforce programmes — separating the marketing language from the real organisational change.",
+  "url": "https://sfvedas.com/tutorials/ent-006/",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/ent-006/",
+  "author": { "@type": "Person", "name": "Vishal Sharma", "url": "https://sfvedas.com/about/" },
+  "publisher": { "@type": "Organization", "name": "SFVedas", "url": "https://sfvedas.com", "logo": { "@type": "ImageObject", "url": "https://sfvedas.com/images/logo.svg" } },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=enterprise-strategy" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Enterprise Strategy</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">ENT-006</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Enterprise Strategy</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: CTOs, Programme Directors &amp; Transformation Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Digital Transformation and Salesforce:<br/>Separating Hype from Reality
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        "Digital transformation" is used to justify almost every Salesforce investment. It is also one of the most abused phrases in enterprise technology. This tutorial cuts through the language to explain what transformation through Salesforce actually requires — and why most programmes labelled as transformation are not.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Strategy Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+    <div class="ad-unit">
+      <ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-4584420180521124" data-ad-slot=""></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <section style="padding: 0; background: var(--bg-card); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="tutorial-stat-grid" style="padding: 24px 0;">
+        <div class="tutorial-stat-card">
+          <span class="tsn">70%</span>
+          <span class="tsl">Of digital transformation programmes fail to achieve their stated objectives, according to McKinsey and similar research</span>
+        </div>
+        <div class="tutorial-stat-card">
+          <span class="tsn">Technology last</span>
+          <span class="tsl">True transformation changes operating model, processes, and culture — technology enables it but does not cause it</span>
+        </div>
+        <div class="tutorial-stat-card">
+          <span class="tsn">Process before platform</span>
+          <span class="tsl">Automating a broken process in Salesforce produces a broken automated process — transformation requires redesign first</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Why "digital transformation" is overused and what it actually means when applied rigorously</li>
+            <li>The difference between digitisation, digitalisation, and transformation — and which one most Salesforce programmes actually deliver</li>
+            <li>Why technology implementation alone does not produce transformation and what the missing ingredients are</li>
+            <li>The conditions that must exist for a Salesforce programme to be genuinely transformative</li>
+            <li>How to honestly position a Salesforce programme — and why honesty about scope protects the programme</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Language Problem</h2>
+
+        <p>Every Salesforce implementation deck includes the phrase "digital transformation." It appears in the business case, the programme charter, the executive briefings, and the go-live communications. It is used so ubiquitously that it has become meaningless — and its meaninglessness is actively harmful to programme success.</p>
+
+        <p>When a programme is labelled as transformation without being designed as transformation, three things reliably happen. First, expectations are set that the programme cannot meet — users expect their work to feel fundamentally different, executives expect a step-change in performance, and neither happens from a CRM implementation that replicates existing processes in a new platform. Second, the real work of transformation — process redesign, operating model change, cultural shift — is omitted from scope because the technology implementation alone is assumed to be sufficient. Third, when the programme delivers a working CRM but not the promised transformation, it is deemed a failure against expectations it was never designed to meet.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Three Distinct Things</strong>
+            <p>Digitisation: converting paper-based or manual processes to digital (a CRM replacing spreadsheets). Digitalisation: using digital technology to improve or change existing processes (automating lead qualification that was previously manual). Transformation: fundamentally changing how the business operates, creates value, and engages with customers — enabled by but not caused by technology. Most Salesforce implementations are digitisation or digitalisation. Very few are transformation.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">What Transformation Actually Requires</h2>
+
+        <p>Genuine business transformation through Salesforce requires four things that technology alone cannot provide:</p>
+
+        <p><strong>Operating model change.</strong> Transformation changes how work is organised, not just how it is done. A transformed sales organisation does not just use Salesforce to log calls — it has restructured territory management, account ownership, compensation models, and manager cadences around the data and automation capabilities of the platform. This requires HR, finance, and business leadership involvement — not just IT and the Salesforce team.</p>
+
+        <p><strong>Process redesign, not process replication.</strong> The most common failure in "transformation" programmes is implementing existing processes in Salesforce rather than redesigning them. If the legacy CRM had a 12-step opportunity process, implementing the same 12-step process in Salesforce is digitisation, not transformation. Transformation asks: given the capabilities of Salesforce, what should this process look like if we designed it today? That question is harder to answer and requires more business engagement — but it is the only path to genuine transformation.</p>
+
+        <p><strong>Data strategy.</strong> Transformation is impossible without trustworthy data. An organisation that transforms its customer engagement model on a foundation of poor data quality will make wrong decisions faster — which is worse than making wrong decisions slowly. Data quality assessment, data governance, and master data management must be components of any programme that genuinely aspires to transform the business.</p>
+
+        <p><strong>Cultural and behavioural change.</strong> Technology changes what is possible. Culture determines what actually happens. A sales team that does not believe in data-driven management will work around the pipeline discipline that Salesforce is supposed to enable. A service team that does not trust the Knowledge Base will continue to solve problems independently rather than sharing solutions. Transformation requires sustained behavioural change — supported by management, measured, and held accountable.</p>
+
+        <h2 id="s3">The Transformation Readiness Test</h2>
+
+        <p>Before labelling a Salesforce programme as transformation, test it against five readiness questions:</p>
+
+        <p><strong>1. Has the operating model been redesigned?</strong> If the org chart, role definitions, and management structure are unchanged, the programme is not transformational. Transformation changes how the business is organised, not just what tools it uses.</p>
+
+        <p><strong>2. Have processes been redesigned from first principles?</strong> If the Salesforce configuration maps directly to the legacy system's processes, the programme is digitising the past. Transformation requires asking what processes should be, not what they were.</p>
+
+        <p><strong>3. Is there a data quality programme?</strong> Transformation that runs on poor data is not transformation — it is automated confusion. A programme without a data quality workstream is not designed for transformation.</p>
+
+        <p><strong>4. Is there genuine executive sponsorship?</strong> Transformation requires leaders who will make decisions about process redesign, operating model change, and cultural expectation. A programme sponsored by IT but not by the business leadership of the affected functions cannot transform the business.</p>
+
+        <p><strong>5. Are change management and adoption outcomes in the programme success criteria?</strong> If success is defined entirely by technical delivery milestones (go-live date, features delivered, zero P1 defects), the programme is not designed for transformation. Transformation measures behaviour change and business outcomes.</p>
+
+        <h2 id="s4">Honest Positioning — Why It Protects the Programme</h2>
+
+        <p>There is a strong temptation to use transformation language because it justifies larger budgets, higher executive attention, and stronger sponsorship. The short-term benefit of the label rarely outweighs the long-term cost.</p>
+
+        <p>A programme honestly positioned as "implementing Salesforce to improve our sales process efficiency and data quality, with a target to reduce average sales cycle by 15%" sets expectations it can meet. A programme positioned as "transforming our customer engagement model" sets expectations it almost certainly cannot meet from a CRM implementation alone.</p>
+
+        <p>Programmes that meet their stated objectives get funded for the next phase. Programmes that fail against unrealistic expectations built on transformation rhetoric rarely get the investment needed to realise the potential of the platform they have just built.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Transformation as a Phase 2</strong>
+            <p>The most successful transformation journeys position the Salesforce implementation as Phase 1 (foundation) and genuine transformation as Phase 2 (enabled by the foundation). This is honest, achievable, and builds credibility for the larger investment. Phase 1 delivers the platform. Phase 2, built on clean data and adoption in Phase 1, delivers the transformation. This sequencing works far better than promising transformation and delivering CRM.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">When Salesforce Genuinely Enables Transformation</h2>
+
+        <p>Dismissing all "digital transformation" language as hype would be wrong. Salesforce can genuinely enable transformation — when the conditions are right. The cases where transformation is real share common characteristics:</p>
+
+        <p>The business was genuinely constrained by its previous technology. Replacing a system that made Customer 360 impossible with one that makes it possible is transformative — if the business actually changes how it uses the customer insight. The legacy constraint was a genuine barrier, and removing it enables genuinely new behaviours.</p>
+
+        <p>The programme was designed as transformation from the start. Process redesign, operating model change, and change management were in scope from the business case. The technology implementation was one workstream among several — not the entire programme.</p>
+
+        <p>Leadership drove the change. The transformation was owned by business leaders who were accountable for the business outcome, not just IT leaders accountable for the technology delivery. The CTO was the enabler, not the driver.</p>
+
+        <div class="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Most Salesforce implementations are digitisation or digitalisation — implementing existing processes in a better platform. Very few meet the definition of genuine transformation</li>
+            <li>Transformation requires operating model change, process redesign, data quality investment, and cultural and behavioural change — technology alone cannot provide any of these</li>
+            <li>Labelling a programme as transformation when it is not sets expectations it cannot meet, typically producing a "failed" programme that delivered a working CRM</li>
+            <li>Test transformation readiness: operating model redesign, process redesign, data quality programme, genuine executive sponsorship, and behaviour-change success criteria</li>
+            <li>Honest programme positioning protects long-term investment — programmes that meet their stated objectives get funded; programmes that fail against transformation rhetoric rarely do</li>
+            <li>Genuine transformation is achievable with Salesforce — but only when designed as transformation from the outset, not retrofitted as a label onto an implementation</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. A Salesforce programme replicates the existing 14-step opportunity management process from the legacy CRM into Sales Cloud, with the same field names and approval steps. How should this be characterised?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Digital transformation — the business is now using a modern, cloud-based CRM</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. Digitisation — the programme has moved an existing process to a new platform without redesigning it. The business will have a better CRM but not fundamentally different processes or outcomes</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Digitalisation — because Sales Cloud adds automation to the existing process</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. The characterisation depends on whether the programme delivered on time and on budget</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. Why does using "transformation" language to justify a Salesforce implementation create long-term risk for the programme?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. It increases the budget beyond what is needed, creating financial exposure</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">B. It sets expectations the programme cannot meet — users and executives expect fundamental change, but a technology implementation alone cannot deliver it. When the programme delivers a working CRM but not transformation, it is deemed a failure against expectations it was never designed to meet</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. It attracts unwanted attention from competitors who may accelerate their own transformation initiatives</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. It creates contractual obligations with Salesforce that standard CRM implementations do not have</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. What is the most important factor that distinguishes a Salesforce programme that genuinely enables transformation from one that merely implements CRM?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. The number of Salesforce clouds implemented — more clouds means more transformation potential</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. The size of the implementation budget — larger investments produce more transformative outcomes</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Business leadership ownership of the process redesign and operating model change — when business leaders are accountable for the business outcome (not just IT for technology delivery), and transformation was designed in from the start, genuine change is possible</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. The use of Agentforce and AI features — AI is the technology that converts CRM implementations into transformation</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../cha-002/" class="related-card">
+              <span class="card-id">CHA-002</span>
+              <h4>Why Salesforce Implementations Fail: The Change Management Diagnosis</h4>
+            </a>
+            <a href="../ent-005/" class="related-card">
+              <span class="card-id">ENT-005</span>
+              <h4>Salesforce as Enterprise Platform: The 5-Year Strategic View</h4>
+            </a>
+            <a href="../ent-003/" class="related-card">
+              <span class="card-id">ENT-003</span>
+              <h4>Salesforce ROI: How to Measure What Actually Matters</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Language Problem</a></li>
+            <li><a href="#s2">What Transformation Actually Requires</a></li>
+            <li><a href="#s3">The Transformation Readiness Test</a></li>
+            <li><a href="#s4">Honest Positioning</a></li>
+            <li><a href="#s5">When Salesforce Genuinely Enables Transformation</a></li>
+            <li><a href="#quiz">Checkpoint Quiz</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ent-007/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-007</span>
+            <span class="sidebar-next-title">Vendor Lock-In Risk: How Dependent Should You Be on Salesforce?</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ent-005/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-005</span>
+            <span class="sidebar-next-title">Salesforce as Enterprise Platform: The 5-Year Strategic View</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/?tag=enterprise-strategy">Strategy</a><a href="/tutorials/?tag=change-management">Change Management</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      bar.style.width = progress + '%';
+      sidebar.style.width = progress + '%';
+      pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

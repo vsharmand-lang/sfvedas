@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadmap Planning for Salesforce: The 12-24-36 Month Framework | SFVedas</title>
+  <meta name="description" content="Build a Salesforce roadmap that survives contact with reality — how to structure 12, 24, and 36-month horizons, sequence investments, manage stakeholder expectations, and keep the plan current." />
+  <meta property="og:title" content="Roadmap Planning for Salesforce: The 12-24-36 Month Framework" />
+  <meta property="og:description" content="Build a Salesforce roadmap that survives contact with reality — how to structure 12, 24, and 36-month horizons, sequence investments, manage stakeholder expectations, and keep the plan current." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Roadmap Planning for Salesforce: The 12-24-36 Month Framework",
+    "description": "Build a Salesforce roadmap that survives contact with reality — how to structure 12, 24, and 36-month horizons, sequence investments, manage stakeholder expectations, and keep the plan current.",
+    "author": {"@type": "Person", "name": "Vishal Sharma"},
+    "publisher": {"@type": "Organization", "name": "SFVedas"},
+    "datePublished": "2025-01-01",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sfvedas.com/tutorials/ent-023/"}
+  }
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">SF<span>Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/" class="active">Tutorials</a></li>
+        <li><a href="/learning-paths/">Learning Paths</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../pages/contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+    </div>
+  </nav>
+
+  <section class="tutorial-header">
+    <div class="container">
+      <a href="/tutorials/?tag=enterprise-strategy" class="back-link" style="color:var(--sage-green)">← Back to Enterprise Strategy</a>
+      <div class="card-badges" style="margin:1rem 0 0.75rem;">
+        <span class="card-id">ENT-023</span>
+        <span class="card-tag" style="color:var(--sage-green);background:rgba(45,125,82,0.08);">Enterprise Strategy</span>
+        <span class="card-read">22 min read</span>
+        <span class="card-audience">For: CTOs · Platform Leaders · CoE Leads</span>
+      </div>
+      <h1>Roadmap Planning for Salesforce: The 12-24-36 Month Framework</h1>
+      <p class="tutorial-intro">A Salesforce roadmap that was built once and has not been revisited in 18 months is not a roadmap — it is a historical document. A roadmap that is a wish list of every feature every stakeholder has ever requested is not a plan — it is a backlog pretending to be strategy. Effective roadmap planning requires a structured approach to time horizons, investment sequencing, stakeholder alignment, and regular revision.</p>
+      <div class="author-block">
+        <div class="author-avatar">VS</div>
+        <div>
+          <div class="author-name">Vishal Sharma</div>
+          <div class="author-title">Salesforce Architect · SFVedas Founder</div>
+        </div>
+      </div>
+
+      <ins class="adsbygoogle" style="display:block;margin-top:1.5rem;" data-ad-client="ca-pub-4584420180521124" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-stat-grid">
+      <div class="tutorial-stat-card">
+        <div class="tsn">3</div>
+        <div class="tsl">Planning Horizons</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">4</div>
+        <div class="tsl">Sequencing Principles</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">22 min</div>
+        <div class="tsl">Read Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <main class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <strong>What you'll learn:</strong> Why most roadmaps fail, the 12-24-36 horizon model and what each horizon requires, four investment sequencing principles, how to align the roadmap with business planning cycles, keeping the roadmap current, and roadmap governance.
+        </div>
+
+        <h2 id="s1">Why Most Salesforce Roadmaps Fail</h2>
+        <p>Salesforce roadmaps fail in predictable ways. Understanding the failure modes is the starting point for building something better.</p>
+        <p><strong>The wish list roadmap.</strong> Built by compiling everything every stakeholder has requested, ordered by loudest voice. Has no investment logic, no sequencing rationale, and no capacity constraint applied. Every quarter, the items in the first three months slip to the next three months because the team cannot deliver the volume implied by the list. Stakeholders lose confidence in the roadmap because it never reflects what actually happens.</p>
+        <p><strong>The static roadmap.</strong> Built once, presented to the board, and never formally revisited. Business priorities change, Salesforce releases new capabilities, integration dependencies shift — but the roadmap does not. After 18 months, the gap between the roadmap and delivery reality is so large that the roadmap is no longer used as a planning tool.</p>
+        <p><strong>The delivery roadmap.</strong> A Gantt chart of projects and phases with no business outcome framing. Tells you when things will be delivered, not what business value they will generate. Stakeholders outside IT cannot use it to connect technology investment to business results. It is a delivery plan, not a strategy.</p>
+        <p><strong>The fantasy roadmap.</strong> Contains capabilities that depend on organisational changes, data quality improvements, or capability development that has not been committed to. "In Q3 next year we will deploy AI-driven lead scoring using Data Cloud" — when the data estate required is not in place and the Data Cloud licences have not been purchased. Fantasy roadmaps create expectation gaps that damage credibility.</p>
+
+        <div class="callout callout--insight">
+          <strong>The Purpose of a Roadmap:</strong> A roadmap is a communication tool — it communicates investment intent and sequencing to stakeholders at multiple levels, so that they can plan their own work in relation to platform capability availability. It is not a delivery commitment document for every item — only the 12-month horizon carries delivery commitment.
+        </div>
+
+        <h2 id="s2">The 12-Month Horizon: Committed</h2>
+        <p>The 12-month horizon is the committed horizon. Every item in the 12-month plan should be: funded (budget secured or in the approved budget cycle), resourced (delivery team capacity confirmed), scoped (requirements understood at a level of detail that supports confident estimation), and sequenced (dependencies mapped). Items that do not meet these criteria should be in the 24-month horizon, not the 12-month horizon.</p>
+        <p>The 12-month plan should be structured in quarterly blocks. Each block has: a set of capabilities being delivered, a set of dependencies that must be resolved before delivery begins (data readiness, integration testing, change management preparation), and a set of business outcomes expected to begin accruing after the block completes. The quarterly block structure gives the plan flexibility — detailed sprint planning happens within the block, but the block boundaries are the governance checkpoints.</p>
+        <p>The 12-month plan should be approved at governance level — not just by the technology team, but by the business owners of each capability area. Business owner approval creates accountability on both sides: the platform team commits to deliver, the business team commits to provide SME time, participate in testing, and lead adoption activities. Without this bilateral commitment, the delivery team will find that business resources are unavailable when needed.</p>
+
+        <h2 id="s3">The 24-Month Horizon: Directional</h2>
+        <p>The 24-month horizon is directional — it communicates intent but does not carry delivery commitment. Items in the 24-month plan should be: aligned to strategic priorities, estimated at a confidence level sufficient for budget planning (±50% is acceptable), and mapped for major dependencies. The 24-month plan is primarily a planning tool for three audiences: the finance team (for budget preparation), technology architecture (for infrastructure and capacity planning), and Salesforce (for licence and roadmap discussions).</p>
+        <p>The 24-month plan should be reviewed quarterly, not just annually. Business priorities shift; Salesforce's product roadmap changes; integration timelines move. Items in the 24-month plan should be actively managed — some will be promoted to the 12-month committed horizon when they are sufficiently defined and funded; some will be deprioritised or deferred as business priorities change; some will become irrelevant because the problem they addressed has been solved differently.</p>
+        <p>Avoid the temptation to over-specify the 24-month horizon. Items should be described at capability level ("deploy Einstein conversation insights for service teams") not feature level ("implement the following 47 Einstein conversation insights configuration items"). Feature-level specification in the 24-month horizon creates false precision and makes the roadmap resistant to change when requirements evolve.</p>
+
+        <h2 id="s4">The 36-Month Horizon: Strategic Intent</h2>
+        <p>The 36-month horizon communicates strategic intent — the platform direction the organisation is headed, expressed as business capability ambitions rather than technology features. It answers: "Where will our customer engagement capability be in three years, and what platform investments will enable it?" It is the horizon at which Salesforce as a platform is considered in relation to emerging capabilities (Agentforce, Data Cloud, Industry Clouds) that have not yet reached general availability maturity for the organisation's use case.</p>
+        <p>The 36-month horizon should be reviewed annually as part of the business strategy planning cycle. It should be influenced by three inputs: the organisation's business strategy (which customer capabilities are required to support the three-year business plan), Salesforce's product roadmap (which platform capabilities will be available and mature in the 24-36 month window), and the organisation's own capability development trajectory (what technical and organisational capabilities are being built that will enable more sophisticated platform use).</p>
+        <p>Do not present the 36-month horizon as a delivery commitment. Present it as a strategic direction — the set of capability ambitions that inform current investment decisions. "We are building toward a position where our service agents have AI-assisted case resolution, personalised at scale using Data Cloud unified customer profiles. The investments we are making now — in data quality, in agent desktop consolidation, in service process standardisation — are the foundation for that capability."</p>
+
+        <div class="callout callout--key">
+          <strong>Horizon Precision:</strong> Committed (12 months) — high precision, low tolerance for change. Directional (24 months) — medium precision, planned but flexible. Strategic intent (36 months) — low precision, indicative direction. Never mistake directional or strategic items for commitments. Stakeholders who are told "we plan to have this in 18 months" will hear "you committed to delivering this in 18 months."
+        </div>
+
+        <h2 id="s5">Four Sequencing Principles and Keeping the Roadmap Current</h2>
+        <p>Investment sequencing determines whether later capabilities can be built on a stable foundation or require expensive rework. Four principles guide Salesforce roadmap sequencing.</p>
+        <p><strong>Foundation before extension.</strong> Data quality, core object model design, permission architecture, and integration backbone must precede advanced capabilities. AI capabilities that depend on data quality will fail if deployed before data quality programmes are complete. Process automation on top of a poorly designed permission model will create security gaps. Sequence foundation work first, even when stakeholders want to skip to the exciting capabilities.</p>
+        <p><strong>Adoption before expansion.</strong> Do not add new capabilities to populations that have not adopted the existing ones. A sales team that is not using Salesforce for basic pipeline management will not use AI-assisted next best action tools. Deploying additional capabilities to under-adopted populations does not drive adoption — it creates complexity that further depresses adoption. Reach adoption targets before expanding capability scope.</p>
+        <p><strong>Simple before complex.</strong> Configuration-based capabilities before code-based capabilities. Native Salesforce capabilities before customisation. Simpler integration patterns before complex ones. This principle is violated when delivery teams are eager to demonstrate technical ambition, or when stakeholders request a complex capability without understanding that simpler prerequisites have not been met.</p>
+        <p><strong>Dependency-aware sequencing.</strong> Map all inter-capability dependencies before committing to the roadmap sequence. A capability that depends on an integration that has not been built, data that has not been migrated, or a business process that has not been redesigned is not ready for its planned quarter. Surface dependencies early — the delivery team discovering a dependency during implementation is a governance failure, not a delivery failure.</p>
+        <p>To keep the roadmap current, establish a quarterly roadmap review as a governance meeting agenda item. At each review: confirm that 12-month items are still on track (reprioritise if not), review the 24-month horizon for items ready to be promoted to committed status, incorporate any new strategic priorities from the business, and update for Salesforce product developments that affect planned capabilities. Assign the roadmap owner role — one named individual who is accountable for keeping the roadmap current and for managing stakeholder expectations when it changes.</p>
+
+        <div class="callout callout--tip">
+          <strong>Practical Tip:</strong> Publish the roadmap in a location where all relevant stakeholders can access it — not a PowerPoint in a governance folder, but a living document (Salesforce itself, Confluence, or a dedicated roadmap tool). When the roadmap changes, communicate the change proactively to affected stakeholders with the reason. Roadmaps that change without communication create confusion; roadmaps that change with explanation create trust.
+        </div>
+
+        <div class="key-takeaways">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li>The four roadmap failure modes — wish list, static, delivery-only, and fantasy — each have specific structural causes that the 12-24-36 framework addresses.</li>
+            <li>The 12-month horizon is committed: every item must be funded, resourced, scoped, and sequenced. Only committed items belong here.</li>
+            <li>The 24-month horizon is directional: capability-level descriptions, ±50% estimation confidence, reviewed quarterly as priorities and dependencies evolve.</li>
+            <li>The 36-month horizon expresses strategic intent — the business capability ambitions that guide current investment decisions, not delivery commitments.</li>
+            <li>Four sequencing principles: foundation before extension, adoption before expansion, simple before complex, and dependency-aware sequencing.</li>
+            <li>A quarterly roadmap review as a governance standing item — with a named owner — keeps the roadmap current and maintains stakeholder confidence.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> What is the key difference between the 12-month and 24-month roadmap horizons?</p>
+            <button onclick="answer(this,'q1','wrong')">The 12-month horizon is strategic; the 24-month is operational</button>
+            <button onclick="answer(this,'q1','right')">The 12-month horizon is committed (funded, resourced, scoped); the 24-month is directional (intent, not commitment)</button>
+            <button onclick="answer(this,'q1','wrong')">The 12-month horizon covers infrastructure; the 24-month covers applications</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> Which sequencing principle prevents the deployment of AI capabilities before the data they depend on is ready?</p>
+            <button onclick="answer(this,'q2','wrong')">Adoption before expansion</button>
+            <button onclick="answer(this,'q2','right')">Foundation before extension</button>
+            <button onclick="answer(this,'q2','wrong')">Simple before complex</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> How often should the roadmap be formally reviewed to remain current?</p>
+            <button onclick="answer(this,'q3','wrong')">Annually, as part of the business planning cycle</button>
+            <button onclick="answer(this,'q3','wrong')">Only when a major change occurs</button>
+            <button onclick="answer(this,'q3','right')">Quarterly, as a standing item in the platform governance meeting</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="../ent-005/" class="related-card">
+              <span class="card-id">ENT-005</span>
+              <h4>Salesforce as Enterprise Platform: The 5-Year Strategic View</h4>
+            </a>
+            <a href="../ent-010/" class="related-card">
+              <span class="card-id">ENT-010</span>
+              <h4>Portfolio Management of Salesforce Products: Sales, Service, Marketing, Commerce</h4>
+            </a>
+            <a href="../ent-009/" class="related-card">
+              <span class="card-id">ENT-009</span>
+              <h4>Salesforce Governance Framework: Decisions, Escalations, and Ownership</h4>
+            </a>
+          </div>
+        </div>
+
+      </main>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>On This Page</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why Roadmaps Fail</a></li>
+            <li><a href="#s2">12-Month: Committed</a></li>
+            <li><a href="#s3">24-Month: Directional</a></li>
+            <li><a href="#s4">36-Month: Strategic Intent</a></li>
+            <li><a href="#s5">Sequencing and Currency</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-progress">
+          <h4>Your Progress</h4>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="sidebarProgress" style="width:0%"></div>
+          </div>
+          <p id="progressLabel" style="font-size:0.8rem;margin-top:0.4rem;">0% complete</p>
+        </div>
+
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ent-024/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-024</span>
+            <span class="sidebar-next-title">When to Walk Away from Salesforce: The Honest Strategic Assessment</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ent-022/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-022</span>
+            <span class="sidebar-next-title">Making the Case to the Board: Salesforce Investment Language That Works</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">SF<span>Vedas</span></div>
+        <p class="footer-tagline">Deep Salesforce knowledge for technology leaders.</p>
+      </div>
+      <div>
+        <h4>Enterprise Strategy</h4>
+        <ul>
+          <li><a href="/tutorials/?tag=enterprise-strategy">All Tutorials</a></li>
+          <li><a href="../ent-001/">Build vs Buy</a></li>
+          <li><a href="../ent-002/">Total Cost of Ownership</a></li>
+          <li><a href="../ent-005/">5-Year Platform View</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="/tutorials/">All Tutorials</a></li>
+          <li><a href="/learning-paths/">Learning Paths</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="../pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SFVedas. Built for Salesforce leaders.</p></div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const el = document.getElementById('tutorialContent');
+      const progressBar = document.getElementById('readingProgress');
+      const sidebarBar = document.getElementById('sidebarProgress');
+      const label = document.getElementById('progressLabel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, Math.round((scrolled / total) * 100));
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (sidebarBar) sidebarBar.style.width = pct + '%';
+      if (label) label.textContent = pct + '% complete';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

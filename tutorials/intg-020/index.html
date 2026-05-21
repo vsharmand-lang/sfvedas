@@ -1,0 +1,361 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Data Archiving Strategy: Moving Records Out Without Breaking Reports | SFVedas</title>
+      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:title" content="Data Archiving Strategy: Moving Records Out Without Breaking Reports | SFVedas"/>
+  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/intg-020/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.svg"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Data Archiving Strategy: Moving Records Out Without Breaking Reports | SFVedas"/>
+  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Data Archiving Strategy: Moving Records Out Without Breaking Reports | SFVedas",
+  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "url": "https://sfvedas.com/tutorials/intg-020/",
+  "mainEntityOfPage": "https://sfvedas.com/tutorials/intg-020/",
+  "author": {
+    "@type": "Person",
+    "name": "Vishal Sharma",
+    "url": "https://sfvedas.com/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SFVedas",
+    "url": "https://sfvedas.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sfvedas.com/images/logo.svg"
+    }
+  },
+  "image": "https://sfvedas.com/images/og-default.svg"
+}
+</script>  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=integration-data" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Integration &amp; Data</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">INTG-020</span>
+        <span class="card-tag" style="background:rgba(45,125,82,0.08);color:var(--sage-green);border-color:rgba(45,125,82,0.2);">Integration &amp; Data</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects &amp; Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Data Archiving Strategy: Moving Records Out Without Breaking Reports
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Salesforce storage costs money, and large orgs accumulate years of data that nobody accesses but everybody is afraid to delete. Archiving is the answer — but it requires careful architecture to ensure that historical reports, compliance lookups, and user expectations remain intact after records are removed from the active org.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+<article class="tutorial-body" id="tutorialContent">
+
+  <div class="section-summary">
+    <span class="ss-label">What you will learn...</span>
+    <ul>
+      <li>What Salesforce data storage costs and when archiving becomes a financial priority</li>
+      <li>The four archiving patterns: soft delete, External Objects, data warehouse, and cold storage</li>
+      <li>How to define archiving eligibility criteria and build the archive selection logic</li>
+      <li>Protecting report accuracy during and after archiving</li>
+      <li>Compliance considerations: what cannot be deleted and how to handle it</li>
+      <li>The BigObjects option for keeping archived data query-accessible within Salesforce</li>
+    </ul>
+  </div>
+
+  <h2 id="s1">The Salesforce Storage Problem</h2>
+  <p>Salesforce charges for data storage beyond the included allocation (10GB + 20MB per user for Enterprise Edition). When an org exceeds its allocation, additional storage must be purchased in 500MB or 1GB increments at significant cost — typically $125-$300 per 500MB per month depending on edition and contract. For large orgs with millions of legacy records, annual storage overage costs can run to hundreds of thousands of dollars. Archiving is a cost reduction initiative as much as a data management practice.</p>
+  <p>Beyond direct storage cost, data volume affects Salesforce performance. Reports and SOQL queries that scan large tables take longer as the record count grows. Lookup searches that return results from a 10-million-record Account table are slower than the equivalent search against a 1-million-record table. Large data volumes also affect backup processing, sandbox refresh times, and the duration of platform maintenance events. Active archiving reduces all of these operational impacts.</p>
+  <p>The challenge is that archiving must not break existing functionality. Reports that show "closed cases year-to-date" depend on those cases existing in Salesforce. Dashboards tracking historical opportunity pipeline depend on historical opportunity records. Users who need to reference a 3-year-old case to understand a customer's issue history depend on that case being accessible. The archiving strategy must define what "accessible" means for archived records — read-only in Salesforce, queryable in an external archive, or retrievable on request.</p>
+
+  <div class="callout callout--insight">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Storage audit before archiving:</strong> Before designing an archiving strategy, run a storage usage analysis to identify where the storage is actually consumed. Salesforce's storage detail report (Setup > Storage Usage) shows storage by object type. Often, 70-80% of storage is consumed by three to five objects (typically Cases, Activities, Attachments/Files). Focus archiving efforts on the largest consumers for maximum cost reduction impact.
+    </div>
+  </div>
+
+  <h2 id="s2">The Four Archiving Patterns</h2>
+  <p><strong>Soft delete (status flag archiving)</strong> marks records as archived using a custom field (Is_Archived__c = true) and excludes them from standard list views, searches, and reports using filter criteria. Records remain in Salesforce storage but are invisible in normal operations. This is the simplest pattern and preserves all Salesforce functionality for archived records — they can be unarchived by clearing the flag. The downside: records still consume storage, so this pattern doesn't reduce storage costs.</p>
+  <p><strong>External Objects archiving</strong> moves data to an external archive system (a separate database or data warehouse) and creates External Object definitions in Salesforce that allow users to query the archived data via Salesforce Connect. Archived records are removed from Salesforce storage but remain accessible through the Salesforce UI via External Object related lists. The storage cost is eliminated, but archived records have the External Object limitations (no search, limited SOQL, callout latency).</p>
+  <p><strong>Data warehouse archiving</strong> exports records to a data warehouse (Snowflake, BigQuery, Redshift) and deletes them from Salesforce. The data warehouse becomes the archive for historical analysis — reports requiring historical data are built in the BI layer against the warehouse rather than directly in Salesforce reports. This is the most economical approach for pure storage reduction but requires reporting infrastructure investment and user training to access archived data outside Salesforce.</p>
+  <p><strong>BigObjects archiving</strong> moves records into Salesforce BigObjects — a native Salesforce high-scale storage option designed for archival data. BigObjects are queryable within Salesforce using SOQL (with limitations) and do not count against standard data storage limits. They have separate storage pricing that is significantly cheaper than standard data storage. BigObjects provide the best compromise: data stays in Salesforce, storage cost is reduced, and the data remains queryable via Apex and certain reports.</p>
+
+  <h2 id="s3">Defining Eligibility and Building Archive Logic</h2>
+  <p>Archiving eligibility criteria define which records can be safely moved out of active storage. Eligibility typically has three components: age threshold (records older than X months/years), status threshold (records in a terminal status: Closed, Resolved, Lost, Cancelled), and no-active-dependency check (no active related records that reference the candidate, such as an open Case that references a Closed Opportunity via a custom lookup).</p>
+  <p>The archive selection query must be idempotent — running it twice should not double-archive records. Using a cursor-based approach with an archive timestamp or a batch ID ensures that the archive job can be resumed if it fails mid-run without re-processing already-archived records. External ID fields on the archive target should use the Salesforce Record ID as the archive key, enabling lookups from the archive back to the original record metadata if needed.</p>
+
+  <pre><code class="language-sql">// Archive selection query — Closed Cases older than 3 years
+// with no active child records
+SELECT Id, CaseNumber, Subject, Status, AccountId, ClosedDate,
+       Description, Priority, Origin, SystemModstamp
+FROM Case
+WHERE Status = 'Closed'
+  AND ClosedDate &lt; :Date.today().addYears(-3)
+  AND Id NOT IN (
+    SELECT ParentId FROM Case
+    WHERE Status != 'Closed'
+      AND ParentId != null
+  )
+  AND Is_Archived__c = false
+ORDER BY ClosedDate ASC
+LIMIT 50000  -- Process in batches to avoid timeout</code></pre>
+
+  <h2 id="s4">Protecting Report Accuracy</h2>
+  <p>The most common archive failure is a report that used to show correct historical totals and now shows different numbers after records are archived. This happens when reports count or sum records that are no longer in Salesforce. The architecture fix is to ensure that all metrics that span the archive boundary are computed before archiving and stored as summary records that remain in Salesforce even after the detail records are archived.</p>
+  <p>For example, before archiving Closed Cases from fiscal year 2022, compute and store the annual case volume and resolution metrics by Account as summary records in a Custom Object (Annual_Case_Summary__c). Reports showing year-over-year case trends can query the summary records for historical years and the live Case data for the current year, without depending on 3-year-old individual Case records being present in Salesforce.</p>
+  <p>An alternative is to ensure that all historical reporting is served from the data warehouse rather than from Salesforce reports directly. If the reporting strategy moves historical data access to the warehouse (which retains the full history), Salesforce reports only need to cover the operational window (current quarter, rolling 12 months), and archiving older records has no impact on the reporting layer. This approach requires BI tooling investment but is the cleanest long-term architecture for large-scale archiving programmes.</p>
+
+  <h2 id="s5">Compliance Constraints and BigObjects</h2>
+  <p>Some records cannot be archived due to compliance requirements. Financial transaction records, medical records, legal case records, and certain communication records have mandatory retention periods defined by regulation — HIPAA (6 years), SOX (7 years), FINRA (6 years), UK Companies Act (6 years). Records within their mandatory retention period cannot be deleted, only moved to a compliant archive system. The archiving strategy must categorise records by their compliance retention status before any deletion occurs.</p>
+  <p>Salesforce BigObjects provide a compelling option for compliance archiving. BigObjects support up to 1 billion records per object, use index-based access, and are priced significantly below standard data storage. A BigObject designed to mirror the Case schema can store the full compliance archive of closed cases while remaining queryable within Salesforce via Apex (SOQL against BigObjects has restrictions — no aggregate functions, no OFFSET, index-based access only). Users can access archived cases through custom Apex-backed components that query the BigObject rather than standard SOQL against the Case object.</p>
+
+  <div class="callout callout--tip">
+    <div class="callout-icon">💡</div>
+    <div class="callout-body">
+      <strong>Archive attachments and files first:</strong> In most Salesforce orgs, ContentDocument (Files) and Attachments consume more storage than record data. A Case with five 2MB attachments consumes 10MB of storage for the files alone — multiple times the storage of the Case record itself. An archiving programme that removes old Case records but leaves the attached files in Salesforce will have limited storage impact. Archive files alongside records.
+    </div>
+  </div>
+
+  <div class="key-takeaways">
+    <h2>Key Takeaways</h2>
+    <ul>
+      <li>Salesforce data storage has direct cost implications beyond the included allocation. Storage audits should identify the top 3-5 objects consuming storage before designing an archiving strategy.</li>
+      <li>Four archiving patterns: soft delete (simplest, no storage reduction), External Objects (data accessible in Salesforce UI via callout), data warehouse archiving (maximum cost reduction, requires BI infrastructure), and BigObjects (Salesforce-native archive at lower storage cost, queryable via Apex).</li>
+      <li>Archive eligibility requires three criteria: age threshold, terminal status, and no-active-dependency check. Eligibility queries must be idempotent to support safe batch processing and resume-on-failure.</li>
+      <li>Protect report accuracy by pre-computing summary records for metrics that span the archive boundary before archiving detail records. Or migrate historical reporting to the data warehouse and limit Salesforce reports to the operational window.</li>
+      <li>Compliance-mandated retention records (HIPAA, SOX, FINRA) cannot be deleted within their retention period — only moved to compliant archive. Categorise records by compliance status before any deletion.</li>
+      <li>Archive ContentDocument files alongside records — files typically consume more storage than the records themselves. An archiving programme that doesn't include files has limited storage cost impact.</li>
+    </ul>
+  </div>
+
+  <div class="quiz-section" id="quiz">
+      <h2>Test Your Understanding</h2>
+
+      <div class="quiz-question" id="q1">
+        <p>1. An org implements soft-delete archiving by setting Is_Archived__c = true on Cases older than 3 years. After 6 months of operation, the storage usage report shows no reduction in data storage. What is the cause?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Soft-delete archiving requires a 30-day grace period before storage is released — the reduction will appear after 30 days</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">Soft-delete archiving does not remove records from Salesforce storage — it only hides them from views and reports by filtering on the archived flag. Records still occupy storage. To reduce storage costs, records must be actually deleted from Salesforce or moved to BigObjects.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The archiving job failed — Is_Archived__c was not actually set on the old Cases due to a permission issue</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. A Salesforce report shows "Total Cases Closed — Last 5 Years" by Account. The team plans to archive Cases older than 3 years to a data warehouse and delete them from Salesforce. What must be done before deletion to protect this report?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Nothing — the report filter "Last 5 Years" will automatically switch to query the data warehouse for years 3-5 after the records are deleted</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">Pre-compute and store the annual/quarterly case count totals by Account as summary records in Salesforce before deleting the detail records. Update the report to use these summary records for historical years, or migrate this historical reporting to the data warehouse BI layer.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Change the report to filter "Last 3 Years" before deletion — this ensures the report only queries data that remains in Salesforce</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. A healthcare organisation wants to archive Salesforce Case records from 2018 (8 years old) to reduce storage costs. The Cases contain patient interaction records subject to HIPAA. What must the archiving strategy account for?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">HIPAA records must be deleted immediately after they are 7 years old — retaining them beyond 7 years creates compliance risk</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">HIPAA requires healthcare records to be retained for 6 years (medical records) to 7+ years depending on state. 2018 records are 8 years old and may be eligible for deletion — but the archive strategy must confirm the specific retention requirement, ensure the archive system is HIPAA-compliant, and maintain a certificate of destruction if records are permanently deleted.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Healthcare records can never be archived or deleted from Salesforce — they must remain in active storage indefinitely</div>
+        </div>
+      </div>
+    </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../intg-021/" class="related-card">
+              <span class="card-id">INTG-021</span>
+              <h4>CRM Analytics Connect: Live Data vs Imported Data Trade-offs</h4>
+            </a>
+            <a href="../intg-019/" class="related-card">
+              <span class="card-id">INTG-019</span>
+              <h4>Duplicate Management at Scale: Beyond the Standard Rules</h4>
+            </a>
+            <a href="../intg-022/" class="related-card">
+              <span class="card-id">INTG-022</span>
+              <h4>Salesforce Schema Design for Analytics: Facts, Dimensions, and Relationships</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+            <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Salesforce Storage Problem</a></li>
+            <li><a href="#s2">The Four Archiving Patterns</a></li>
+            <li><a href="#s3">Eligibility and Archive Logic</a></li>
+            <li><a href="#s4">Protecting Report Accuracy</a></li>
+            <li><a href="#s5">Compliance and BigObjects</a></li>
+            <li><a href="#quiz">Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../intg-021/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-021</span>
+            <span class="sidebar-next-title">CRM Analytics Connect: Live Data vs Imported Data Trade-offs</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../intg-019/" class="sidebar-next-link">
+            <span class="sidebar-next-id">INTG-019</span>
+            <span class="sidebar-next-title">Duplicate Management at Scale: Beyond the Standard Rules</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

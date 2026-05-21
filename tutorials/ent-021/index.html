@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salesforce Centre of Excellence Maturity Model: Stages and Benchmarks | SFVedas</title>
+  <meta name="description" content="Understand the five stages of Salesforce CoE maturity — what distinguishes each stage, how to assess where your CoE sits, and what to prioritise to progress to the next level." />
+  <meta property="og:title" content="Salesforce Centre of Excellence Maturity Model: Stages and Benchmarks" />
+  <meta property="og:description" content="Understand the five stages of Salesforce CoE maturity — what distinguishes each stage, how to assess where your CoE sits, and what to prioritise to progress to the next level." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Salesforce Centre of Excellence Maturity Model: Stages and Benchmarks",
+    "description": "Understand the five stages of Salesforce CoE maturity — what distinguishes each stage, how to assess where your CoE sits, and what to prioritise to progress to the next level.",
+    "author": {"@type": "Person", "name": "Vishal Sharma"},
+    "publisher": {"@type": "Organization", "name": "SFVedas"},
+    "datePublished": "2025-01-01",
+    "mainEntityOfPage": {"@type": "WebPage", "@id": "https://sfvedas.com/tutorials/ent-021/"}
+  }
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-logo">SF<span>Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/tutorials/" class="active">Tutorials</a></li>
+        <li><a href="/learning-paths/">Learning Paths</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="../pages/contact.html">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+    </div>
+  </nav>
+
+  <section class="tutorial-header">
+    <div class="container">
+      <a href="/tutorials/?tag=enterprise-strategy" class="back-link" style="color:var(--sage-green)">← Back to Enterprise Strategy</a>
+      <div class="card-badges" style="margin:1rem 0 0.75rem;">
+        <span class="card-id">ENT-021</span>
+        <span class="card-tag" style="color:var(--sage-green);background:rgba(45,125,82,0.08);">Enterprise Strategy</span>
+        <span class="card-read">22 min read</span>
+        <span class="card-audience">For: CoE Leads · CTOs · Platform Leaders</span>
+      </div>
+      <h1>Salesforce Centre of Excellence Maturity Model: Stages and Benchmarks</h1>
+      <p class="tutorial-intro">A Salesforce Centre of Excellence is not a destination — it is a journey. Organisations that understand the maturity stages can deliberately invest in progressing from one stage to the next. Those that don't either plateau at an early stage or mistake the presence of a CoE team for CoE maturity. The maturity model provides the map; the benchmarks tell you where you are on it.</p>
+      <div class="author-block">
+        <div class="author-avatar">VS</div>
+        <div>
+          <div class="author-name">Vishal Sharma</div>
+          <div class="author-title">Salesforce Architect · SFVedas Founder</div>
+        </div>
+      </div>
+
+      <ins class="adsbygoogle" style="display:block;margin-top:1.5rem;" data-ad-client="ca-pub-4584420180521124" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="tutorial-stat-grid">
+      <div class="tutorial-stat-card">
+        <div class="tsn">5</div>
+        <div class="tsl">Maturity Stages</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">6</div>
+        <div class="tsl">Assessment Dimensions</div>
+      </div>
+      <div class="tutorial-stat-card">
+        <div class="tsn">22 min</div>
+        <div class="tsl">Read Time</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+      <main class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <strong>What you'll learn:</strong> The five CoE maturity stages and their distinguishing characteristics, six assessment dimensions, benchmarks for each stage, common plateau traps, and a progression investment model for moving from one stage to the next.
+        </div>
+
+        <h2 id="s1">Why Maturity Models Matter for CoEs</h2>
+        <p>Maturity models are useful when they help organisations make investment decisions, not when they are used as benchmarking trophies. The purpose of a CoE maturity model is to answer two questions: where are we now, honestly, and what is the highest-value investment to reach the next stage?</p>
+        <p>The CoE maturity model described here is built around six assessment dimensions: governance, delivery capability, architectural standards, adoption management, measurement and reporting, and strategic influence. An organisation's CoE stage is determined by its position across all six dimensions — it is not enough to be advanced in one dimension if others are lagging. Organisations that have strong delivery capability but weak governance, for example, deliver well in bursts but create technical debt that compounds over time.</p>
+        <p>Most Salesforce organisations with 3+ years of deployment sit at Stage 2 (reactive) or Stage 3 (defined). Very few large enterprises reach Stage 4 (managed). Stage 5 (optimising) is rare and typically associated with Salesforce-native companies or exceptional platform governance cultures.</p>
+
+        <div class="callout callout--insight">
+          <strong>Insight:</strong> The goal is not to reach Stage 5 — it is to reach the stage that is appropriate for your organisation's scale, complexity, and platform ambition. A 200-user Salesforce org does not need Stage 4 CoE maturity. A 5,000-user multi-cloud deployment probably does. Calibrate ambition to requirement.
+        </div>
+
+        <h2 id="s2">Stage 1 — Ad Hoc</h2>
+        <p>At Stage 1, there is no formal CoE. Salesforce is maintained by one or two administrators who also handle user support, configuration changes, and release management. Governance is informal — changes are made when requested, tested inconsistently, and deployed without a structured process. Architectural decisions are made ad hoc by whoever is available. There are no formal standards for naming conventions, data model design, or automation patterns.</p>
+        <p>The signals of Stage 1: no dedicated Salesforce release cycle, direct production changes are common, no sandbox hierarchy, users go to the admin directly for everything, and the admin is the only person who understands how the org works. The typical driver of progression from Stage 1 is a crisis — a production error that caused data loss or user disruption, or a new programme that cannot be delivered within the current team structure.</p>
+        <p>Benchmark characteristics: 1-2 FTE, no documented standards, no formal release process, sandbox parity with production is poor, no adoption measurement in place.</p>
+
+        <h2 id="s3">Stage 2 — Reactive</h2>
+        <p>At Stage 2, a team exists (3-6 FTE, typically including at least one developer), there is some documentation, and there is a release process — but the team is permanently in reactive mode. The backlog grows faster than the team can clear it. Architecture decisions are made under time pressure rather than with deliberation. Standards exist on paper but are not consistently applied. Governance meetings happen but do not effectively manage the backlog or architecture quality.</p>
+        <p>The signals of Stage 2: a growing backlog that the team cannot get ahead of, inconsistent code quality (some good, some very bad), technical debt accumulating, adoption problems that are acknowledged but not systematically addressed, and a team that is doing its best but feels overwhelmed. The typical driver of progression from Stage 2 is a combination of leadership investment (additional headcount, training budget) and the introduction of structured governance (a change advisory board, architecture review process).</p>
+        <p>Benchmark characteristics: 3-6 FTE, informal standards with patchy compliance, quarterly releases, partial sandbox hierarchy, adoption tracking exists but is not acted upon.</p>
+
+        <h2 id="s4">Stages 3, 4, and 5 — Defined, Managed, Optimising</h2>
+        <p><strong>Stage 3 — Defined.</strong> The CoE has documented standards that are consistently applied, a structured release cadence, a functioning change advisory process, and a team with clear roles. Architecture decisions are made through a defined process with architectural review. Adoption is measured and reported. The team is no longer in permanent reactive mode — there is capacity for proactive improvement work. Governance meetings are effective decision-making forums, not status update sessions.</p>
+        <p>Benchmark characteristics: 8-15 FTE, documented and enforced standards, monthly or fortnightly releases, full sandbox hierarchy, adoption metrics reported monthly, architecture review for all significant changes, a defined roadmap.</p>
+        <p><strong>Stage 4 — Managed.</strong> The CoE is data-driven. Platform health is measured quantitatively (technical debt metrics, adoption scores, delivery velocity). Investment decisions are made based on evidence, not intuition. The CoE has strategic influence — it participates in business planning, advises on capability sequencing, and is consulted before new initiatives are scoped. External partners are managed within a structured governance model. The CoE has a succession plan and does not depend on a single individual's knowledge.</p>
+        <p>Benchmark characteristics: 15+ FTE, quantitative health metrics reviewed at governance, CoE involved in business planning cycles, formal partner governance, documented architecture for all integrations and key customisations, adoption above 80% Tier 2 target.</p>
+        <p><strong>Stage 5 — Optimising.</strong> The CoE continuously improves based on measured outcomes and industry benchmarking. Processes are reviewed regularly against external benchmarks and updated when better approaches are available. The CoE contributes to the Salesforce ecosystem — thought leadership, community involvement, feedback to Salesforce on product direction. Innovation is systematic — there is a structured process for evaluating new Salesforce capabilities against business needs before general availability. The CoE is a strategic asset, not just a technology function.</p>
+        <p>Benchmark characteristics: deeply embedded in business strategy, continuous improvement cycle, external benchmarking, industry recognition, Salesforce strategic partnership-level relationship, innovation pipeline for emerging capabilities (Agentforce, Data Cloud).</p>
+
+        <div class="callout callout--key">
+          <strong>The Plateau Trap:</strong> The most common failure mode is reaching Stage 3 and plateauing. Stage 3 feels stable — standards exist, governance functions, the team is capable. But without the investment in data and strategic influence that characterises Stage 4, the CoE gradually loses relevance as business complexity outgrows its capability. The transition from Stage 3 to Stage 4 requires deliberate investment in measurement infrastructure and business relationship building.
+        </div>
+
+        <h2 id="s5">Assessment and Progression Investment</h2>
+        <p>Assess your CoE across the six dimensions using the following scoring: 1 (Stage 1-2), 2 (Stage 3), 3 (Stage 4), 4 (Stage 5). Your overall stage is the lowest score across any dimension — you cannot claim Stage 4 maturity if your adoption management is at Stage 2.</p>
+        <p>The six dimensions are: (1) Governance — decision-making process, change advisory, escalation paths; (2) Delivery capability — team size, skills, release cadence, environment strategy; (3) Architectural standards — documentation, compliance, review process; (4) Adoption management — measurement, intervention, stakeholder reporting; (5) Measurement and reporting — platform health metrics, investment impact measurement; (6) Strategic influence — participation in business planning, roadmap authority, executive visibility.</p>
+        <p>Progression investment should be targeted at the lowest-scoring dimension first. If governance is at Stage 2 while delivery capability is at Stage 3, invest in governance — improving delivery capability further will compound the technical debt that weak governance is already producing. Balanced progress across all dimensions produces more durable maturity than excellence in some areas alongside weakness in others.</p>
+        <p>The investment required to move between stages is roughly proportional: Stage 1 to 2 requires a headcount investment (adding 2-3 people and introducing basic governance). Stage 2 to 3 requires a capability and process investment (training, standards documentation, governance formalization). Stage 3 to 4 requires a measurement and relationship investment (analytics tooling, executive engagement, business planning integration). Stage 4 to 5 requires a culture and innovation investment — it cannot be bought with headcount alone.</p>
+
+        <div class="callout callout--tip">
+          <strong>Practical Assessment:</strong> Run a CoE maturity assessment annually as a structured workshop with the CoE leadership team and 2-3 senior business stakeholders. Present current scores against each dimension, with evidence. Identify the one or two dimensions where investment would have the greatest impact. Bring the output to the next governance review as a formal input to the annual platform investment plan.
+        </div>
+
+        <div class="key-takeaways">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li>CoE maturity has five stages — Ad Hoc, Reactive, Defined, Managed, Optimising — each with distinct characteristics and benchmarks across six dimensions.</li>
+            <li>An organisation's stage is determined by its lowest-scoring dimension — maturity is not claimed if any dimension is significantly lagging.</li>
+            <li>Most organisations with 3+ years of Salesforce deployment sit at Stage 2 (Reactive) or Stage 3 (Defined); Stage 4 requires deliberate investment in measurement and strategic influence.</li>
+            <li>The transition from Stage 3 to Stage 4 — the most common plateau — requires building quantitative health metrics and executive relationship investment, not just more delivery capacity.</li>
+            <li>Progression investment should target the lowest-scoring dimension first; balanced progress is more durable than excellence in some areas alongside weakness in others.</li>
+            <li>Stage 5 requires a culture and innovation investment that cannot be bought with headcount alone; it is the result of sustained organisational commitment to continuous improvement.</li>
+          </ul>
+        </div>
+
+        <div class="quiz-section" id="quiz">
+          <h3>Check Your Understanding</h3>
+
+          <div class="quiz-question" id="q1">
+            <p><strong>Q1.</strong> What determines an organisation's overall CoE maturity stage?</p>
+            <button onclick="answer(this,'q1','wrong')">The average score across all six dimensions</button>
+            <button onclick="answer(this,'q1','right')">The lowest-scoring dimension — maturity cannot be claimed if any dimension is significantly lagging</button>
+            <button onclick="answer(this,'q1','wrong')">The highest-scoring dimension, as a demonstration of best practice</button>
+            <p class="quiz-feedback" id="q1-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>Q2.</strong> What is the most common plateau in CoE maturity progression?</p>
+            <button onclick="answer(this,'q2','wrong')">Stage 2 to Stage 3</button>
+            <button onclick="answer(this,'q2','right')">Stage 3 to Stage 4 — Stage 3 feels stable but Stage 4 requires measurement and strategic influence investment</button>
+            <button onclick="answer(this,'q2','wrong')">Stage 4 to Stage 5</button>
+            <p class="quiz-feedback" id="q2-feedback"></p>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>Q3.</strong> Which dimension, if weak, would most undermine a CoE with strong delivery capability?</p>
+            <button onclick="answer(this,'q3','wrong')">Strategic influence</button>
+            <button onclick="answer(this,'q3','right')">Governance — weak governance allows technical debt to compound even when delivery is strong</button>
+            <button onclick="answer(this,'q3','wrong')">Adoption management</button>
+            <p class="quiz-feedback" id="q3-feedback"></p>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h3>Related Tutorials</h3>
+          <div class="related-grid">
+            <a href="../ent-008/" class="related-card">
+              <span class="card-id">ENT-008</span>
+              <h4>Building a Centre of Excellence for Salesforce</h4>
+            </a>
+            <a href="../ent-009/" class="related-card">
+              <span class="card-id">ENT-009</span>
+              <h4>Salesforce Governance Framework: Decisions, Escalations, and Ownership</h4>
+            </a>
+            <a href="../ent-019/" class="related-card">
+              <span class="card-id">ENT-019</span>
+              <h4>Org Health Assessment: How to Diagnose a Struggling Salesforce Org</h4>
+            </a>
+          </div>
+        </div>
+
+      </main>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>On This Page</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why Maturity Models Matter</a></li>
+            <li><a href="#s2">Stage 1 — Ad Hoc</a></li>
+            <li><a href="#s3">Stage 2 — Reactive</a></li>
+            <li><a href="#s4">Stages 3, 4, 5</a></li>
+            <li><a href="#s5">Assessment and Progression</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-progress">
+          <h4>Your Progress</h4>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="sidebarProgress" style="width:0%"></div>
+          </div>
+          <p id="progressLabel" style="font-size:0.8rem;margin-top:0.4rem;">0% complete</p>
+        </div>
+
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ent-022/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-022</span>
+            <span class="sidebar-next-title">Making the Case to the Board: Salesforce Investment Language That Works</span>
+            <span class="sidebar-next-arrow">→</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ent-020/" class="sidebar-next-link">
+            <span class="sidebar-next-id">ENT-020</span>
+            <span class="sidebar-next-title">Post-Implementation Review: What Actually Went Wrong and Why</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">SF<span>Vedas</span></div>
+        <p class="footer-tagline">Deep Salesforce knowledge for technology leaders.</p>
+      </div>
+      <div>
+        <h4>Enterprise Strategy</h4>
+        <ul>
+          <li><a href="/tutorials/?tag=enterprise-strategy">All Tutorials</a></li>
+          <li><a href="../ent-001/">Build vs Buy</a></li>
+          <li><a href="../ent-002/">Total Cost of Ownership</a></li>
+          <li><a href="../ent-005/">5-Year Platform View</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="/tutorials/">All Tutorials</a></li>
+          <li><a href="/learning-paths/">Learning Paths</a></li>
+          <li><a href="/about/">About</a></li>
+          <li><a href="../pages/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2025 SFVedas. Built for Salesforce leaders.</p></div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const el = document.getElementById('tutorialContent');
+      const progressBar = document.getElementById('readingProgress');
+      const sidebarBar = document.getElementById('sidebarProgress');
+      const label = document.getElementById('progressLabel');
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = el.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const pct = Math.min(100, Math.round((scrolled / total) * 100));
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (sidebarBar) sidebarBar.style.width = pct + '%';
+      if (label) label.textContent = pct + '% complete';
+    }
+    window.addEventListener('scroll', updateProgress);
+    updateProgress();
+
+    function answer(btn, qId, result) {
+      const q = document.getElementById(qId);
+      q.querySelectorAll('button').forEach(b => b.disabled = true);
+      const fb = document.getElementById(qId + '-feedback');
+      if (result === 'right') {
+        btn.classList.add('correct');
+        if (fb) fb.textContent = '✓ Correct!';
+      } else {
+        btn.classList.add('incorrect');
+        if (fb) fb.textContent = '✗ Not quite — review the section above.';
+      }
+    }
+
+    const saved = localStorage.getItem('sfvedas-theme');
+    if (saved === 'dark') document.body.classList.add('dark');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
