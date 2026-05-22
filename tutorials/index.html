@@ -4437,7 +4437,7 @@
   // Handle ?tag= and ?search= URL parameters on initial load
   const urlParams = new URLSearchParams(window.location.search);
   const urlTag = urlParams.get('tag');
-  const urlSearch = urlParams.get('search');
+  const urlSearch = urlParams.get('search') || urlParams.get('q');
 
   if (urlTag && urlTag !== 'all') {
     const matchBtn = document.querySelector(`.tut-filter[data-tag="${urlTag}"]`);
