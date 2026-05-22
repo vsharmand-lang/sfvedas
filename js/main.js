@@ -5,17 +5,37 @@ const themeToggle = document.getElementById('themeToggle');
 const themeIcon   = themeToggle?.querySelector('.theme-icon');
 const body        = document.body;
 
-const savedTheme = localStorage.getItem('sfvedas-theme') || 'light';
-if (savedTheme === 'dark') {
-  body.classList.add('dark-mode');
-  if (themeIcon) themeIcon.textContent = '☾';
+let currentTheme = localStorage.getItem('sfvedas-theme') || 'light';
+
+function applyTheme(theme) {
+  body.classList.remove('dark-mode', 'salesforce-mode', 'light-mode');
+  
+  if (theme === 'dark') {
+    body.classList.add('dark-mode');
+    if (themeIcon) themeIcon.textContent = '☾';
+  } else if (theme === 'salesforce') {
+    body.classList.add('salesforce-mode');
+    if (themeIcon) themeIcon.textContent = '☁';
+  } else {
+    body.classList.add('light-mode');
+    if (themeIcon) themeIcon.textContent = '☀';
+  }
+  
+  localStorage.setItem('sfvedas-theme', theme);
+  currentTheme = theme;
 }
 
+// Initialise theme
+applyTheme(currentTheme);
+
 themeToggle?.addEventListener('click', () => {
-  body.classList.toggle('dark-mode');
-  const isDark = body.classList.contains('dark-mode');
-  if (themeIcon) themeIcon.textContent = isDark ? '☾' : '☀';
-  localStorage.setItem('sfvedas-theme', isDark ? 'dark' : 'light');
+  if (currentTheme === 'light') {
+    applyTheme('dark');
+  } else if (currentTheme === 'dark') {
+    applyTheme('salesforce');
+  } else {
+    applyTheme('light');
+  }
 });
 
 // ── Navbar Scroll ─────────────────────────────────────────
