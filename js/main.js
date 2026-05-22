@@ -5,7 +5,7 @@ const themeToggle = document.getElementById('themeToggle');
 const themeIcon   = themeToggle?.querySelector('.theme-icon');
 const body        = document.body;
 
-let currentTheme = localStorage.getItem('sfvedas-theme') || 'light';
+let currentTheme = localStorage.getItem('sfvedas-theme') || 'salesforce';
 
 function applyTheme(theme) {
   body.classList.remove('dark-mode', 'salesforce-mode', 'light-mode');
