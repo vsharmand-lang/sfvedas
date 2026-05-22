@@ -97,68 +97,29 @@ document.querySelectorAll('.pillar, .tutorial-card, .path-card, .pf-item, .cours
 });
 
 // ── Active Nav Link ───────────────────────────────────────
-const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+function normalizePath(p) {
+  if (!p) return '';
+  if (!p.startsWith('/')) p = '/' + p;
+  if (p.endsWith('/')) p += 'index.html';
+  if (p === '/' || p === '') return '/index.html';
+  return p;
+}
+
+const currentPath = normalizePath(window.location.pathname);
 document.querySelectorAll('.nav-link').forEach(link => {
-  const href = link.getAttribute('href')?.split('/').pop();
-  if (href === currentPage) {
+  const linkPath = normalizePath(link.pathname || link.getAttribute('href') || '');
+  
+  // Exact match or parent-child category section match (e.g. active parent folder when inside sub-tutorials)
+  const isExact = (linkPath === currentPath);
+  const isSection = (linkPath !== '/index.html' && currentPath.startsWith(linkPath.substring(0, linkPath.lastIndexOf('/') + 1)));
+  
+  if (isExact || isSection) {
     link.classList.add('active');
+  } else {
+    link.classList.remove('active');
   }
 });
 
-// ── Quiz Functionality ────────────────────────────────────
-function initQuiz() {
-  const quizForms = document.querySelectorAll('.quiz-form');
-  quizForms.forEach(form => {
-    const submit = form.querySelector('.quiz-submit');
-    const result = form.querySelector('.quiz-result');
-    submit?.addEventListener('click', () => {
-      const questions = form.querySelectorAll('.quiz-question');
-      let correct = 0; let total = 0;
-      questions.forEach(q => {
-        total++;
-        const options   = q.querySelectorAll('.quiz-option');
-        const selected  = q.querySelector('.quiz-option.selected');
-        const correctAns = q.dataset.correct;
-        options.forEach(o => {
-          if (o.dataset.value === correctAns) o.classList.add('correct');
-        });
-        if (selected?.dataset.value === correctAns) {
-          correct++;
-        } else if (selected) {
-          selected.classList.add('incorrect');
-        }
-      });
-      if (result) {
-        result.classList.add('show');
-        const pct = Math.round((correct / total) * 100);
-        if (pct >= 70) {
-          result.classList.add('pass');
-          result.textContent = `✓ Well done! You scored ${correct}/${total} (${pct}%). You've grasped the key concepts.`;
-        } else {
-          result.classList.add('fail');
-          result.textContent = `✗ You scored ${correct}/${total} (${pct}%). Review the tutorial and try again.`;
-        }
-        submit.disabled = true;
-      }
-    });
-    form.querySelectorAll('.quiz-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        const q = opt.closest('.quiz-question');
-        q.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        opt.style.borderColor = 'var(--saffron)';
-        opt.style.background  = 'rgba(232,147,10,0.08)';
-        q.querySelectorAll('.quiz-option').forEach(o => {
-          if (!o.classList.contains('selected')) {
-            o.style.borderColor = '';
-            o.style.background  = '';
-          }
-        });
-      });
-    });
-  });
-}
-initQuiz();
 
 // ── Filter Buttons ────────────────────────────────────────
 document.querySelectorAll('.filter-btn').forEach(btn => {

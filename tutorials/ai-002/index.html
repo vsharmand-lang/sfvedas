@@ -343,13 +343,6 @@
         if (fb) fb.textContent = '✗ Not quite — review the section above.';
       }
     }
-
-    const saved = localStorage.getItem('sfvedas-theme');
-    if (saved === 'dark') document.body.classList.add('dark');
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('sfvedas-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-    });
   </script>
   <script src="/js/main.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
