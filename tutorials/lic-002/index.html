@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/lic-002/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIC-002: User Licenses vs Permission Set Licenses: What's the Difference? — SFVedas</title>
+  <meta name="description" content="User Licenses vs Permission Set Licenses: What's the Difference? Demystifying identity licences and extensions."/>
+  <meta property="og:title" content="LIC-002: User Licenses vs Permission Set Licenses: What's the Difference? — SFVedas"/>
+  <meta property="og:description" content="User Licenses vs Permission Set Licenses: What's the Difference? Demystifying identity licences and extensions."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/lic-002/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="LIC-002: User Licenses vs Permission Set Licenses: What's the Difference? — SFVedas"/>
+  <meta name="twitter:description" content="User Licenses vs Permission Set Licenses: What's the Difference? Demystifying identity licences and extensions."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "LIC-002: User Licenses vs Permission Set Licenses: What's the Difference? — SFVedas",
+    "description": "User Licenses vs Permission Set Licenses: What's the Difference? Demystifying identity licences and extensions.",
+    "url": "https://sfvedas.com/tutorials/lic-002/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/lic-002/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=licensing-commercial" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Licensing &amp; Commercial</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">LIC-002</span>
+        <span class="card-tag" style="background:rgba(13,148,136,0.08);color:rgb(13,148,136);border-color:rgba(13,148,136,0.2);">Licensing &amp; Commercial</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects & CTOs</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        User Licenses vs Permission Set Licenses: What's the Difference?
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Demystifying the architectural boundaries between core identity licences and feature-specific extensions to optimise your commercial spend.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+                        <li>Master the structural database identity boundaries of Core User Licenses and their influence on data model reach.</li>
+            <li>Demystify the additive extension mechanics of Permission Set Licenses (PSLs) and their relationship to packaged features.</li>
+            <li>Apply architectural decision matrices to determine the most cost-efficient balance between Core Licenses and PSLs.</li>
+            <li>Execute advanced programmatic audits of active allocations using custom SOQL scripts and system metadata queries.</li>
+            <li>Establish robust administrative governance workflows to prevent accidental PSL sprout, unutilised allocation, and commercial budget creep.</li>
+          </ul>
+        </div>
+
+                <h2 id="s1">The Database Identity Boundary: Understanding Core User License Types</h2>
+        <p>Every user record within a Salesforce tenant is structurally anchored to exactly one Core User License. This relationship is defined in the database schema by the <code>UserLicenseId</code> field on the standard <code>User</code> object. Unlike profiles, public groups, or permission sets, which can be modified dynamically by administrators, the Core User License represents a permanent architectural foundation that establishes the absolute database identity boundary for that user. It defines the maximum possible scope of database tables, standard features, and platform resources the user can ever access. No administrative action—neither profile permissions nor additive permission sets—can grant access to a feature or object that is not permitted by the user's Core User License.</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Database Insight</strong>
+            <p>Think of the Core User License as your database passport. It dictates which standard database tables are compile-ready for your user profile. A Platform user literally cannot compile an Apex class or run a query that references the <code>Opportunity</code> table, as the security layers of the multi-tenant engine will block it at the compiler level.</p>
+          </div>
+        </div>
+
+        <p>In enterprise configurations, architects must design layouts and security policies around several primary Core User License types, each serving a distinct logical access model:</p>
+        <ul>
+          <li><strong>Salesforce (Standard full CRM):</strong> The most comprehensive and expensive core license. It grants full access to the entire standard Salesforce schema, including sales objects (<code>Lead</code>, <code>Opportunity</code>, <code>Quote</code>) and service objects (<code>Case</code>, <code>Knowledge</code>, <code>Entitlement</code>). This is the default licence for standard business users.</li>
+          <li><strong>Salesforce Platform:</strong> A highly cost-effective core license (frequently costing 60-80% less than a standard Salesforce licence). It permits access to all custom objects, custom applications, and a small subset of standard objects (such as <code>Account</code> and <code>Contact</code>). However, it strictly blocks access to opportunities, leads, cases, campaigns, and standard solutions.</li>
+          <li><strong>Customer Community / Customer Community Plus:</strong> Designed for external customer portals. Customer Community uses high-volume sharing sets (logical rules mapped via lookup fields) to bypass standard role hierarchy calculations, reducing CPU overhead. Customer Community Plus adds role-based sharing and access to standard sharing rules, allowing complex security configurations at a higher price point.</li>
+          <li><strong>Partner Community:</strong> An external license designed for B2B distributors and resellers. It includes role hierarchies, sharing rules, and full read/write access to <code>Opportunity</code>, <code>Lead</code>, and custom objects, bridging the gap between internal staff and external partners.</li>
+        </ul>
+
+        <h2 id="s2">Feature Extensions: The Mechanics of Permission Set Licenses (PSLs)</h2>
+        <p>If the Core User License is the database passport, a Permission Set License (PSL) is a specialized visa. A PSL is an additive licensing entitlement that sits on top of a core license to expand the user's platform footprint. It unlocks specialized fields, objects, custom metadata types, or programmatic features that are not included in the baseline edition of the core license.</p>
+        <p>A PSL does not replace the baseline user licence; rather, it attaches to the existing <code>User</code> record. A user can be assigned multiple PSLs concurrently, scaling their technical access as their role demands. Common examples of commercial PSLs in enterprise orgs include:</p>
+        <ul>
+          <li><strong>Field Service Lightning (FSL) Dispatcher/Resource:</strong> Unlocks advanced scheduling, service resource tables, and the dispatcher console interface.</li>
+          <li><strong>Data Cloud User / Customer Data Platform:</strong> Exposes ingestion and mapping objects within the core transactional system.</li>
+          <li><strong>Health Cloud / Financial Services Cloud (FSC) User:</strong> Exposes the specialized industry-specific tables (such as clinical medical logs or financial accounts) packaged by Salesforce Industries.</li>
+          <li><strong>CRM Analytics (formerly Einstein Analytics):</strong> Grants permission to execute complex datasets, run analytics dashboards, and deploy prediction models.</li>
+        </ul>
+
+        <p>It is critical to distinguish between <em>Permission Set Licenses</em> and <em>Permission Sets</em>:</p>
+        <p><strong>Permission Set License (PSL):</strong> A commercial entitlement purchased from Salesforce. It must be assigned to the user to make the specific feature or objects legally and technically available within their profile environment. Assigning a PSL does not grant access rights directly; it merely establishes the potential for access.</p>
+        <p><strong>Permission Set:</strong> A functional configuration created by administrators (or included in packages) that manages object-level permissions (CRUD) and system settings. An administrator cannot assign a functional Permission Set containing advanced features unless the user has also been assigned the corresponding PSL. Assigning a permission set to a user without the matching PSL will trigger a system runtime error: <em>"The user does not have the required licence to assign this permission set."</em></p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Architects</strong>
+            <p>Assigning a functional Permission Set that references managed packages or industry cloud objects without first assigning the appropriate PSL will trigger a system runtime error. Ensure your deployment scripts and administrative workflows validate user licences prior to role assignment.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">Architectural Mapping: When to Buy a New Core License vs a PSL</h2>
+        <p>Architects must design licensing strategies with the same rigour as data models. A common commercial mistake is default-provisioning all staff with standard Salesforce CRM licences. By mapping user roles to their actual database access requirements, technical leaders can blend Core Licenses and PSLs to slash annual software costs.</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>User Persona / Requirement</th>
+                <th>Optimal License Strategy</th>
+                <th>Technical Rationale</th>
+                <th>Commercial Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Direct Sales Reps & Account Managers</strong></td>
+                <td>Salesforce Standard CRM Core License</td>
+                <td>Requires heavy read/write on Leads, Opportunities, and full sharing models.</td>
+                <td>Standard baseline spend (100% price baseline).</td>
+              </tr>
+              <tr>
+                <td><strong>Back-Office & Delivery Staff</strong></td>
+                <td>Salesforce Platform Core License</td>
+                <td>Requires custom operational tables, Accounts, and Contacts, but zero sales/case tables.</td>
+                <td>Reduces individual user seat cost by up to 60%.</td>
+              </tr>
+              <tr>
+                <td><strong>Operations Staff with Industry Add-ons</strong></td>
+                <td>Salesforce Platform Core + Financial Services Cloud PSL</td>
+                <td>Allows custom operations staff to interact with FSC tables without paying for CRM Sales features.</td>
+                <td>Substantial savings by avoiding the full industry CRM tier.</td>
+              </tr>
+              <tr>
+                <td><strong>High-Volume B2C Customers</strong></td>
+                <td>Customer Community Core License</td>
+                <td>Utilises high-performing sharing sets; does not trigger complex role-hierarchy calculations.</td>
+                <td>Extremely low-cost login-based or member-based model.</td>
+              </tr>
+              <tr>
+                <td><strong>B2B Distributors & Agents</strong></td>
+                <td>Partner Community Core License</td>
+                <td>Requires opportunity access and standard role-hierarchy security.</td>
+                <td>Mid-tier cost; cheaper than internal Salesforce seats.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>When mapping licensing patterns, architects must run a systematic core schema audit. Identify if the target group of users writes to <code>Opportunity</code>, <code>Lead</code>, or <code>Case</code> tables. If they do not, they are prime candidates for Platform Core licences. Furthermore, verify if premium features or industry-specific tables are required. In many scenarios, combining a cheaper Core License (like Platform) with a targeted PSL (like Financial Services Cloud User) is significantly more cost-efficient than defaulting to high-tier standard editions.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Architectural Rule</strong>
+            <p>Do not use custom objects to replicate standard sales objects (like mapping a custom table for "Deals" to bypass buying Sales Cloud licences). This violates Salesforce's Master Services Agreement (MSA) and can result in severe financial penalties during a compliance audit.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Auditing Permission Set and PSL Allocations Programmatically</h2>
+        <p>Enterprise Salesforce instances with hundreds or thousands of users frequently suffer from poor allocation control. Administrators assign PSLs to users who do not utilise the underlying tools, or fail to reclaim licences when roles change. Running manual audits is slow and error-prone. Programmatic audits using SOQL queries allow architects to monitor allocations in real-time and automate licence optimization.</p>
+        <p>To analyze active PSL allocations against purchased quantities, run the following query in your Query Editor or developer console:</p>
+
+<pre><code class="language-sql">SELECT PermissionSetLicense.DeveloperName, 
+       PermissionSetLicense.MasterLabel, 
+       COUNT(Id) TotalAssigned 
+FROM PermissionSetLicenseAssign 
+GROUP BY PermissionSetLicense.DeveloperName, PermissionSetLicense.MasterLabel</code></pre>
+
+        <p>This query aggregates active assignments from the <code>PermissionSetLicenseAssign</code> table, showing the exact count of consumed seats for each unique PSL in your org. To identify exactly which active users are consuming specific premium PSLs (for example, CRM Analytics) but have not initiated a session in 60 days, run this target audit script:</p>
+
+<pre><code class="language-sql">SELECT Assignee.Id, Assignee.Name, Assignee.Username, 
+       Assignee.Profile.Name, Assignee.LastLoginDate,
+       PermissionSetLicense.DeveloperName 
+FROM PermissionSetLicenseAssign 
+WHERE PermissionSetLicense.DeveloperName = 'CRMAnalyticsUser'
+  AND Assignee.IsActive = true 
+ORDER BY Assignee.LastLoginDate ASC</code></pre>
+
+        <p>This isolates standard users who are active in the database and consuming an expensive Analytics entitlement but have not logged into the system or executed a dashboard in months. Administrators can automate these audits and build a simple scheduled flow that executes these queries, flags inactive users, and alerts the platform team to reclaim the unutilised licence.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Administrative Tip</strong>
+            <p>Run these SOQL audits before every commercial renewal cycle. You can build a simple scheduled flow that executes these queries and emails a CSV of unutilised PSLs to your procurement lead, giving them data-backed leverage to downsize quantities.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">Licence Governance: Preventing Accidental PSL Sprout and Budget Creep</h2>
+        <p>"PSL Sprout" is a common administrative failure. It occurs when a system administrator creates a custom Permission Set, embeds an advanced feature (such as CRM Analytics access), and assigns it to a large user group. The system silently consumes the available PSLs from the purchased pool. Once the pool is exhausted, subsequent deployments or user provisions fail, forcing the organisation into unplanned, emergency licence purchases at list price.</p>
+        <p>Establishing a robust administrative governance framework is crucial to preventing this budget creep. Tech leaders should enforce four core components of an enterprise role-based governance strategy:</p>
+        <ul>
+          <li><strong>Segregate Premium Entitlements:</strong> Avoid bundling PSL-enabled permissions into baseline permission sets assigned to all staff. Explicitly segregate standard configuration permissions from premium feature entitlements. Use clear naming conventions for premium permission sets, such as <code>PRM_CRMAnalytics_AnalyticsUser</code>, indicating that assigning this permission set carries commercial cost implications.</li>
+          <li><strong>Apex Allocation Alerts:</strong> Create an Apex trigger or Flow on the <code>PermissionSetLicenseAssign</code> object. If the count of assigned PSLs for a specific product reaches 90% of your purchased contract capacity, trigger an automated Slack or email alert to the Architecture Board to prevent unexpected provisioning failures.</li>
+          <li><strong>Role-Based Provisioning Rules:</strong> Rather than manually assigning individual profiles, permission sets, and PSLs, implement an automated provisioning engine using User Provisioning Rules or custom metadata mappings connected to your corporate IdP (e.g., mapping an Azure AD group <code>Salesforce_FSL_Resource</code> to the Salesforce FSL resource PSL and Profile).</li>
+          <li><strong>Regular Automated Harvesting Runs:</strong> Schedule an automated batch job to run the SOQL audit scripts developed in Section s4. Automatically unassign premium PSLs (such as CRM Analytics or Shield encryption access) from users who have not accessed the system or run an analytics query in the past 90 days.</li>
+        </ul>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Treat premium PSLs like physical company assets. Establish an internal approval request form in your IT Service Management tool (such as ServiceNow or Jira) that requires manager sign-off on the business value of the analytics or industry cloud PSL before the administrator executes the assignment in Salesforce.</p>
+          </div>
+        </div>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+                        <li>Core User Licenses represent absolute logical database identity boundaries that govern which tables a user can access, stored in the <code>UserLicenseId</code> field.</li>
+            <li>Permission Set Licenses (PSLs) are commercial feature extensions that sit on top of core licenses to legally and technically expose packaged features or industry tables.</li>
+            <li>Replacing full Salesforce CRM core licenses with Salesforce Platform core licenses for non-sales staff can cut baseline seat costs by 60% while maintaining full application customisation.</li>
+            <li>Programmatic SOQL audits on system allocation tables like <code>PermissionSetLicenseAssign</code> allow organisations to track, harvest, and optimise their premium licensing spend.</li>
+            <li>Rigorous administrative governance—including automated alerts, IdP integration, and approval workflows—is mandatory to prevent accidental PSL sprout and commercial budget creep.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+                    <div class="quiz-question" id="q1">
+            <p>1. Where is the database boundary that defines a user's core identity and baseline platform table access stored?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. User.Profile.PermissionsSystemType</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. User.UserLicenseId</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. UserPermissionSet.EntitlementId</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Profile.LicenseScopeDefinition</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. What is the primary difference between a Permission Set and a Permission Set License (PSL)?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. A Permission Set is created in custom Apex, whereas a PSL is configured using standard XML files in metadata.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. A Permission Set manages user passwords and SSO, whereas a PSL manages multi-factor authentication.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. A Permission Set defines object-level permissions (CRUD), whereas a PSL is a commercial entitlement that makes standard objects or packaged features technically available.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. A Permission Set is exclusive to external community users, whereas a PSL is only assigned to system administrators.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. Which SOQL object should you query to aggregate and audit the active consumed count of premium Permission Set Licenses?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. UserLicenseAssign</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. PermissionSetAssignment</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. PermissionSetLicenseAssign</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. ProductEntitlementAllocation</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../lic-001/" class="related-card">
+              <span class="card-id">LIC-001</span>
+              <h4>Salesforce Licensing Model</h4>
+            </a>
+            <a href="../lic-006/" class="related-card">
+              <span class="card-id">LIC-006</span>
+              <h4>Add-On Licensing</h4>
+            </a>
+            <a href="../lic-011/" class="related-card">
+              <span class="card-id">LIC-011</span>
+              <h4>Optimising Your Salesforce Licence Mix</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+                        <li><a href="#s1">The Database Identity Boundary: Understanding Core User License Types</a></li>
+            <li><a href="#s2">Feature Extensions: The Mechanics of Permission Set Licenses (PSLs)</a></li>
+            <li><a href="#s3">Architectural Mapping: When to Buy a New Core License vs a PSL</a></li>
+            <li><a href="#s4">Auditing Permission Set and PSL Allocations Programmatically</a></li>
+            <li><a href="#s5">Licence Governance: Preventing Accidental PSL Sprout and Budget Creep</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../lic-003/" class="sidebar-next-link">
+            <span class="sidebar-next-id">LIC-003</span>
+            <span class="sidebar-next-title">Salesforce Contract Negotiation: What You Can Push Back On</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../lic-001/" class="sidebar-next-link">
+            <span class="sidebar-next-id">LIC-001</span>
+            <span class="sidebar-next-title">Salesforce Licensing Model: The Complete Guide for Leaders</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

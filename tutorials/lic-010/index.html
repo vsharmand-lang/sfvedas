@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/lic-010/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIC-010: Salesforce Contract Review: The Clauses Leaders Must Understand — SFVedas</title>
+  <meta name="description" content="Salesforce Contract Review: The Clauses Leaders Must Understand. MSA, liability caps, and auto-renewals."/>
+  <meta property="og:title" content="LIC-010: Salesforce Contract Review: The Clauses Leaders Must Understand — SFVedas"/>
+  <meta property="og:description" content="Salesforce Contract Review: The Clauses Leaders Must Understand. MSA, liability caps, and auto-renewals."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/lic-010/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="LIC-010: Salesforce Contract Review: The Clauses Leaders Must Understand — SFVedas"/>
+  <meta name="twitter:description" content="Salesforce Contract Review: The Clauses Leaders Must Understand. MSA, liability caps, and auto-renewals."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "LIC-010: Salesforce Contract Review: The Clauses Leaders Must Understand — SFVedas",
+    "description": "Salesforce Contract Review: The Clauses Leaders Must Understand. MSA, liability caps, and auto-renewals.",
+    "url": "https://sfvedas.com/tutorials/lic-010/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/lic-010/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=licensing-commercial" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Licensing &amp; Commercial</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">LIC-010</span>
+        <span class="card-tag" style="background:rgba(13,148,136,0.08);color:rgb(13,148,136);border-color:rgba(13,148,136,0.2);">Licensing &amp; Commercial</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Legal Counsels & CIOs</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce Contract Review: The Clauses Leaders Must Understand
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        A clause-by-clause guide to Salesforce master service agreements, including liability caps, auto-renewal terms, and data portability guarantees.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Deconstruct the hierarchical legal structure of the Master Services Agreement (MSA) and Order Forms.</li>
+            <li>Analyse the boundaries of Intellectual Property (IP) indemnification and negotiate custom liability caps.</li>
+            <li>Navigate auto-renewal notice windows and structure price protection caps to control multi-year operational spend.</li>
+            <li>Establish data portability rights and secure post-termination transition provisions.</li>
+            <li>Understand Salesforce's commercial audit authority and mitigate multiplexing and indirect access compliance risks.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Deconstructing the Salesforce Master Services Agreement (MSA)</h2>
+<p>For Chief Information Officers (CIOs), General Counsels, and procurement professionals, a Salesforce contract is not a single, cohesive document. It is a complex, hierarchical web of legal agreements, standard product directories, and dynamic service policies. Failing to understand how these contractual layers interact can lead to severe governance gaps, unexpected price hikes, and costly compliance issues. Legal counsels and technology leaders must deconstruct this legal hierarchy to effectively protect their organisations.</p>
+
+<h3>The Hierarchy of Terms</h3>
+<p>In the event of a conflict or discrepancy between different parts of a Salesforce contract, standard commercial rules establish a strict legal hierarchy. This hierarchy determines which clause takes precedence when resolving a dispute. The standard hierarchy of terms is structured as follows:</p>
+<ol>
+  <li><strong>The Order Form:</strong> This is the commercial transaction document that specifies the exact licence quantities, pricing tiers, contract term, and any custom business terms. The Order Form occupies the highest legal level. Any custom clause inserted into the Order Form (such as custom price protection or customised sandbox allocations) overrides all general terms in other documents.</li>
+  <li><strong>The Master Services Agreement (MSA):</strong> This is the core legal framework. It governs confidentiality, intellectual property rights, indemnification, billing disputes, and general liability limits. The MSA provides the legal foundation for the overall commercial relationship.</li>
+  <li><strong>The Product Terms Directory (PTD):</strong> This is a dynamic, online document maintained by Salesforce that defines the specific functional and usage restrictions for each licence type (e.g., standard object boundaries, storage allocations, and API limits). It is updated regularly by Salesforce.</li>
+  <li><strong>The Service Level Agreement (SLA) & Trust Documentation:</strong> These online documents define platform availability commitments, system performance metrics, maintenance windows, and security standards.</li>
+</ol>
+
+<div class="callout callout--insight">
+  <p><strong>Negotiation Principle:</strong> Because the Order Form overrides all other agreements, any concession or custom term secured during contract negotiations must be explicitly drafted on the face of the Order Form. Verbal agreements or email exchanges with Account Executives have zero legal weight if they are not written into the final Order Form.</p>
+</div>
+
+<h3>Critical Structural Definitions</h3>
+<p>When reviewing the MSA, legal counsels must pay close attention to specific terminology that determines the scope of the agreement. Key areas include:</p>
+<ul>
+  <li><strong>Definition of "Affiliates":</strong> Standard MSAs define who can purchase or use the services. Enterprise buyers must ensure the definition of "Affiliates" is broad enough to cover all current and future subsidiaries, joint ventures, and international operations. If this definition is too narrow, subsidiaries will be forced to execute separate contracts, losing the benefit of volume discount tiers.</li>
+  <li><strong>Definition of "User":</strong> The contract defines a user as an individual authorised by the customer to access the platform. Enterprise clients should ensure this definition includes third-party contractors, external consultants, and outsourcing providers who require platform access to support business operations, avoiding technical compliance disputes.</li>
+</ul>
+
+<h2 id="s2">Indemnification and Liability: Defining the Boundaries of IP and Data Loss</h2>
+<p>Among the most heavily negotiated clauses in any enterprise SaaS contract are those governing <strong>Intellectual Property (IP) Indemnification</strong> and <strong>Limitation of Liability (LoL)</strong>. These clauses determine which party carries the financial risk if a third party files a lawsuit, or if a catastrophic security incident or data loss occurs.</p>
+
+<h3>The Reality of Intellectual Property Indemnification</h3>
+<p>Under a standard Salesforce MSA, Salesforce agrees to defend and indemnify the customer against third-party claims alleging that the "Services" infringe on their patent, copyright, or trademark. While this sounds comprehensive, the technical exceptions in the contract often leave significant liabilities uncovered.</p>
+<p>Salesforce's IP indemnification strictly applies only to the standard, unmodified platform as delivered by Salesforce. It explicitly excludes infringement claims arising from:</p>
+<ul>
+  <li><strong>Customisations and Apex Code:</strong> Any custom Apex triggers, Lightning Web Components, or custom configurations built by your internal developers or system integrators.</li>
+  <li><strong>Third-Party Integrations:</strong> AppExchange packages, external APIs, or custom middleware connections that link Salesforce to other enterprise systems.</li>
+  <li><strong>Combination Claims:</strong> Claims that arise because you combined Salesforce with an off-platform software application, where Salesforce alone would not have infringed.</li>
+</ul>
+<p>Since almost every enterprise Salesforce implementation relies heavily on custom code and third-party integrations, the standard IP indemnification offers limited protection in real-world scenarios. Organisations should negotiate to extend Salesforce’s indemnification to cover standard configurations and official integrations developed under Salesforce’s direct guidance.</p>
+
+<h3>Limitation of Liability (LoL) and Super-Caps</h3>
+<p>The standard Salesforce MSA limits overall financial liability for either party to a maximum of the <strong>amount paid by the customer in the 12 months preceding the incident</strong>. For an enterprise spending £1,000,000 annually, Salesforce’s maximum liability for a system outage or minor contract breach is capped at £1,000,000.</p>
+<p>However, a major data breach involving Personally Identifiable Information (PII) or customer health records can expose an enterprise to regulatory fines (such as GDPR penalties), class-action lawsuits, and reputational damage that far exceed their annual Salesforce spend. To protect against this risk, enterprise buyers should negotiate <strong>"Super-Caps"</strong> for specific high-risk breaches. The table below details standard liability structures and negotiated alternatives:</p>
+
+<table class="licence-table">
+  <thead>
+    <tr>
+      <th>Liability Category</th>
+      <th>Standard MSA Terms</th>
+      <th>Negotiated Enterprise Standard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>General Breach</strong></td>
+      <td>Capped at 1x the last 12 months' spend.</td>
+      <td>1x to 2x the last 12 months' spend.</td>
+    </tr>
+    <tr>
+      <td><strong>Data Breach / Security Failures</strong></td>
+      <td>Subject to the standard 1x cap. No special treatment.</td>
+      <td>Negotiated Super-Cap of 3x to 5x the annual contract value, or a flat cap of £10M.</td>
+    </tr>
+    <tr>
+      <td><strong>Confidentiality / IP Infringement</strong></td>
+      <td>Subject to the standard 1x cap.</td>
+      <td>Unlimited liability or a separate 5x super-cap.</td>
+    </tr>
+    <tr>
+      <td><strong>Indirect/Consequential Damages</strong></td>
+      <td>Both parties waive all claims for lost profits or indirect damages.</td>
+      <td>Carve-outs added to ensure data restoration costs and regulatory fines are compensable.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="s3">The Auto-Renewal Clause: Navigating Notice Windows and Price Adjustments</h2>
+<p>The <strong>Auto-Renewal Clause</strong> is a frequent source of budget issues for enterprise Salesforce customers. Without proactive tracking and clear contract terms, organisations can find themselves locked into multi-year commitments they no longer need, or facing sudden double-digit price increases.</p>
+
+<h3>Understanding the Auto-Renewal Mechanism</h3>
+<p>Standard Salesforce agreements dictate that at the end of the initial contract term, the agreement will <strong>automatically renew for an identical term length</strong> (e.g., a three-year contract automatically renews for another three years) unless either party provides written notice of non-renewal. The standard <strong>Notice Window</strong> is typically <strong>30 days prior to the expiration</strong> of the current term.</p>
+<p>For an enterprise organisation, a 30-day notice window is incredibly risky. If you are considering migrating away from Salesforce or consolidated your business units to reduce seat counts, executing that transition and finalising your licensing requirements takes months of preparation. Missing this 30-day window by even 24 hours legally authorises Salesforce to bill you for the entire value of the renewal term, with no option to downsize seat counts mid-term.</p>
+
+<div class="callout callout--warning">
+  <p><strong>Operational Risk:</strong> Inactive or forgotten contracts that auto-renew can result in hundreds of thousands of pounds in wasted spend. Your procurement team must log all Salesforce contract end-dates in an enterprise contract management database and set alerts 180, 120, and 90 days prior to expiration.</p>
+</div>
+
+<h3>Negotiating Price Protection Caps</h3>
+<p>Upon renewal, Salesforce reserves the right to adjust its unit pricing. Standard contracts allow price increases of up to <strong>7% to 10% per year</strong>. In times of high inflation or when Salesforce adjusts its baseline list prices globally, this can lead to massive cost increases upon renewal.</p>
+<p>To control future operational spend, procurement leads should negotiate a clear <strong>Price Protection Cap</strong> directly in the Order Form. The following strategies help protect your budget:</p>
+<ol>
+  <li><strong>First Renewal Rate Lock:</strong> Negotiate a 0% price increase for the first renewal term (e.g., lock Year 4 and Year 5 pricing at initial Year 1-3 rates). This is highly achievable for high-volume enterprise contracts.</li>
+  <li><strong>Capped Renewal Increases:</strong> Limit subsequent renewal price increases to a maximum of 3% per year, or the increase in the Consumer Price Index (CPI) plus 1%, whichever is lower.</li>
+  <li><strong>Seat Downsizing Flexibility:</strong> Ensure the contract allows you to reduce your licence count by up to 10% to 15% upon renewal without invalidating your volume discounts. Without this clause, Salesforce may recalculate the pricing for your remaining seats at standard list price, completely wiping out the savings from downsizing.</li>
+</ol>
+
+<h2 id="s4">Data Portability and Exit Rights: Structuring Transition Provisions</h2>
+<p>Enterprise risk management requires planning for the end of a vendor relationship, regardless of how successful it currently is. Organisations must structure robust exit rights and data portability terms to ensure they can retrieve their business-critical data without operational disruption if they decide to migrate away from Salesforce.</p>
+
+<h3>Data Retrieval and Post-Termination Windows</h3>
+<p>If your Salesforce agreement terminates or expires due to non-renewal, your immediate priority is retrieving your historical data. Under the standard MSA, Salesforce's obligations are limited:</p>
+<ul>
+  <li><strong>The 30-Day Window:</strong> Salesforce commits to making customer data available for export in standard comma-separated value (CSV) format for 30 days post-termination.</li>
+  <li><strong>Data Deletion Policy:</strong> After this 30-day window, Salesforce has no contractual obligation to retain your data. They are legally authorised to delete all customer records from their production environments. Data stored in backups is deleted in accordance with standard system deletion cycles.</li>
+</ul>
+<p>Relying solely on standard CSV exports for an enterprise environment with complex relationships, custom objects, and terabytes of attachments can be a disaster. Converting raw database CSVs back into an operational schema in another system can take months. To prevent data loss and ensure a smooth transition, organisations must negotiate enhanced exit rights.</p>
+
+<h3>Structuring Transition Assistance Services</h3>
+<p>Enterprise customers should negotiate specific <strong>Transition Assistance Services</strong> directly on their Order Form. These clauses should mandate:</p>
+<ol>
+  <li><strong>Extended Read-Only Access:</strong> Require Salesforce to provide read-only platform access for 60 to 90 days post-termination at a discounted rate (e.g., 50% of the active subscription rate) to allow database administrators to verify data extraction completeness.</li>
+  <li><strong>Metadata and Attachment Exports:</strong> Obligate Salesforce to provide not just raw record data, but also custom metadata schemas, workflow configurations, and complete file attachment archives in their original formats (e.g., PDFs, images, DOCX files).</li>
+  <li><strong>API Availability During Exit:</strong> Mandate that standard APIs remain fully active during the transition period, allowing automated extract-transform-load (ETL) tools to pull data out of the system at scale.</li>
+</ol>
+
+<div class="callout callout--insight">
+  <p><strong>Architectural Best Practice:</strong> Do not rely on weekly data export wizards for complex exit strategies. Ensure your technology team maintains a continuous backup of Salesforce data and metadata using enterprise solutions like Salesforce Shield Backup or off-platform data lakes (such as Snowflake or AWS S3) to mitigate exit risks.</p>
+</div>
+
+<h2 id="s5">Audit Rights and Inspections: Understanding the Vendor's Authority to Verify</h2>
+<p>Salesforce contracts grant the vendor broad authority to audit customer usage to verify compliance with licensing limits. For solution architects and administrators, understanding how these audits are conducted is essential to prevent unexpected <strong>true-up bills</strong> and commercial disputes.</p>
+
+<h3>The Scope of Salesforce's Audit Authority</h3>
+<p>A standard Salesforce MSA contains an audit clause that permits Salesforce to review the customer's usage of the services. These audits are typically executed through three primary channels:</p>
+<ul>
+  <li><strong>Automated Usage Monitoring:</strong> Salesforce continuously monitors technical metrics, including standard file and data storage volumes, API usage, and the number of active assigned user licences. If these metrics exceed contractual limits, the account team is notified to initiate a commercial true-up.</li>
+  <li><strong>Administrative Logins:</strong> During technical reviews or licensing audits, Salesforce may request that the customer grant administrative login access to their org. This allows Salesforce's audit specialists to inspect permission sets, user login histories, and custom object schemas.</li>
+  <li><strong>True-Up Questionnaires:</strong> Salesforce frequently issues annual self-audit questionnaires, requiring the customer's system administrators to document their licence allocations and user counts.</li>
+</ul>
+
+<h3>Multiplexing and the Indirect Access Risk</h3>
+<p>The most significant legal risk during a Salesforce licensing audit is a violation of the <strong>"Multiplexing Clause"</strong>. Multiplexing refers to using pooling software, middleware integrations (such as MuleSoft or Kafka), or external web portals to combine users or consolidate data, thereby reducing the number of direct user licences required.</p>
+<p>Salesforce's product terms explicitly state that <strong>multiplexing does not reduce the number of user licences required</strong>. Every human user who indirectly interacts with Salesforce data through an external portal, database, or middleware layer must be licensed at an appropriate tier. If an audit reveals that your organisation is exposing Salesforce custom objects or lead records to 5,000 external suppliers via a portal, but you have only purchased 10 Salesforce licences, Salesforce can charge you back-licensing fees for all 5,000 users. This can result in millions of pounds in unexpected licensing costs.</p>
+
+<h3>Negotiating Balanced Audit Clauses</h3>
+<p>To protect your organisation from aggressive or disruptive audits, legal and technology leaders should negotiate specific guardrails in the MSA. Ensure your contract includes the following parameters:</p>
+
+<table class="licence-table">
+  <thead>
+    <tr>
+      <th>Contractual Safeguard</th>
+      <th>Standard MSA Terms</th>
+      <th>Negotiated Protective Clause</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Audit Frequency</strong></td>
+      <td>Unspecified. Salesforce can audit whenever usage anomalies are detected.</td>
+      <td>Limited to a maximum of **once per calendar year**.</td>
+    </tr>
+    <tr>
+      <td><strong>Prior Notice</strong></td>
+      <td>No minimum notice period specified.</td>
+      <td>Mandate a minimum of **30 business days' prior written notice** before an audit begins.</td>
+    </tr>
+    <tr>
+      <td><strong>Audit Execution</strong></td>
+      <td>Unrestricted access to review usage files and systems.</td>
+      <td>Audits must be conducted virtually, during standard business hours, and must not disrupt active business operations.</td>
+    </tr>
+    <tr>
+      <td><strong>Remediation Window</strong></td>
+      <td>Immediate billing for any discovered overage.</td>
+      <td>Provide a **30-day remediation window** to clean up inactive users or adjust configurations before a true-up bill is issued.</td>
+    </tr>
+  </tbody>
+</table>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Salesforce contracts are hierarchical, with the Order Form taking precedence over the Master Services Agreement (MSA) and Product Terms.</li>
+            <li>Standard IP indemnification excludes customer customizations, Apex code, and third-party integrations, leaving significant liability gaps.</li>
+            <li>Standard auto-renewal notice windows are typically 30 days, which requires procurement teams to track contract dates months in advance.</li>
+            <li>Price protection caps are essential to prevent annual renewal price increases, which can reach 7% to 10% under standard terms.</li>
+            <li>Post-termination data portability is contractually limited to 30 days, requiring negotiated transition assistance services and read-only access.</li>
+            <li>The multiplexing clause prohibits using middleware or portals to consolidate users, making indirect access a major licensing risk.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p><strong>1. If a custom pricing agreement on an Order Form conflicts with the standard terms of the Master Services Agreement (MSA), which term takes precedence?</strong></p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">A. The Order Form, because it occupies the highest level in the contractual hierarchy of terms.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">B. The MSA, because it represents the core legal framework.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. The Product Terms Directory, because it is updated dynamically by Salesforce.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. Neither; a conflict invalidates both terms, requiring renegotiation.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>2. Salesforce's standard Intellectual Property (IP) indemnification excludes which of the following real-world elements?</strong></p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Standard platform database tables.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">B. Standard Lightning console layouts.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">C. Custom configurations, bespoke Apex code, and third-party AppExchange integrations.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. Core Salesforce user login components.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>3. Under the "Multiplexing" clause in the Salesforce product terms, how are licensing requirements calculated when using an external integration layer?</strong></p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. Licences are only required for the single integration account.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. Licensing requirements are reduced by 50% across all users.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. Every individual human user who indirectly interacts with Salesforce data through the middleware must be licensed.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. The integration is completely exempted if it uses MuleSoft.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../lic-003/" class="related-card">
+              <span class="card-id">LIC-003</span>
+              <h4>Salesforce Contract Negotiation</h4>
+            </a>
+            <a href="../lic-005/" class="related-card">
+              <span class="card-id">LIC-005</span>
+              <h4>Salesforce Pricing Changes</h4>
+            </a>
+            <a href="../lic-007/" class="related-card">
+              <span class="card-id">LIC-007</span>
+              <h4>Volume Discounts and True-Up Clauses</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Deconstructing the Salesforce Master Services Agreement (MSA)</a></li>
+            <li><a href="#s2">Indemnification and Liability: Defining the Boundaries of IP and Data Loss</a></li>
+            <li><a href="#s3">The Auto-Renewal Clause: Navigating Notice Windows and Price Adjustments</a></li>
+            <li><a href="#s4">Data Portability and Exit Rights: Structuring Transition Provisions</a></li>
+            <li><a href="#s5">Audit Rights and Inspections: Understanding the Vendor's Authority to Verify</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../lic-011/" class="sidebar-next-link">
+            <span class="sidebar-next-id">LIC-011</span>
+            <span class="sidebar-next-title">Optimising Your Salesforce Licence Mix: A Practical Audit</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../lic-009/" class="sidebar-next-link">
+            <span class="sidebar-next-id">LIC-009</span>
+            <span class="sidebar-next-title">AppExchange Commercial Models: OEM, Free, and ISV Licensing</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

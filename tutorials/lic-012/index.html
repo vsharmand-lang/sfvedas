@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/lic-012/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LIC-012: Platform Licenses vs Full CRM Licenses: When to Downgrade — SFVedas</title>
+  <meta name="description" content="Platform Licenses vs Full CRM Licenses: When to Downgrade. Mapping CRM object access."/>
+  <meta property="og:title" content="LIC-012: Platform Licenses vs Full CRM Licenses: When to Downgrade — SFVedas"/>
+  <meta property="og:description" content="Platform Licenses vs Full CRM Licenses: When to Downgrade. Mapping CRM object access."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/lic-012/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="LIC-012: Platform Licenses vs Full CRM Licenses: When to Downgrade — SFVedas"/>
+  <meta name="twitter:description" content="Platform Licenses vs Full CRM Licenses: When to Downgrade. Mapping CRM object access."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "LIC-012: Platform Licenses vs Full CRM Licenses: When to Downgrade — SFVedas",
+    "description": "Platform Licenses vs Full CRM Licenses: When to Downgrade. Mapping CRM object access.",
+    "url": "https://sfvedas.com/tutorials/lic-012/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/lic-012/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=licensing-commercial" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Licensing &amp; Commercial</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">LIC-012</span>
+        <span class="card-tag" style="background:rgba(13,148,136,0.08);color:rgb(13,148,136);border-color:rgba(13,148,136,0.2);">Licensing &amp; Commercial</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Enterprise Architects & Tech Leads</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Platform Licenses vs Full CRM Licenses: When to Downgrade
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        An architectural mapping of standard CRM object access to determine when users can be safely migrated to low-cost Platform licences.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Analyse the architectural and technical scope of Salesforce Platform user licences.</li>
+            <li>Understand the strict object access boundaries between standard CRM objects and custom schemas.</li>
+            <li>Implement compliant custom object mappings to replace standard objects for internal corporate workflows.</li>
+            <li>Identify and mitigate the severe compliance risks associated with indirect access workarounds.</li>
+            <li>Execute a structured, risk-free technical migration playbook to downgrade users without data loss.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Architectural Scope of Platform Licenses (Salesforce Platform vs Enterprise CRM)</h2>
+<p>In enterprise Salesforce architectures, choosing the right user licence type is one of the most critical decisions for controlling platform costs. Solutions architects and technology leaders are frequently faced with a major question: when can users be assigned a low-cost <strong>Salesforce Platform licence</strong> instead of a full, premium <strong>Enterprise CRM user licence</strong>? Failing to understand the functional capabilities and limits of these licence types can lead to significant wasted spend, technical rework, and severe licensing audit penalties.</p>
+
+<h3>Functional Commonalities and Platform Rights</h3>
+<p>From an infrastructural perspective, the Salesforce Platform licence is built on the exact same multi-tenant architecture, database engine, security model, and API framework as full Sales and Service Cloud CRM licences. It is not a technically inferior platform; rather, it is commercially restricted to custom business processes. Users assigned a Salesforce Platform licence receive:</p>
+<ul>
+  <li><strong>Full Customisation Support:</strong> The ability to access custom objects (up to 110 custom objects per application), custom metadata types, custom fields, and validation rules.</li>
+  <li><strong>Standard Automation Engine:</strong> Full access to run and interact with Flow Builder, Apex classes, custom triggers, and standard approval processes.</li>
+  <li><strong>Bespoke User Interfaces:</strong> The ability to utilise custom Lightning Web Components (LWC), Visualforce pages, custom tabs, and customised utility bars.</li>
+  <li><strong>Standard Sharing and Security:</strong> The exact same sharing rules, role hierarchies, public groups, and field-level security (FLS) enforcement as the rest of the host organisation.</li>
+  <li><strong>Baseline Core Objects:</strong> Full read, write, and edit access to standard <code>Account</code> and <code>Contact</code> tables.</li>
+</ul>
+
+<h3>The Core Restrictions: What is Excluded?</h3>
+<p>The core difference between the two licence types lies in standard CRM capabilities. While a full CRM licence is designed to support customer-facing sales pipelines and client service desks, a Platform licence is intended for internal corporate workflows. Commercially and technically, the Platform licence strictly excludes access to two primary functional clouds:</p>
+<ol>
+  <li><strong>Sales Cloud CRM Objects:</strong> Platform users have zero access to the standard opportunity pipeline tables, including <code>Opportunity</code>, <code>Lead</code>, <code>Campaign</code>, <code>Forecast</code>, <code>Quote</code>, and <code>OpportunityLineItem</code>.</li>
+  <li><strong>Service Cloud CRM Objects:</strong> Platform users are technically blocked from accessing standard customer service tables, including <code>Case</code>, <code>Solution</code>, <code>Entitlement</code>, and <code>KnowledgeArticle</code>.</li>
+</ol>
+<p>If a business process requires an employee to manage sales pipelines or solve external customer support requests, that user technically and commercially requires a full CRM licence. However, if the process involves internal operations—such as HR onboarding, IT asset management, expense approvals, or supply chain tracking—a Salesforce Platform licence is the ideal, cost-effective target.</p>
+
+<div class="callout callout--insight">
+  <p><strong>Architectural Warning:</strong> Platform user licences are technically prevented from accessing standard CRM objects by the platform's metadata validation engine. If you attempt to assign a custom profile containing read access to Opportunities to a user with a Platform licence, the platform will block the save operation, returning an "Invalid Licence Type for Profile" error.</p>
+</div>
+
+<h2 id="s2">Object Access Boundaries: Standard CRM Objects vs Custom Schemas</h2>
+<p>To design a compliant, cost-effective platform architecture, architects must map out the exact database boundaries of their user base. This requires a deep understanding of standard object boundaries versus custom metadata schemas, ensuring that platform configurations do not breach contractual agreements.</p>
+
+<h3>The Account and Contact Exception</h3>
+<p>As noted previously, the standard <code>Account</code> and <code>Contact</code> objects are shared between both CRM and Platform licences. This is a crucial architectural concession by Salesforce. It allows back-office and operations staff holding Platform licences to view, create, and update core customer accounts and associated business contacts. Platform users can also interact with standard tasks, events, activities, and notes associated with these accounts, as long as they do not reference blocked CRM tables.</p>
+<p>However, architects must be cautious. While Platform users can access Accounts, their access to associated relational lists is limited. If a standard Account page layout includes related lists for Opportunities or Cases, these lists will be completely hidden from Platform users. If your business processes require Platform users to see opportunity history or case updates, you must not use technical workarounds to expose these tables; doing so violates Salesforce's commercial licensing terms.</p>
+
+<h3>Standard CRM Objects vs. Custom Object Schemas</h3>
+<p>When a business process requires database features that resemble sales pipelines or customer support, but is carried out by internal operations teams, architects often consider building custom schemas. The table below compares standard CRM tables with custom object alternatives:</p>
+
+<table class="licence-table">
+  <thead>
+    <tr>
+      <th>Business Capability</th>
+      <th>Standard CRM Object (Full Licence Required)</th>
+      <th>Custom Schema Alternative (Platform Compliant)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Sales Pipelines</strong></td>
+      <td><code>Opportunity</code>, <code>Lead</code>, <code>Quote</code></td>
+      <td>Only compliant if built for non-sales purposes (e.g. `Project_Engagement__c`). Exposing sales pipelines to Platform users is a breach.</td>
+    </tr>
+    <tr>
+      <td><strong>Customer Support</strong></td>
+      <td><code>Case</code>, <code>Entitlement</code></td>
+      <td>Only compliant for internal helpdesks (e.g. `IT_Ticket__c`). Customer-facing service cases must remain on the standard Case object.</td>
+    </tr>
+    <tr>
+      <td><strong>Marketing Campaigns</strong></td>
+      <td><code>Campaign</code>, <code>CampaignMember</code></td>
+      <td>Custom tracking tables (e.g. `Event_Registration__c`) built for event management, rather than active customer marketing campaigns.</td>
+    </tr>
+    <tr>
+      <td><strong>Product Catalogues</strong></td>
+      <td><code>Product2</code>, <code>Pricebook2</code>, <code>Asset</code></td>
+      <td>Custom asset tracking (e.g. `Corporate_Asset__c`) for internal inventory management.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="s3">Mapping VIP and Custom Objects to Ensure Compliance and Cost Savings</h2>
+<p>When migrating users from high-cost CRM licences to low-cost Platform licences, architects must address the **Very Important Objects (VIPs)**—those critical business tables that sit at the intersection of sales, service, and internal operations. Simply rebuilding standard features on custom objects to bypass licensing costs is a violation of your Salesforce agreement. Rebuilding is only compliant if the new custom objects serve a distinct, non-CRM business purpose.</p>
+
+<h3>Compliant Custom Schema Design</h3>
+<p>To illustrate compliant schema design, let us examine an enterprise organisation that manages both external client sales and internal corporate onboarding. The sales team uses standard Opportunities to track deals. Once a deal is won, the delivery team (holding Platform licences) must manage the onboarding project. Creating opportunities for the delivery team would require expensive CRM licences. Instead, the architect designs a compliant custom project object:</p>
+
+<pre><code class="language-sql">-- Conceptual SQL representing a custom project onboarding schema
+CREATE TABLE Project_Onboarding__c (
+    Id VARCHAR(18) PRIMARY KEY,
+    Name VARCHAR(80),
+    Client_Account__c VARCHAR(18), -- Relates to standard Account
+    Onboarding_Coordinator__c VARCHAR(18), -- Relates to Platform User
+    Target_Go_Live__c DATE,
+    Project_Status__c VARCHAR(50),
+    Scope_Details__c TEXT
+);</code></pre>
+
+<p>In this schema, <code>Project_Onboarding__c</code> is a custom object that does not copy standard Opportunity fields like sales stages, forecast categories, or close probabilities. It is a delivery tracking object. Platform users can own, update, and automate this object while remaining fully compliant, saving the organisation thousands of pounds in licence costs.</p>
+
+<h3>A Practical Right-Sizing Mapping Playbook</h3>
+<p>The table below provides a structured mapping of standard CRM objects to compliant custom schemas, highlighting the commercial savings possible when right-sizing user assignments:</p>
+
+<table class="licence-table">
+  <thead>
+    <tr>
+      <th>Baseline Business Process</th>
+      <th>Standard Object Setup</th>
+      <th>Right-Sized Custom Object Setup</th>
+      <th>Compliance Rationale</th>
+      <th>Financial Savings per 100 Users</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Internal Employee IT Helpdesk</strong></td>
+      <td>Standard <code>Case</code> object used by internal staff.</td>
+      <td>Bespoke custom object: `IT_Request__c`</td>
+      <td>Resolving internal employee requests is not "customer service". Custom tickets are fully platform compliant.</td>
+      <td><strong>£120,000.00 / year</strong> (based on £100/seat savings)</td>
+    </tr>
+    <tr>
+      <td><strong>Partner Referral Intake</strong></td>
+      <td>Standard <code>Lead</code> object used by internal capture teams.</td>
+      <td>Bespoke custom object: `Referral_Submission__c`</td>
+      <td>Used for capturing raw data before qualified conversion. Compliant as long as sales pipelines are not managed here.</td>
+      <td><strong>£120,000.00 / year</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Professional Services Delivery</strong></td>
+      <td>Standard <code>Opportunity</code> tracking post-sale activities.</td>
+      <td>Bespoke custom object: `Delivery_Project__c`</td>
+      <td>Managing project execution and post-sales delivery tasks is not sales pipeline tracking. Custom project objects are fully compliant.</td>
+      <td><strong>£120,000.00 / year</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="s4">Standard Object Workarounds: Assessing Risks and Compliance Under "Indirect Access" Rules</h2>
+<p>When faced with the strict boundaries of Salesforce Platform licences, some technology teams attempt to build technical workarounds. These "hacks" are designed to expose standard CRM data to Platform users without upgrading their licences. Solutions architects must recognise that these workarounds represent a severe breach of your Salesforce agreement, exposing your organisation to high-risk commercial audits and back-licensing penalties.</p>
+
+<h3>Understanding the "Indirect Access" Rule</h3>
+<p>Salesforce's product terms directory defines <strong>Indirect Access</strong> as accessing standard CRM data or platform services through an integration layer, middleware (such as MuleSoft or Kafka), or custom code. The core rule is simple:</p>
+<blockquote class="licence-quote">
+  "Indirect access to the Services or platform data does not reduce the number of user licences required. Every human user who indirectly interacts with standard CRM objects must be licensed at the appropriate tier."
+</blockquote>
+<p>This means that trying to bypass a licence boundary by writing code or setting up integrations to pull standard CRM records and display them to unlicensed users is contractually a violation of the agreement.</p>
+
+<h3>Common Non-Compliant Workarounds and Audit Risks</h3>
+<p>Salesforce's commercial audit team uses sophisticated automated metadata scanners during platform reviews to flag licence circumvention. Key workarounds that are frequently flagged during audits include:</p>
+<ul>
+  <li><strong>Apex classes running <code>without sharing</code>:</strong> Writing custom Apex classes that bypass standard sharing settings to query the <code>Opportunity</code> table, and rendering this data to Platform users via custom Lightning components or custom API pages.</li>
+  <li><strong>Custom "Shadow" Objects:</strong> Setting up automated Flows or Apex triggers that copy standard <code>Opportunity</code> or <code>Case</code> records into custom objects (e.g., `Shadow_Opportunity__c`) solely to make that data visible to Platform users. This is known as "feature replication" and is a severe breach of contract.</li>
+  <li><strong>Email Forwarding and Slack Integration Hacks:</strong> Auto-forwarding standard Case notifications to shared queues or custom Slack channels, enabling unlicensed back-office staff to update case statuses without a standard Service Cloud licence.</li>
+</ul>
+
+<div class="callout callout--warning">
+  <p><strong>Audit Penalty Risk:</strong> If a Salesforce audit reveals that 500 Platform users are accessing standard Opportunity data through Apex workarounds, Salesforce can charge you back-licensing fees at the full Sales Cloud list price for those 500 users, retroactively applied to the start of the contract term. This can result in millions of pounds in unexpected licensing bills.</p>
+</div>
+
+<h3>Compliant Design Guidelines for Architects</h3>
+<p>To ensure absolute compliance, solutions architects should follow these simple design rules:</p>
+<ol>
+  <li>If an employee's primary role requires them to read, write, or update standard Leads, Opportunities, or Cases, <strong>they must be assigned a full CRM licence</strong>. No technical workaround is acceptable.</li>
+  <li>Custom objects must only be built to support net-new business processes that are not provided by standard CRM objects. Do not build custom objects that replicate standard Sales or Service Cloud functionality.</li>
+  <li>Ensure that your security roles, profiles, and permission sets match your contract terms. Never assign a permission set containing CRM privileges to a user assigned a Platform licence.</li>
+</ol>
+
+<h2 id="s5">Migration Execution Playbook: Safely Downgrading Users Without Data Loss</h2>
+<p>Once you have identified a pool of users who are eligible for a downgrade from Full CRM to Platform licences, you must execute the transition carefully. Because Salesforce does not allow you to directly change the `UserLicenseId` on a user record, executing a downgrade requires a structured technical process to avoid metadata errors and user data loss.</p>
+
+<h3>The technical challenge of Profile updates</h3>
+<p>In Salesforce's data model, the user licence type is determined by the profile assigned to the user. You cannot change a user's licence directly; you must change their profile to a new profile associated with the target licence type. Once the profile is updated, the platform automatically updates the user's `UserLicenseId`. However, this update will fail if the user is still assigned permission sets, permission set groups, public groups, or queues that depend on standard CRM objects.</p>
+
+<h3>Step-by-Step Technical Execution Playbook</h3>
+<p>The CoE must enforce the following technical steps to execute a safe licence downgrade:</p>
+
+<ol>
+  <li><strong>Step 1: Baseline Audit & Permission Set Mapping:</strong> Run a SOQL query to document all active permission set assignments for the target users. Identify any assignments that require Sales or Service Cloud privileges:
+<pre><code class="language-sql">-- Query permission set assignments for target users
+SELECT Id, AssigneeId, PermissionSet.Name, PermissionSet.License.Name
+FROM PermissionSetAssignment
+WHERE AssigneeId IN ('USER_ID_1', 'USER_ID_2')</code></pre>
+  Remove any permission sets that depend on standard CRM objects.</li>
+  
+  <li><strong>Step 2: Resolve Metadata Hard Blocks:</strong> Check if the target users are referenced in active configurations that would block their profile update. This includes checking if the user is:
+    <ul>
+      <li>The sole running user of active standard dashboards.</li>
+      <li>The default owner of standard Lead or Case queues.</li>
+      <li>Referenced in active workflow rules, flow alerts, or process builders that route notifications to their account.</li>
+    </ul>
+    Reassign these configurations to standard CRM licence holders or generic system integration accounts.</li>
+
+  <li><strong>Step 3: Create Custom Platform Profiles:</strong> Clone your standard Salesforce Platform profile and configure the field-level security (FLS) for all custom objects. Ensure that this new profile does not contain any permissions for standard CRM tables, avoiding deployment errors.</li>
+
+  <li><strong>Step 4: Execute the Profile Update via Apex:</strong> Update the target users' profile ID to the new custom Platform Profile. The platform will automatically handle the user licence migration behind the scenes. Below is a production-ready Apex script designed to execute this profile switch safely in bulk:
+<pre><code class="language-java">public class LicenseDowngradeUtility {
+    public static void executeProfileMigration(Map&lt;Id, Id&gt; userToNewProfileMap) {
+        List&lt;User&gt; usersToUpdate = new List&lt;User&gt;();
+        
+        // Retrieve target user details
+        List&lt;User&gt; targetUsers = [
+            SELECT Id, Name, ProfileId, IsActive 
+            FROM User 
+            WHERE Id IN :userToNewProfileMap.keySet()
+        ];
+        
+        for (User u : targetUsers) {
+            Id targetProfileId = userToNewProfileMap.get(u.Id);
+            if (u.ProfileId != targetProfileId) {
+                u.ProfileId = targetProfileId;
+                usersToUpdate.add(u);
+            }
+        }
+        
+        if (!usersToUpdate.isEmpty()) {
+            try {
+                // Execute the update
+                update usersToUpdate;
+                System.debug('Successfully migrated ' + usersToUpdate.size() + ' users to new license profiles.');
+            } catch (DmlException ex) {
+                System.debug(LoggingLevel.ERROR, 'DML Exception during license migration: ' + ex.getMessage());
+                throw ex;
+            }
+        }
+    }
+}</code></pre>
+  </li>
+  
+  <li><strong>Step 5: Post-migration UAT and Verification:</strong> Have the migrated users log in and complete standard processes to verify they can access Accounts, Contacts, and custom objects. Confirm that standard CRM objects (Opportunities, Cases, Leads) are completely hidden, keeping the org compliant.</li>
+</ol>
+
+<h3>Post-Migration Verification Audit Query</h3>
+<p>To verify that your migration was executed successfully and that no active platform users retain non-compliant permission set licenses, run the following query against your database:</p>
+
+<pre><code class="language-sql">-- Verify permission set licenses assigned to platform users
+SELECT Id, Assignee.Name, PermissionSetLicense.DeveloperName
+FROM PermissionSetLicenseAssign
+WHERE Assignee.Profile.UserLicense.Name = 'Salesforce Platform'</code></pre>
+<p>This query must return zero records. If any records are returned, it indicates that a Platform user is assigned a CRM permission set licence, which violates compliance terms and must be resolved immediately.</p>
+
+<h3>Summary: The Path to Compliant Cost Savings</h3>
+<p>By mapping out your user base, designing compliant custom schemas, and executing profile migrations using this playbook, your Center of Excellence can right-size your Salesforce spend safely. Platform licence migrations are a highly effective way to eliminate wasted software spend while maintaining a clean, compliant, and high-performing Salesforce environment.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Salesforce Platform user licences share the same infrastructure as CRM licences but are commercially restricted to custom business processes.</li>
+            <li>Platform licences include access to Accounts and Contacts but strictly block standard CRM tables like Opportunities and Cases.</li>
+            <li>Rebuilding standard objects on custom tables is only compliant if they serve a distinct, non-CRM business purpose.</li>
+            <li>Indirect access workarounds, such as using Apex without sharing to expose CRM tables to Platform users, violate licensing terms.</li>
+            <li>Executing a user downgrade requires a structured technical playbook to reassign record ownership and update user profiles safely.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p><strong>1. Which standard database objects represent a shared boundary that both Platform licence holders and Full CRM licence holders can read and edit?</strong></p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Opportunity and Lead</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Account and Contact</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Case and Asset</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. Campaign and Product2</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p><strong>2. Why will an administrator receive a "DML Exception" or a validation error when attempting to directly reassign a CRM user to a Platform profile?</strong></p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Salesforce Platform licences are unmanaged and do not support standard profiles.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. The user remains assigned to permission sets, public groups, or queues that depend on blocked standard CRM objects.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. You must delete the user record before changing licence types.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. You cannot change a user's profile once it is created.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p><strong>3. Under Salesforce's "Indirect Access" rules, which of the following custom configurations represents a licensing breach?</strong></p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. Exposing custom object data to external users via a licensed Customer Community portal.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. Allowing Platform users to create custom tasks linked to standard Contacts.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. Writing an Apex class running 'without sharing' to display standard Opportunity data to Platform users via a custom Lightning component.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. Automating approval processes for custom objects using Flow.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../lic-002/" class="related-card">
+              <span class="card-id">LIC-002</span>
+              <h4>User Licenses vs Permission Set Licenses</h4>
+            </a>
+            <a href="../lic-011/" class="related-card">
+              <span class="card-id">LIC-011</span>
+              <h4>Optimising Your Salesforce Licence Mix</h4>
+            </a>
+            <a href="../lic-013/" class="related-card">
+              <span class="card-id">LIC-013</span>
+              <h4>Storage Costs and Data Volume Limits</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Architectural Scope of Platform Licenses (Salesforce Platform vs Enterprise CRM)</a></li>
+            <li><a href="#s2">Object Access Boundaries: Standard CRM Objects vs Custom Schemas</a></li>
+            <li><a href="#s3">Mapping VIP and Custom Objects to Ensure Compliance and Cost Savings</a></li>
+            <li><a href="#s4">Standard Object Workarounds: Assessing Risks and Compliance Under "Indirect Access" Rules</a></li>
+            <li><a href="#s5">Migration Execution Playbook: Safely Downgrading Users Without Data Loss</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../lic-013/" class="sidebar-next-link">
+            <span class="sidebar-next-id">LIC-013</span>
+            <span class="sidebar-next-title">Storage Costs and Data Volume Limits: Commercial Planning</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../lic-011/" class="sidebar-next-link">
+            <span class="sidebar-next-id">LIC-011</span>
+            <span class="sidebar-next-title">Optimising Your Salesforce Licence Mix: A Practical Audit</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
