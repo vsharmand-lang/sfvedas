@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/cha-009/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHA-009: Salesforce Change Management in Regulated Industries — SFVedas</title>
+  <meta name="description" content="Salesforce Change Management in Regulated Industries. Manage change governance, FDA, GxP, HIPAA, and GDPR compliance on the Salesforce platform."/>
+  <meta property="og:title" content="CHA-009: Salesforce Change Management in Regulated Industries — SFVedas"/>
+  <meta property="og:description" content="Salesforce Change Management in Regulated Industries. Manage change governance, FDA, GxP, HIPAA, and GDPR compliance on the Salesforce platform."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/cha-009/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CHA-009: Salesforce Change Management in Regulated Industries — SFVedas"/>
+  <meta name="twitter:description" content="Salesforce Change Management in Regulated Industries. Manage change governance, FDA, GxP, HIPAA, and GDPR compliance on the Salesforce platform."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "CHA-009: Salesforce Change Management in Regulated Industries — SFVedas",
+    "description": "Salesforce Change Management in Regulated Industries. Manage change governance, FDA, GxP, HIPAA, and GDPR compliance on the Salesforce platform.",
+    "url": "https://sfvedas.com/tutorials/cha-009/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/cha-009/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "organisation",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=change-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Change Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:centre;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">CHA-009</span>
+        <span class="card-tag" style="background:rgba(147,51,234,0.08);color:rgb(147,51,234);border-color:rgba(147,51,234,0.2);">Change Management</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Compliance Officers &amp; Programme Leads</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce Change Management in Regulated Industries
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Balancing modern agile software delivery with strict GxP, FDA, HIPAA, and GDPR regulatory compliance standards on the Salesforce platform.
+      </p>
+      <div style="display:flex;align-items:centre;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Change Management Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:centre;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Addressing the core compliance challenge: balancing rapid agile iteration with strict regulatory constraints.</li>
+            <li>Navigating GxP, FDA 21 CFR Part 11, HIPAA, and GDPR frameworks within the Salesforce architecture.</li>
+            <li>Designing an audit-ready change log architecture to ensure complete metadata and data traceability.</li>
+            <li>Formulating structured UAT validation protocols to support computer software validation (CSV) gates.</li>
+            <li>Deploying automated, compliance-certified training tracking systems to programmatically verify user competency.</li>
+            <li>Implementing technical segregation of duties (SoD) across the release pipeline to guarantee compliance.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Compliance Challenge: Balancing Agile Change with Regulatory Constraints</h2>
+        <p>In the modern enterprise technology landscape, Salesforce has evolved from a simple customer relationship management tool into a core business platform. In highly regulated sectors—such as life sciences, healthcare, finance, and pharmaceuticals—Salesforce manages critical operational processes and highly sensitive customer data. This creates a fundamental operational conflict: the technical delivery team wants to operate with maximum agility, releasing new features through rapid weekly sprint cycles, while compliance officers demand strict, documented control gates to satisfy external regulators. Bridging this gap is the central challenge of modern change management.</p>
+        <p>Operating a Salesforce platform in a regulated environment requires a shift from informal development practices to a highly disciplined, audit-ready governance framework. Delivery teams must recognise that compliance is not a barrier to delivery; rather, it is a non-negotiable architectural boundary. By embedding compliance directly into the DevOps pipeline and change processes, organisations can protect their platform from regulatory breaches while maintaining the operational velocity needed to support business growth and continuous optimisation.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Compliance Insight</strong>
+            <p>Regulatory compliance must be treated as a core architectural requirement, not a post-development checklist. Trying to retrofit compliance onto a fully built Salesforce customisation is expensive and highly prone to failure.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Change Governance under FDA, GxP, HIPAA, and GDPR Frameworks</h2>
+        <p>To establish a compliant change governance framework, technical leads must understand the specific regulatory regimes that govern their industry. A life sciences organisation must satisfy FDA 21 CFR Part 11 and GxP standards, while a healthcare provider is bound by HIPAA, and any organisation handling European citizen data must comply with the GDPR. Each of these frameworks imposes strict technical and operational constraints on the Salesforce change management lifecycle.</p>
+        <p>FDA 21 CFR Part 11 and GxP standards focus heavily on computer software validation (CSV), electronic records, and electronic signatures. Salesforce customisations that affect product quality or safety must go through a formal validation protocol.
+        HIPAA requires absolute data confidentiality, requiring features like Shield Platform Encryption, Event Monitoring, and Field-Level Security to prevent unauthorised access to protected health information (PHI).
+        GDPR mandates strict data privacy, requiring structured consent tracking, right-to-be-forgotten deletion workflows, and data protection impact assessments (DPIAs) for any new metadata customisations.
+        Managing these overlapping requirements demands a unified, profile-based security and metadata architecture.</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Framework</th>
+                <th>Core Focus</th>
+                <th>Salesforce Technical Constraint</th>
+                <th>Change Governance Impact</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>FDA / GxP</strong></td>
+                <td>Software validation, records, and signatures.</td>
+                <td>Formal Computer Software Validation (CSV) protocols.</td>
+                <td>Mandatory sandbox testing and validated release gates.</td>
+              </tr>
+              <tr>
+                <td><strong>HIPAA</strong></td>
+                <td>Data confidentiality and PHI protection.</td>
+                <td>Shield Platform Encryption and Event Monitoring.</td>
+                <td>Strict field-level access control on metadata modifications.</td>
+              </tr>
+              <tr>
+                <td><strong>GDPR</strong></td>
+                <td>Data privacy, consent, and deletion.</td>
+                <td>Structured consent records and deletion workflows.</td>
+                <td>Data privacy review on every custom schema change.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="s3">Audit-Ready Change Log Architecture: Designing Traceability</h2>
+        <p>The primary requirement of any compliance audit is complete traceability. Regulators do not merely ask if a system is secure; they demand documented proof of exactly who authorised a change, why it was implemented, how it was tested, and when it was deployed. To satisfy this requirement, organisations must establish a structured, automated Change Log Architecture that captures metadata modifications in real-time.</p>
+        <p>A compliant change log architecture integrates the organisation's agile ticketing tool (such as Jira) directly with the Salesforce DevOps deployment pipeline (using tools like Copado, Gearset, or Salesforce DX). Every deployment package must be linked to an approved change ticket that documents the business rationale, impact assessment, and testing sign-offs. Below is a sample payload of a compliance-certified change metadata schema represented in JSON, showing how organisations record and trace system modifications systematically:</p>
+
+        <pre><code class="language-json">{
+  "Change_Log_Metadata": {
+    "Ticket_Reference": "JIRA-REG-901",
+    "Change_Author": "Lead Salesforce Architect",
+    "Environment_Source": "UAT Sandbox",
+    "Environment_Target": "Production",
+    "Regulatory_Impact": {
+      "GxP_Affected": true,
+      "HIPAA_Affected": false,
+      "GDPR_Impact_Assessed": true
+    },
+    "Approval_Records": [
+      {
+        "Role": "Business Change Lead",
+        "Approver_Email": "change.lead@sfvedas.com",
+        "Timestamp": "2026-05-10T14:32:00Z",
+        "Signature_Type": "Electronic"
+      },
+      {
+        "Role": "Lead Compliance Officer",
+        "Approver_Email": "compliance.lead@sfvedas.com",
+        "Timestamp": "2026-05-11T09:15:00Z",
+        "Signature_Type": "Electronic"
+      }
+    ],
+    "Components_Deployed": [
+      "CustomObject: Patient_Trial__c",
+      "ApexClass: PatientTrialTriggerHandler",
+      "ValidationRule: Validate_Trial_Status"
+    ]
+  }
+}</code></pre>
+
+        <h2 id="s4">Validating Salesforce Implementations: UAT and Validation Execution</h2>
+        <p>In a regulated industry, User Acceptance Testing (UAT) is not merely a method for gathering feedback; it is a critical regulatory validation gate. The change management workstream must design and execute UAT within the strict parameters of Computer Software Validation (CSV) protocols. Every test script executed by a business user must serve as legal documentation of platform compliance.</p>
+        <p>A validated UAT process requires absolute discipline. Test scripts must be meticulously written beforehand, detailing the exact inputs, expected behaviours, and compliance checkpoints. Testers must execute these scripts in a dedicated, isolated UAT sandbox that mirrors the production environment's security configuration. Every execution step, pass/fail result, and screenshot of system behaviour must be recorded and signed off electronically, creating an immutable paper trail that compliance officers can present during regulatory audits. This rigorous framework ensures that the customisations meet the high safety and security standards required in regulated environments.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Validation Rule</strong>
+            <p>Any failure during GxP-related UAT testing must trigger a formal incident report. The defect must be resolved, re-tested, and signed off before the deployment is permitted to proceed, ensuring absolute alignment with CSV guidelines.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">Training Compliance: Documenting and Verifying Competency programmatically</h2>
+        <p>The final, most critical regulatory gate in a Salesforce change programme is user competency. Regulators require organisations to prove that any employee accessing a validated system has been thoroughly trained on its operational processes and security controls. If an untrained user performs a transaction in production, the entire system can be declared non-compliant, leading to severe regulatory penalties.</p>
+        <p>To eliminate this risk, change teams must establish an automated, programmatically enforced Training Verification System. Instead of relying on manual training spreadsheets, organisations can leverage native Salesforce customisations and permission sets. By writing an Apex trigger that coordinates with the organisation's Learning Management System (LMS), Salesforce can block user access to validated features until they have completed the mandatory training courses. A user profile is assigned a "Training Pending" profile, which is only upgraded to the active "Validated User" permission set once the LMS sends a secure API callback confirming they have passed the required competency assessments.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Automating training verification inside the Salesforce security architecture provides absolute peace of mind during audits, programmatically preventing untrained users from accessing critical compliance-sensitive fields.</p>
+          </div>
+        </div>
+
+        <p>By enforcing these strict compliance guardrails, organisations establish a highly secure, audit-ready platform that protects the business from severe regulatory risks. It blends the velocity of agile DevOps with the rigorous oversight of external compliance frameworks, giving senior tech leaders complete confidence in their Salesforce investments. This holistic approach ensures that the system is fully adopted, highly secure, and continuously compliant from day one.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Salesforce platforms in regulated industries must treat compliance as a core, non-negotiable architectural boundary.</li>
+            <li>Change governance must adapt systematically to satisfy FDA GxP, HIPAA, and GDPR frameworks concurrently.</li>
+            <li>An audit-ready change log architecture must automate metadata and data traceability across the release pipeline.</li>
+            <li>UAT must operate as a highly disciplined CSV validation gate with electronically signed test executions.</li>
+            <li>User access to critical compliance-sensitive fields must be programmatically blocked until training is completed.</li>
+            <li>DevOps automation tools should be integrated directly with change tickets to guarantee complete audit trails.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          
+          <div class="quiz-question" id="q1">
+            <p>1. What is the primary focus of GxP and FDA 21 CFR Part 11 regulations on the Salesforce platform?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. To double the speed of developer sprint cycles.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. To guarantee computer software validation, secure electronic records, and compliant electronic signatures.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. To eliminate the need for sandbox environments.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. To enforce a dark-mode skin on all user interfaces.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. How should change teams programmatically ensure that untrained users cannot access compliance-sensitive features in production?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. By sending weekly email reminders to all department heads.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. By relying on a manual Excel spreadsheet managed by a junior administrator.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. By integrating the LMS with Salesforce to restrict active permission sets until training completion is verified.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. By turning off the validation rules for all standard profiles.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. Why must every deployment package be linked directly to an approved agile change ticket in Jira?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. To increase the size of the production database.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">B. To provide complete, automated metadata and data traceability for external regulatory audits.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. To bypass the need for any business steering committee approval.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. To force the developers to write fewer Apex tests.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../cha-010/" class="related-card">
+              <span class="card-id">CHA-010</span>
+              <h4>The Business Change Workstream</h4>
+            </a>
+            <a href="../cha-011/" class="related-card">
+              <span class="card-id">CHA-011</span>
+              <h4>User Acceptance Testing</h4>
+            </a>
+            <a href="../cha-012/" class="related-card">
+              <span class="card-id">CHA-012</span>
+              <h4>Post-Go-Live Adoption Dip</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Compliance Challenge: Balancing Agile Change with Regulatory Constraints</a></li>
+            <li><a href="#s2">Change Governance under FDA, GxP, HIPAA, and GDPR Frameworks</a></li>
+            <li><a href="#s3">Audit-Ready Change Log Architecture: Designing Traceability</a></li>
+            <li><a href="#s4">Validating Salesforce Implementations: UAT and Validation Execution</a></li>
+            <li><a href="#s5">Training Compliance: Documenting and Verifying Competency programmatically</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../cha-010/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CHA-010</span>
+            <span class="sidebar-next-title">The Business Change Workstream: Structure, Roles, and Deliverables</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../cha-008/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CHA-008</span>
+            <span class="sidebar-next-title">Salesforce Change Management Series</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

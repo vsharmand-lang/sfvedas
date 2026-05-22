@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/cha-013/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHA-013: Super User Networks: Design, Incentives, and Sustainability — SFVedas</title>
+  <meta name="description" content="Super User Networks: Design, Incentives, and Sustainability. Post-go-live super user programme."/>
+  <meta property="og:title" content="CHA-013: Super User Networks: Design, Incentives, and Sustainability — SFVedas"/>
+  <meta property="og:description" content="Super User Networks: Design, Incentives, and Sustainability. Post-go-live super user programme."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/cha-013/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CHA-013: Super User Networks: Design, Incentives, and Sustainability — SFVedas"/>
+  <meta name="twitter:description" content="Super User Networks: Design, Incentives, and Sustainability. Post-go-live super user programme."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "CHA-013: Super User Networks: Design, Incentives, and Sustainability — SFVedas",
+    "description": "Super User Networks: Design, Incentives, and Sustainability. Post-go-live super user programme.",
+    "url": "https://sfvedas.com/tutorials/cha-013/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/cha-013/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "organisation",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=change-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Change Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:centre;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">CHA-013</span>
+        <span class="card-tag" style="background:rgba(147,51,234,0.08);color:rgb(147,51,234);border-color:rgba(147,51,234,0.2);">Change Management</span>
+        <span class="card-read">15 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Programme Managers & Change Leads</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Super User Networks: Design, Incentives, and Sustainability
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        A detailed operational model for establishing, incentivising, and running an evergreen, post-go-live super user support programme.
+      </p>
+      <div style="display:flex;align-items:centre;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Change Management Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:centre;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+                        <li>Establish the clear architectural and functional boundary between Champions and Super Users.</li>
+            <li>Calculate optimal capacity and staff ratios to ensure adequate support coverage.</li>
+            <li>Formulate a strong incentive and prestige framework to reduce network attrition.</li>
+            <li>Design an integrated multi-tiered workflow with direct escalation paths to Admins.</li>
+            <li>Deploy robust annual refresh cycles to maintain network health and coverage.</li>
+          </ul>
+        </div>
+
+        
+        <h2 id="s1">Super Users vs Champion Networks: The Technical and Functional Distinction</h2>
+        <p>Champion networks and Super User networks represent two completely distinct operational capabilities on a Salesforce platform. Many delivery programmes fail because leaders conflate the two, treating high-level champions as technical support agents, or forcing busy technical super users to spend their hours writing promotional communications. Understanding the precise architectural and functional boundary between these two groups is critical for sustaining user adoption and maintaining platform governance.</p>
+        <p><strong>Champion Networks</strong> are fundamentally advocacy and feedback vehicles. Champions are business leaders, department heads, or highly influential team members who champion the system from a strategic standpoint. Their functional focus is on business value, alignment, and sponsorship. They are not expected to understand the intricacies of validation rules, Apex triggers, or complex system integrations. Instead, they drive adoption by demonstrating senior-level buy-in, communicating the "why" behind system customisation, and feeding high-level operational feedback back to the Centre of Excellence (CoE) or steering committee. They act as strategic antennas across the business.</p>
+        <p>Conversely, a <strong>Super User Network</strong> is a tactical, first-line support mechanism. Super Users are technically proficient, detail-oriented subject matter experts who live within the system daily. They are functional experts in their specific business units (e.g., Sales Operations, Customer Service, Billing) who also possess deep technical understanding of how Salesforce is customised for their organisation's business processes. They do not merely advocate for the system; they actively triage user issues, validate data quality, assist with reporting, and prevent user errors from escalating to the central Salesforce Administrator team.</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Champion Network</th>
+                <th>Super User Network</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary Focus</strong></td>
+                <td>Strategic advocacy, culture change, and feedback.</td>
+                <td>Tactical first-line support, triage, and data quality.</td>
+              </tr>
+              <tr>
+                <td><strong>Technical Depth</strong></td>
+                <td>Low to Medium. Understands value, not configuration.</td>
+                <td>High. Understands system behaviour and customisation.</td>
+              </tr>
+              <tr>
+                <td><strong>Access Level</strong></td>
+                <td>Standard profile, standard business visibility.</td>
+                <td>Elevated permissions (e.g., View All Data, custom permission sets).</td>
+              </tr>
+              <tr>
+                <td><strong>Operational Time</strong></td>
+                <td>Ad-hoc. Strategic meetings and advocacy events.</td>
+                <td>Structured. Dedicated 10-15% of weekly capacity.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Strategic Distinctions</strong>
+            <p>Do not force strategic champions to do the grunt work of technical support. If a Sales Director is nominated as a champion, they will never have the time to help an account manager debug a validation rule. Assign that task to a Sales Operations specialist acting as a Super User.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Structuring the Super User Programme: Capacity Planning and Responsibilities</h2>
+        <p>To construct a resilient Super User programme, organisations must move away from the "accidental volunteer" model. High-performing platforms require a structured capacity planning framework that formally recognises and protects the Super User's time. Without formal capacity allocation, Super Users are quickly consumed by their primary operational roles, leaving general users without support and leading to a rapid decay in data quality and system adoption.</p>
+        <p>When planning network capacity, delivery leads should target a Super User-to-user ratio of between <strong>1:15 and 1:25</strong> per functional department or geographical site. In highly complex environments, such as service centres running multi-channel Service Cloud instances with intricate Omni-Channel routing, a tighter ratio of 1:10 is recommended to handle the volume of real-time process queries.</p>
+        <p>Super Users must have an official mandate. Their role must be formalised with their direct line managers, ensuring that between <strong>10% and 15%</strong> of their weekly working hours (typically 4 to 6 hours) is explicitly carved out and protected for Salesforce activities. This time allocation must be built into their annual performance objectives, ensuring they are evaluated on their contribution to platform enablement.</p>
+        
+        <h3>Core Operational Responsibilities</h3>
+        <p>To prevent scope creep, the operational boundaries of the Super User role must be clearly documented. Super Users are not developers and should not be making metadata changes in production. Instead, their responsibilities are bounded by the following activities:</p>
+        <ul>
+          <li><strong>First-Line Triage:</strong> Investigating user queries to determine whether an issue stems from a lack of user training or a genuine system bug.</li>
+          <li><strong>Process Reinforcement:</strong> Ensuring team members follow standardised data entry protocols and leverage custom features correctly.</li>
+          <li><strong>User Acceptance Testing (UAT):</strong> Participating in monthly sandbox testing cycles to validate that new features align with business requirements before they are deployed to production.</li>
+          <li><strong>Micro-Enablement:</strong> Delivering informal, targeted coaching sessions on list views, reporting, and dashboard creation.</li>
+        </ul>
+
+        <h2 id="s3">Incentivising and Retaining Super Users: Career Growth, Certifications, and Perks</h2>
+        <p>The most common point of failure in Super User networks is attrition due to burnout. Super Users are typically high-performing employees who are asked to take on additional responsibilities without immediate financial compensation. To sustain the network, organisations must design a comprehensive incentive framework that focuses on career growth, professional development, and prestige.</p>
+        <p>The primary incentive for a Super User should be a defined career path. By acting as a Super User, employees develop valuable, highly marketable technical skills. Organisations should formalise a transition pathway that positions the Super User role as a stepping stone to permanent roles within the Salesforce Centre of Excellence (CoE), such as Business Analyst, junior Salesforce Administrator, or Platform Product Owner.</p>
+        <p>Furthermore, organisations should sponsor professional development. Providing Super Users with paid vouchers for Salesforce certifications (such as Salesforce Certified Associate or Salesforce Certified Administrator) is a highly cost-effective retention mechanism. This investment demonstrates that the organisation values their contribution and is actively investing in their professional future.</p>
+
+        <h3>Structuring the Incentive Framework</h3>
+        <p>Incentives must be multi-dimensional, combining long-term professional rewards with immediate, high-visibility recognition. An effective programme should incorporate the following three pillars:</p>
+        <ul>
+          <li><strong>Executive Visibility:</strong> Inviting Super Users to regular briefing sessions with the Salesforce Programme Director or CIO.</li>
+          <li><strong>Exclusive Release Previews:</strong> Providing early access to sandbox environments to play with new features before they are rolled out to the wider business.</li>
+          <li><strong>Gamification and Branding:</strong> Distributing exclusive branded merchandise, digital badges on internal platforms (such as Slack or Trailhead), and hosting an annual "Super User of the Year" award event.</li>
+        </ul>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Always align incentives with line managers. Ensure the line manager understands that having a Super User in their team reduces their team's downtime and increases overall efficiency. If the line manager views the Super User role as a distraction, the programme will fail.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Designing the Super User Support Workflow</h2>
+        <p>A Super User network cannot operate effectively in isolation; it must be seamlessly integrated into the organisation's IT service management (ITSM) framework. Organisations must establish a clear, multi-tiered support workflow that defines exactly how queries flow from initial user discovery to central administration resolution.</p>
+        <p>The standard support workflow consists of three distinct tiers:</p>
+        <ol>
+          <li><strong>Tier 1 (Peer-to-Peer Triage):</strong> The end user encounters an issue and reaches out to their designated Super User via Slack, Teams, or in-person. The Super User investigates. If it is a training gap, a process misunderstanding, or a minor data correction issue, the Super User resolves it immediately.</li>
+          <li><strong>Tier 2 (Structured Escalation):</strong> If the Super User determines that the issue is a system bug, a validation rule conflict, or a legitimate enhancement request, they log the issue in the central ITSM tool (such as Jira or ServiceNow). The ticket is flagged as "Super User Triage Verified," ensuring it bypasses the generic IT helpdesk and routes directly to the Salesforce Admin team.</li>
+          <li><strong>Tier 3 (Central Platform Resolution):</strong> The Salesforce Administrator or development team resolves the issue in the sandbox, tests the fix, and deploys it. The Super User is notified first, allowing them to confirm the resolution with the end user, closing the feedback loop.</li>
+        </ol>
+
+        <p>To ensure tickets are documented correctly, Super Users should capture specific metadata before escalating. A structured ticket payload might look like this:</p>
+        <pre><code class="language-json">{
+  "ticket_metadata": {
+    "escalated_by": "super_user_id_1092",
+    "triage_status": "verified_by_super_user",
+    "impact_level": "medium",
+    "business_unit": "Sales Operations EMEA",
+    "environment": "Production",
+    "technical_details": {
+      "object_affected": "Opportunity",
+      "error_message": "FIELD_CUSTOM_VALIDATION_EXCEPTION: Close Date cannot be in the past.",
+      "reproduction_steps": [
+        "1. Open Opportunity Record 'Acme Q2 Expansion'.",
+        "2. Attempt to move stage to 'Closed Won'.",
+        "3. Observe validation block."
+      ]
+    }
+  }
+}</code></pre>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Architects</strong>
+            <p>Do not allow standard users to bypass the Super User network and log tickets directly with the Admin team. If the triage gate is bypassed, the Salesforce Administrator team will be overwhelmed by simple "how-to" queries, completely stalling roadmap delivery.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">Long-Term Sustainability: Scaling and Refreshing the Super User Network</h2>
+        <p>Super User networks naturally decay over time. Employee promotions, department transfers, and external attrition mean that a network that is perfectly staffed at go-live will lose approximately 20% to 30% of its capacity annually. To maintain a healthy support structure, organisations must implement a proactive scaling and refreshing strategy.</p>
+        <p>A sustainable programme requires a structured, recurring schedule of activities:</p>
+        <ul>
+          <li><strong>Quarterly Enablement Refresher:</strong> Host dedicated 2-hour technical updates for Super Users to walk through the upcoming Salesforce release notes, demonstrating new features in sandbox environments before they hit production.</li>
+          <li><strong>Monthly Steering Updates:</strong> Provide Super Users with a direct line of communication to the CoE, presenting metrics on ticket reduction, user adoption, and upcoming features.</li>
+          <li><strong>Annual Network Audit:</strong> Conduct a formal review of the network's health. Assess the active participation of each Super User. If a Super User has transitioned to a new role or no longer has the capacity, transition them gracefully to "Emeritus" status and launch a targeted recruitment drive in their department.</li>
+        </ul>
+        <p>Sustaining the network also requires modular training pathways. As new Super Users are onboarded, they should go through a standardised "Super User Boot Camp" that focuses not just on Salesforce configuration, but on coaching techniques, process mapping, and effective ticket triage. By treating the Super User network as a living, funded product stream rather than a post-project afterthought, organisations can guarantee high user adoption and robust data governance for the lifetime of their Salesforce investment.</p>
+
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+                        <li>Super Users provide tactical technical support while Champion Networks drive high-level cultural change and strategic advocacy.</li>
+            <li>Effective programmes allocate 10% to 15% of a Super User's weekly capacity and protect it with formal manager agreements.</li>
+            <li>Burnout is the leading cause of network decay, making structured career progression and sponsored certifications essential.</li>
+            <li>Integrating Super Users as Tier 1 triage gates shields central Salesforce Administrators from repetitive queries.</li>
+            <li>Proactive annual audits and standard onboarding boot camps are required to counter the natural 20-30% annual network attrition.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+                    <div class="quiz-question" id="q1">
+            <p>1. What is the primary functional difference between a Champion Network and a Super User Network?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Champions write custom Apex code while Super Users focus solely on user training.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. Champions drive high-level strategic advocacy and feedback, whereas Super Users provide first-line technical support and triage.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Champions are external consultants, while Super Users are always full-time internal IT staff.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Champions handle licence provisioning while Super Users handle sandbox deployments.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. What is the recommended percentage of weekly working hours that should be officially protected for a Super User's activities?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. 1% to 3%</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. 50% to 60%</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. 10% to 15%</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. 90% to 100%</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. How should a Super User ticket escalation workflow be integrated into the central IT support structure?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Super Users should resolve all technical bugs directly in production without escalation.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. General users should bypass Super Users and log tickets directly with Salesforce Premier Support.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Super Users act as Tier 1 triage, document technical metadata, and escalate verified bugs directly to Tier 2 (Salesforce Admins).</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. General users submit tickets to general IT support, who then assign them randomly to Super Users.</div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../cha-003/" class="related-card">
+              <span class="card-id">CHA-003</span>
+              <h4>Building a Salesforce Champion Network</h4>
+            </a>
+            <a href="../cha-012/" class="related-card">
+              <span class="card-id">CHA-012</span>
+              <h4>Post-Go-Live Adoption Dip</h4>
+            </a>
+            <a href="../cha-014/" class="related-card">
+              <span class="card-id">CHA-014</span>
+              <h4>Training vs Enablement</h4>
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+                        <li><a href="#s1">Super Users vs Champion Networks: The Technical and Functional Distinction</a></li>
+            <li><a href="#s2">Structuring the Super User Programme: Capacity Planning and Responsibilities</a></li>
+            <li><a href="#s3">Incentivising and Retaining Super Users: Career Growth, Certifications, and Perks</a></li>
+            <li><a href="#s4">Designing the Super User Support Workflow</a></li>
+            <li><a href="#s5">Long-Term Sustainability: Scaling and Refreshing the Super User Network</a></li>
+
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../cha-014/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CHA-014</span>
+            <span class="sidebar-next-title">Training vs Enablement: The Difference That Changes Outcomes</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../cha-012/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CHA-012</span>
+            <span class="sidebar-next-title">Post-Go-Live Adoption Dip: Why It Happens and How to Recover</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

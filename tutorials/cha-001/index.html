@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/cha-001/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHA-001: Change Management for Salesforce Programmes: Beyond Training Courses — SFVedas</title>
+  <meta name="description" content="Change Management for Salesforce Programmes: Beyond Training Courses. Drive adoption with strategic enablement."/>
+  <meta property="og:title" content="CHA-001: Change Management for Salesforce Programmes: Beyond Training Courses — SFVedas"/>
+  <meta property="og:description" content="Change Management for Salesforce Programmes: Beyond Training Courses. Drive adoption with strategic enablement."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/cha-001/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CHA-001: Change Management for Salesforce Programmes: Beyond Training Courses — SFVedas"/>
+  <meta name="twitter:description" content="Change Management for Salesforce Programmes: Beyond Training Courses. Drive adoption with strategic enablement."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "CHA-001: Change Management for Salesforce Programmes: Beyond Training Courses — SFVedas",
+    "description": "Change Management for Salesforce Programmes: Beyond Training Courses. Drive adoption with strategic enablement.",
+    "url": "https://sfvedas.com/tutorials/cha-001/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/cha-001/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=change-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Change Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">CHA-001</span>
+        <span class="card-tag" style="background:rgba(147,51,234,0.08);color:rgb(147,51,234);border-color:rgba(147,51,234,0.2);">Change Management</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: CIOs & Programme Directors</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Change Management for Salesforce Programmes: Beyond Training Courses
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Why traditional classroom training is not enough, and how to design an end-to-end enablement strategy that drives real business adoption.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Analyzing the limitations of classroom-based click-path training for enterprise Salesforce rollouts.</li>
+            <li>Exploring the six core pillars of strategic change management that drive CRM adoption and ROI.</li>
+            <li>Designing stakeholder mapping and coalition-building strategies to align the executive steering committee.</li>
+            <li>Creating a structured, multichannel communication campaign plan with a sample timeline.</li>
+            <li>Establishing formal governance, budget allocation, and ROI measurement for the change management workstream.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Limitations of the Classroom: Why Traditional Training Fails Salesforce Rollouts</h2>
+        <p>In many enterprise Salesforce implementations, organisations fall victim to a common, costly mistake: they conflate 'change management' with 'system training'. C-level leaders and programme managers often assume that as long as they provide a series of classroom training sessions or self-paced online modules, end users will naturally embrace the new platform. Yet, despite investing heavily in elaborate classroom setups, training manuals, and interactive click-through guides, many enterprise rollouts suffer from severe user resistance, low system adoption, and ultimately, a failure to realise the projected business benefits.</p>
+
+        <p>Traditional classroom training fails to drive Salesforce adoption because it is inherently transactional. It focus heavily on 'click-path' navigation—teaching users which buttons to press, which fields are mandatory, and how to save a record. This transactional focus ignores the underlying operational and behavioural changes that a CRM rollout demands. When an organisation implements Salesforce, it is not merely upgrading its software; it is transforming its business processes, data standards, and collaborative workflows. End users are expected to adapt to new ways of working, which often increase their administrative workload in the short term to deliver long-term value to the wider business. Classroom training cannot address these psychological barriers or motivate users to change their daily habits.</p>
+
+        <p>Furthermore, classroom-based training suffers from structural limitations that limit its effectiveness:</p>
+
+        <ul>
+          <li><strong>High Cognitive Load:</strong> Cramming complex system processes, data standards, and operational guidelines into a single two-hour classroom session overwhelms users. Without context or immediately applicable scenarios, they struggle to retain the information.</li>
+          <li><strong>Poor Timing and Forgetting:</strong> Training is often delivered weeks before system go-live, or conversely, in the middle of a high-pressure launch week. In both cases, users forget the click-paths before they have the opportunity to apply them in their daily tasks.</li>
+          <li><strong>Lack of Business Context:</strong> Standard training materials are often generic, focusing on system functionality rather than the organisation's specific business scenarios and standardised definitions. Users struggle to see how the system relates to their specific roles and targets.</li>
+        </ul>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Training tells users <em>how</em> to use Salesforce. Change management explains <em>why</em> they should care, how it benefits their roles, and how it aligns with the organisation's strategic goals. Do not confuse the two.</p>
+          </div>
+        </div>
+
+
+        <h2 id="s2">The Six Pillars of Strategic Change Management for Enterprise CRM</h2>
+        <p>To overcome the limitations of traditional training, organisations must implement a comprehensive, strategic change management framework. This framework must run in parallel with the technical delivery stream, ensuring that user readiness is prioritised alongside system configuration. An effective Salesforce change management strategy is built upon six core pillars that collectively guide the organisation through the transformation process:</p>
+
+        <p><strong>1. Executive Sponsorship Alignment:</strong> Ensuring that senior leaders are active, visible advocates for the programme. The sponsor must model the desired behaviours, resolve cross-functional process deadlocks, and consistently communicate the strategic vision behind the Salesforce investment.</p>
+
+        <p><strong>2. Stakeholder Engagement &amp; Coalition Building:</strong> Identifying key business unit leaders and aligning their individual departmental objectives with the success of the Salesforce platform. This helps dismantle legacy functional silos and builds a supportive steering coalition.</p>
+
+        <p><strong>3. Strategic Communication Campaigns:</strong> Creating a structured, multichannel communication plan that addresses the specific concerns of different user groups. The campaign must explain the 'What's In It For Me' (WIIFM) factor for every role, building anticipation and reducing anxiety.</p>
+
+        <p><strong>4. Customised Enablement &amp; Role-Based Learning:</strong> Replacing generic system training with process-led, role-based enablement. Users learn how to execute their specific business processes within Salesforce, supported by on-demand guidance and real-world scenarios.</p>
+
+        <p><strong>5. Champion Networks:</strong> Establishing a peer-led network of change agents on the ground. Champions provide localised support, model correct system usage, and channel user feedback directly back to the project team.</p>
+
+        <p><strong>6. Continuous Feedback &amp; Measurement:</strong> Implementing tools and processes to monitor user adoption, data quality, and system compliance post-go-live. This allows the organisation to identify and address resistance, optimise workflows, and measure business benefit realisation.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Programme Managers</strong>
+            <p>Ignoring any of these six pillars creates a critical vulnerability in your rollout strategy. For example, a technically perfect Salesforce configuration will fail if executive sponsors disappear post-kickoff or if there is no champion network to support users on the ground.</p>
+          </div>
+        </div>
+
+
+        <h2 id="s3">Stakeholder Mapping and Coalition Building: Aligning the Steering Committee</h2>
+        <p>Enterprise Salesforce implementations often trigger intense political friction across departments. Because Salesforce acts as a single source of truth, it integrates workflows across Sales, Marketing, and Customer Service. This integration forces individual department heads to share visibility, align data standards, and standardise processes. Naturally, this leads to conflict, as department heads attempt to protect their legacy ways of working or resist changes that might impact their team's short-term KPIs.</p>
+
+        <p>To navigate these political dynamics, the programme team must conduct a formal stakeholder mapping exercise during the preparation phase. This exercise categorises key steering committee members and business unit leaders based on their level of influence over the programme and their current level of support for the change:</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Stakeholder Quadrant</th>
+                <th>Behavioural Profile</th>
+                <th>Engagement Strategy</th>
+                <th>Sponsor Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>High Influence, Low Support (Passive/Active Resisters)</strong></td>
+                <td>Pushes back on process standardisation; defends legacy shadow systems; delegates steering duties.</td>
+                <td>Conduct one-on-one alignment sessions; tie system success to their department's strategic goals.</td>
+                <td>Direct executive intervention; mandate standardisation; resolve political deadlocks.</td>
+              </tr>
+              <tr>
+                <td><strong>High Influence, High Support (Champions)</strong></td>
+                <td>Actively advocates for the platform; models desired behaviours; drives process alignment.</td>
+                <td>Position as core steering members; leverage their influence to sway passive resisters.</td>
+                <td>Empower and celebrate their advocacy; maintain close strategic alignment.</td>
+              </tr>
+              <tr>
+                <td><strong>Low Influence, High Support (Enthusiasts)</strong></td>
+                <td>Eager to adopt the tool; willing to support peers; positive attitude towards change.</td>
+                <td>Recruit into the Champion Network; leverage for user acceptance testing and peer-led enablement.</td>
+                <td>Provide visibility; recognise their contribution to platform adoption.</td>
+              </tr>
+              <tr>
+                <td><strong>Low Influence, Low Support (Apathetic)</strong></td>
+                <td>Indifferent to the system; prefers legacy workflows; does not participate in discussions.</td>
+                <td>Ensure clear communication of basic WIIFM factors; monitor adoption post-go-live.</td>
+                <td>Reinforce mandatory system usage through line management.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Concept</strong>
+            <p>Building a powerful steering coalition is not a one-time activity. It requires continuous, proactive engagement. The executive sponsor must actively manage peer relationships to ensure that individual functional heads remain committed to the collective success of the platform.</p>
+          </div>
+        </div>
+
+
+        <h2 id="s4">Creating a Structured Salesforce Communication Campaign Plan</h2>
+        <p>A key driver of user resistance in Salesforce rollouts is fear of the unknown. When users are left in the dark about an upcoming system implementation, they default to negative assumptions. They worry that the new system will increase their administrative workload, track their daily activity too closely, or make their jobs more difficult. To combat these anxieties and build strategic alignment, the change workstream must design and execute a structured, multichannel communication campaign plan.</p>
+
+        <p>The communication campaign must begin at least three months prior to go-live and continue for three months post-launch. It must target different audience segments with tailored messages that address the WIIFM (What's In It For Me) factor for their specific roles:</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Phase</th>
+                <th>Timing</th>
+                <th>Key Message</th>
+                <th>Target Audience</th>
+                <th>Channels</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Awareness &amp; Vision</strong></td>
+                <td>Go-Live - 90 Days</td>
+                <td>Why we are investing in Salesforce; the strategic vision and long-term benefits for the organisation.</td>
+                <td>All Employees</td>
+                <td>CEO Town Halls, Internal Newsletters, Strategic Videos.</td>
+              </tr>
+              <tr>
+                <td><strong>2. Engagement &amp; WIIFM</strong></td>
+                <td>Go-Live - 60 Days</td>
+                <td>How Salesforce will simplify your specific role; showcasing automated tasks and improved data visibility.</td>
+                <td>Middle Managers &amp; End Users</td>
+                <td>Role-Specific Showcases, Team Meetings, Internal Slack/Teams.</td>
+              </tr>
+              <tr>
+                <td><strong>3. Preparation &amp; Readiness</strong></td>
+                <td>Go-Live - 30 Days</td>
+                <td>Enablement schedules, learning paths, and support mechanisms; what to expect on launch day.</td>
+                <td>End Users</td>
+                <td>Personalised Emails, Enablement Portals, Q&amp;A Sessions.</td>
+              </tr>
+              <tr>
+                <td><strong>4. Launch &amp; Reinforcement</strong></td>
+                <td>Go-Live to +90 Days</td>
+                <td>Celebrating adoption milestones; highlighting business wins; addressing user feedback and optimising workflows.</td>
+                <td>All Users</td>
+                <td>Monthly Town Halls, Champion Showcases, Post-Launch Surveys.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>A successful communication plan is interactive, not unidirectional. Make sure to establish clear channels for users to ask questions, raise concerns, and provide feedback throughout the entire programme lifecycle.</p>
+          </div>
+        </div>
+
+
+        <h2 id="s5">Governing the Change Workstream: Alignment, Budgets, and Strategic ROI</h2>
+        <p>To guarantee success, the Change Management workstream must be governed with the same discipline, rigor, and visibility as the technical delivery stream. It cannot be treated as an optional add-on or delegated to a junior team member as a part-time task. The Lead Change Specialist must have a seat at the PMO and steering committee table, ensuring that change readiness metrics are reviewed alongside technical milestones at every project gate.</p>
+
+        <p>Effective change management governance requires a dedicated budget allocation. Industry best practices show that enterprise digital transformation initiatives should allocate between 10% and 15% of the total programme budget exclusively to change management, communications, and enablement. This budget must fund dedicated change resources, communications collateral, champion network enablement events, and post-go-live adoption tracking tools.</p>
+
+        <p>Finally, organisations must measure the strategic ROI of their change management investment. True CRM success is measured by business outcomes, not system delivery. Change leads should track concrete benefit realisation metrics across three key dimensions:</p>
+
+        <ul>
+          <li><strong>Speed of Adoption (Speed):</strong> How quickly are users transitioning from legacy systems to Salesforce? (e.g., measuring weekly logins and record creation rates post-go-live).</li>
+          <li><strong>Ultimate Utilization (Usage):</strong> What percentage of the user population is actively using the system's core capabilities? (e.g., tracking opportunity updates, pipeline coverage, and service case updates).</li>
+          <li><strong>Proficiency (Quality):</strong> Are users inputting high-quality data and adhering to standardised business processes? (e.g., monitoring data validation error rates, duplicate records, and process cycle times).</li>
+        </ul>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Programme Sponsors</strong>
+            <p>If you fail to allocate a dedicated budget and governance seat to the change workstream, you are implicitly accepting that user adoption is optional. The cost of a failed implementation far outweighs the 10-15% investment required to secure user buy-in.</p>
+          </div>
+        </div>
+
+        <p>By implementing a structured, budgeted, and actively governed change management strategy, organisations can mitigate the risks of user resistance, drive deep platform adoption, and maximise the long-term ROI of their Salesforce investment. This holistic approach ensures that the business capability evolves alongside the technology, creating a self-reinforcing engine of operational excellence and commercial growth.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Classroom training fails because it focuses purely on transactional system navigation while failing to address business process change and user motivation.</li>
+            <li>A strategic Salesforce rollout requires a holistic change framework built on executive sponsorship, user alignment, and continuous enablement.</li>
+            <li>Managing stakeholder resistance requires early mapping of steering committee members and tailored engagement to build a unified coalition.</li>
+            <li>Communication campaigns must run throughout the programme lifecycle and address the "What's In It For Me" (WIIFM) factor for every user persona.</li>
+            <li>The change management workstream must have dedicated budget allocation (10-15% of total budget) and a seat at the PMO governance table.</li>
+            <li>Measuring change management ROI requires tracking concrete business outcomes like pipeline quality and ticket resolution speed rather than login counts.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p>1. Why does traditional classroom-based "click-path" training typically fail to drive long-term Salesforce adoption?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','right')">A. It focuses purely on transactional system navigation while failing to address business process change and user motivation.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. It is too expensive compared to building custom software code.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Salesforce does not support classroom training formats.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. It requires users to have advanced degrees in database administration.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. Which stakeholder quadrant requires the most intense, targeted coalition-building efforts by the Salesforce Sponsor?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. High Influence, High Support (Champions).</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. Low Influence, Low Support (Apathetic users).</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. High Influence, Low Support (Active or Passive Resisters in the steering committee).</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Low Influence, High Support (Enthusiastic end users).</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. What percentage of the overall Salesforce implementation budget should typically be allocated to the change management workstream?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Less than 1%, reserved purely for printing training manuals.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">B. Approximately 10% to 15%, to fund dedicated change resources, communications, and champion networks.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Exactly 50%, splitting the budget evenly between software engineering and change management.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Zero, as change management should be absorbed into general corporate overheads.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../cha-002/" class="related-card">
+              <span class="card-id">CHA-002</span>
+              <h4>Why Salesforce Implementations Fail</h4>
+            </a>
+            <a href="../cha-003/" class="related-card">
+              <span class="card-id">CHA-003</span>
+              <h4>Building a Salesforce Champion Network</h4>
+            </a>
+            <a href="../cha-004/" class="related-card">
+              <span class="card-id">CHA-004</span>
+              <h4>Executive Sponsorship</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">1. The Limitations of the Classroom: Why Traditional Training Fails Salesforce Rollouts</a></li>
+            <li><a href="#s2">2. The Six Pillars of Strategic Change Management for Enterprise CRM</a></li>
+            <li><a href="#s3">3. Stakeholder Mapping and Coalition Building: Aligning the Steering Committee</a></li>
+            <li><a href="#s4">4. Creating a Structured Salesforce Communication Campaign Plan</a></li>
+            <li><a href="#s5">5. Governing the Change Workstream: Alignment, Budgets, and Strategic ROI</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../cha-002/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CHA-002</span>
+            <span class="sidebar-next-title">Why Salesforce Implementations Fail: The Change Management Diagnosis</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+        
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

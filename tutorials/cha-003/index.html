@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/cha-003/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CHA-003: Building a Salesforce Champion Network — SFVedas</title>
+  <meta name="description" content="Building a Salesforce Champion Network. Identify, equip, and sustain peer influencers."/>
+  <meta property="og:title" content="CHA-003: Building a Salesforce Champion Network — SFVedas"/>
+  <meta property="og:description" content="Building a Salesforce Champion Network. Identify, equip, and sustain peer influencers."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/cha-003/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CHA-003: Building a Salesforce Champion Network — SFVedas"/>
+  <meta name="twitter:description" content="Building a Salesforce Champion Network. Identify, equip, and sustain peer influencers."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "CHA-003: Building a Salesforce Champion Network — SFVedas",
+    "description": "Building a Salesforce Champion Network. Identify, equip, and sustain peer influencers.",
+    "url": "https://sfvedas.com/tutorials/cha-003/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/cha-003/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=change-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Change Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">CHA-003</span>
+        <span class="card-tag" style="background:rgba(147,51,234,0.08);color:rgb(147,51,234);border-color:rgba(147,51,234,0.2);">Change Management</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Change Leads & Programme Managers</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Building a Salesforce Champion Network
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        How to identify, equip, and sustain a network of peer influencers to drive ground-up adoption of Salesforce.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Understanding why peer-led champion networks outperform top-down corporate mandates in driving Salesforce adoption.</li>
+            <li>Defining precise selection criteria to identify real business influencers rather than just technical super users.</li>
+            <li>Establishing clear champion responsibilities across enablement, feedback loops, and platform advocacy.</li>
+            <li>Structuring a robust enablement programme with dedicated toolkits, training, and formal recognition.</li>
+            <li>Measuring the business impact of champions and sustaining network momentum post-go-live.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Role of Champions: Why Peer-Led Change is More Effective Than Corporate Mandates</h2>
+        <p>When implementing an enterprise Salesforce platform, executive leadership often defaults to a top-down, mandate-driven approach to drive user adoption. The message is simple and direct: "You must use this system because management has mandated it, and legacy shadow systems are now decommissioned." While mandates are useful for establishing clear boundaries, they rarely inspire genuine behavioural change. Instead, they often breed resentment, passive resistance, and 'compliant but minimal' usage, where users input just enough data to satisfy their managers while continuing to run their core processes offline.</p>
+
+        <p>True, sustainable Salesforce adoption is built on peer-led change, facilitated by a structured <strong>Salesforce Champion Network</strong>. Human behaviour is deeply influenced by social proof and localised trust. When an end user is struggling to adapt to a new opportunity management layout, they are far more receptive to advice from a direct teammate who sits next to them, understands their daily pressure, and speaks their language, rather than a technical consultant or a distant IT support desk. Champions demystify the platform, translating technical functionalities into practical, role-specific business benefits.</p>
+
+        <p>A structured Champion Network delivers distinct advantages that corporate mandates cannot replicate:</p>
+
+        <ul>
+          <li><strong>Localised Trust and Empathy:</strong> Champions are embedded within the business teams. They face the same operational challenges, deal with the same customer objections, and share the same daily workflows. When they advocate for Salesforce, their peers perceive it as a genuine process recommendation rather than a management directive.</li>
+          <li><strong>Real-Time, Contextual Support:</strong> Rather than forcing users to log IT support tickets for basic questions, champions provide immediate, on-the-spot troubleshooting. This reduces user frustration during the critical first weeks post-launch, preventing the formation of negative habits.</li>
+          <li><strong>Cultural Social Proof:</strong> When users witness their most respected colleagues actively using Salesforce to close deals, manage service cases, or automate manual tasks, they experience positive social pressure to align their own workflows.</li>
+        </ul>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Mandates can force users to log in, but they cannot force them to enter high-quality data or collaborate productively. Only peer-led advocacy and cultural alignment can drive genuine platform ownership.</p>
+          </div>
+        </div>
+
+
+        <h2 id="s2">Champion Selection Criteria: Identifying the Real Influencers in Your Business</h2>
+        <p>A critical failure mode in building a Salesforce Champion Network is selecting candidates based on the wrong criteria. Many programme leads default to nominating either the highest-performing 'super users' or the most senior team members in each department. While these individuals may be highly competent, they do not necessarily make effective change agents. A top-performing sales representative, for example, is often highly focused on their personal quota and may lack the patience or desire to dedicate time to coaching struggling colleagues. Similarly, senior team members may be too detached from daily transactional workflows to provide practical support.</p>
+
+        <p>To build a high-impact network, Change Leads must establish precise selection criteria. Candidates should be evaluated across three core capabilities: social influence, process empathy, and communication skills:</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Selection Dimension</th>
+                <th>Desired Attributes</th>
+                <th>Why It Matters</th>
+                <th>Early Warning Signals</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Social Capital &amp; Peer Influence</strong></td>
+                <td>Highly respected by colleagues; natural team consensus builders; go-to people for informal advice.</td>
+                <td>Leverages existing trust networks to drive adoption; their opinions carry weight within the team.</td>
+                <td>Isolated workers; highly transactional performers; cynical attitudes towards company initiatives.</td>
+              </tr>
+              <tr>
+                <td><strong>Process Empathy &amp; Problem Solving</strong></td>
+                <td>Active interest in improving team workflows; patient with colleagues; keen to help others succeed.</td>
+                <td>Ensures they focus on helping colleagues adapt, rather than just showcasing their own technical skills.</td>
+                <td>Impatient with non-technical peers; 'lone wolf' operational style; highly competitive.</td>
+              </tr>
+              <tr>
+                <td><strong>High Communication Skills</strong></td>
+                <td>Articulate; approachable; capable of translating technical jargon into simple operational concepts.</td>
+                <td>Ensures they can deliver effective, localised coaching and provide clear feedback to the project team.</td>
+                <td>Poor listening skills; defensive under pressure; struggles to explain concepts.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Programme Managers</strong>
+            <p>Do not allow department heads to use the Champion Network as a dumping ground for underperforming staff who 'have free time'. Being a champion is a prestigious role that requires high-calibre, highly respected change agents.</p>
+          </div>
+        </div>
+
+
+        <h2 id="s3">Defining Champion Responsibilities: Enablement, Feedback, and Advocacy</h2>
+        <p>To operate effectively, champions must have a clear, formal understanding of their responsibilities. Without a defined role description, champions can easily become overwhelmed by technical support requests or, conversely, become passive onlookers who offer little value to the programme. A Salesforce Champion's role is strictly focused on change enablement, localised advocacy, and maintaining a robust, bi-directional feedback loop between the business units and the core project team:</p>
+
+        <ul>
+          <li><strong>Localised Enablement &amp; Support:</strong> Providing immediate, peer-to-peer coaching on standard workflows, page layouts, and data entry standards. They act as the first line of defence, resolving minor user queries before they escalate into formal IT support tickets.</li>
+          <li><strong>Strategic Peer Advocacy:</strong> Actively demonstrating the business benefits of the platform in daily team meetings. They showcase early wins, share tips for efficiency, and model positive platform habits, such as conducting pipeline reviews directly from live Salesforce reports.</li>
+          <li><strong>Structured Feedback Loop:</strong> Channelling user feedback, pain points, and system enhancement requests back to the project team and Center of Excellence (CoE). Conversely, they communicate project updates, release notes, and upcoming roadmap changes back to their direct teams.</li>
+          <li><strong>User Acceptance Testing (UAT):</strong> Participating in early design reviews, sprint showcases, and UAT cycles. This ensures that the system is configured to meet real-world operational realities before the wider rollout.</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Key Concept</strong>
+            <p>Champions are change agents, not technical developers. They should never be expected to configure system settings, write validation rules, or troubleshoot deep integration bugs. Their role is to coach users on the business processes executed within the technology.</p>
+          </div>
+        </div>
+
+
+        <h2 id="s4">Structuring the Champion Enablement Programme: Training, Tools, and Recognition</h2>
+        <p>A champion network cannot survive on enthusiasm alone. To guarantee long-term success, Change Leads must establish a structured <strong>Champion Enablement Programme</strong>. This programme must provide champions with early training, a dedicated toolkit, and formal executive recognition to sustain their commitment throughout the rollout lifecycle.</p>
+
+        <p>Senior practitioners should build this enablement framework around three core pillars:</p>
+
+        <p><strong>1. Dedicated Champion Enablement:</strong> Champions must receive advanced training and early sandbox access before the general user population. They should participate in deep-dive workshops covering the end-to-end customer journey, platform architecture, and fundamental change management principles. This early enablement ensures they are fully prepared to support their peers on launch day.</p>
+
+        <p><strong>2. The Champion Toolkit:</strong> Provide champions with dedicated resources, including quick-reference guides, role-based cheat sheets, and custom adoption dashboards. Establish a dedicated champion Slack or Teams channel, providing a direct escalation path to the core project team and a collaborative forum to share best practices with peer champions.</p>
+
+        <p><strong>3. Negotiating Protected Time:</strong> This is the single most critical factor in driving champion success. Executive sponsors must negotiate formal, approved 'protected time' (typically 10% to 20% of their weekly working hours) directly with each champion's line manager. Without this agreement, operational pressures will inevitably force champions to prioritise their core roles over their enablement duties.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Publicly celebrate your champions. Align the role with formal career development pathways, providing certificates, digital badges, and exposure to senior executives. This positions the champion role as a prestigious, career-enhancing opportunity.</p>
+          </div>
+        </div>
+
+
+        <h2 id="s5">Measuring Champion Impact and Sustaining Momentum Post-Go-Live</h2>
+        <p>The value of a Champion Network does not expire once the system goes live. In fact, the post-go-live phase is where champions play their most critical role: sustaining user adoption, monitoring data quality, and driving the continuous optimisation of the platform. However, keeping a network engaged over the long term requires structured measurement and ongoing governance.</p>
+
+        <p>Change Leads must track the impact of the champion network using localised adoption and quality metrics, allowing them to focus coaching efforts where they are needed most:</p>
+
+        <ul>
+          <li><strong>Localised Adoption Rates:</strong> Monitoring weekly logins, opportunity creation, and activity logging within each champion's specific department or team. A dip in adoption indicates where a champion may need additional support.</li>
+          <li><strong>Data Validation Quality:</strong> Tracking the number of data validation errors, duplicate records, and incomplete contact details across teams. Emphasising high data quality is a core champion responsibility.</li>
+          <li><strong>Support Ticket Volume:</strong> Evaluating the quantity and complexity of IT support tickets originating from different business units. High adoption teams often see a lower volume of basic tickets, as champions resolve these locally.</li>
+        </ul>
+
+        <p>To sustain momentum post-go-live, the champion network must transition into a permanent governance asset. Establish a monthly Champion Council, chaired by the Salesforce Center of Excellence (CoE) leader. This council reviews the platform roadmap, prioritises enhancement requests, and ensures that the business capability continues to evolve in alignment with the technology, safeguarding the long-term ROI of your CRM investment.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Programme Sponsors</strong>
+            <p>If you dismantle your champion network post-go-live, user adoption will decay. The continuous evolution of the platform requires a permanent localised feedback loop to prevent users from reverting to legacy, offline behaviours.</p>
+          </div>
+        </div>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Peer-led change is significantly more effective than corporate mandates, leveraging trust and peer validation.</li>
+            <li>Champions should be selected based on social influence and process empathy, avoiding the trap of choosing only technical super users.</li>
+            <li>A champion's core responsibilities span localised enablement, peer advocacy, and serving as a critical feedback loop to the project team.</li>
+            <li>Successful champion networks require structured enablement, dedicated toolkits, and formal executive recognition.</li>
+            <li>Executive sponsors must negotiate protected time (10-20%) with champions' line managers to ensure they can execute their change duties.</li>
+            <li>Sustaining post-go-live momentum requires transitioning the network into the continuous platform governance structure.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p>1. Why is a peer-led champion network more effective at driving Salesforce adoption than a top-down corporate mandate?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Champions have the absolute authority to fire users who do not adopt the system.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. Peer-led change leverages social proof and trust, as users are more receptive to colleagues who understand their day-to-day challenges.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Champions are trained to write custom Apex code to bypass standard Salesforce validation rules.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Top-down mandates are illegal under standard corporate governance frameworks.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. Which of the following is a common trap when selecting candidates for a Salesforce Champion Network?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Selecting highly influential, empathetic team members who are respected by their peers.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. Recruiting champions from multiple different business units and geographic locations.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. Nominating individuals purely because they are top-performing super users, without considering their communication skills or process empathy.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Ensuring that candidates have at least some interest in improving operational workflows.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. What is the most critical organisational support required to ensure a champion can successfully perform their role?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. An unlimited budget to purchase promotional Salesforce merchandise.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. A direct reporting line to the Chief Executive Officer.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Formal, executive-approved 'protected time' (typically 10% to 20% of their working hours) agreed with their line manager.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Exemption from all standard corporate compliance and security guidelines.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../cha-001/" class="related-card">
+              <span class="card-id">CHA-001</span>
+              <h4>Change Management for Salesforce</h4>
+            </a>
+            <a href="../cha-002/" class="related-card">
+              <span class="card-id">CHA-002</span>
+              <h4>Why Salesforce Implementations Fail</h4>
+            </a>
+            <a href="../cha-004/" class="related-card">
+              <span class="card-id">CHA-004</span>
+              <h4>Executive Sponsorship</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Role of Champions</a></li>
+            <li><a href="#s2">Champion Selection Criteria</a></li>
+            <li><a href="#s3">Defining Champion Responsibilities</a></li>
+            <li><a href="#s4">Structuring Champion Enablement</a></li>
+            <li><a href="#s5">Measuring Champion Impact</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../cha-004/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CHA-004</span>
+            <span class="sidebar-next-title">Executive Sponsorship: What It Really Means for a Salesforce Programme</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../cha-002/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CHA-002</span>
+            <span class="sidebar-next-title">Why Salesforce Implementations Fail: The Change Management Diagnosis</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
