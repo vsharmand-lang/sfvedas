@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/ai-030/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-030: Model Evaluation & Tuning: Custom Embeddings vs Finetuning Foundation Models — SFVedas</title>
+  <meta name="description" content="Evaluate when to construct custom semantic indexes vs fine-tuning private foundation models."/>
+  <meta property="og:title" content="AI-030: Model Evaluation & Tuning: Custom Embeddings vs Finetuning Foundation Models — SFVedas"/>
+  <meta property="og:description" content="Evaluate when to construct custom semantic indexes vs fine-tuning private foundation models."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ai-030/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AI-030: Model Evaluation & Tuning: Custom Embeddings vs Finetuning Foundation Models — SFVedas"/>
+  <meta name="twitter:description" content="Evaluate when to construct custom semantic indexes vs fine-tuning private foundation models."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "AI-030: Model Evaluation & Tuning: Custom Embeddings vs Finetuning Foundation Models — SFVedas",
+    "description": "Evaluate when to construct custom semantic indexes vs fine-tuning private foundation models.",
+    "url": "https://sfvedas.com/tutorials/ai-030/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-030/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=ai-future" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to AI &amp; Future</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">AI-030</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">AI &amp; Future</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects · Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Model Evaluation & Tuning: Custom Embeddings vs Finetuning Foundation Models
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Evaluate when to construct custom semantic indexes vs fine-tuning private foundation models, exposing models securely through secure multi-tenant endpoints.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce AI Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>How to evaluate and decide between Context Enrichment (RAG with Custom Embeddings) and Fine-Tuning Private Foundation Models for specific enterprise use cases.</li>
+            <li>The technical steps to construct custom semantic indices within Salesforce Data Cloud, including ingestion, chunking, and embedding generation.</li>
+            <li>The rigorous engineering and commercial math required to estimate compute costs and resources for fine-tuning off-platform models.</li>
+            <li>Best practices for exposing private fine-tuned models securely using Bring Your Own Large Language Model (BYO-LLM) architectures and secure gateways.</li>
+            <li>A multi-dimensional comparison analysis of cost, latency, token throughput, and hallucination rates across different tuning methodologies.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Deciding the Core Architecture: Context Enrichment vs Private Models</h2>
+        <p>In the architectural design of enterprise generative AI systems, tech leaders face a critical decision-making threshold: should they enrich the context of a general-purpose foundation model at runtime, or should they invest in fine-tuning a private foundation model? This dilemma, often simplified as Retrieval-Augmented Generation (RAG) versus Fine-Tuning, has profound implications for an organisation's capital expenditure, operational latency, security posture, and system accuracy. Making the wrong architectural bet can result in millions of pounds of wasted compute spend or, conversely, highly rigid systems that fail to adapt to live business dynamics. To build a robust AI-ready enterprise, architects must understand the precise boundary between these two paradigms.</p>
+        <p>Context Enrichment, or RAG, operates on the principle of dynamic knowledge retrieval. Instead of expecting the large language model to retain all corporate knowledge within its neural weights, relevant facts, customer histories, and product catalogues are stored in external databases (such as a vector database or semantic index). When a user query is received, the system queries the vector database, extracts the most semantically relevant text chunks, and injects them directly into the LLM's prompt window. This approach is highly efficient for volatile, frequently updated datasets because updating system knowledge is as simple as updating database records. Furthermore, context enrichment maintains clear lineage and auditability: the model can cite the exact source document used to generate its response, drastically reducing hallucination rates and simplifying compliance audits.</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 1 Architectural Insight</strong>
+            <p>RAG represents dynamic knowledge acquisition, whereas fine-tuning represents deep skill acquisition. Use context enrichment when your primary goal is to provide the model with accurate, real-time facts. Use fine-tuning when you must customise the model’s linguistic behaviour, formatting style, output syntax, or domain-specific reasoning skills.</p>
+          </div>
+        </div>
+        
+        <p>Fine-tuning, on the other hand, involves updating the neural network weights of an existing foundation model using domain-specific training datasets. This method does not introduce real-time information; instead, it standardises the model's behaviour, terminology, and stylistic output. Fine-tuning is indispensable when the application requires strict adherence to specialised industry formats (such as generating medical coding records, producing complex legal documents, or conforming to custom JSON schemas). It is also highly effective for training smaller, highly efficient models (e.g. 8-billion parameter models) to perform specialised tasks with the same accuracy as expensive 70-billion parameter models, thereby optimising long-term operational costs. However, fine-tuning represents static knowledge: the moment the training run finishes, the model’s knowledge is frozen, and any subsequent business changes require a new training pipeline.</p>
+
+        <h2 id="s2">Constructing Custom Semantic Indices in Salesforce Data Cloud</h2>
+        <p>To implement an effective context enrichment architecture, organisations must construct highly reliable semantic indices. Within the Salesforce ecosystem, Salesforce Data Cloud serves as the foundational engine for this capability, enabling real-time data ingestion, transformation, and vector search. Data Cloud allows architects to ingest unstructured data sources—such as customer support transcripts, knowledge articles, product manuals, and internal PDF documents—and transform them into queryable vector embeddings. These embeddings represent the semantic meaning of the text, enabling search queries to find conceptually similar matches even when exact keywords do not align.</p>
+        <p>The technical implementation pipeline in Data Cloud involves three sequential phases: ingestion, chunking, and embedding generation. During ingestion, raw text data is mapped to Data Model Objects (DMOs). The text fields are then processed by a chunking engine. Because LLMs have finite context windows and embedding models have input limitations, large documents must be broken down into smaller, digestible chunks. Architects must carefully design the chunking strategy: fixed-size chunking (e.g. 512 tokens) is simple but can split critical sentences, whereas recursive character chunking respects paragraph boundaries. Introducing a sliding window overlap (e.g. 10% to 20% overlap between adjacent chunks) ensures that contextual continuity is preserved across chunk boundaries.</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 2 Architectural Insight</strong>
+            <p>Chunking parameters directly dictate RAG retrieval quality. Selecting a chunk size that is too small leads to fragmented, context-poor segments. A chunk size that is too large dilutes semantic precision and introduces irrelevant noise into the LLM's prompt window.</p>
+          </div>
+        </div>
+        
+        <p>Once chunked, the text segments are sent to an embedding model (such as OpenAI's <code>text-embedding-3-small</code> or AWS Bedrock's Cohere Embed v3) via direct integration. The model maps each chunk into a high-dimensional vector space (e.g. 1536 dimensions) and stores the resulting coordinate coordinates back in the Data Cloud vector database. When a user queries Einstein, the search phrase is dynamically converted into a vector embedding using the same model, and a semantic search is executed. Below is a SQL representation of a semantic similarity vector search query executed within Salesforce Data Cloud, demonstrating how chunks are retrieved based on vector distance:
+        <pre><code class="language-sql">SELECT Chunk_Text__c, Score__c 
+FROM VECTOR_SEARCH(
+    TABLE(Case_Summary_Embedding__dlm), 
+    'How do I reset my security token?', 
+    'openai-text-embedding-3', 
+    5
+);</code></pre>
+        This query retrieves the top five text chunks that are semantically related to the customer's question about security tokens, allowing the orchestrator to inject these precise paragraphs into the model's prompt template.</p>
+
+        <h2 id="s3">The Engineering and Commercial Math of Fine-Tuning Off-Platform Foundation Models</h2>
+        <p>While context enrichment is highly effective for fact-based retrieval, organisations often require private, fine-tuned models to execute specialised cognitive tasks. However, entering the domain of model fine-tuning requires rigorous engineering and commercial evaluation. Fine-tuning foundation models (such as Llama 3 or Mistral) requires massive computational resources, specialised engineering talent, and a deep understanding of training hardware costs. Architects must master the commercial math of model training to justify these investments to the executive suite and prevent substantial budget overruns.</p>
+        <p>To estimate compute requirements, we must analyse the parameters being trained and the size of the dataset. Full parameter fine-tuning modifies all weights in the network, requiring massive GPU clusters and long training runs. To optimise compute efficiency, standard enterprise engineering leverages Parameter-Efficient Fine-Tuning (PEFT) methods, with Low-Rank Adaptation (LoRA) being the industry standard. LoRA freezes the original model weights and injects small trainable rank decomposition matrices into each transformer block. This reduces the number of active training parameters by over 99%, lowering VRAM consumption and making it possible to train large models on single or small clusters of GPUs. To estimate the compute cost of a training run, architects use the following commercial formula:
+        <div class="math-block" style="font-family:var(--font-mono);background:var(--bg-secondary);padding:16px;border-left:4px solid var(--sage-green);margin:16px 0;">
+          Training Cost = Number of GPUs × Hourly Rate per GPU × [ (Dataset Size in Tokens × Epochs) / (Processing Throughput per GPU in Tokens/Sec × 3600) ]
+        </div>
+        Let us calculate the commercial cost of fine-tuning a Llama-3-70B model with LoRA (rank 8, alpha 16) using an enterprise dataset:</p>
+        <p>Assume we have a training dataset consisting of 10,000 highly curated customer service transcripts. Each transcript averages 2,000 tokens, resulting in a total dataset size of 20,000,000 tokens. We plan to train the model for 3 epochs to prevent overfitting. We lease an on-demand cluster of 8x NVIDIA H100 GPUs (80GB VRAM each), where each H100 GPU costs approximately £3.50 per hour. Across our 8-GPU cluster, our distributed training framework achieves a throughput of 20,000 tokens per second. Substituting these values into our equation:
+        <pre><code class="language-text">Total Tokens Processed = 20,000,000 tokens * 3 epochs = 60,000,000 tokens
+Training Time (Seconds) = 60,000,000 tokens / 20,000 tokens/sec = 3,000 seconds
+Training Time (Hours) = 3,000 seconds / 3,600 seconds/hour = 0.83 hours
+Total Training Cost = 8 GPUs * £3.50/hour * 0.83 hours = £23.24</code></pre>
+        While the raw GPU runtime cost is remarkably low (£23.24) due to the efficiency of LoRA and high-throughput H100 hardware, architects must account for operational overhead. Data preparation, cluster cold start times, model evaluation, and deployment engineering add significant labor costs, requiring specialised AI engineering teams. For full-parameter training, the cost escalates exponentially as cluster sizes increase and training runs span weeks rather than minutes, easily exceeding tens of thousands of pounds per run.</p>
+
+        <h2 id="s4">Exposing Private Models Securely via BYO-LLM and Multi-Tenant Endpoints</h2>
+        <p>Once a private foundation model has been successfully fine-tuned on off-platform infrastructure (such as Amazon Bedrock, Google Cloud Vertex AI, or Microsoft Azure ML), it must be exposed to Salesforce applications. Rather than attempting to host these computationally heavy models directly within the core CRM environment, Salesforce provides a standard architectural pattern known as Bring Your Own LLM (BYO-LLM). Through the Salesforce Model Builder interface, architects can securely register external LLM endpoints and expose them as native generation services within standard Prompt Builder flows.</p>
+        <p>The secure connection between Salesforce and the external model enclave is governed by the Einstein Trust Boundary. This framework ensures that no customer data is compromised during model execution. When a prompt template triggers an external LLM callout, the Salesforce orchestrator routes the request through the Trust Boundary gateway. Here, real-time data masking engines scan the prompt payload to identify and redact sensitive information (such as credit card numbers, national insurance numbers, and names) before the packet leaves the Salesforce network. Additionally, the communication channel is secured using robust enterprise authentication methods, typically utilising OAuth 2.0 Client Credentials or mutual TLS (mTLS) to verify tenant identity. Below is a structured JSON representation of an Einstein Model Builder configuration payload, showing how a secure external BYO-LLM endpoint is registered:
+        <pre><code class="language-json">{
+  "modelName": "custom-finetuned-llama3-70b",
+  "endpointUrl": "https://api.secure-enclave.organisation.com/v1/chat/completions",
+  "authType": "OAuth2ClientCredentials",
+  "clientId": "sf_einstein_gateway_prod_client",
+  "clientSecret": "SECURE_SECRET_REDACTED",
+  "parameters": {
+    "temperature": 0.1,
+    "max_tokens": 1024,
+    "top_p": 0.9,
+    "stop_sequences": ["\nUser:", "\nAssistant:"]
+  }
+}</code></pre></p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 4 Architectural Insight</strong>
+            <p>Implementing mTLS and strict OAuth 2.0 scoping ensures that external model enclaves only accept requests originating from the authorized Salesforce tenant. This prevents unauthorised model invocation and mitigates denial-of-service billing spikes.</p>
+          </div>
+        </div>
+        
+        <p>Once the external model processes the prompt, it returns the generated text response to the Einstein Gateway. Before the response is injected back into the CRM workflow, the Trust Boundary performs a second security pass: it executes toxicity filtering to block harmful content and uses its data-mapping registry to automatically de-mask the sensitive fields, seamlessly returning the personalised summary to the business user. This asynchronous, double-masked pipeline allows organisations to leverage the power of highly specialised, off-platform models while maintaining complete compliance with data protection laws and corporate governance standards.</p>
+
+        <h2 id="s5">Comparative Evaluation Matrix for Cost, Latency, and Hallucination Control</h2>
+        <p>Choosing the optimal model adaptation strategy requires a balanced trade-off across multiple, competing operational parameters. No single approach is superior in every context. For instance, while RAG is highly cost-effective and adapts to real-time changes instantly, it can suffer from higher retrieval latencies. Conversely, a fine-tuned model delivers lightning-fast responses with highly customised formatting but requires substantial upfront capital to train and lacks real-time knowledge. Architects must evaluate these factors side-by-side to match the tuning strategy with their application’s specific SLA and performance requirements.</p>
+        <p>To assist in this decision-making process, the CoE must standardise a multidimensional evaluation framework. This framework scores each adaptation pattern against core metrics: Initial CapEx (training costs), Ongoing OpEx (inference token costs), Latency (time-to-first-token), Hallucination Control, and Language/Tone Customisation. By grading each approach, organisations can establish standard deployment templates (for example, utilizing RAG for standard customer queries and hybrid models for complex automated contract writing).</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 5 Architectural Insight</strong>
+            <p>For mission-critical applications, a Hybrid architecture (RAG combined with a LoRA Fine-Tuned Model) delivers the highest accuracy and best tone control, though it demands the highest operational sophistication and token orchestration budget.</p>
+          </div>
+        </div>
+        
+        <p>Below is a comparative matrix designed to guide enterprise architects in selecting the correct tuning strategy based on their specific operational bounds:
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Architecture Pattern</th>
+              <th>Initial CapEx</th>
+              <th>Ongoing OpEx</th>
+              <th>Average Latency</th>
+              <th>Hallucination Control</th>
+              <th>Tone Customisation</th>
+              <th>Real-Time Knowledge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>RAG (Context Enrichment)</strong></td>
+              <td>Very Low</td>
+              <td>Moderate</td>
+              <td>Moderate (300–600ms)</td>
+              <td>Excellent</td>
+              <td>Moderate</td>
+              <td>Instant (Dynamic DB)</td>
+            </tr>
+            <tr>
+              <td><strong>LoRA Fine-Tuning</strong></td>
+              <td>Low</td>
+              <td>Low</td>
+              <td>Low (&lt;200ms)</td>
+              <td>Poor (Static)</td>
+              <td>Outstanding</td>
+              <td>None (Requires Retrain)</td>
+            </tr>
+            <tr>
+              <td><strong>Full Fine-Tuning</strong></td>
+              <td>Very High</td>
+              <td>Low</td>
+              <td>Low (&lt;200ms)</td>
+              <td>Extremely Poor</td>
+              <td>Outstanding</td>
+              <td>None (Requires Retrain)</td>
+            </tr>
+            <tr>
+              <td><strong>Hybrid (RAG + LoRA)</strong></td>
+              <td>Moderate</td>
+              <td>High</td>
+              <td>High (500–800ms)</td>
+              <td>Outstanding</td>
+              <td>Outstanding</td>
+              <td>Instant (Dynamic DB)</td>
+            </tr>
+          </tbody>
+        </table></p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>RAG is highly dynamic and cost-effective, suited for real-time information retrieval, whereas Fine-Tuning is best for customising model behaviour, style, and syntax.</li>
+            <li>Constructing semantic indices in Data Cloud requires a structured ingestion, chunking, and vector embedding generation pipeline.</li>
+            <li>Chunk size selection is critical: small chunks lead to context fragmentation, while large chunks dilute semantic search precision.</li>
+            <li>LoRA fine-tuning significantly reduces GPU memory and training cost, making custom model training commercially viable.</li>
+            <li>Salesforce's BYO-LLM pattern allows organisations to securely register external fine-tuned models hosted in Amazon Bedrock or Azure ML.</li>
+            <li>The Einstein Trust Boundary acts as a crucial security gate, executing real-time data masking, toxicity checks, and secure mTLS encryption.</li>
+            <li>A Hybrid architecture (RAG combined with a LoRA Fine-Tuned Model) offers the highest level of output accuracy and tone control for complex enterprise applications.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p>1. Which architectural pattern is best suited for an application requiring access to frequently updated inventory data with verifiable source citations?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Full Parameter Fine-Tuning of a private Llama-3 model.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. Context Enrichment (RAG) querying a real-time vector index in Data Cloud.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. LoRA fine-tuning using a static set of customer support cases.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Implementing multi-agent orchestration without any context inputs.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. What is the primary commercial benefit of utilizing Low-Rank Adaptation (LoRA) over Full Parameter Fine-Tuning?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','right')">A. It drastically reduces compute requirements and GPU memory consumption, lowering training costs by over 95%.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. It allows the model to access internet search results in real time during inference.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. It completely eliminates the need for any data masking or encryption within the CI/CD pipeline.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. It makes the model completely deterministic, always returning the exact same string output.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. How does the Einstein Trust Boundary maintain security when invoking a Bring Your Own LLM (BYO-LLM) model hosted off-platform?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. It blocks all outgoing API requests and processes the prompt entirely inside Salesforce's standard servers.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. It requires developers to manually clear and rebuild the database before each model execution.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. It automatically detects and masks sensitive PII in the prompt payload before sending it via a secure encrypted tunnel.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. It enforces static billing limits that automatically shut down model hosting if usage exceeds thresholds.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../ai-029/" class="related-card">
+              <span class="card-id">AI-029</span>
+              <h4>The AI-Ready COE</h4>
+            </a>
+            <a href="../ai-031/" class="related-card">
+              <span class="card-id">AI-031</span>
+              <h4>AI Sovereignty & Gov Cloud</h4>
+            </a>
+            <a href="../ai-032/" class="related-card">
+              <span class="card-id">AI-032</span>
+              <h4>Multi-Agent Orchestration</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Deciding the Core Architecture: Context Enrichment vs Private Models</a></li>
+            <li><a href="#s2">Constructing Custom Semantic Indices in Salesforce Data Cloud</a></li>
+            <li><a href="#s3">The Engineering and Commercial Math of Fine-Tuning Off-Platform Foundation Models</a></li>
+            <li><a href="#s4">Exposing Private Models Securely via BYO-LLM and Multi-Tenant Endpoints</a></li>
+            <li><a href="#s5">Comparative Evaluation Matrix for Cost, Latency, and Hallucination Control</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../ai-031/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-031</span>
+            <span class="sidebar-next-title">AI Sovereignty: Hosting Generative Models in Government Cloud and Secure Enclaves</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ai-029/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-029</span>
+            <span class="sidebar-next-title">The AI-Ready COE: Governance Frameworks for Prompt Version Control and Regression Testing</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

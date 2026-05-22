@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/ai-033/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI-033: Telemetry & Monitoring: Instrumenting Real-Time Logging for Generative AI Sessions — SFVedas</title>
+  <meta name="description" content="How to log and trace generative sessions through corporate SOC pipelines, tracking latency, tokens, and hallucinations."/>
+  <meta property="og:title" content="AI-033: Telemetry & Monitoring: Instrumenting Real-Time Logging for Generative AI Sessions — SFVedas"/>
+  <meta property="og:description" content="How to log and trace generative sessions through corporate SOC pipelines, tracking latency, tokens, and hallucinations."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/ai-033/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="AI-033: Telemetry & Monitoring: Instrumenting Real-Time Logging for Generative AI Sessions — SFVedas"/>
+  <meta name="twitter:description" content="How to log and trace generative sessions through corporate SOC pipelines, tracking latency, tokens, and hallucinations."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "AI-033: Telemetry & Monitoring: Instrumenting Real-Time Logging for Generative AI Sessions — SFVedas",
+    "description": "How to log and trace generative sessions through corporate SOC pipelines, tracking latency, tokens, and hallucinations.",
+    "url": "https://sfvedas.com/tutorials/ai-033/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-033/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=ai-future" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to AI &amp; Future</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">AI-033</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">AI &amp; Future</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Salesforce Architects · Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Telemetry & Monitoring: Instrumenting Real-Time Logging for Generative AI Sessions
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        How to log and trace generative sessions through corporate SOC pipelines (Splunk, Microsoft Sentinel), track latency, tokens, cost efficiency, and hallucination scores.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce AI Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The telemetry imperative for generative AI systems, focusing on auditing, cost control, latency tracking, and security monitoring.</li>
+            <li>How to construct a high-throughput, asynchronous logging pipeline using Salesforce Platform Events and Event Monitoring.</li>
+            <li>The mathematical and engineering frameworks for calculating running financial metrics, token budgets, and cost-per-session in real time.</li>
+            <li>Best practices for designing real-time analytics dashboards in CRM Analytics or Tableau for Center of Excellence (CoE) governance.</li>
+            <li>Proactive alerting patterns, rate limiting, and failure fallback paths for maintaining generative AI service availability.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Telemetry Imperative in Generative AI Systems</h2>
+        <p>In traditional enterprise software systems, monitoring and telemetry are mature disciplines with standard tools (such as Datadog, Dynatrace, or New Relic) tracking standard operational metrics (including CPU load, memory utilization, and HTTP response codes). However, the deployment of generative AI introduces a new set of operational challenges that traditional telemetry architectures are entirely blind to. Large language models are non-deterministic, heavily dependent on token-based pricing models, subject to highly variable execution latencies, and vulnerable to complex security risks like PII leakage and prompt injection. To manage these risks, a mature AI-ready enterprise must establish a comprehensive real-time telemetry framework that monitors both the quantitative and qualitative aspects of generative AI sessions.</p>
+        <p>From a quantitative perspective, the telemetry system must record precise computational metrics for every single model invocation. This includes tracking the exact count of prompt tokens submitted, completion tokens generated, execution latency (time-to-first-token and total processing time), and the specific model parameter configurations (such as temperature and top-p). From a qualitative perspective, the system must evaluate response safety and quality. It must track toxicity scores, identify blocked content triggers, and log user-provided feedback (such as thumbs-up/down ratings). Without this granular visibility, the Center of Excellence (CoE) is blind to operational performance, leaving the organisation exposed to unexpected cloud bills, customer dissatisfaction, and severe compliance violations.</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 1 Architectural Insight</strong>
+            <p>Generative AI telemetry is a vital operational control. Without granular visibility into token consumption and response quality, organisations risk massive billing surprises and brand damage.</p>
+          </div>
+        </div>
+        
+        <p>Furthermore, robust telemetry serves as the foundation for security auditing. If a regulator challenges a generated response, the organisation must have an immutable, auditable log showing exactly what customer context was retrieved, what prompt template instructions were active, and what foundation model processed the request. This degree of transparency is indispensable for maintaining legal compliance in regulated sectors. By standardising telemetry capture rules within the CoE, the organisation guarantees that its generative AI systems operate within predictable financial boundaries and remain fully auditable throughout their lifecycle.</p>
+
+        <h2 id="s2">Designing an Asynchronous Logging Pipeline using Salesforce Event Monitoring</h2>
+        <p>To implement a robust telemetry framework within Salesforce, architects must design an exceptionally high-throughput, asynchronous logging pipeline. Because a single generative session can generate dozens of telemetry metrics, attempting to execute these logging operations synchronously in the main execution thread is a major architectural error. Synchronous database writes increase user latency, consume valuable transaction limits, and can lead to database row locks that degrade core CRM performance. To eliminate these risks, the pipeline must leverage Salesforce Platform Events to decouple generation execution from the logging storage layer.</p>
+        <p>The asynchronous architecture operates on a publish-subscribe model. When an Apex service or Flow invokes an Einstein model callout, the transaction metrics are instantly wrapped into a custom Platform Event payload—for example, <code>AI_Telemetry_Event__e</code>. The service publishes this event via a fire-and-forget mechanism:
+        <pre><code class="language-apex">EventBus.publish(telemetryEvent);</code></pre>
+        This publication completes in milliseconds, allowing the primary CRM user thread to continue without delay. An asynchronous subscriber (an Apex trigger or an automated Flow) automatically consumes these events in a separate, dedicated thread. The subscriber then processes the payload, performs required calculations (such as cost conversions), and writes the metrics to long-term storage custom objects (like <code>AI_Transaction_Log__c</code>) or routes them to external monitoring tools (such as Splunk or Datadog) using Salesforce Event Relays.</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 2 Architectural Insight</strong>
+            <p>Platform Events provide a decoupled, high-performance messaging layer. Decoupling telemetry generation from long-term database storage ensures that monitoring operations never introduce latency or performance bottlenecks into critical user workflows.</p>
+          </div>
+        </div>
+        
+        <p>Below is a concrete, enterprise-grade Apex service demonstrating how to publish generative AI transaction telemetry via Salesforce Platform Events:
+        <pre><code class="language-apex">public with sharing class AITelemetryPublisher {
+    
+    public class TelemetryPayload {
+        public String sessionId;
+        public String userId;
+        public String modelName;
+        public Integer promptTokens;
+        public Integer completionTokens;
+        public Decimal latencyMs;
+        public String errorStatus;
+        public String safetyStatus;
+    }
+
+    /**
+     * Publishes a high-fidelity AI Telemetry Platform Event asynchronously.
+     */
+    public static void publishEvent(TelemetryPayload payload) {
+        // Construct the custom Platform Event record
+        AI_Telemetry_Event__e telemetryEvent = new AI_Telemetry_Event__e(
+            Session_Id__c = payload.sessionId,
+            User_Id__c = payload.userId,
+            Model_Name__c = payload.modelName,
+            Prompt_Tokens__c = payload.promptTokens,
+            Completion_Tokens__c = payload.completionTokens,
+            Latency_Ms__c = payload.latencyMs,
+            Error_Status__c = payload.errorStatus,
+            Safety_Status__c = payload.safetyStatus,
+            Timestamp__c = System.now()
+        );
+        
+        // Publish to EventBus asynchronously (fire-and-forget)
+        Database.SaveResult sr = EventBus.publish(telemetryEvent);
+        if (!sr.isSuccess()) {
+            for (Database.Error err : sr.getErrors()) {
+                System.debug(LoggingLevel.ERROR, 'Failed to publish AI telemetry event: ' + err.getStatusCode() + ' - ' + err.getMessage());
+            }
+        }
+    }
+}</code></pre></p>
+
+        <h2 id="s3">Calculating Running Financial Metrics and Dynamic Token Budgets</h2>
+        <p>A primary operational risk of generative AI is budget overrun. Because foundation models charge on a variable per-token basis, a poorly designed loop in an application or an unauthorized script can consume thousands of pounds of compute in a matter of hours. To mitigate this risk, the telemetry pipeline must execute real-time financial tracking and enforce dynamic token budgets. Architects must establish a cost-conversion engine that dynamically maps token counts to monetary values based on the specific model's pricing matrix.</p>
+        <p>The cost calculation represents a multi-dimensional formula, as input tokens and output tokens carry distinct rates. For instance, a model like Anthropic Claude 3.5 Sonnet may cost £2.30 per million input tokens and £11.50 per million output tokens, while a lightweight model like Claude 3 Haiku costs £0.19 per million input tokens and £0.95 per million output tokens. The telemetry subscriber calculates the exact transaction cost in real time:
+        <div class="math-block" style="font-family:var(--font-mono);background:var(--bg-secondary);padding:16px;border-left:4px solid var(--sage-green);margin:16px 0;">
+          Transaction Cost = (Prompt Tokens × Input Rate) + (Completion Tokens × Output Rate)
+        </div>
+        To prevent budget exhaustion, organisations must implement Dynamic Token Budgets. Under this pattern, daily or hourly token spend is tracked in a high-speed cache, such as the Salesforce Platform Cache. When a user or department initiates a generation request, the system checks their accumulated spend against their allocated credit limit. If the limit is exceeded, the request is blocked before the API is invoked, preserving operational budgets.</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 3 Architectural Insight</strong>
+            <p>Implementing a Platform Cache-backed budget checker acts as a real-time financial firewall. It prevents runaway generative processes from incurring massive billing charges without introducing database query latency.</p>
+          </div>
+        </div>
+        
+        <p>Below is a structured Apex class illustrating this real-time token budget verification and consumption tracking logic using Salesforce Platform Cache:
+        <pre><code class="language-apex">public with sharing class AIBudgetManager {
+    
+    public class BudgetExceededException extends Exception {}
+    
+    // Allocate a default daily credit budget of £10.00 per user
+    private static final Decimal DAILY_USER_BUDGET_GBP = 10.00;
+
+    /**
+     * Verifies if a user has sufficient budget remaining for the transaction.
+     * Throws an exception if the daily credit limit is breached.
+     */
+    public static void verifyUserBudget(Id userId) {
+        String cacheKey = 'local.AIBudgets.' + String.valueOf(userId);
+        Decimal currentSpend = (Decimal) Cache.Org.get(cacheKey);
+        
+        if (currentSpend == null) {
+            currentSpend = 0.0;
+        }
+        
+        if (currentSpend &gt;= DAILY_USER_BUDGET_GBP) {
+            throw new BudgetExceededException('API Execution Blocked: User ' + userId + ' has exceeded their daily generative credit budget of £' + DAILY_USER_BUDGET_GBP);
+        }
+    }
+    
+    /**
+     * Increments the user's accumulated daily spend in the Platform Cache.
+     */
+    public static void recordTransactionSpend(Id userId, String modelName, Integer promptTokens, Integer completionTokens) {
+        Decimal cost = calculateCost(modelName, promptTokens, completionTokens);
+        String cacheKey = 'local.AIBudgets.' + String.valueOf(userId);
+        
+        Decimal currentSpend = (Decimal) Cache.Org.get(cacheKey);
+        if (currentSpend == null) {
+            currentSpend = 0.0;
+        }
+        
+        // Cache the updated budget spend, setting expiration to midnight
+        Cache.Org.put(cacheKey, currentSpend + cost, 86400); 
+    }
+    
+    private static Decimal calculateCost(String model, Integer prompt, Integer completion) {
+        Decimal inputRate = 0.0;
+        Decimal outputRate = 0.0;
+        
+        // Dynamically assign per-token pricing matrices based on the model name
+        if (model != null &amp;&amp; model.contains('claude-3-5-sonnet')) {
+            inputRate = 0.000003;  // £3.00 per million input tokens
+            outputRate = 0.000015; // £15.00 per million output tokens
+        } else {
+            inputRate = 0.0000005;  // Default lightweight pricing
+            outputRate = 0.0000025;
+        }
+        
+        return (prompt * inputRate) + (completion * outputRate);
+    }
+}</code></pre>
+        By integrating this budget management service directly into the prompt orchestration pipeline, the organisation guarantees that AI operations are constrained by predictable financial limits, protecting corporate resources.</p>
+
+        <h2 id="s4">Creating Real-Time Analytics Dashboards for CoE Governance</h2>
+        <p>The collection of telemetry data is only valuable if that data is transformed into actionable intelligence. The Center of Excellence (CoE) must establish a centralized reporting framework that aggregates transaction logs and displays core KPIs on interactive, real-time analytics dashboards. Within the Salesforce ecosystem, Salesforce CRM Analytics (formerly Einstein Analytics) or Tableau serve as the primary engines for this capability, enabling developers to build high-fidelity visualizations that combine operational CRM data with real-time AI performance metrics.</p>
+        <p>A well-designed CoE Dashboard must display a clear hierarchy of metrics. At the executive level, it tracks Total Token Cost (aggregated daily, weekly, and monthly), Model Distribution (visualizing which models are driving the highest usage), and Average Return on Investment (mapping successful sessions to standard business outcomes, like support case resolution rates). At the operational level, it displays system health metrics, including time-to-first-token latencies, error rate trends (such as 429 Rate Limit and 500 Server Error frequencies), and safety flag distributions (visualizing how many requests triggered PII masking or toxicity filters).</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 4 Architectural Insight</strong>
+            <p>Real-time analytics is critical for tracking system adoption and financial trends. Combining operational metrics (like case closures) with AI metrics (like token spend) allows the CoE to prove the tangible business value of their AI investments.</p>
+          </div>
+        </div>
+        
+        <p>To support these dashboards without creating storage bottlenecks, the architecture must implement a strict data lifecycle policy. Storing millions of transaction logs in standard, expensive CRM relational storage is a common operational error. Instead, the CoE should enforce a tiered storage model. Highly detailed logs are stored in standard custom objects for a short retention window (e.g. 30 days) to facilitate active debugging and daily reporting. After 30 days, a scheduled batch process automatically aggregates the logs into daily summary metrics, archives the raw data to a cheaper storage option—such as Salesforce Big Objects or Salesforce Data Cloud—and physically deletes the original records, keeping the primary database lean and cost-effective.</p>
+
+        <h2 id="s5">Proactive Alerting Patterns and Failure Fallbacks</h2>
+        <p>The final layer of a resilient telemetry architecture is proactive alerting and dynamic failure fallbacks. Collecting metrics and viewing dashboards are reactive operations; to maintain a highly available, enterprise-grade generative AI system, the platform must proactively detect anomalies and automate system recovery. The telemetry subscriber must include built-in threshold checkers that analyse incoming events in real time. If a specific operational limit is breached—for example, if the average latency across the last fifty requests exceeds 5.0 seconds, or if the model error rate spikes to 5% within a five-minute window—the alerting engine must instantly trigger a notification. These alerts are routed via secure webhooks to external developer portals (such as Slack or PagerDuty), ensuring that operations teams can triage issues before they impact the broader customer base.</p>
+        <p>To prevent system downtime during model outages, the prompt orchestrator must implement robust failure fallback paths. In the world of generative AI, API rate limits (429 Rate Limit errors) and upstream provider outages are common occurrences. When the orchestrator encounters a connection failure, it must not return a generic system error to the user. Instead, the system must capture the exception and automatically reroute the request to a secondary, pre-configured fallback endpoint (such as falling back from Anthropic Claude 3.5 Sonnet to Microsoft Azure OpenAI GPT-4o) using standard Exception Handling. This dynamic routing ensures that conversational services remain active and responsive, maintaining high availability for the enterprise.</p>
+        
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Section 5 Architectural Insight</strong>
+            <p>Configuring automated model fallbacks is a critical requirement for enterprise AI resilience. It guarantees service availability during upstream provider outages, protecting your customer-facing applications from unexpected disruptions.</p>
+          </div>
+        </div>
+        
+        <p>Below is a comparative analysis designed to guide enterprise architects in selecting the optimal database engine for storing and querying AI telemetry logs:
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Storage Option</th>
+              <th>Write Throughput</th>
+              <th>Storage Cost</th>
+              <th>Query Capability</th>
+              <th>Real-time Dashboards</th>
+              <th>Archival Retention</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Salesforce Custom Objects</strong></td>
+              <td>Moderate</td>
+              <td>Very High</td>
+              <td>Excellent (SOQL/SOSL)</td>
+              <td>Outstanding (Native)</td>
+              <td>Short-term (30 days)</td>
+            </tr>
+            <tr>
+              <td><strong>Salesforce Big Objects</strong></td>
+              <td>High</td>
+              <td>Low</td>
+              <td>Limited (Async SOQL)</td>
+              <td>Moderate (Aggregation)</td>
+              <td>Long-term (Years)</td>
+            </tr>
+            <tr>
+              <td><strong>Salesforce Data Cloud</strong></td>
+              <td>Extremely High</td>
+              <td>Low</td>
+              <td>Excellent (SQL search)</td>
+              <td>Outstanding (CRMA/Tableau)</td>
+              <td>Infinite (Lakehouse)</td>
+            </tr>
+            <tr>
+              <td><strong>External Logs (Datadog/Splunk)</strong></td>
+              <td>Extremely High</td>
+              <td>Moderate</td>
+              <td>Excellent (Log query)</td>
+              <td>Outstanding (External dashboards)</td>
+              <td>Flexible retention</td>
+            </tr>
+          </tbody>
+        </table></p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Generative AI monitoring requires tracking both quantitative metrics (tokens, latency, errors) and qualitative metrics (safety, toxicity, user feedback).</li>
+            <li>Telemetry logging must be processed asynchronously using Salesforce Platform Events to decouple logging overhead from primary CRM user transactions.</li>
+            <li>Real-time cost tracking requires converting input and output tokens against model pricing matrices to prevent unexpected billing overruns.</li>
+            <li>Dynamic token budgets backed by Platform Cache act as an operational firewall to block runaway generative sessions in real time.</li>
+            <li>A tiered storage model (using Custom Objects for active debugging and Big Objects/Data Cloud for archive) maintains a lean CRM database.</li>
+            <li>Proactive threshold alerts (routed via webhooks to Slack or PagerDuty) notify operations teams of model errors and performance degradation instantly.</li>
+            <li>Dynamic endpoint fallbacks ensure high availability by automatically rerouting traffic to secondary models during upstream provider outages.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p>1. Why is it an architectural anti-pattern to perform synchronous database writes for AI telemetry logging within the primary CRM user transaction?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','right')">A. Synchronous writes increase transaction latency, consume execution limits, and risk introducing database row locks.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. Synchronous writes completely disable the large language model's ability to process dynamic context.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Synchronous writes require a dedicated hardware server to be installed on the user's local network.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Synchronous writes force all generated responses to be saved in basic text file formats.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. How does a Platform Cache-backed budget checker protect an organisation from runaway AI costs?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. By automatically negotiating lower per-token pricing with the model provider.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. By encrypting all outgoing credit card transactions using complex cryptographic keys.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. By verifying accumulated spend in memory and blocking model invocation before APIs are triggered if limits are breached.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. By forcing the user to manually solve a security verification puzzle before every question.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. What recovery action should an enterprise orchestrator perform when a primary foundation model endpoint returns a 429 Rate Limit error?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. It should instantly delete the user's Salesforce account to prevent further billing charges.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">B. It should catch the exception and dynamically reroute the query to a pre-configured secondary fallback model endpoint.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. It should block all internal CRM access until the model provider announces a recovery.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. It should display a complex error code and instruct the customer to contact technical support.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../ai-030/" class="related-card">
+              <span class="card-id">AI-030</span>
+              <h4>Model Evaluation & Tuning</h4>
+            </a>
+            <a href="../ai-032/" class="related-card">
+              <span class="card-id">AI-032</span>
+              <h4>Multi-Agent Orchestration</h4>
+            </a>
+            <a href="../ai-031/" class="related-card">
+              <span class="card-id">AI-031</span>
+              <h4>AI Sovereignty & Gov Cloud</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Generative AI Telemetry and Enterprise Logging Imperatives</a></li>
+            <li><a href="#s2">Instrumenting Prompt and Response Pipelines with Splunk or Sentinel</a></li>
+            <li><a href="#s3">Tracking Session Latency, TTFT, and Processing Token Metrics</a></li>
+            <li><a href="#s4">Automating Live Hallucination Scoring and Real-Time Redaction Logs</a></li>
+            <li><a href="#s5">Building the Executive Dashboard for AI Operations and ROI Auditing</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+        
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../ai-032/" class="sidebar-next-link">
+            <span class="sidebar-next-id">AI-032</span>
+            <span class="sidebar-next-title">Building Multi-Agent Orchestration: Inter-Agent Communication and Specialized Hand-offs</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
