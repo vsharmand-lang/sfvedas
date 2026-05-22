@@ -172,6 +172,196 @@
         </div>
 
         <h2 id="s4">The Core Difference: Reactive vs Autonomous</h2>
+
+        <style>
+          .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin: 40px 0;
+          }
+          .comparison-col {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.015);
+            transition: border-color 0.25s, transform 0.25s;
+          }
+          .comparison-col:hover {
+            border-color: var(--saffron);
+            transform: translateY(-2px);
+          }
+          .comparison-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 6px;
+            text-align: center;
+            color: var(--text-primary);
+          }
+          .comparison-subtitle {
+            font-family: var(--font-ui);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            text-align: center;
+          }
+          .paradigm-svg {
+            width: 100%;
+            height: auto;
+            max-width: 340px;
+          }
+          @media (max-width: 768px) {
+            .comparison-grid {
+              grid-template-columns: 1fr;
+              gap: 24px;
+            }
+          }
+        </style>
+
+        <div class="comparison-grid">
+          <!-- EINSTEIN BOT PANEL -->
+          <div class="comparison-col">
+            <div class="comparison-title">Einstein Bots</div>
+            <div class="comparison-subtitle">The Reactive Dialog Tree</div>
+            
+            <svg class="paradigm-svg" viewBox="0 0 340 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="linearMuted" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#3A4D62" />
+                  <stop offset="100%" stop-color="#212F3D" />
+                </linearGradient>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8C9BA5" />
+                </marker>
+              </defs>
+              
+              <!-- 1. Input Node -->
+              <rect x="70" y="10" width="200" height="42" rx="8" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="170" y="36" font-family="var(--font-ui)" font-size="12" font-weight="600" fill="var(--text-primary)" text-anchor="middle">1. User Query Input</text>
+              
+              <!-- Arrow 1 -->
+              <path d="M 170 52 L 170 82" stroke="#8C9BA5" stroke-dasharray="3 3" marker-end="url(#arrow)"/>
+              
+              <!-- 2. Intent Node -->
+              <rect x="70" y="90" width="200" height="48" rx="8" fill="#1C355E" stroke="#0070D2" stroke-width="1.5"/>
+              <text x="170" y="112" font-family="var(--font-ui)" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">2. Intent Classification</text>
+              <text x="170" y="126" font-family="var(--font-ui)" font-size="10" fill="rgba(255,255,255,0.7)" text-anchor="middle">NLU Matcher (High/Low Conf)</text>
+              
+              <!-- Arrow 2 (Splits) -->
+              <path d="M 170 138 L 170 162" stroke="#8C9BA5" marker-end="url(#arrow)"/>
+              <path d="M 170 148 L 70 148 L 70 162" fill="none" stroke="#8C9BA5" marker-end="url(#arrow)"/>
+              <path d="M 170 148 L 270 148 L 270 162" fill="none" stroke="#8C9BA5" marker-end="url(#arrow)"/>
+              
+              <!-- 3. Dialogue Tree Levels -->
+              <!-- Left Option -->
+              <rect x="15" y="170" width="110" height="36" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+              <text x="70" y="192" font-family="var(--font-ui)" font-size="11" fill="var(--text-secondary)" text-anchor="middle">Refund Dialogue</text>
+              
+              <!-- Center Option -->
+              <rect x="135" y="170" width="70" height="36" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="170" y="192" font-family="var(--font-ui)" font-size="11" font-weight="600" fill="var(--text-primary)" text-anchor="middle">Order Dialog</text>
+              
+              <!-- Right Option -->
+              <rect x="215" y="170" width="110" height="36" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+              <text x="270" y="192" font-family="var(--font-ui)" font-size="11" fill="var(--text-secondary)" text-anchor="middle">FAQ Fallback</text>
+              
+              <!-- Arrow 3 -->
+              <path d="M 170 206 L 170 236" stroke="#8C9BA5" marker-end="url(#arrow)"/>
+              
+              <!-- 4. Execution Step -->
+              <rect x="70" y="244" width="200" height="42" rx="8" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="170" y="264" font-family="var(--font-ui)" font-size="12" font-weight="600" fill="var(--text-primary)" text-anchor="middle">4. Pre-wired Flow/Apex</text>
+              <text x="170" y="276" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)" text-anchor="middle">Hardcoded variable assignments</text>
+              
+              <!-- Arrow 4 -->
+              <path d="M 170 286 L 170 316" stroke="#8C9BA5" marker-end="url(#arrow)"/>
+              
+              <!-- 5. Static Response -->
+              <rect x="70" y="324" width="200" height="46" rx="8" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="170" y="344" font-family="var(--font-ui)" font-size="12" font-weight="600" fill="var(--text-primary)" text-anchor="middle">5. Scripted Response</text>
+              <text x="170" y="356" font-family="var(--font-ui)" font-size="9" fill="var(--text-secondary)" text-anchor="middle">Static templates and prompts</text>
+            </svg>
+          </div>
+
+          <!-- AGENTFORCE PANEL -->
+          <div class="comparison-col">
+            <div class="comparison-title">Agentforce</div>
+            <div class="comparison-subtitle">The Autonomous Goal Loop</div>
+            
+            <svg class="paradigm-svg" viewBox="0 0 340 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="atlasGlow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(232,147,10,0.12)" />
+                  <stop offset="100%" stop-color="rgba(232,147,10,0)" />
+                </radialGradient>
+                <linearGradient id="saffronGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#F39C12" />
+                  <stop offset="100%" stop-color="#D35400" />
+                </linearGradient>
+                <marker id="arrowSaffron" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--saffron)" />
+                </marker>
+              </defs>
+              
+              <!-- 1. Input Node -->
+              <rect x="70" y="10" width="200" height="42" rx="8" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="170" y="36" font-family="var(--font-ui)" font-size="12" font-weight="600" fill="var(--text-primary)" text-anchor="middle">1. User Request (Goal)</text>
+              
+              <!-- Arrow 1 -->
+              <path d="M 170 52 L 170 82" stroke="var(--saffron)" stroke-dasharray="3 3" marker-end="url(#arrowSaffron)"/>
+              
+              <!-- Glow behind Atlas -->
+              <circle cx="170" cy="180" r="90" fill="url(#atlasGlow)"/>
+              
+              <!-- 2. Atlas Engine Circle -->
+              <circle cx="170" cy="180" r="48" fill="#111E2E" stroke="var(--saffron)" stroke-width="2"/>
+              <text x="170" y="174" font-family="var(--font-display)" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">ATLAS</text>
+              <text x="170" y="188" font-family="var(--font-ui)" font-size="9" font-weight="700" fill="var(--saffron)" text-anchor="middle">Reasoning Loop</text>
+              <text x="170" y="198" font-family="var(--font-ui)" font-size="7" fill="rgba(255,255,255,0.6)" text-anchor="middle">PLAN → ACT → OBSERVE</text>
+              
+              <!-- 3. Tool Pool (Dynamic Bidirectional Connections) -->
+              <!-- Top Left: Apex -->
+              <rect x="25" y="94" width="75" height="32" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+              <text x="62" y="114" font-family="var(--font-ui)" font-size="10" fill="var(--text-primary)" text-anchor="middle">Apex Action</text>
+              <path d="M 108 122 L 132 144" stroke="#8C9BA5" stroke-dasharray="2 2"/>
+              
+              <!-- Top Right: Flows -->
+              <rect x="240" y="94" width="75" height="32" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="277" y="114" font-family="var(--font-ui)" font-size="10" font-weight="600" fill="var(--text-primary)" text-anchor="middle">Autolaunch Flow</text>
+              <path d="M 232 122 L 208 144" stroke="#8C9BA5" stroke-dasharray="2 2"/>
+              
+              <!-- Bottom Left: APIs -->
+              <rect x="25" y="234" width="75" height="32" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+              <text x="62" y="254" font-family="var(--font-ui)" font-size="10" fill="var(--text-primary)" text-anchor="middle">External APIs</text>
+              <path d="M 108 238 L 132 216" stroke="#8C9BA5" stroke-dasharray="2 2"/>
+              
+              <!-- Bottom Right: Data Cloud -->
+              <rect x="240" y="234" width="75" height="32" rx="6" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1"/>
+              <text x="277" y="254" font-family="var(--font-ui)" font-size="10" fill="var(--text-primary)" text-anchor="middle">Data Cloud</text>
+              <path d="M 232 238 L 208 216" stroke="#8C9BA5" stroke-dasharray="2 2"/>
+              
+              <!-- Loop Feedback Indicator -->
+              <path d="M 112 180 A 58 58 0 0 1 228 180" fill="none" stroke="rgba(232,147,10,0.3)" stroke-width="1.5"/>
+              
+              <!-- Arrow Down from Atlas to Response -->
+              <path d="M 170 236 L 170 316" stroke="var(--saffron)" marker-end="url(#arrowSaffron)"/>
+              
+              <!-- 4. Dynamic Contextual Response -->
+              <rect x="70" y="324" width="200" height="46" rx="8" fill="#111E2E" stroke="var(--saffron)" stroke-width="1.5"/>
+              <text x="170" y="344" font-family="var(--font-ui)" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">4. Tailored Response</text>
+              <text x="170" y="356" font-family="var(--font-ui)" font-size="9" fill="var(--saffron)" text-anchor="middle">Contextual, reasoned, multi-step output</text>
+            </svg>
+          </div>
+        </div>
+
         <p>The architectural difference reduces to this: Einstein Bots were reactive systems that matched inputs to pre-configured outputs. Agentforce is an autonomous system that pursues goals using a reasoning engine and a set of callable tools.</p>
         <p>In a reactive system, every behaviour must be explicitly specified. The system is deterministic — the same input will always produce the same output, because the output is looked up from a configuration table, not computed. This is predictable, auditable, and easy to test. It is also limited: you can only handle what you've planned for.</p>
         <p>In an autonomous system, the agent determines its own sequence of steps. The configuration specifies what capabilities are available and what constraints apply, but not the exact path. This allows the agent to handle novel situations, compose multi-step responses, and adapt to context it wasn't explicitly trained on. The trade-off is that the system is no longer fully deterministic: the same input may produce different outputs depending on the model's reasoning at that moment.</p>
