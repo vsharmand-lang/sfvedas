@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dynamic Forms and Dynamic Actions: Future of Record Pages | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="How Dynamic Forms replaces the record type / page layout model, the conditional visibility rules for fields and sections, Dynamic Actions for context-aware button surfaces, current support limitations, and when to use Dynamic Forms versus custom LWC components."/>
   <meta property="og:title" content="Dynamic Forms and Dynamic Actions: Future of Record Pages | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="How Dynamic Forms replaces the record type / page layout model, the conditional visibility rules for fields and sections, Dynamic Actions for context-aware button surfaces, current support limitations, and when to use Dynamic Forms versus custom LWC components."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-018/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Dynamic Forms and Dynamic Actions: Future of Record Pages | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="How Dynamic Forms replaces the record type / page layout model, the conditional visibility rules for fields and sections, Dynamic Actions for context-aware button surfaces, current support limitations, and when to use Dynamic Forms versus custom LWC components."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Dynamic Forms and Dynamic Actions: Future of Record Pages | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "How Dynamic Forms replaces the record type / page layout model, the conditional visibility rules for fields and sections, Dynamic Actions for context-aware button surfaces, current support limitations, and when to use Dynamic Forms versus custom LWC components.",
   "url": "https://sfvedas.com/tutorials/plat-018/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-018/",
   "author": {
@@ -104,7 +104,7 @@
         Dynamic Forms and Dynamic Actions: Future of Record Pages
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        How Dynamic Forms replaces the record type / page layout model, the conditional visibility rules for fields and sections, Dynamic Actions for context-aware button surfaces, current support limitations, and when to use Dynamic Forms versus custom LWC components.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>How Dynamic Forms replaces the record type / page layout model, the conditional visibility rules for fields and sections, Dynamic Actions for context-aware button surfaces, current support limitations, and when to use Dynamic Forms versus custom LWC components.</p>
     </div>
 
-    <h2>The Problem with Page Layouts</h2>
+    <h2 id="s1">The Problem with Page Layouts</h2>
     <p>The traditional Salesforce record page model is: assign users to record types, assign record types to page layouts, configure the page layout with all fields that any user on that layout might need. The result is cluttered record pages — 40-field layouts where any given user actually uses 15 fields depending on the record's stage or their role.</p>
     <p>The workaround was profile-specific page layouts: assign different layouts per record type per profile, creating a matrix explosion of layout maintenance. An org with 8 record types and 12 profiles has a theoretical maximum of 96 page layout assignments to manage. This is where Dynamic Forms becomes genuinely valuable.</p>
 
@@ -147,7 +147,7 @@
       Dynamic Forms moves field visibility logic from the metadata layer (page layout assignment) to the component layer (Lightning App Builder rules). This makes the record page configuration visible, testable, and manageable in one place rather than spread across dozens of page layout files.
     </div>
 
-    <h2>How Dynamic Forms Works</h2>
+    <h2 id="s2">How Dynamic Forms Works</h2>
     <p>Dynamic Forms replaces the traditional "Fields" component on a Lightning record page with individual field components and field section components. Each field or section can have visibility rules that show or hide it based on:</p>
     <ul>
       <li>Field values on the current record (e.g. show "Reason for Loss" only when Stage = "Closed Lost")</li>
@@ -183,7 +183,7 @@ Visibility Filter:
       Dynamic Forms visibility rules are evaluated client-side using data already loaded into the record page. This means the logic is fast (no round-trips) but also limited — you cannot filter based on data from related records or complex Apex computations. For complex conditional logic, a custom LWC with Apex wire calls is still required.
     </div>
 
-    <h2>Dynamic Actions: Context-Aware Buttons</h2>
+    <h2 id="s3">Dynamic Actions: Context-Aware Buttons</h2>
     <p>Dynamic Actions extend the same conditional visibility concept to the action bar — the "Edit," "Delete," "New Case," and custom Quick Action buttons on a record page. Without Dynamic Actions, the action bar shows a static set of buttons defined by the page layout. With Dynamic Actions, each button can have visibility rules using the same filter conditions as Dynamic Forms.</p>
     <p>Practical examples:</p>
     <ul>
@@ -193,7 +193,7 @@ Visibility Filter:
       <li>Show different Quick Actions on mobile versus desktop</li>
     </ul>
 
-    <h2>Current Limitations and Gaps</h2>
+    <h2 id="s4">Current Limitations and Gaps</h2>
     <p>Dynamic Forms is not a full replacement for all record page scenarios as of 2026:</p>
     <ul>
       <li><strong>Object support:</strong> Dynamic Forms is generally available for custom objects and a growing list of standard objects. Some standard objects (notably some financial services objects) are not yet supported.</li>
@@ -207,7 +207,7 @@ Visibility Filter:
       Dynamic Forms visibility rules do not enforce data security — they only control what is displayed. A user who can access the record via the API or SOQL can still read all fields regardless of Dynamic Forms configuration. Dynamic Forms is a UX feature, not a security feature. Use FLS (Field Level Security) to enforce what data can be read.
     </div>
 
-    <h2>When to Use Dynamic Forms vs Custom LWC</h2>
+    <h2 id="s5">When to Use Dynamic Forms vs Custom LWC</h2>
     <p>Use Dynamic Forms when:</p>
     <ul>
       <li>Visibility logic is based on field values, record types, profiles, or permission sets on the current record</li>
@@ -222,7 +222,7 @@ Visibility Filter:
       <li>The object is not yet supported by Dynamic Forms</li>
     </ul>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Dynamic Forms replaces page layout field assignment with per-field and per-section visibility rules configured in Lightning App Builder.</li>
@@ -240,27 +240,27 @@ Visibility Filter:
       <div class="quiz-question" id="q1">
         <p>1. A Dynamic Forms visibility rule hides a sensitive salary field for all non-HR users. Does this prevent non-HR users from reading the salary data via SOQL?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Yes — Dynamic Forms visibility rules are enforced by the server and apply to all data access methods</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">No — Dynamic Forms only controls what is displayed in the UI. FLS must be configured to restrict API and SOQL access</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Only if the visibility rule is based on a permission set rather than a profile</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Yes — Dynamic Forms visibility rules are enforced by the server and apply to all data access methods</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. No — Dynamic Forms only controls what is displayed in the UI. FLS must be configured to restrict API and SOQL access</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Only if the visibility rule is based on a permission set rather than a profile</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. You want to show an "Approve" button on an Opportunity only when Stage = "Pending Approval" AND the user has the "Approver" permission set. Which feature handles this?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Dynamic Forms — it controls field and section visibility</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Dynamic Actions — it applies conditional visibility rules to action bar buttons</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Page Layout quick action assignment — it controls which buttons appear per record type</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Dynamic Forms — it controls field and section visibility</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Dynamic Actions — it applies conditional visibility rules to action bar buttons</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Page Layout quick action assignment — it controls which buttons appear per record type</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. A Dynamic Forms visibility condition needs to reference a field on the parent Account from a Contact record. What is the correct approach?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Reference the Account field directly in the condition using dot notation (Account.Industry)</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Create a formula field on the Contact that mirrors the Account field value, then reference the formula field in the condition</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Dynamic Forms automatically loads related object fields for condition evaluation</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Reference the Account field directly in the condition using dot notation (Account.Industry)</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Create a formula field on the Contact that mirrors the Account field value, then reference the formula field in the condition</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Dynamic Forms automatically loads related object fields for condition evaluation</div>
         </div>
       </div>
     </div>
@@ -289,12 +289,12 @@ Visibility Filter:
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Problem with Page Layouts</a></li>
-            <li><a href="#">How Dynamic Forms Works</a></li>
-            <li><a href="#">Dynamic Actions: Context-Aware Buttons</a></li>
-            <li><a href="#">Current Limitations and Gaps</a></li>
-            <li><a href="#">When to Use Dynamic Forms vs Custom LWC</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Problem with Page Layouts</a></li>
+            <li><a href="#s2">How Dynamic Forms Works</a></li>
+            <li><a href="#s3">Dynamic Actions: Context-Aware Buttons</a></li>
+            <li><a href="#s4">Current Limitations and Gaps</a></li>
+            <li><a href="#s5">When to Use Dynamic Forms vs Custom LWC</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

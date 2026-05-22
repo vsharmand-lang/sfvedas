@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Visualforce in 2026: What's Still Worth Knowing | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="Visualforce is Salesforce's server-side web UI framework, introduced in 2007. A Visualforce page is an HTML-like markup file (with Salesforce-specific tags like &lt;apex:pageBlock&gt; and &lt;apex:inputField&gt;) backed by an Apex controller class that handles data retrieval and form actions. The page renders entirely server-side — the server produces HTML and sends it to the browser on each interaction."/>
   <meta property="og:title" content="Visualforce in 2026: What's Still Worth Knowing | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="Visualforce is Salesforce's server-side web UI framework, introduced in 2007. A Visualforce page is an HTML-like markup file (with Salesforce-specific tags like &lt;apex:pageBlock&gt; and &lt;apex:inputField&gt;) backed by an Apex controller class that handles data retrieval and form actions. The page renders entirely server-side — the server produces HTML and sends it to the browser on each interaction."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-006/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Visualforce in 2026: What's Still Worth Knowing | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="Visualforce is Salesforce's server-side web UI framework, introduced in 2007. A Visualforce page is an HTML-like markup file (with Salesforce-specific tags like &lt;apex:pageBlock&gt; and &lt;apex:inputField&gt;) backed by an Apex controller class that handles data retrieval and form actions. The page renders entirely server-side — the server produces HTML and sends it to the browser on each interaction."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Visualforce in 2026: What's Still Worth Knowing | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "Visualforce is Salesforce's server-side web UI framework, introduced in 2007. A Visualforce page is an HTML-like markup file (with Salesforce-specific tags like &lt;apex:pageBlock&gt; and &lt;apex:inputField&gt;) backed by an Apex controller class that handles data retrieval and form actions. The page renders entirely server-side — the server produces HTML and sends it to the browser on each interaction.",
   "url": "https://sfvedas.com/tutorials/plat-006/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-006/",
   "author": {
@@ -197,7 +197,7 @@
         <p>For Visualforce pages that are high-traffic, high-value, or business-critical, migration to LWC delivers genuine benefits: better performance, Lightning Experience integration, mobile responsiveness, and access to the latest platform capabilities.</p>
         <p>The migration approach that minimises risk is incremental. Replace the Visualforce page one section at a time: start with the innermost, most independent components (a formatted display field, a single action button), build them as LWC components, and embed them in the Visualforce page using the &lt;apex:includeScript&gt; technique or the Lightning Out feature (which allows LWC components to be embedded in Visualforce pages during a phased migration). This avoids a big-bang rewrite and allows regression testing at each increment.</p>
         <p>For pages that exist purely for PDF generation, investigate third-party PDF libraries (DocuSign CLM, Conga Composer, or open-source alternatives) that can generate PDFs from Salesforce data without Visualforce. If the PDF layout requirements are simple, a managed package with PDF generation capability may be faster than maintaining custom Visualforce PDF pages long-term.</p>
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Visualforce is a server-side HTML rendering framework from 2007 — in maintenance mode, not deprecated, but receiving no new investment. It will run in Salesforce orgs for years, but no new Visualforce should be built.</li>
@@ -209,32 +209,32 @@
           </ul>
         </div>
         <div class="quiz-section" id="quiz">
-      <h2>Test Your Understanding</h2>
+      <h2 id="s6">Test Your Understanding</h2>
 
       <div class="quiz-question" id="q1">
         <p>1. A client asks whether they should migrate all 120 Visualforce pages to LWC as a strategic priority. What is the most pragmatic advice?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Yes — migrate all 120 immediately since Visualforce is deprecated and will be removed in the next major release</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">No — audit usage first. Migrate high-traffic, high-value pages where LWC delivers measurable benefit. Leave stable, low-traffic pages that work correctly. Never build new Visualforce going forward.</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">No — Visualforce and LWC are equally supported by Salesforce; there is no strategic reason to prefer LWC over Visualforce for existing implementations</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Yes — migrate all 120 immediately since Visualforce is deprecated and will be removed in the next major release</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. No — audit usage first. Migrate high-traffic, high-value pages where LWC delivers measurable benefit. Leave stable, low-traffic pages that work correctly. Never build new Visualforce going forward.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. No — Visualforce and LWC are equally supported by Salesforce; there is no strategic reason to prefer LWC over Visualforce for existing implementations</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. Your org generates client proposal PDFs from Visualforce pages with custom branding and complex table layouts. A developer suggests migrating these to LWC. What should you tell them?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Proceed — LWC has a built-in PDF export API that handles server-side rendering with all standard HTML layouts</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">LWC has no native server-side PDF rendering equivalent to Visualforce's renderAs="pdf". Either retain the Visualforce PDF pages or evaluate a third-party PDF generation managed package.</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Use the browser's print-to-PDF capability in LWC — this produces identical output to Visualforce PDF rendering</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Proceed — LWC has a built-in PDF export API that handles server-side rendering with all standard HTML layouts</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. LWC has no native server-side PDF rendering equivalent to Visualforce's renderAs="pdf". Either retain the Visualforce PDF pages or evaluate a third-party PDF generation managed package.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Use the browser's print-to-PDF capability in LWC — this produces identical output to Visualforce PDF rendering</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. A developer wants to delete a Visualforce page that hasn't been modified in 3 years, assuming it is unused. What step must be taken first?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Check the last-modified date — pages not modified in 3 years are automatically deactivated by Salesforce</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Search all references: page overrides in Setup, custom buttons and links, Quick Actions, email templates, and any hardcoded URL references in Apex or configuration. Unused-looking pages may still be actively referenced.</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Delete it immediately — Salesforce will throw a dependency error if anything references the page, making deletion safe to attempt</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Check the last-modified date — pages not modified in 3 years are automatically deactivated by Salesforce</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Search all references: page overrides in Setup, custom buttons and links, Quick Actions, email templates, and any hardcoded URL references in Apex or configuration. Unused-looking pages may still be actively referenced.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Delete it immediately — Salesforce will throw a dependency error if anything references the page, making deletion safe to attempt</div>
         </div>
       </div>
     </div>
@@ -263,13 +263,13 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">What Visualforce Is</a></li>
-            <li><a href="#">Where Visualforce Is Still the Right Tool</a></li>
-            <li><a href="#">Where LWC Has Replaced Visualforce</a></li>
-            <li><a href="#">Assessing Visualforce Technical Debt</a></li>
-            <li><a href="#">Migration Strategy for High-Value Pages</a></li>
-            <li><a href="#">Key Takeaways</a></li>
-            <li><a href="#">Test Your Understanding</a></li>
+            <li><a href="#s1">What Visualforce Is</a></li>
+            <li><a href="#s2">Where Visualforce Is Still the Right Tool</a></li>
+            <li><a href="#s3">Where LWC Has Replaced Visualforce</a></li>
+            <li><a href="#s4">Assessing Visualforce Technical Debt</a></li>
+            <li><a href="#s5">Migration Strategy for High-Value Pages</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#s6">Test Your Understanding</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

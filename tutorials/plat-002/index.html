@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce SOQL Tuning: Why Your Queries Are Slow | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="Understanding SOQL performance starts with understanding the two modes the query engine can operate in: an index seek (fast) and a table scan (slow)."/>
   <meta property="og:title" content="Salesforce SOQL Tuning: Why Your Queries Are Slow | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="Understanding SOQL performance starts with understanding the two modes the query engine can operate in: an index seek (fast) and a table scan (slow)."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-002/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Salesforce SOQL Tuning: Why Your Queries Are Slow | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="Understanding SOQL performance starts with understanding the two modes the query engine can operate in: an index seek (fast) and a table scan (slow)."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Salesforce SOQL Tuning: Why Your Queries Are Slow | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "Understanding SOQL performance starts with understanding the two modes the query engine can operate in: an index seek (fast) and a table scan (slow).",
   "url": "https://sfvedas.com/tutorials/plat-002/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-002/",
   "author": {
@@ -231,7 +231,7 @@ AND CreatedDate = LAST_N_DAYS:90        -- 2. date range narrows result
 AND Status != 'Closed'                  -- 3. negative filter after selective positive
 ORDER BY CreatedDate DESC               -- 4. sorted
 LIMIT 200                               -- 5. bounded result set</code></pre>
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>SOQL performs an index seek (fast) when the WHERE filter is selective (&lt;5-10% of rows), or a table scan (slow) when non-selective. The query engine decides which to use based on selectivity estimates.</li>
@@ -243,32 +243,32 @@ LIMIT 200                               -- 5. bounded result set</code></pre>
           </ul>
         </div>
         <div class="quiz-section" id="quiz">
-      <h2>Test Your Understanding</h2>
+      <h2 id="s6">Test Your Understanding</h2>
 
       <div class="quiz-question" id="q1">
         <p>1. A SOQL query filters on a custom field "Region__c" on a 2-million-record object. The field is not an External ID. EXPLAIN shows "leadingOperationType": "TableScan". What is the most appropriate fix?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Rewrite the query to use a subquery that first selects by Id, then joins to the Region__c filter</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Request a custom index on Region__c via Salesforce Support (if the field's values are selective), or add a selective indexed field like CreatedDate as a co-filter to reduce the scan range</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Convert Region__c to a formula field so the query engine can optimise it differently</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Rewrite the query to use a subquery that first selects by Id, then joins to the Region__c filter</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Request a custom index on Region__c via Salesforce Support (if the field's values are selective), or add a selective indexed field like CreatedDate as a co-filter to reduce the scan range</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Convert Region__c to a formula field so the query engine can optimise it differently</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. A developer writes WHERE Description__c LIKE '%invoice%' to find records mentioning "invoice" in a long text field. What is wrong with this query on a large object?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">LIKE queries are not supported on custom text fields in SOQL</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">The leading wildcard in '%invoice%' defeats the index — the engine must scan every row. For text search in long fields, the Salesforce Search API or a custom search index is the correct approach.</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">LIKE queries work correctly on long text fields — the full-text search index handles them efficiently</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. LIKE queries are not supported on custom text fields in SOQL</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. The leading wildcard in '%invoice%' defeats the index — the engine must scan every row. For text search in long fields, the Salesforce Search API or a custom search index is the correct approach.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. LIKE queries work correctly on long text fields — the full-text search index handles them efficiently</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. You have a query: WHERE StageName = 'Closed Won' on Opportunity with 5 million records, 60% of which are Closed Won. The query is slow. Adding AND CreatedDate = THIS_YEAR reduces matching records to 200,000. Will this likely fix the performance problem?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">No — adding more filters always makes SOQL slower due to additional evaluation overhead</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Yes — CreatedDate is indexed. The date filter brings the result set from 3M records (60%) to 200,000 (4%), which is below the selectivity threshold and allows the query engine to use the CreatedDate index.</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">No — StageName is the primary filter and must be indexed for improvement. CreatedDate is a secondary filter and cannot change the execution plan.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. No — adding more filters always makes SOQL slower due to additional evaluation overhead</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Yes — CreatedDate is indexed. The date filter brings the result set from 3M records (60%) to 200,000 (4%), which is below the selectivity threshold and allows the query engine to use the CreatedDate index.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. No — StageName is the primary filter and must be indexed for improvement. CreatedDate is a secondary filter and cannot change the execution plan.</div>
         </div>
       </div>
     </div>
@@ -297,13 +297,13 @@ LIMIT 200                               -- 5. bounded result set</code></pre>
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">How the SOQL Engine Decides: Seek vs Scan</a></li>
-            <li><a href="#">Automatically Indexed Fields</a></li>
-            <li><a href="#">Using EXPLAIN to Diagnose Slow Queries</a></li>
-            <li><a href="#">Common SOQL Anti-Patterns</a></li>
-            <li><a href="#">Query Optimisation Techniques</a></li>
-            <li><a href="#">Key Takeaways</a></li>
-            <li><a href="#">Test Your Understanding</a></li>
+            <li><a href="#s1">How the SOQL Engine Decides: Seek vs Scan</a></li>
+            <li><a href="#s2">Automatically Indexed Fields</a></li>
+            <li><a href="#s3">Using EXPLAIN to Diagnose Slow Queries</a></li>
+            <li><a href="#s4">Common SOQL Anti-Patterns</a></li>
+            <li><a href="#s5">Query Optimisation Techniques</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#s6">Test Your Understanding</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce CLI Commands Every Architect Should Know | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="The 30 most valuable Salesforce CLI commands for architects and tech leads, organised by workflow: org management, source deployment, metadata inspection, Apex execution, and data operations. Use this as a reference card."/>
   <meta property="og:title" content="Salesforce CLI Commands Every Architect Should Know | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="The 30 most valuable Salesforce CLI commands for architects and tech leads, organised by workflow: org management, source deployment, metadata inspection, Apex execution, and data operations. Use this as a reference card."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-026/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Salesforce CLI Commands Every Architect Should Know | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="The 30 most valuable Salesforce CLI commands for architects and tech leads, organised by workflow: org management, source deployment, metadata inspection, Apex execution, and data operations. Use this as a reference card."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Salesforce CLI Commands Every Architect Should Know | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "The 30 most valuable Salesforce CLI commands for architects and tech leads, organised by workflow: org management, source deployment, metadata inspection, Apex execution, and data operations. Use this as a reference card.",
   "url": "https://sfvedas.com/tutorials/plat-026/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-026/",
   "author": {
@@ -104,7 +104,7 @@
         Salesforce CLI Commands Every Architect Should Know
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        The 30 most valuable Salesforce CLI commands for architects and tech leads, organised by workflow: org management, source deployment, metadata inspection, Apex execution, and data operations. Use this as a reference card.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,11 +138,11 @@
       <p>The 30 most valuable Salesforce CLI commands for architects and tech leads, organised by workflow: org management, source deployment, metadata inspection, Apex execution, and data operations. Use this as a reference card.</p>
     </div>
 
-    <h2>CLI Basics: The sf Command</h2>
+    <h2 id="s1">CLI Basics: The sf Command</h2>
     <p>Salesforce unified all CLI commands under the <code>sf</code> binary in 2022 (replacing the older <code>sfdx</code> binary). All new commands use <code>sf</code>. The old <code>sfdx</code> commands continue to work via an alias shim but are not updated with new features.</p>
     <p>The <code>--json</code> flag on any command returns machine-readable JSON output — essential for CI/CD pipelines that parse command output.</p>
 
-    <h2>Org Management Commands</h2>
+    <h2 id="s2">Org Management Commands</h2>
 
     <div class="code-block"># Authenticate to an org (opens browser OAuth flow)
 sf org login web --alias myProdOrg --instance-url https://login.salesforce.com
@@ -170,7 +170,7 @@ sf org delete scratch --target-org myScratch --no-prompt
 # Set default org for all commands
 sf config set target-org myProdOrg</div>
 
-    <h2>Source Deployment Commands</h2>
+    <h2 id="s3">Source Deployment Commands</h2>
 
     <div class="code-block"># Deploy metadata from local source to org
 sf project deploy start --target-org mySandbox
@@ -205,7 +205,7 @@ sf project deploy quick \
       <code>sf project deploy validate</code> runs a full deployment simulation including Apex test execution but does not commit any changes to the org. The returned job ID can then be used with <code>sf project deploy quick</code> to complete the actual deployment within 10 days without re-running tests. This is the recommended pattern for production deployments.
     </div>
 
-    <h2>Apex and Test Commands</h2>
+    <h2 id="s4">Apex and Test Commands</h2>
 
     <div class="code-block"># Run all Apex tests
 sf apex run test --target-org mySandbox --result-format human
@@ -231,7 +231,7 @@ echo "System.debug(Limits.getQueries());" | sf apex run --target-org myProdOrg
 # Get Apex debug log (requires log level setup)
 sf apex tail log --target-org mySandbox</div>
 
-    <h2>Metadata Inspection Commands</h2>
+    <h2 id="s5">Metadata Inspection Commands</h2>
 
     <div class="code-block"># List all metadata types in the org
 sf org list metadata-types --target-org mySandbox
@@ -255,7 +255,7 @@ sf project deploy resume --job-id 0AfXX000000XXXXXX
 # Cancel a running deployment
 sf project deploy cancel --job-id 0AfXX000000XXXXXX --target-org mySandbox</div>
 
-    <h2>Data and SOQL Commands</h2>
+    <h2 id="s6">Data and SOQL Commands</h2>
 
     <div class="code-block"># Run a SOQL query and display results
 sf data query \
@@ -290,7 +290,7 @@ sf data delete bulk \
       Add <code>--json | jq '.result'</code> to any CLI command to pipe the JSON output through jq for clean, formatted viewing. For Windows users, install jq via Chocolatey (<code>choco install jq</code>). The ability to parse CLI output in shell scripts is what enables powerful CI/CD automation.
     </div>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>All new Salesforce CLI commands use <code>sf</code> — the old <code>sfdx</code> binary is maintained for compatibility but not updated.</li>
@@ -308,27 +308,27 @@ sf data delete bulk \
       <div class="quiz-question" id="q1">
         <p>1. You want to deploy to production and avoid re-running the full test suite after a successful validation. What is the two-command sequence?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">sf project deploy start with --skip-tests flag, then sf project deploy resume</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">sf project deploy validate (captures job ID), then sf project deploy quick --job-id using the captured ID</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">sf project deploy start twice — the second run detects the prior validation and skips tests</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. sf project deploy start with --skip-tests flag, then sf project deploy resume</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. sf project deploy validate (captures job ID), then sf project deploy quick --job-id using the captured ID</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. sf project deploy start twice — the second run detects the prior validation and skips tests</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. You need to run a SOQL query and export the results to a CSV for analysis. Which command achieves this?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">sf data export tree — it exports records as JSON for analysis</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">sf data query with --result-format csv and redirect to a file</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">sf org list metadata with --result-format csv</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. sf data export tree — it exports records as JSON for analysis</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. sf data query with --result-format csv and redirect to a file</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. sf org list metadata with --result-format csv</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. What does adding --json to a Salesforce CLI command do?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">It formats the output as a JSON report for the Salesforce Setup audit log</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">It returns machine-readable JSON output, enabling the command's results to be parsed by CI/CD scripts and automation</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">It opens the JSON result in the Salesforce Developer Console for debugging</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. It formats the output as a JSON report for the Salesforce Setup audit log</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. It returns machine-readable JSON output, enabling the command's results to be parsed by CI/CD scripts and automation</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. It opens the JSON result in the Salesforce Developer Console for debugging</div>
         </div>
       </div>
     </div>
@@ -346,7 +346,7 @@ sf data delete bulk \
             </a>
             <a href="../plat-024/" class="related-card">
               <span class="card-id">PLAT-024</span>
-              <h4>Salesforce DevOps Center: Is It Ready for Enterprise?</h4>
+              <h4>Salesforce DevOps Centre: Is It Ready for Enterprise?</h4>
             </a>
           </div>
         </div>
@@ -357,13 +357,13 @@ sf data delete bulk \
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">CLI Basics: The sf Command</a></li>
-            <li><a href="#">Org Management Commands</a></li>
-            <li><a href="#">Source Deployment Commands</a></li>
-            <li><a href="#">Apex and Test Commands</a></li>
-            <li><a href="#">Metadata Inspection Commands</a></li>
-            <li><a href="#">Data and SOQL Commands</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">CLI Basics: The sf Command</a></li>
+            <li><a href="#s2">Org Management Commands</a></li>
+            <li><a href="#s3">Source Deployment Commands</a></li>
+            <li><a href="#s4">Apex and Test Commands</a></li>
+            <li><a href="#s5">Metadata Inspection Commands</a></li>
+            <li><a href="#s6">Data and SOQL Commands</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Triggers vs Flows vs Process Builder: The Migration Path Forward | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="Salesforce's automation tooling has evolved through three distinct generations, and understanding the history explains the current migration pressure."/>
   <meta property="og:title" content="Triggers vs Flows vs Process Builder: The Migration Path Forward | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="Salesforce's automation tooling has evolved through three distinct generations, and understanding the history explains the current migration pressure."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-003/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Triggers vs Flows vs Process Builder: The Migration Path Forward | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="Salesforce's automation tooling has evolved through three distinct generations, and understanding the history explains the current migration pressure."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Triggers vs Flows vs Process Builder: The Migration Path Forward | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "Salesforce's automation tooling has evolved through three distinct generations, and understanding the history explains the current migration pressure.",
   "url": "https://sfvedas.com/tutorials/plat-003/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-003/",
   "author": {
@@ -197,7 +197,7 @@ WHERE TableEnumOrId = 'Opportunity'</code></pre>
         <p>The same automation debt that accumulated in Workflow Rules and Process Builder will accumulate in Flow if governance is not in place. The tool changed but the human behaviours that create debt — building without design, never deleting old automation, no ownership model — remain.</p>
         <p>The governance practices that prevent Flow debt are: mandatory naming conventions (flows named by object, trigger type, and purpose), a single flow per object per trigger context where possible (rather than many small flows that interact unpredictably), a business owner assigned to every flow in the inventory, and a regular automation review (quarterly) where unused flows are deactivated and deleted.</p>
         <p>Record-Triggered Flows should also be monitored for performance. Unlike Workflow Rules (which were lightweight), complex flows with many elements, external callouts, or inefficient loops add measurable transaction time to record saves. Salesforce's Flow Analyser in Setup can surface performance issues in deployed flows.</p>
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Workflow Rules are deprecated and being retired; Process Builder is deprecated. Flow (Record-Triggered Flow) is Salesforce's strategic automation tool and the only one receiving active investment and new features.</li>
@@ -209,32 +209,32 @@ WHERE TableEnumOrId = 'Opportunity'</code></pre>
           </ul>
         </div>
         <div class="quiz-section" id="quiz">
-      <h2>Test Your Understanding</h2>
+      <h2 id="s6">Test Your Understanding</h2>
 
       <div class="quiz-question" id="q1">
         <p>1. An org has 15 active Process Builder processes across 8 objects, some last modified 4 years ago with unknown owners. What should be the FIRST step in the migration plan?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Run the Salesforce Migration Assistant on all 15 processes immediately to generate Flow equivalents</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Produce a complete automation inventory — identify the purpose, owner, and current-use status of every process before writing a single migration plan</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Deactivate all Process Builder processes immediately since they are deprecated and replace them with blank Flows</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Run the Salesforce Migration Assistant on all 15 processes immediately to generate Flow equivalents</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Produce a complete automation inventory — identify the purpose, owner, and current-use status of every process before writing a single migration plan</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Deactivate all Process Builder processes immediately since they are deprecated and replace them with blank Flows</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. A developer uses the Salesforce Migration Assistant to convert a Process Builder process to Flow and deploys the generated flow directly to production. What is the key risk with this approach?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The Migration Assistant generates flows that are incompatible with the current Salesforce release version</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">The Migration Assistant generates functional but unoptimised drafts — without review, refactoring, and sandbox testing against representative data, edge cases, and business validation, silent bugs may reach production</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Generated flows require manual activation — deploying them directly does not enable the automation</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. The Migration Assistant generates flows that are incompatible with the current Salesforce release version</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. The Migration Assistant generates functional but unoptimised drafts — without review, refactoring, and sandbox testing against representative data, edge cases, and business validation, silent bugs may reach production</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Generated flows require manual activation — deploying them directly does not enable the automation</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. A Salesforce org has Workflow Rules, Process Builder processes, and Apex triggers all active on the Opportunity object. A record update triggers unexpected behaviour — multiple actions fire in a loop. What is the architectural root cause?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Salesforce platform bug — multiple automation types on the same object are not officially supported</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Mixed automation stack interaction — multiple tools firing in sequence, each potentially triggering the next, with no single view of the full execution chain. The fix is consolidating to a single automation model (Flow + Apex).</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Governor limit bypass — recursive triggers are allowed in Workflow Rule context but not in Flow context, causing conflict</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Salesforce platform bug — multiple automation types on the same object are not officially supported</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Mixed automation stack interaction — multiple tools firing in sequence, each potentially triggering the next, with no single view of the full execution chain. The fix is consolidating to a single automation model (Flow + Apex).</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Governor limit bypass — recursive triggers are allowed in Workflow Rule context but not in Flow context, causing conflict</div>
         </div>
       </div>
     </div>
@@ -263,13 +263,13 @@ WHERE TableEnumOrId = 'Opportunity'</code></pre>
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Automation Tool Timeline</a></li>
-            <li><a href="#">The Interaction Problem: Mixed Automation Stacks</a></li>
-            <li><a href="#">Migration Strategy: Prioritisation and Approach</a></li>
-            <li><a href="#">The Salesforce Migration Assistant</a></li>
-            <li><a href="#">Governance Going Forward: Preventing Flow Debt</a></li>
-            <li><a href="#">Key Takeaways</a></li>
-            <li><a href="#">Test Your Understanding</a></li>
+            <li><a href="#s1">The Automation Tool Timeline</a></li>
+            <li><a href="#s2">The Interaction Problem: Mixed Automation Stacks</a></li>
+            <li><a href="#s3">Migration Strategy: Prioritisation and Approach</a></li>
+            <li><a href="#s4">The Salesforce Migration Assistant</a></li>
+            <li><a href="#s5">Governance Going Forward: Preventing Flow Debt</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#s6">Test Your Understanding</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

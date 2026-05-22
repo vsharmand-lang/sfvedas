@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Truth About No-Code Salesforce Development | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="What &quot;no-code&quot; actually means on the Salesforce platform, the hidden costs and complexity ceilings of Flow-heavy architectures, how to set honest expectations with stakeholders, and where low-code genuinely excels versus where it creates long-term maintenance debt."/>
   <meta property="og:title" content="The Truth About No-Code Salesforce Development | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="What &quot;no-code&quot; actually means on the Salesforce platform, the hidden costs and complexity ceilings of Flow-heavy architectures, how to set honest expectations with stakeholders, and where low-code genuinely excels versus where it creates long-term maintenance debt."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-014/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="The Truth About No-Code Salesforce Development | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="What &quot;no-code&quot; actually means on the Salesforce platform, the hidden costs and complexity ceilings of Flow-heavy architectures, how to set honest expectations with stakeholders, and where low-code genuinely excels versus where it creates long-term maintenance debt."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "The Truth About No-Code Salesforce Development | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "What &quot;no-code&quot; actually means on the Salesforce platform, the hidden costs and complexity ceilings of Flow-heavy architectures, how to set honest expectations with stakeholders, and where low-code genuinely excels versus where it creates long-term maintenance debt.",
   "url": "https://sfvedas.com/tutorials/plat-014/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-014/",
   "author": {
@@ -104,7 +104,7 @@
         The Truth About No-Code Salesforce Development
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        What "no-code" actually means on the Salesforce platform, the hidden costs and complexity ceilings of Flow-heavy architectures, how to set honest expectations with stakeholders, and where low-code genuinely excels versus where it creates long-term maintenance debt.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>What "no-code" actually means on the Salesforce platform, the hidden costs and complexity ceilings of Flow-heavy architectures, how to set honest expectations with stakeholders, and where low-code genuinely excels versus where it creates long-term maintenance debt.</p>
     </div>
 
-    <h2>The Marketing vs the Reality</h2>
+    <h2 id="s1">The Marketing vs the Reality</h2>
     <p>Salesforce marketing positions the platform as a "no-code" development environment where business users can build sophisticated automations without writing a single line of code. This is both true and misleading. It is true that Flow, declarative configuration, and formula fields can accomplish a remarkable amount without Apex. It is misleading because "no-code" does not mean "no engineering discipline" — and in enterprise deployments, the absence of that discipline is where projects fail.</p>
     <p>The honest framing is "low-code": the implementation effort is lower than traditional development, but not zero. Business analysts who build Flows are doing software engineering — they create logic, data transformations, error handling, and workflows that behave like code and fail like code. Treating it as a non-technical activity is what causes the debt.</p>
 
@@ -147,7 +147,7 @@
       Flows fail at runtime. Flow errors produce fault emails to the admin and failed interviews that need manual investigation. A Flow is not an Excel spreadsheet — it executes transactionally, respects governor limits, and can silently corrupt data if the logic has an edge case. The complexity is real even if the visual metaphor feels approachable.
     </div>
 
-    <h2>Where No-Code Genuinely Excels</h2>
+    <h2 id="s2">Where No-Code Genuinely Excels</h2>
     <p>Low-code tools on Salesforce have clear strengths that experienced developers should acknowledge rather than dismiss:</p>
     <ul>
       <li><strong>Approachable for business users:</strong> A well-trained admin can build and modify Record-Triggered Flows without a developer. This is a genuine productivity multiplier for organisations with scarce developer capacity.</li>
@@ -156,7 +156,7 @@
       <li><strong>Rapid iteration:</strong> Flows can be modified and activated without a deployment — a change takes minutes rather than hours. For rapidly evolving business processes, this speed matters.</li>
     </ul>
 
-    <h2>The Hidden Costs of Flow-Heavy Architectures</h2>
+    <h2 id="s3">The Hidden Costs of Flow-Heavy Architectures</h2>
     <p>The problems emerge when no-code becomes the default answer for everything, regardless of complexity:</p>
     <ul>
       <li><strong>Maintainability cliff:</strong> Flows beyond 200 elements become difficult to understand. A Flow with 500 elements and nested decision branches is harder to debug than the equivalent Apex class with unit tests.</li>
@@ -171,7 +171,7 @@
       The "one Flow per object" pattern is not enforced by Salesforce but should be a team standard. Multiple Flows on the same object running in non-deterministic order creates interaction bugs that are time-consuming to reproduce and diagnose. Consolidate automation into a single entry-point Flow per object event type.
     </div>
 
-    <h2>Setting Honest Expectations with Stakeholders</h2>
+    <h2 id="s4">Setting Honest Expectations with Stakeholders</h2>
     <p>CTOs and product owners are often told that low-code means the business team can build their own automation without IT involvement. This has a kernel of truth — admins can own simple automations — but the implication that IT is out of the loop is dangerous. The honest expectation-setting conversation:</p>
     <ul>
       <li><strong>Admins own simple automation (Rule 1):</strong> Record updates, email notifications, approval processes — yes, admins own these.</li>
@@ -185,7 +185,7 @@
       Create a "Flow governance charter" — a one-page document that defines complexity thresholds (element count, data volume, external calls) and the review process for each tier. Post it in the team wiki. When an admin asks "do I need a developer to review this Flow?" the answer is in the charter, not a conversation.
     </div>
 
-    <h2>The Right Tool for the Right Complexity</h2>
+    <h2 id="s5">The Right Tool for the Right Complexity</h2>
     <p>A practical decision matrix:</p>
     <ul>
       <li><strong>1-10 steps, single object, no callouts, low volume:</strong> Declarative Flow — owned by admin, no developer review needed.</li>
@@ -194,7 +194,7 @@
       <li><strong>Cross-org, cross-cloud, or system integration:</strong> Apex with explicit integration patterns — no Flow.</li>
     </ul>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>No-code is low-code — Flows execute transactionally, consume governor limits, and require engineering discipline to maintain.</li>
@@ -212,27 +212,27 @@
       <div class="quiz-question" id="q1">
         <p>1. Two admins build separate Record-Triggered Flows on the Account object. What is the primary architectural risk?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Salesforce will reject the second Flow because only one is allowed per object</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">The Flows run in non-deterministic order, creating interaction bugs that are difficult to diagnose</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The combined governor limit budget doubles, reducing the risk of hitting limits</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Salesforce will reject the second Flow because only one is allowed per object</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. The Flows run in non-deterministic order, creating interaction bugs that are difficult to diagnose</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. The combined governor limit budget doubles, reducing the risk of hitting limits</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. An admin builds a Flow with 300 elements that processes financial transactions. What governance action is required?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">No action — admins can own any Flow regardless of complexity</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Developer review before go-live, plus automated test coverage — complexity and financial impact both require oversight</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Rebuild it in Apex immediately — Flows cannot handle financial logic</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. No action — admins can own any Flow regardless of complexity</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Developer review before go-live, plus automated test coverage — complexity and financial impact both require oversight</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Rebuild it in Apex immediately — Flows cannot handle financial logic</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which type of automation is the genuine sweet spot for "admin-owned, no developer review" in an enterprise org?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A bulk data reconciliation Flow processing 500,000 records nightly</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A Flow calling an external REST API to validate addresses on Account save</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">A 5-step Flow that sends a notification email and updates a status field on Case closure</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. A bulk data reconciliation Flow processing 500,000 records nightly</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. A Flow calling an external REST API to validate addresses on Account save</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. A 5-step Flow that sends a notification email and updates a status field on Case closure</div>
         </div>
       </div>
     </div>
@@ -261,12 +261,12 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Marketing vs the Reality</a></li>
-            <li><a href="#">Where No-Code Genuinely Excels</a></li>
-            <li><a href="#">The Hidden Costs of Flow-Heavy Architectures</a></li>
-            <li><a href="#">Setting Honest Expectations with Stakeholders</a></li>
-            <li><a href="#">The Right Tool for the Right Complexity</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Marketing vs the Reality</a></li>
+            <li><a href="#s2">Where No-Code Genuinely Excels</a></li>
+            <li><a href="#s3">The Hidden Costs of Flow-Heavy Architectures</a></li>
+            <li><a href="#s4">Setting Honest Expectations with Stakeholders</a></li>
+            <li><a href="#s5">The Right Tool for the Right Complexity</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

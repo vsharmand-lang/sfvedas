@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Permission Sets vs Profiles: The Migration That Never Ends | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="Why Salesforce is retiring profiles, the Permission Set Group model and muting permissions, the migration strategy from profile-heavy orgs to permission-set-first designs, and common pitfalls in the transition."/>
   <meta property="og:title" content="Permission Sets vs Profiles: The Migration That Never Ends | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="Why Salesforce is retiring profiles, the Permission Set Group model and muting permissions, the migration strategy from profile-heavy orgs to permission-set-first designs, and common pitfalls in the transition."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-017/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Permission Sets vs Profiles: The Migration That Never Ends | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="Why Salesforce is retiring profiles, the Permission Set Group model and muting permissions, the migration strategy from profile-heavy orgs to permission-set-first designs, and common pitfalls in the transition."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Permission Sets vs Profiles: The Migration That Never Ends | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "Why Salesforce is retiring profiles, the Permission Set Group model and muting permissions, the migration strategy from profile-heavy orgs to permission-set-first designs, and common pitfalls in the transition.",
   "url": "https://sfvedas.com/tutorials/plat-017/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-017/",
   "author": {
@@ -104,7 +104,7 @@
         Permission Sets vs Profiles: The Migration That Never Ends
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        Why Salesforce is retiring profiles, the Permission Set Group model and muting permissions, the migration strategy from profile-heavy orgs to permission-set-first designs, and common pitfalls in the transition.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,16 +138,16 @@
       <p>Why Salesforce is retiring profiles, the Permission Set Group model and muting permissions, the migration strategy from profile-heavy orgs to permission-set-first designs, and common pitfalls in the transition.</p>
     </div>
 
-    <h2>Why Profiles Are Being Retired</h2>
+    <h2 id="s1">Why Profiles Are Being Retired</h2>
     <p>Profiles have been the Salesforce security model for 20 years. Every user has exactly one profile, and that profile controls object permissions, field permissions, record type access, page layout assignments, and system permissions. The problem is that profiles are monolithic — you cannot partially assign them, and every change to a profile affects every user on that profile.</p>
     <p>This design creates an antipattern that appears in virtually every enterprise org: profile proliferation. When one user needs a slightly different set of permissions from their colleagues, a new profile is created. Enterprise orgs frequently have 100-300 profiles — each one a management burden, each one duplicating 90% of the permissions of another profile. This is the problem Salesforce is solving with Permission Sets.</p>
 
     <div class="callout callout--insight">
       <strong>Insight</strong>
-      Salesforce originally announced profile retirement for Summer 2026 but has deferred the hard deadline multiple times due to customer complexity. The architectural direction is clear — design new orgs as permission-set-first. But existing orgs should not rush migration without a structured program: a bad permission set migration in a large org can lock out users from critical functionality overnight.
+      Salesforce originally announced profile retirement for Summer 2026 but has deferred the hard deadline multiple times due to customer complexity. The architectural direction is clear — design new orgs as permission-set-first. But existing orgs should not rush migration without a structured programme: a bad permission set migration in a large org can lock out users from critical functionality overnight.
     </div>
 
-    <h2>The Permission Set Architecture</h2>
+    <h2 id="s2">The Permission Set Architecture</h2>
     <p>Permission Sets are additive. A user with a minimal profile ("Minimum Access" — just login rights) can receive one or more Permission Sets that grant exactly the access they need. Adding or removing a Permission Set from one user does not affect other users. This granularity eliminates the profile proliferation problem.</p>
     <p><strong>Permission Set Groups (PSGs)</strong> aggregate multiple Permission Sets into a single assignable unit. A "Sales Representative" PSG might include: "Account Management," "Opportunity Management," and "CPQ Quoting" permission sets. Assign one PSG to onboard a new sales rep — no need to remember which individual permission sets are required.</p>
     <p><strong>Muting Permission Sets</strong> solve an edge case: sometimes a PSG grants too much access for a specific sub-group. Rather than building a separate PSG, you add a Muting PS that removes specific permissions from the group for a subset of users. This is additive architecture with surgical removal capability.</p>
@@ -176,7 +176,7 @@ VALUES ('0055g000003FABCAA4', '0PS5g000001PSGA1')  -- PSG Id</div>
       Permission Sets can only grant, not restrict. A user's effective permissions are the union of their profile (if any) plus all assigned Permission Sets. You cannot use a Permission Set to remove access that the profile already grants. This is why the "Minimum Access profile + granular Permission Sets" model works cleanly, but migrating from feature-rich profiles is non-trivial.
     </div>
 
-    <h2>The Migration Challenge in Large Orgs</h2>
+    <h2 id="s3">The Migration Challenge in Large Orgs</h2>
     <p>Migrating from a profile-heavy model to permission-set-first is conceptually simple but operationally difficult at enterprise scale:</p>
     <ul>
       <li><strong>Audit what permissions each profile actually grants:</strong> Many enterprise profiles have hundreds of permissions enabled, many of which are unnecessary holdovers from years of incremental additions. A permission audit before migration often reveals 30-50% of profile permissions are not actively used.</li>
@@ -190,7 +190,7 @@ VALUES ('0055g000003FABCAA4', '0PS5g000001PSGA1')  -- PSG Id</div>
       Do not bulk-remove permissions from profiles in production without sandbox validation. A common migration mistake is to strip permissions from profiles and simultaneously assign Permission Sets, discovering after the fact that a subset of users lost access to a business-critical object because the PSG mapping was incomplete. Always validate against a representative user population before touching production.
     </div>
 
-    <h2>New Org Design: Permission-Set-First</h2>
+    <h2 id="s4">New Org Design: Permission-Set-First</h2>
     <p>For new implementations, the recommended architecture:</p>
     <ol>
       <li><strong>One minimal profile per licence type:</strong> "Minimum Access" (or a custom equivalent) for all users. This profile grants only login rights and the settings not yet available on Permission Sets.</li>
@@ -199,7 +199,7 @@ VALUES ('0055g000003FABCAA4', '0PS5g000001PSGA1')  -- PSG Id</div>
       <li><strong>Muting PS for exceptions:</strong> When a subset of a role needs fewer permissions, add a Muting PS to the PSG for that subset rather than creating an entirely new PSG.</li>
     </ol>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Profiles are being retired — the architectural direction is permission-set-first, even if the hard deadline has been deferred.</li>
@@ -217,27 +217,27 @@ VALUES ('0055g000003FABCAA4', '0PS5g000001PSGA1')  -- PSG Id</div>
       <div class="quiz-question" id="q1">
         <p>1. A user has the "View All Accounts" permission granted through their profile. Can you assign a Permission Set to remove this permission?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Yes — Permission Sets can grant and restrict permissions</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">No — Permission Sets are additive only. To remove the permission, you must modify the profile or switch the user to a less permissive profile</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Yes, but only using a Muting Permission Set assigned directly to the user</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Yes — Permission Sets can grant and restrict permissions</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. No — Permission Sets are additive only. To remove the permission, you must modify the profile or switch the user to a less permissive profile</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Yes, but only using a Muting Permission Set assigned directly to the user</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. What is the purpose of a Muting Permission Set within a Permission Set Group?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">It disables all permissions in the PSG for users who are on probation</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">It removes specific permissions from the PSG for a subset of users, enabling exceptions without creating an entirely new PSG</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">It prevents the PSG from being assigned to users outside a specific role hierarchy</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. It disables all permissions in the PSG for users who are on probation</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. It removes specific permissions from the PSG for a subset of users, enabling exceptions without creating an entirely new PSG</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. It prevents the PSG from being assigned to users outside a specific role hierarchy</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. For a new Salesforce implementation, what is the recommended profile strategy in a permission-set-first design?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Create one comprehensive profile per business role with all needed permissions, and use Permission Sets for exceptions</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Use one Minimum Access profile per licence type for all users, and grant all feature access via Permission Sets and PSGs</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Clone the Standard User profile and customise it for each team — profiles are still the primary access model</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Create one comprehensive profile per business role with all needed permissions, and use Permission Sets for exceptions</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Use one Minimum Access profile per licence type for all users, and grant all feature access via Permission Sets and PSGs</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Clone the Standard User profile and customise it for each team — profiles are still the primary access model</div>
         </div>
       </div>
     </div>
@@ -266,11 +266,11 @@ VALUES ('0055g000003FABCAA4', '0PS5g000001PSGA1')  -- PSG Id</div>
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">Why Profiles Are Being Retired</a></li>
-            <li><a href="#">The Permission Set Architecture</a></li>
-            <li><a href="#">The Migration Challenge in Large Orgs</a></li>
-            <li><a href="#">New Org Design: Permission-Set-First</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">Why Profiles Are Being Retired</a></li>
+            <li><a href="#s2">The Permission Set Architecture</a></li>
+            <li><a href="#s3">The Migration Challenge in Large Orgs</a></li>
+            <li><a href="#s4">New Org Design: Permission-Set-First</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

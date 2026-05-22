@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Sandboxes: Full, Partial, Developer, Scratch — A Strategy Guide | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="The four sandbox types and their data limits, the right sandbox for each stage of the SDLC, refresh cycle planning, sandbox data masking for compliance, and how scratch orgs fit into a modern CI/CD pipeline alongside traditional sandboxes."/>
   <meta property="og:title" content="Salesforce Sandboxes: Full, Partial, Developer, Scratch — A Strategy Guide | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="The four sandbox types and their data limits, the right sandbox for each stage of the SDLC, refresh cycle planning, sandbox data masking for compliance, and how scratch orgs fit into a modern CI/CD pipeline alongside traditional sandboxes."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-016/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Salesforce Sandboxes: Full, Partial, Developer, Scratch — A Strategy Guide | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="The four sandbox types and their data limits, the right sandbox for each stage of the SDLC, refresh cycle planning, sandbox data masking for compliance, and how scratch orgs fit into a modern CI/CD pipeline alongside traditional sandboxes."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Salesforce Sandboxes: Full, Partial, Developer, Scratch — A Strategy Guide | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "The four sandbox types and their data limits, the right sandbox for each stage of the SDLC, refresh cycle planning, sandbox data masking for compliance, and how scratch orgs fit into a modern CI/CD pipeline alongside traditional sandboxes.",
   "url": "https://sfvedas.com/tutorials/plat-016/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-016/",
   "author": {
@@ -104,7 +104,7 @@
         Salesforce Sandboxes: Full, Partial, Developer, Scratch — A Strategy Guide
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        The four sandbox types and their data limits, the right sandbox for each stage of the SDLC, refresh cycle planning, sandbox data masking for compliance, and how scratch orgs fit into a modern CI/CD pipeline alongside traditional sandboxes.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>The four sandbox types and their data limits, the right sandbox for each stage of the SDLC, refresh cycle planning, sandbox data masking for compliance, and how scratch orgs fit into a modern CI/CD pipeline alongside traditional sandboxes.</p>
     </div>
 
-    <h2>The Four Sandbox Types</h2>
+    <h2 id="s1">The Four Sandbox Types</h2>
     <p><strong>Developer Sandbox</strong> contains all metadata from production but no data records. Storage is 200 MB of data and 200 MB of files. Included in all editions; orgs have as many as they purchase. Refreshes in minutes. Ideal for individual developer feature work and code experimentation.</p>
     <p><strong>Developer Pro Sandbox</strong> is identical to Developer but with 1 GB of data and 1 GB of files. Useful when developers need some data volume to test governor limit behaviour but a Full sandbox is not available.</p>
     <p><strong>Partial Copy Sandbox</strong> copies all metadata plus a sample of data based on a Sandbox Template you define. Storage is 5 GB. Refresh cycle is 5 days minimum. Ideal for integration testing with realistic (but not full-volume) data.</p>
@@ -149,7 +149,7 @@
       Full Sandboxes cost real money. Before requesting a Full sandbox "because we need realistic data," ask whether a Partial Copy sandbox with a well-designed template would serve the purpose. In many cases, a 10% sample of production data is sufficient for testing. Reserve Full sandboxes for performance testing and final UAT.
     </div>
 
-    <h2>Sandbox Strategy by SDLC Stage</h2>
+    <h2 id="s2">Sandbox Strategy by SDLC Stage</h2>
     <p>A mature enterprise Salesforce SDLC uses multiple sandbox types in sequence:</p>
     <ul>
       <li><strong>Development (DEV):</strong> Multiple Developer or Developer Pro sandboxes — one per developer or per feature stream. Developers work independently without stepping on each other's changes.</li>
@@ -163,7 +163,7 @@
       The 29-day minimum refresh cycle for Full Sandboxes creates a planning constraint. If your release cadence is every 4 weeks, you can refresh the staging sandbox before each release but not mid-sprint. Plan for this — do not assume you can refresh a Full Sandbox whenever you need a clean environment.
     </div>
 
-    <h2>Scratch Orgs in the Modern Pipeline</h2>
+    <h2 id="s3">Scratch Orgs in the Modern Pipeline</h2>
     <p>Scratch orgs are not sandboxes — they are temporary, source-driven environments created from SFDX project configuration. They are provisioned in minutes via the CLI, contain no production data, and expire after 1-30 days. They are the right tool for automated CI/CD pipelines because they are ephemeral, deterministic, and cheap.</p>
     <p>The typical CI/CD pipeline with scratch orgs:</p>
     <ol>
@@ -189,7 +189,7 @@ sf apex run test --target-org ci-test-$BUILD_NUMBER --result-format human
 # Delete after test
 sf org delete scratch --target-org ci-test-$BUILD_NUMBER --no-prompt</div>
 
-    <h2>Data Masking and Compliance</h2>
+    <h2 id="s4">Data Masking and Compliance</h2>
     <p>Full and Partial Copy sandboxes contain real production data. For orgs in GDPR, HIPAA, or PCI scope, exposing production PII in sandbox environments creates compliance risk. Salesforce offers Data Mask as an add-on — it anonymises specified fields (names, email addresses, phone numbers, tax IDs) during the sandbox copy process.</p>
     <p>If Data Mask is not available, three manual approaches:</p>
     <ul>
@@ -203,16 +203,16 @@ sf org delete scratch --target-org ci-test-$BUILD_NUMBER --no-prompt</div>
       Salesforce does not automatically mask data during sandbox refresh. A Full Sandbox created today contains every email address, phone number, and financial record in your production org. If your developers have access to that sandbox, they have access to production PII. This is a GDPR violation in most jurisdictions unless a legitimate data processing agreement covers it.
     </div>
 
-    <h2>Sandbox Licences and Count Planning</h2>
+    <h2 id="s5">Sandbox Licences and Count Planning</h2>
     <p>Sandbox counts are determined by your Salesforce edition and add-on purchases. Typical inclusions per edition:</p>
     <ul>
       <li><strong>Professional:</strong> 1 Developer Sandbox</li>
       <li><strong>Enterprise:</strong> 1 Full, 1 Partial Copy, unlimited Developer</li>
       <li><strong>Unlimited:</strong> 1 Full, 5 Partial Copy, unlimited Developer</li>
     </ul>
-    <p>Additional sandboxes can be purchased. For large programs with multiple release streams, the default allocation is often insufficient. Budget for additional Partial Copy sandboxes if running more than two concurrent release tracks.</p>
+    <p>Additional sandboxes can be purchased. For large programmes with multiple release streams, the default allocation is often insufficient. Budget for additional Partial Copy sandboxes if running more than two concurrent release tracks.</p>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Developer sandboxes copy metadata only — free and fast. Full sandboxes copy everything — expensive and slow to refresh.</li>
@@ -230,27 +230,27 @@ sf org delete scratch --target-org ci-test-$BUILD_NUMBER --no-prompt</div>
       <div class="quiz-question" id="q1">
         <p>1. Which sandbox type is the best fit for automated CI/CD pipelines that run on every PR?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Full Sandbox — it provides the most realistic environment</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Scratch Org — ephemeral, fast, deterministic, and does not consume sandbox capacity</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Partial Copy Sandbox — it has realistic data for test execution</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Full Sandbox — it provides the most realistic environment</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Scratch Org — ephemeral, fast, deterministic, and does not consume sandbox capacity</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Partial Copy Sandbox — it has realistic data for test execution</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. Your team is on GDPR scope and just refreshed a Full Sandbox from production. What is the immediate compliance concern?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The sandbox is on an older Salesforce release and may not have security patches applied</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">The sandbox contains real production PII — developer access constitutes unauthorized processing unless data is masked</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Sandbox refresh resets all permission sets, possibly granting excessive access</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. The sandbox is on an older Salesforce release and may not have security patches applied</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. The sandbox contains real production PII — developer access constitutes unauthorized processing unless data is masked</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Sandbox refresh resets all permission sets, possibly granting excessive access</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. What is the minimum refresh interval for a Full Sandbox?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">7 days</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">29 days</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">90 days</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. 7 days</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. 29 days</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. 90 days</div>
         </div>
       </div>
     </div>
@@ -279,12 +279,12 @@ sf org delete scratch --target-org ci-test-$BUILD_NUMBER --no-prompt</div>
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Four Sandbox Types</a></li>
-            <li><a href="#">Sandbox Strategy by SDLC Stage</a></li>
-            <li><a href="#">Scratch Orgs in the Modern Pipeline</a></li>
-            <li><a href="#">Data Masking and Compliance</a></li>
-            <li><a href="#">Sandbox Licences and Count Planning</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Four Sandbox Types</a></li>
+            <li><a href="#s2">Sandbox Strategy by SDLC Stage</a></li>
+            <li><a href="#s3">Scratch Orgs in the Modern Pipeline</a></li>
+            <li><a href="#s4">Data Masking and Compliance</a></li>
+            <li><a href="#s5">Sandbox Licences and Count Planning</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OmniStudio: What It Is, When It's Worth It, When It Isn't | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="The five tools that make up OmniStudio, how each one differs from standard Salesforce alternatives, the licensing and cost context, honest trade-offs for adopting versus avoiding it, and when the architecture actually benefits from it."/>
   <meta property="og:title" content="OmniStudio: What It Is, When It's Worth It, When It Isn't | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="The five tools that make up OmniStudio, how each one differs from standard Salesforce alternatives, the licensing and cost context, honest trade-offs for adopting versus avoiding it, and when the architecture actually benefits from it."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-009/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="OmniStudio: What It Is, When It's Worth It, When It Isn't | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="The five tools that make up OmniStudio, how each one differs from standard Salesforce alternatives, the licensing and cost context, honest trade-offs for adopting versus avoiding it, and when the architecture actually benefits from it."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "OmniStudio: What It Is, When It's Worth It, When It Isn't | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "The five tools that make up OmniStudio, how each one differs from standard Salesforce alternatives, the licensing and cost context, honest trade-offs for adopting versus avoiding it, and when the architecture actually benefits from it.",
   "url": "https://sfvedas.com/tutorials/plat-009/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-009/",
   "author": {
@@ -104,7 +104,7 @@
         OmniStudio: What It Is, When It's Worth It, When It Isn't
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        The five tools that make up OmniStudio, how each one differs from standard Salesforce alternatives, the licensing and cost context, honest trade-offs for adopting versus avoiding it, and when the architecture actually benefits from it.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>The five tools that make up OmniStudio, how each one differs from standard Salesforce alternatives, the licensing and cost context, honest trade-offs for adopting versus avoiding it, and when the architecture actually benefits from it.</p>
     </div>
 
-    <h2>What OmniStudio Is and Where It Came From</h2>
+    <h2 id="s1">What OmniStudio Is and Where It Came From</h2>
     <p>OmniStudio is a suite of declarative tools that Salesforce acquired when it purchased Vlocity in 2020. It was originally designed for telecommunications, insurance, and public sector verticals where complex multi-step guided processes and deep system integration are the norm. After the acquisition, Salesforce rebranded it as OmniStudio and made it the foundation for all Salesforce Industries clouds.</p>
     <p>The suite consists of five primary tools: OmniScript, FlexCards, DataRaptors, Integration Procedures, and Expression Sets. Each addresses a specific layer of the interaction and data stack.</p>
 
@@ -147,7 +147,7 @@
       OmniStudio is not a replacement for standard Salesforce development — it is a specialised layer on top of it. Every OmniStudio component is backed by Salesforce metadata and custom objects. Understanding this prevents the mistake of treating OmniStudio as an isolated system.
     </div>
 
-    <h2>The Five OmniStudio Tools Explained</h2>
+    <h2 id="s2">The Five OmniStudio Tools Explained</h2>
     <p><strong>OmniScript</strong> is the guided process builder. It replaces complex Flows and LWC forms with a drag-and-drop step sequence — a wizard framework for user-facing processes. Insurance claim intake, service appointment booking, or customer onboarding flows are typical use cases. Each OmniScript renders as an LWC at runtime.</p>
     <p><strong>FlexCards</strong> are contextual data display widgets. They replace custom LWC cards on record pages and provide declarative conditional rendering, embedded actions, and child card hierarchies. A FlexCard showing an account's open orders with drill-down to line items is the canonical example.</p>
     <p><strong>DataRaptors</strong> are the data layer. They transform, load, and extract Salesforce data without Apex. Four types exist: Extract (SOQL-backed query), Transform (JSON reshaping), Load (DML), and Turbo Extract (high-performance batch). DataRaptors feed data into OmniScripts and FlexCards.</p>
@@ -172,7 +172,7 @@ DataRaptor Load      -- DML writes to Salesforce
       Integration Procedures are the most valuable OmniStudio tool for architects. By batching multiple DataRaptor calls and HTTP actions into a single server-side execution, they eliminate the N+1 callout pattern that plagues complex LWC pages making individual Apex calls.
     </div>
 
-    <h2>Licensing Reality: Who Can Use OmniStudio</h2>
+    <h2 id="s3">Licensing Reality: Who Can Use OmniStudio</h2>
     <p>This is where most architects get surprised. OmniStudio is included with all Salesforce Industries licences — Communications Cloud, Health Cloud, Financial Services Cloud, Public Sector Solutions, and others. For core CRM (Sales Cloud, Service Cloud) customers without an Industries licence, OmniStudio must be purchased separately.</p>
     <p>There was a period in 2022-2023 when Salesforce made OmniStudio available for free to all customers. That free tier ended. As of 2024, non-Industries customers who want OmniStudio need to negotiate an add-on licence. The cost is non-trivial — comparable to a Platform licence per user.</p>
 
@@ -181,7 +181,7 @@ DataRaptor Load      -- DML writes to Salesforce
       Before recommending OmniStudio on any project, confirm the licence status. Many teams discover mid-implementation that their Sales Cloud licence does not include OmniStudio. Retrofitting a solution built on OmniStudio to standard LWC/Flow after UAT is a painful and expensive rework.
     </div>
 
-    <h2>When OmniStudio Is Worth It</h2>
+    <h2 id="s4">When OmniStudio Is Worth It</h2>
     <p>OmniStudio earns its complexity premium in specific scenarios:</p>
     <ul>
       <li><strong>Guided multi-step processes with branching logic:</strong> OmniScript handles conditional step visibility, step validation, and data carryforward between steps in ways that require significantly more Apex and LWC code to replicate.</li>
@@ -190,7 +190,7 @@ DataRaptor Load      -- DML writes to Salesforce
       <li><strong>Rapid configuration changes:</strong> DataRaptors and Integration Procedures can be modified and activated without a deployment cycle. Business teams that need weekly process changes benefit from this speed.</li>
     </ul>
 
-    <h2>When OmniStudio Is Not Worth It</h2>
+    <h2 id="s5">When OmniStudio Is Not Worth It</h2>
     <p>OmniStudio introduces real costs that are often underestimated:</p>
     <ul>
       <li><strong>Developer talent:</strong> OmniStudio skills are rarer and more expensive than LWC skills. New hires may have no OmniStudio experience, increasing onboarding time.</li>
@@ -204,7 +204,7 @@ DataRaptor Load      -- DML writes to Salesforce
       Use a decision matrix before committing. Score the process on: number of steps, branching complexity, number of data sources, rate of business change, and team OmniStudio familiarity. If the total score is low, standard LWC + Flow wins. If high (especially data source count and rate of change), OmniStudio justifies the investment.
     </div>
 
-    <h2>OmniStudio vs Standard Salesforce: The Comparison</h2>
+    <h2 id="s6">OmniStudio vs Standard Salesforce: The Comparison</h2>
     <p>For each OmniStudio tool, the standard Salesforce equivalent:</p>
     <ul>
       <li><strong>OmniScript vs Screen Flow:</strong> OmniScript wins on multi-step complexity and reuse. Screen Flow wins on simplicity, governance, and no licence dependency.</li>
@@ -214,7 +214,7 @@ DataRaptor Load      -- DML writes to Salesforce
       <li><strong>Expression Set vs Apex decision logic:</strong> Expression Set wins when business users need to own the rules. Apex wins on complexity, testability, and auditability.</li>
     </ul>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>OmniStudio is a Vlocity-origin suite: OmniScript, FlexCards, DataRaptors, Integration Procedures, Expression Sets.</li>
@@ -232,27 +232,27 @@ DataRaptor Load      -- DML writes to Salesforce
       <div class="quiz-question" id="q1">
         <p>1. Which OmniStudio tool is best suited to eliminate N+1 callout patterns on a complex record page?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">FlexCards — they batch multiple data sources into a single component</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Integration Procedures — they orchestrate multiple data actions server-side in one call</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">DataRaptor Turbo Extract — it parallelises SOQL queries automatically</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. FlexCards — they batch multiple data sources into a single component</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Integration Procedures — they orchestrate multiple data actions server-side in one call</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. DataRaptor Turbo Extract — it parallelises SOQL queries automatically</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. A Sales Cloud customer (no Industries licence) wants to use OmniStudio for a guided onboarding process. What is the first thing to verify?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Whether the org is on Lightning Experience</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Whether an OmniStudio add-on licence has been purchased, as it is not included in Sales Cloud</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Whether the org has API access enabled</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Whether the org is on Lightning Experience</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Whether an OmniStudio add-on licence has been purchased, as it is not included in Sales Cloud</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Whether the org has API access enabled</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which scenario is where standard Screen Flow wins over OmniScript?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A 15-step guided claims process with conditional branching and 4 external system calls</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">A simple 3-step lead qualification process with one data object and no external calls</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A telecom service provisioning flow requiring weekly business rule updates</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. A 15-step guided claims process with conditional branching and 4 external system calls</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. A simple 3-step lead qualification process with one data object and no external calls</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. A telecom service provisioning flow requiring weekly business rule updates</div>
         </div>
       </div>
     </div>
@@ -281,13 +281,13 @@ DataRaptor Load      -- DML writes to Salesforce
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">What OmniStudio Is and Where It Came From</a></li>
-            <li><a href="#">The Five OmniStudio Tools Explained</a></li>
-            <li><a href="#">Licensing Reality: Who Can Use OmniStudio</a></li>
-            <li><a href="#">When OmniStudio Is Worth It</a></li>
-            <li><a href="#">When OmniStudio Is Not Worth It</a></li>
-            <li><a href="#">OmniStudio vs Standard Salesforce: The Comparison</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">What OmniStudio Is and Where It Came From</a></li>
+            <li><a href="#s2">The Five OmniStudio Tools Explained</a></li>
+            <li><a href="#s3">Licensing Reality: Who Can Use OmniStudio</a></li>
+            <li><a href="#s4">When OmniStudio Is Worth It</a></li>
+            <li><a href="#s5">When OmniStudio Is Not Worth It</a></li>
+            <li><a href="#s6">OmniStudio vs Standard Salesforce: The Comparison</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

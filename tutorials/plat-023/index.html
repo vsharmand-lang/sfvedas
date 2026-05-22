@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Named Credentials and External Services: Secure API Integration | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="How Named Credentials store and inject authentication headers, the difference between org-wide and per-user credential principals, how External Services turns OpenAPI specs into declarative Apex-callable actions, and the security model behind both."/>
   <meta property="og:title" content="Named Credentials and External Services: Secure API Integration | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="How Named Credentials store and inject authentication headers, the difference between org-wide and per-user credential principals, how External Services turns OpenAPI specs into declarative Apex-callable actions, and the security model behind both."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-023/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Named Credentials and External Services: Secure API Integration | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="How Named Credentials store and inject authentication headers, the difference between org-wide and per-user credential principals, how External Services turns OpenAPI specs into declarative Apex-callable actions, and the security model behind both."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Named Credentials and External Services: Secure API Integration | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "How Named Credentials store and inject authentication headers, the difference between org-wide and per-user credential principals, how External Services turns OpenAPI specs into declarative Apex-callable actions, and the security model behind both.",
   "url": "https://sfvedas.com/tutorials/plat-023/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-023/",
   "author": {
@@ -104,7 +104,7 @@
         Named Credentials and External Services: Secure API Integration
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        How Named Credentials store and inject authentication headers, the difference between org-wide and per-user credential principals, how External Services turns OpenAPI specs into declarative Apex-callable actions, and the security model behind both.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>How Named Credentials store and inject authentication headers, the difference between org-wide and per-user credential principals, how External Services turns OpenAPI specs into declarative Apex-callable actions, and the security model behind both.</p>
     </div>
 
-    <h2>The Problem Named Credentials Solve</h2>
+    <h2 id="s1">The Problem Named Credentials Solve</h2>
     <p>Without Named Credentials, Salesforce integrations typically embed API keys, usernames, and passwords in Apex code or Custom Settings. This creates three problems: secrets are visible to anyone who can view Apex code, rotating a credential requires a code deployment, and security reviews cannot easily audit what external systems are being called with what credentials.</p>
     <p>Named Credentials centralise external endpoint configuration and authentication in Setup — a governed, auditable location that only system admins control. Apex code references the Named Credential by name, never seeing the actual credentials.</p>
 
@@ -147,7 +147,7 @@
       Named Credentials are not just a security improvement — they are an operational one. When an API key rotates (which should happen periodically), updating a Named Credential in Setup takes 30 seconds and requires no deployment, no testing, and no code change. Hardcoded credentials require a full change management cycle.
     </div>
 
-    <h2>Named Credentials: Architecture</h2>
+    <h2 id="s2">Named Credentials: Architecture</h2>
     <p>A Named Credential stores: the endpoint URL, the authentication protocol (Basic, OAuth 2.0, JWT, Custom Header, AWS Signature), and optionally a certificate for mutual TLS. There are two types of authentication scope:</p>
     <ul>
       <li><strong>Named Principal (org-wide):</strong> All callouts using this credential use the same authentication — typically a service account. The credential is stored once and shared across all transactions.</li>
@@ -175,7 +175,7 @@ if (res.getStatusCode() == 200) {
       Named Credentials require the external endpoint to also be added to Remote Site Settings. Named Credentials handle authentication; Remote Site Settings handle the network allow-list. Both must be configured for a callout to work. Forgetting Remote Site Settings is the most common "why is my callout failing?" question for new integrators.
     </div>
 
-    <h2>External Services: OpenAPI to Salesforce Actions</h2>
+    <h2 id="s3">External Services: OpenAPI to Salesforce Actions</h2>
     <p>External Services (formerly "Salesforce External Services") allows architects to import an OpenAPI 3.0 (Swagger) specification of a REST API and have Salesforce automatically generate invocable actions, Flow actions, and Apex types from the spec. This means you can call an external REST API from a Flow without writing any Apex code.</p>
     <p>The workflow:</p>
     <ol>
@@ -202,7 +202,7 @@ for (ExternalService.ERPOrders_Order order : output.orders) {
   System.debug(order.id + ': ' + order.status);
 }</div>
 
-    <h2>Security Considerations</h2>
+    <h2 id="s4">Security Considerations</h2>
     <p>Named Credentials respect Salesforce data security in the Named Principal model — all callouts use the same service account credentials regardless of the Salesforce user. This means external system audit logs show the service account, not the individual user. If individual user audit trails are required on the external system, use Per-User Principal instead.</p>
     <p>OAuth 2.0 Named Credentials store the refresh token encrypted in Salesforce. The encryption uses Salesforce's key management infrastructure. For orgs with Salesforce Shield, you can use tenant secrets to add an additional encryption layer.</p>
 
@@ -211,10 +211,10 @@ for (ExternalService.ERPOrders_Order order : output.orders) {
       Named Credentials with Per-User Principal require each user to complete the OAuth authorization flow at least once before their callouts work. If a user has never authorized, the callout fails with a "no valid credentials" error. Design onboarding flows that prompt new users to authorize the connection on their first login — do not assume it will happen organically.
     </div>
 
-    <h2>External Credentials vs Named Credentials (Winter 2024+)</h2>
+    <h2 id="s5">External Credentials vs Named Credentials (Winter 2024+)</h2>
     <p>Salesforce introduced External Credentials as a separate concept in Winter 2024 to decouple the authentication configuration from the endpoint configuration. External Credentials define the auth (OAuth app, JWT settings, API key). Named Credentials (now called Legacy Named Credentials vs new Named Credentials) reference an External Credential for auth and define the endpoint URL separately. This separation allows the same auth configuration to be reused across multiple endpoints.</p>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Named Credentials eliminate hardcoded credentials from Apex — all authentication is centrally managed in Setup.</li>
@@ -232,27 +232,27 @@ for (ExternalService.ERPOrders_Order order : output.orders) {
       <div class="quiz-question" id="q1">
         <p>1. An Apex class uses a Named Credential for callouts. The API key for the external service is rotated. What action is required?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Update the API key in the Apex class and deploy to production</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Update the API key in the Named Credential in Setup — no code change or deployment required</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Update the Custom Setting that stores the API key and clear the Platform Cache</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Update the API key in the Apex class and deploy to production</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Update the API key in the Named Credential in Setup — no code change or deployment required</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Update the Custom Setting that stores the API key and clear the Platform Cache</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. After creating a Named Credential for an external API, callouts still fail with a network error. What is the most likely missing configuration?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The Apex class needs CRUD permission on the Named Credential object</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">The endpoint URL must also be added to Remote Site Settings — Named Credentials do not bypass the network allow-list</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The Connected App associated with the Named Credential is not activated</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. The Apex class needs CRUD permission on the Named Credential object</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. The endpoint URL must also be added to Remote Site Settings — Named Credentials do not bypass the network allow-list</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. The Connected App associated with the Named Credential is not activated</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. External Services imported an OpenAPI spec but a user's Flow fails with "no valid credentials." What is the cause?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The OpenAPI spec was imported incorrectly and the actions are not generating callouts</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">The Named Credential uses Per-User Principal and the user has never completed the OAuth authorization flow</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">External Services require a separate API Management licence to execute callouts</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. The OpenAPI spec was imported incorrectly and the actions are not generating callouts</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. The Named Credential uses Per-User Principal and the user has never completed the OAuth authorization flow</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. External Services require a separate API Management licence to execute callouts</div>
         </div>
       </div>
     </div>
@@ -262,7 +262,7 @@ for (ExternalService.ERPOrders_Order order : output.orders) {
           <div class="related-grid">
             <a href="../plat-024/" class="related-card">
               <span class="card-id">PLAT-024</span>
-              <h4>Salesforce DevOps Center: Is It Ready for Enterprise?</h4>
+              <h4>Salesforce DevOps Centre: Is It Ready for Enterprise?</h4>
             </a>
             <a href="../plat-022/" class="related-card">
               <span class="card-id">PLAT-022</span>
@@ -281,12 +281,12 @@ for (ExternalService.ERPOrders_Order order : output.orders) {
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Problem Named Credentials Solve</a></li>
-            <li><a href="#">Named Credentials: Architecture</a></li>
-            <li><a href="#">External Services: OpenAPI to Salesforce Actions</a></li>
-            <li><a href="#">Security Considerations</a></li>
-            <li><a href="#">External Credentials vs Named Credentials (Winter 2024+)</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Problem Named Credentials Solve</a></li>
+            <li><a href="#s2">Named Credentials: Architecture</a></li>
+            <li><a href="#s3">External Services: OpenAPI to Salesforce Actions</a></li>
+            <li><a href="#s4">Security Considerations</a></li>
+            <li><a href="#s5">External Credentials vs Named Credentials (Winter 2024+)</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">
@@ -298,7 +298,7 @@ for (ExternalService.ERPOrders_Order order : output.orders) {
           <h4>Next Tutorial</h4>
           <a href="../plat-024/" class="sidebar-next-link">
             <span class="sidebar-next-id">PLAT-024</span>
-            <span class="sidebar-next-title">Salesforce DevOps Center: Is It Ready for Enterprise?</span>
+            <span class="sidebar-next-title">Salesforce DevOps Centre: Is It Ready for Enterprise?</span>
             <span class="sidebar-next-arrow">&#8594;</span>
           </a>
         </div>

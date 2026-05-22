@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Change Data Capture: Event-Driven Integration Done Right | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="How CDC works at the infrastructure level, what information is in each event, how to subscribe from Apex triggers and external systems, the 72-hour replay window, and how CDC compares to Outbound Messaging and polling-based integration patterns."/>
   <meta property="og:title" content="Change Data Capture: Event-Driven Integration Done Right | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="How CDC works at the infrastructure level, what information is in each event, how to subscribe from Apex triggers and external systems, the 72-hour replay window, and how CDC compares to Outbound Messaging and polling-based integration patterns."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-011/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Change Data Capture: Event-Driven Integration Done Right | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="How CDC works at the infrastructure level, what information is in each event, how to subscribe from Apex triggers and external systems, the 72-hour replay window, and how CDC compares to Outbound Messaging and polling-based integration patterns."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Change Data Capture: Event-Driven Integration Done Right | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "How CDC works at the infrastructure level, what information is in each event, how to subscribe from Apex triggers and external systems, the 72-hour replay window, and how CDC compares to Outbound Messaging and polling-based integration patterns.",
   "url": "https://sfvedas.com/tutorials/plat-011/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-011/",
   "author": {
@@ -104,7 +104,7 @@
         Change Data Capture: Event-Driven Integration Done Right
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        How CDC works at the infrastructure level, what information is in each event, how to subscribe from Apex triggers and external systems, the 72-hour replay window, and how CDC compares to Outbound Messaging and polling-based integration patterns.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>How CDC works at the infrastructure level, what information is in each event, how to subscribe from Apex triggers and external systems, the 72-hour replay window, and how CDC compares to Outbound Messaging and polling-based integration patterns.</p>
     </div>
 
-    <h2>The Problem CDC Solves</h2>
+    <h2 id="s1">The Problem CDC Solves</h2>
     <p>Traditional Salesforce integration relied on polling — an external system periodically calling the Salesforce API to ask "what changed since I last checked?" Polling has three fundamental problems: latency (changes are only detected on the next poll cycle), API cost (every poll consumes API calls even when nothing has changed), and complexity (the subscriber must track its own cursor and handle missed updates).</p>
     <p>Change Data Capture (CDC) inverts this model. Salesforce publishes an event to a channel whenever a record is created, updated, deleted, or undeleted. External systems subscribe to the channel and receive events in near real time. No polling, no cursor management, no wasted API calls.</p>
 
@@ -147,7 +147,7 @@
       CDC is Salesforce's implementation of the database change log pattern, similar to Debezium on PostgreSQL or AWS DMS on RDS. The key insight is that the source of truth (Salesforce) pushes changes to consumers, rather than consumers pulling. This eliminates polling latency and reduces API consumption.
     </div>
 
-    <h2>Event Structure and Change Types</h2>
+    <h2 id="s2">Event Structure and Change Types</h2>
     <p>A CDC event contains: the record ID, the operation type (Create, Update, Delete, Undelete), a transaction key, a sequence number, the changed field values (for updates — only the changed fields, not the full record), and the ID of the user who made the change.</p>
     <p>The five operation types:</p>
     <ul>
@@ -183,7 +183,7 @@
       For UPDATE events, only the changed fields are included in the payload. A subscriber that needs the full current state must call back to Salesforce with a SOQL query using the recordId from the event. This is by design — it reduces payload size and avoids transmitting sensitive fields that did not change.
     </div>
 
-    <h2>Enabling CDC and the 72-Hour Replay Window</h2>
+    <h2 id="s3">Enabling CDC and the 72-Hour Replay Window</h2>
     <p>CDC is enabled per object from Setup &gt; Integrations &gt; Change Data Capture. Standard objects and custom objects are supported. Once enabled, Salesforce begins publishing events to the object's channel (e.g. <code>/data/AccountChangeEvent</code>).</p>
     <p>Events are retained in the Salesforce event bus for 72 hours. Subscribers that go offline for less than 72 hours can replay missed events by providing a replay ID when reconnecting. This is the most important reliability feature of CDC — it means brief subscriber downtime does not cause data loss.</p>
 
@@ -214,7 +214,7 @@ client.subscribe('/data/AccountChangeEvent', (message) => {
   if (changeType === 'UPDATE') processAccountUpdate(message.data.payload);
 });</div>
 
-    <h2>CDC vs Outbound Messaging vs Platform Events</h2>
+    <h2 id="s4">CDC vs Outbound Messaging vs Platform Events</h2>
     <p>Salesforce has three event-based integration mechanisms with different trade-offs:</p>
     <ul>
       <li><strong>CDC:</strong> Automatic change capture on record DML. No trigger code needed. Configured declaratively. Includes change type, changed fields, and user. Best for replication to external systems.</li>
@@ -227,7 +227,7 @@ client.subscribe('/data/AccountChangeEvent', (message) => {
       Use CDC when you need to replicate Salesforce record changes to an external data store (data warehouse, ERP, marketing platform). Use Platform Events when you need to trigger business processes based on application-level events. Use Outbound Messaging only if you are maintaining a legacy SOAP-based integration and cannot migrate.
     </div>
 
-    <h2>GAP Events and Bulk API Blind Spots</h2>
+    <h2 id="s5">GAP Events and Bulk API Blind Spots</h2>
     <p>CDC has one significant blind spot: Bulk API 1.0 operations do not generate CDC events. When a data loader or ETL tool uses the Bulk API to insert or update 100,000 records, no CDC events fire. Instead, Salesforce may publish a <code>GAP_CREATE</code> or <code>GAP_UPDATE</code> event to indicate that changes occurred but were not captured.</p>
     <p>Subscribers must handle GAP events by triggering a full reconciliation query against Salesforce for the affected object. This is rare in production but happens during initial data loads and data migrations. Design your subscriber to detect GAP events and escalate to a reconciliation workflow rather than silently skipping them.</p>
 
@@ -236,7 +236,7 @@ client.subscribe('/data/AccountChangeEvent', (message) => {
       Teams that use Bulk API for ongoing data loads (nightly ETL from ERP to Salesforce) cannot rely on CDC to replicate those changes back out. The CDC subscriber will receive GAP events for those bulk operations. Design your integration architecture with this blind spot in mind — CDC works best when changes enter Salesforce through the UI or standard REST/SOAP API.
     </div>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>CDC eliminates polling — Salesforce pushes events on every record create, update, delete, and undelete.</li>
@@ -254,27 +254,27 @@ client.subscribe('/data/AccountChangeEvent', (message) => {
       <div class="quiz-question" id="q1">
         <p>1. What does a CDC UPDATE event payload contain about the changed record?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The full record snapshot including all selected fields</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Only the fields that changed, plus the record ID and change metadata</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Only the record ID — you must query Salesforce separately for all field values</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. The full record snapshot including all selected fields</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Only the fields that changed, plus the record ID and change metadata</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Only the record ID — you must query Salesforce separately for all field values</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. A subscriber goes offline for 50 hours and misses events. What happens when it reconnects?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The events are permanently lost — CDC has no retry mechanism</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">The subscriber can replay the missed events using the replay ID, as events are retained for 72 hours</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Salesforce re-triggers all missed events automatically without any subscriber configuration</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. The events are permanently lost — CDC has no retry mechanism</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. The subscriber can replay the missed events using the replay ID, as events are retained for 72 hours</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Salesforce re-triggers all missed events automatically without any subscriber configuration</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which scenario causes CDC to publish GAP events rather than normal change events?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A Flow updating 200 records in a loop</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">A Bulk API 1.0 data load updating 50,000 records</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A user updating 10 records through the Lightning UI</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. A Flow updating 200 records in a loop</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. A Bulk API 1.0 data load updating 50,000 records</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. A user updating 10 records through the Lightning UI</div>
         </div>
       </div>
     </div>
@@ -303,12 +303,12 @@ client.subscribe('/data/AccountChangeEvent', (message) => {
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Problem CDC Solves</a></li>
-            <li><a href="#">Event Structure and Change Types</a></li>
-            <li><a href="#">Enabling CDC and the 72-Hour Replay Window</a></li>
-            <li><a href="#">CDC vs Outbound Messaging vs Platform Events</a></li>
-            <li><a href="#">GAP Events and Bulk API Blind Spots</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Problem CDC Solves</a></li>
+            <li><a href="#s2">Event Structure and Change Types</a></li>
+            <li><a href="#s3">Enabling CDC and the 72-Hour Replay Window</a></li>
+            <li><a href="#s4">CDC vs Outbound Messaging vs Platform Events</a></li>
+            <li><a href="#s5">GAP Events and Bulk API Blind Spots</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

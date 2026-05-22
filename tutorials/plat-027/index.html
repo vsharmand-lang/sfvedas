@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OmniScript vs LWC: When Each Wins in the OmniStudio World | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="OmniStudio (formerly Vlocity) brings a powerful declarative toolkit to Salesforce, but it sits on top of — not separate from — the Lightning Web Component runtime. Every OmniScript ultimately renders as LWC. Every FlexCard is an LWC component. The declarative layer is a configuration-driven code generator, not a replacement technology."/>
   <meta property="og:title" content="OmniScript vs LWC: When Each Wins in the OmniStudio World | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="OmniStudio (formerly Vlocity) brings a powerful declarative toolkit to Salesforce, but it sits on top of — not separate from — the Lightning Web Component runtime. Every OmniScript ultimately renders as LWC. Every FlexCard is an LWC component. The declarative layer is a configuration-driven code generator, not a replacement technology."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-027/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="OmniScript vs LWC: When Each Wins in the OmniStudio World | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="OmniStudio (formerly Vlocity) brings a powerful declarative toolkit to Salesforce, but it sits on top of — not separate from — the Lightning Web Component runtime. Every OmniScript ultimately renders as LWC. Every FlexCard is an LWC component. The declarative layer is a configuration-driven code generator, not a replacement technology."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "OmniScript vs LWC: When Each Wins in the OmniStudio World | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "OmniStudio (formerly Vlocity) brings a powerful declarative toolkit to Salesforce, but it sits on top of — not separate from — the Lightning Web Component runtime. Every OmniScript ultimately renders as LWC. Every FlexCard is an LWC component. The declarative layer is a configuration-driven code generator, not a replacement technology.",
   "url": "https://sfvedas.com/tutorials/plat-027/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-027/",
   "author": {
@@ -144,7 +144,7 @@
       </ul>
     </div>
 
-    <h2>The Context: OmniStudio's Dual Reality</h2>
+    <h2 id="s1">The Context: OmniStudio's Dual Reality</h2>
     <p>OmniStudio (formerly Vlocity) brings a powerful declarative toolkit to Salesforce, but it sits on top of — not separate from — the Lightning Web Component runtime. Every OmniScript ultimately renders as LWC. Every FlexCard is an LWC component. The declarative layer is a configuration-driven code generator, not a replacement technology.</p>
     <p>This creates a choice that architects face on every OmniStudio project: build in OmniScript/FlexCards/DataRaptors, or build in native LWC with Apex? The answer is rarely "always one or the other" — it's about matching the tool to the problem. Getting this wrong costs you in either direction: over-relying on OmniScript creates brittle, unmaintainable configurations; over-relying on LWC when OmniStudio has solved the problem is wasted effort.</p>
 
@@ -156,7 +156,7 @@
           </div>
         </div>
 
-    <h2>OmniScript Architecture: What's Actually Happening</h2>
+    <h2 id="s2">OmniScript Architecture: What's Actually Happening</h2>
     <p>When you build an OmniScript, you're authoring a JSON definition. At runtime, the OmniScript framework interprets that JSON and renders LWC components dynamically. The engine handles:</p>
     <ul>
       <li>Step navigation and state management across steps</li>
@@ -176,7 +176,7 @@
           </div>
         </div>
 
-    <h2>When OmniScript Is the Right Choice</h2>
+    <h2 id="s3">When OmniScript Is the Right Choice</h2>
     <p>OmniScript genuinely excels in specific scenarios. Build there when these conditions apply.</p>
 
     <h3>Multi-Step Guided Processes</h3>
@@ -201,7 +201,7 @@
     <h3>Integration Procedure Orchestration</h3>
     <p>When a user action needs to trigger a sequence of: callout to external API → transform response → update Salesforce records → send notification → trigger another process, an Integration Procedure handles this declaratively in a single server-side execution context. The OmniScript calls the IP, the IP orchestrates the chain. Non-developers can extend the chain without touching Apex.</p>
 
-    <h2>When LWC Is the Right Choice</h2>
+    <h2 id="s4">When LWC Is the Right Choice</h2>
     <p>OmniScript's declarative model has ceilings. Knowing where those ceilings are prevents you from spending weeks trying to force OmniScript to do something it genuinely cannot do cleanly.</p>
 
     <h3>Complex Interactive UI</h3>
@@ -273,7 +273,7 @@ List&lt;Account&gt; accounts = [
 // cannot control Opportunity subquery LIMIT,
 // cannot ORDER BY with NULLS LAST</pre>
 
-    <h2>The Hybrid Pattern: LWC Inside OmniScript</h2>
+    <h2 id="s5">The Hybrid Pattern: LWC Inside OmniScript</h2>
     <p>The most effective OmniStudio architecture uses both technologies where each excels, connected through OmniScript's LWC element type. This is not a compromise — it's the intended usage model.</p>
 
     <h3>How the LWC Element Works</h3>
@@ -321,7 +321,7 @@ export default class ProductConfigGrid extends OmniscriptBaseMixin(LightningElem
       <li>On step submission, DataRaptor Load uses the updated JSON to write to Salesforce</li>
     </ul>
 
-    <h2>Performance Profiling: Real Numbers</h2>
+    <h2 id="s6">Performance Profiling: Real Numbers</h2>
     <p>Understanding the actual performance characteristics helps you make honest trade-off assessments rather than theoretical ones.</p>
 
     <div class="callout callout--insight">
@@ -334,7 +334,7 @@ export default class ProductConfigGrid extends OmniscriptBaseMixin(LightningElem
 
     <p>The first-load penalty matters most for processes that users trigger infrequently. For a daily-use process that users run 10+ times per day, the bundle caches and the warm-load performance is acceptable. For a process that users encounter once (onboarding wizard, annual renewal), the cold-load experience is what they'll remember.</p>
 
-    <h2>Decision Framework</h2>
+    <h2 id="s7">Decision Framework</h2>
     <p>Apply this framework when deciding where to build a new component or process.</p>
 
     <div class="callout callout--key">
@@ -369,11 +369,11 @@ export default class ProductConfigGrid extends OmniscriptBaseMixin(LightningElem
           </div>
         </div>
 
-    <h2>Licensing Reality and Tool Availability</h2>
+    <h2 id="s8">Licensing Reality and Tool Availability</h2>
     <p>One factor that sometimes drives the wrong decision: OmniStudio is licensed separately. Not all Salesforce orgs have it. If you're building on an org without OmniStudio licenses — or on an edition where OmniStudio isn't available — LWC + Apex is your only path. Conversely, if OmniStudio is licensed and available, ignoring it and building everything in LWC is often unnecessary work.</p>
     <p>For new orgs where OmniStudio is a consideration: evaluate upfront whether the use cases justify the licensing cost. OmniStudio is powerful for the right problems — heavily guided processes, frequent process changes, industry-specific workflows. For a standard Sales Cloud implementation with straightforward record entry, it's unnecessary complexity.</p>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2><ul>
         <li>OmniScript wins for multi-step guided processes, frequently changing workflows, and cross-object data orchestration — not for all UI development</li>
         <li>LWC wins for complex interactive UI, high-traffic embedded components, reusable component libraries, and unit-testable business logic</li>
@@ -390,27 +390,27 @@ export default class ProductConfigGrid extends OmniscriptBaseMixin(LightningElem
       <div class="quiz-question" id="q1">
         <p>1. A team is building a 7-step insurance renewal workflow with conditional branching, frequent quarterly changes, and cross-object data collection. Which approach is most appropriate?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','right')">OmniScript orchestrating the flow, with LWC elements for any complex UI steps</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Pure LWC with a custom step-manager component and Apex controllers</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Pure OmniScript with DataRaptors handling all business logic</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">A. OmniScript orchestrating the flow, with LWC elements for any complex UI steps</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. Pure LWC with a custom step-manager component and Apex controllers</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Pure OmniScript with DataRaptors handling all business logic</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. Why does embedding OmniScript in a high-traffic Account record page carry a performance risk that LWC does not?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">OmniScript requires server-side rendering which adds latency</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">OmniScript loads an 800KB–1.2MB JavaScript bundle on first render regardless of how few elements are used</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">OmniScript makes additional SOQL queries that count against governor limits on page load</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. OmniScript requires server-side rendering which adds latency</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. OmniScript loads an 800KB–1.2MB JavaScript bundle on first render regardless of how few elements are used</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. OmniScript makes additional SOQL queries that count against governor limits on page load</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. An LWC component embedded inside an OmniScript needs to update the OmniScript's data model when a user makes a selection. What is required?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Fire a custom event that the OmniScript parent listens to with a conditional element</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Use a Platform Event to notify the OmniScript of the selection</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Extend OmniscriptBaseMixin and call omniApplyCallResp() with the updated values</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Fire a custom event that the OmniScript parent listens to with a conditional element</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Use a Platform Event to notify the OmniScript of the selection</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. Extend OmniscriptBaseMixin and call omniApplyCallResp() with the updated values</div>
         </div>
       </div>
     </div>
@@ -439,15 +439,15 @@ export default class ProductConfigGrid extends OmniscriptBaseMixin(LightningElem
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Context: OmniStudio's Dual Reality</a></li>
-            <li><a href="#">OmniScript Architecture: What's Actually Happening</a></li>
-            <li><a href="#">When OmniScript Is the Right Choice</a></li>
-            <li><a href="#">When LWC Is the Right Choice</a></li>
-            <li><a href="#">The Hybrid Pattern: LWC Inside OmniScript</a></li>
-            <li><a href="#">Performance Profiling: Real Numbers</a></li>
-            <li><a href="#">Decision Framework</a></li>
-            <li><a href="#">Licensing Reality and Tool Availability</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Context: OmniStudio's Dual Reality</a></li>
+            <li><a href="#s2">OmniScript Architecture: What's Actually Happening</a></li>
+            <li><a href="#s3">When OmniScript Is the Right Choice</a></li>
+            <li><a href="#s4">When LWC Is the Right Choice</a></li>
+            <li><a href="#s5">The Hybrid Pattern: LWC Inside OmniScript</a></li>
+            <li><a href="#s6">Performance Profiling: Real Numbers</a></li>
+            <li><a href="#s7">Decision Framework</a></li>
+            <li><a href="#s8">Licensing Reality and Tool Availability</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

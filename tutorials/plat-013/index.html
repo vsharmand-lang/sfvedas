@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Scheduled Apex vs Scheduled Flows: Tradeoffs at Scale | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="How Scheduled Apex and Scheduled Flows each work under the hood, where they share a queue and where they don't, which option wins for different use cases, and how to manage the scheduled job limits that bite enterprise orgs."/>
   <meta property="og:title" content="Scheduled Apex vs Scheduled Flows: Tradeoffs at Scale | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="How Scheduled Apex and Scheduled Flows each work under the hood, where they share a queue and where they don't, which option wins for different use cases, and how to manage the scheduled job limits that bite enterprise orgs."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-013/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Scheduled Apex vs Scheduled Flows: Tradeoffs at Scale | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="How Scheduled Apex and Scheduled Flows each work under the hood, where they share a queue and where they don't, which option wins for different use cases, and how to manage the scheduled job limits that bite enterprise orgs."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Scheduled Apex vs Scheduled Flows: Tradeoffs at Scale | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "How Scheduled Apex and Scheduled Flows each work under the hood, where they share a queue and where they don't, which option wins for different use cases, and how to manage the scheduled job limits that bite enterprise orgs.",
   "url": "https://sfvedas.com/tutorials/plat-013/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-013/",
   "author": {
@@ -104,7 +104,7 @@
         Scheduled Apex vs Scheduled Flows: Tradeoffs at Scale
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        How Scheduled Apex and Scheduled Flows each work under the hood, where they share a queue and where they don't, which option wins for different use cases, and how to manage the scheduled job limits that bite enterprise orgs.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>How Scheduled Apex and Scheduled Flows each work under the hood, where they share a queue and where they don't, which option wins for different use cases, and how to manage the scheduled job limits that bite enterprise orgs.</p>
     </div>
 
-    <h2>Two Mechanisms, One Shared Constraint</h2>
+    <h2 id="s1">Two Mechanisms, One Shared Constraint</h2>
     <p>Salesforce offers two ways to schedule background work: Scheduled Apex (the <code>Schedulable</code> interface) and Scheduled Flows (the Scheduled trigger type). Both appear in the Scheduled Jobs list under Setup, and both compete for the same org-wide limit of 100 total scheduled jobs.</p>
     <p>This shared limit is the most important fact for architects managing complex orgs. Salesforce AppExchange packages often consume scheduled jobs without visibility. An org with 15 installed packages can exhaust the 100-job limit before custom development has even started.</p>
 
@@ -147,7 +147,7 @@
       The 100 scheduled job limit applies to all scheduled items combined: Scheduled Apex, Scheduled Flows, and managed package jobs. Audit your org's Scheduled Jobs before designing a new scheduled automation. Use <code>SELECT Id, JobType, CronJobDetail.Name FROM CronTrigger</code> to inventory existing jobs.
     </div>
 
-    <h2>Scheduled Apex: Mechanics and Usage</h2>
+    <h2 id="s2">Scheduled Apex: Mechanics and Usage</h2>
     <p>A class implementing <code>Schedulable</code> can be registered for execution at specific times using a cron expression. The <code>execute(SchedulableContext sc)</code> method runs in its own transaction with full governor limits.</p>
     <p>Scheduled Apex almost always delegates work to a Batch Apex class — the schedulable class itself processes zero records but calls <code>Database.executeBatch()</code> to spawn the batch job. The schedulable class is a trigger; the batch class is the worker.</p>
 
@@ -175,7 +175,7 @@ List&lt;CronTrigger&gt; jobs = [
       Scheduled Apex executes at approximately the scheduled time — not precisely. Salesforce processes the scheduled queue when infrastructure capacity allows. In heavily loaded orgs or during peak periods, a job scheduled for 2:00 AM may run at 2:05 AM or later. Do not design time-sensitive automations that require second-level precision.
     </div>
 
-    <h2>Scheduled Flows: When They Make Sense</h2>
+    <h2 id="s3">Scheduled Flows: When They Make Sense</h2>
     <p>A Scheduled-Trigger Flow runs on a schedule against a batch of records matching specified criteria. Configure it from Flow Builder: choose "Schedule-Triggered Flow," set the frequency (once, daily, weekly), and the record filter criteria. Salesforce handles the scheduling and batching automatically.</p>
     <p>Scheduled Flows shine for simple record-update automations that business users need to configure or modify without developer involvement. A nightly flow that updates Account tier based on last 90 days opportunity value is a good fit. No code, no deployment, visible to admins in Flow Builder.</p>
     <p>The trade-offs versus Scheduled Apex:</p>
@@ -186,7 +186,7 @@ List&lt;CronTrigger&gt; jobs = [
       <li><strong>Observability:</strong> Scheduled Apex job history is available in Setup &gt; Apex Jobs with status, error messages, and duration. Scheduled Flow execution history is visible in Flow Interviews but less detailed.</li>
     </ul>
 
-    <h2>Job Limit Management at Enterprise Scale</h2>
+    <h2 id="s4">Job Limit Management at Enterprise Scale</h2>
     <p>Enterprise orgs with 20+ managed packages routinely approach the 100-job ceiling. Management strategies:</p>
     <ul>
       <li><strong>Consolidate jobs:</strong> Combine multiple low-volume Scheduled Apex jobs into a single dispatcher class that runs multiple operations sequentially. One job slot, multiple operations.</li>
@@ -218,11 +218,11 @@ public class ContinuousLeadScoreBatch implements Database.Batchable&lt;SObject&g
       Self-chaining batch jobs must clean up their own previous scheduled job entries or the scheduled job count grows unboundedly. Use <code>System.abortJob(previousJobId)</code> in the <code>finish()</code> method before scheduling the next run. Neglecting this creates ghost jobs that count against the 100-job limit.
     </div>
 
-    <h2>Decision Framework: Apex or Flow?</h2>
+    <h2 id="s5">Decision Framework: Apex or Flow?</h2>
     <p>Use Scheduled Flow when: the operation is simple record updates, the record population is under 250K, no external callouts are needed, and business users need to configure or modify the schedule.</p>
     <p>Use Scheduled Apex when: the operation requires callouts, complex Apex logic, error handling with retry, volumes exceed 250K records, or the job must chain into Batch Apex for processing.</p>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Both Scheduled Apex and Scheduled Flows share the 100-job org limit — managed packages consume this limit invisibly.</li>
@@ -240,27 +240,27 @@ public class ContinuousLeadScoreBatch implements Database.Batchable&lt;SObject&g
       <div class="quiz-question" id="q1">
         <p>1. What is the org-wide limit for total scheduled jobs, shared across Scheduled Apex, Scheduled Flows, and packages?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">500 total scheduled jobs</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">100 total scheduled jobs</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">50 per job type (Apex and Flow separately)</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. 500 total scheduled jobs</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. 100 total scheduled jobs</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. 50 per job type (Apex and Flow separately)</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. A scheduled automation needs to call an external pricing API every night. Which tool must you use?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Scheduled Flow with a REST HTTP Action step</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Scheduled Apex — Scheduled Flows cannot make external callouts</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Either tool — both support outbound callouts when External Services is configured</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Scheduled Flow with a REST HTTP Action step</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Scheduled Apex — Scheduled Flows cannot make external callouts</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Either tool — both support outbound callouts when External Services is configured</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. When using a self-chaining Batch Apex pattern to avoid scheduled job slots, what must happen in the finish() method?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Call Database.executeBatch() to start the next batch immediately</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Abort the previous scheduled job entry before scheduling the next run, to prevent unbounded job accumulation</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Nothing — Salesforce automatically cleans up previous job entries</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Call Database.executeBatch() to start the next batch immediately</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Abort the previous scheduled job entry before scheduling the next run, to prevent unbounded job accumulation</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Nothing — Salesforce automatically cleans up previous job entries</div>
         </div>
       </div>
     </div>
@@ -289,12 +289,12 @@ public class ContinuousLeadScoreBatch implements Database.Batchable&lt;SObject&g
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">Two Mechanisms, One Shared Constraint</a></li>
-            <li><a href="#">Scheduled Apex: Mechanics and Usage</a></li>
-            <li><a href="#">Scheduled Flows: When They Make Sense</a></li>
-            <li><a href="#">Job Limit Management at Enterprise Scale</a></li>
-            <li><a href="#">Decision Framework: Apex or Flow?</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">Two Mechanisms, One Shared Constraint</a></li>
+            <li><a href="#s2">Scheduled Apex: Mechanics and Usage</a></li>
+            <li><a href="#s3">Scheduled Flows: When They Make Sense</a></li>
+            <li><a href="#s4">Job Limit Management at Enterprise Scale</a></li>
+            <li><a href="#s5">Decision Framework: Apex or Flow?</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

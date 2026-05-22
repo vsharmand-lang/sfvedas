@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Understanding Salesforce Releases: Major, Minor, and How They Affect You | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="Salesforce releases three major updates per year, named after seasons: Spring (January-February), Summer (May-June), and Winter (September-October). Each release delivers hundreds of new features, enhancements, bug fixes, and occasionally deprecations across all Salesforce products."/>
   <meta property="og:title" content="Understanding Salesforce Releases: Major, Minor, and How They Affect You | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="Salesforce releases three major updates per year, named after seasons: Spring (January-February), Summer (May-June), and Winter (September-October). Each release delivers hundreds of new features, enhancements, bug fixes, and occasionally deprecations across all Salesforce products."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-005/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Understanding Salesforce Releases: Major, Minor, and How They Affect You | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="Salesforce releases three major updates per year, named after seasons: Spring (January-February), Summer (May-June), and Winter (September-October). Each release delivers hundreds of new features, enhancements, bug fixes, and occasionally deprecations across all Salesforce products."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Understanding Salesforce Releases: Major, Minor, and How They Affect You | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "Salesforce releases three major updates per year, named after seasons: Spring (January-February), Summer (May-June), and Winter (September-October). Each release delivers hundreds of new features, enhancements, bug fixes, and occasionally deprecations across all Salesforce products.",
   "url": "https://sfvedas.com/tutorials/plat-005/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-005/",
   "author": {
@@ -192,7 +192,7 @@ LIMIT 50
         <p><strong>Preview sandbox designation:</strong> One sandbox is permanently designated as the preview sandbox. It receives preview upgrades. The cost: this sandbox has a different software version than production for 4 weeks three times per year. The benefit: regression issues are found before they hit production.</p>
         <p><strong>Regression test coverage:</strong> Maintain a set of smoke tests for critical business processes that can be run in 2-4 hours against the preview sandbox. Not full UAT — just enough coverage to catch breaking changes in the areas your users depend on most.</p>
         <p><strong>Critical Updates review in sprint ceremony:</strong> In the first sprint after a new release, review any new Critical Updates in Setup. Assign an owner and activation timeline for each relevant one.</p>
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Salesforce has three major releases per year (Spring, Summer, Winter) plus patches. All releases are automatic — your org is upgraded on Salesforce's schedule, not yours.</li>
@@ -204,32 +204,32 @@ LIMIT 50
           </ul>
         </div>
         <div class="quiz-section" id="quiz">
-      <h2>Test Your Understanding</h2>
+      <h2 id="s6">Test Your Understanding</h2>
 
       <div class="quiz-question" id="q1">
         <p>1. A Critical Update appears in Setup with a mandatory activation date of "Summer '26." Today is March 2026. Your team decides to deal with it "when the time comes." What is the risk of this approach?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">No risk — Salesforce sends email warnings 72 hours before mandatory activation giving time to prepare</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">High risk — when the Summer release upgrades production (June 2026), the Critical Update activates immediately. If it breaks something, there is no testing window. The fix is to test now in a preview sandbox and resolve issues before the mandatory date.</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Low risk — Critical Updates only affect new orgs created after the activation date; existing orgs are grandfathered</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. No risk — Salesforce sends email warnings 72 hours before mandatory activation giving time to prepare</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. High risk — when the Summer release upgrades production (June 2026), the Critical Update activates immediately. If it breaks something, there is no testing window. The fix is to test now in a preview sandbox and resolve issues before the mandatory date.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Low risk — Critical Updates only affect new orgs created after the activation date; existing orgs are grandfathered</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. Your org has a custom REST integration built against API version 45.0. The Summer release notes indicate API version 45.0 is deprecated. What action should be taken?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">No action — deprecated API versions continue to work indefinitely after the deprecation announcement</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Upgrade the integration to a current API version before the deprecated version's retirement date. Deprecated versions have a defined sunset timeline — continued use after retirement causes authentication failures or unsupported behaviour.</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Submit a support case to Salesforce requesting an exemption for the legacy API version</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. No action — deprecated API versions continue to work indefinitely after the deprecation announcement</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Upgrade the integration to a current API version before the deprecated version's retirement date. Deprecated versions have a defined sunset timeline — continued use after retirement causes authentication failures or unsupported behaviour.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Submit a support case to Salesforce requesting an exemption for the legacy API version</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which section of Salesforce release notes should be reviewed first to identify the highest regression risk for an org with existing flows and Apex triggers?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The "New Features" section — new platform capabilities affect all existing Apex and flows</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">The "Changed" behaviour section — modifications to existing platform behaviour are more likely to break existing Apex, flows, and configurations than purely additive new features</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The "Known Issues" section — known issues list all bugs introduced in the release that affect custom code</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. The "New Features" section — new platform capabilities affect all existing Apex and flows</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. The "Changed" behaviour section — modifications to existing platform behaviour are more likely to break existing Apex, flows, and configurations than purely additive new features</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. The "Known Issues" section — known issues list all bugs introduced in the release that affect custom code</div>
         </div>
       </div>
     </div>
@@ -258,13 +258,13 @@ LIMIT 50
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Salesforce Release Calendar</a></li>
-            <li><a href="#">The Preview Sandbox Window</a></li>
-            <li><a href="#">Critical Updates: The Mandatory Changes</a></li>
-            <li><a href="#">Reading Release Notes Efficiently</a></li>
-            <li><a href="#">Building a Release Management Process</a></li>
-            <li><a href="#">Key Takeaways</a></li>
-            <li><a href="#">Test Your Understanding</a></li>
+            <li><a href="#s1">The Salesforce Release Calendar</a></li>
+            <li><a href="#s2">The Preview Sandbox Window</a></li>
+            <li><a href="#s3">Critical Updates: The Mandatory Changes</a></li>
+            <li><a href="#s4">Reading Release Notes Efficiently</a></li>
+            <li><a href="#s5">Building a Release Management Process</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#s6">Test Your Understanding</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

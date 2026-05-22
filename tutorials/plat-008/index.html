@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Connect: Federated Data Without Migration | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="What Salesforce Connect actually does under the hood, when it is the right architectural choice versus when data replication wins, how to build and configure External Objects, and how Connect handles queries, SOQL, and governor limits."/>
   <meta property="og:title" content="Salesforce Connect: Federated Data Without Migration | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="What Salesforce Connect actually does under the hood, when it is the right architectural choice versus when data replication wins, how to build and configure External Objects, and how Connect handles queries, SOQL, and governor limits."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-008/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Salesforce Connect: Federated Data Without Migration | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="What Salesforce Connect actually does under the hood, when it is the right architectural choice versus when data replication wins, how to build and configure External Objects, and how Connect handles queries, SOQL, and governor limits."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Salesforce Connect: Federated Data Without Migration | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "What Salesforce Connect actually does under the hood, when it is the right architectural choice versus when data replication wins, how to build and configure External Objects, and how Connect handles queries, SOQL, and governor limits.",
   "url": "https://sfvedas.com/tutorials/plat-008/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-008/",
   "author": {
@@ -104,7 +104,7 @@
         Salesforce Connect: Federated Data Without Migration
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        What Salesforce Connect actually does under the hood, when it is the right architectural choice versus when data replication wins, how to build and configure External Objects, and how Connect handles queries, SOQL, and governor limits.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>What Salesforce Connect actually does under the hood, when it is the right architectural choice versus when data replication wins, how to build and configure External Objects, and how Connect handles queries, SOQL, and governor limits.</p>
     </div>
 
-    <h2>The Case for Federated Data</h2>
+    <h2 id="s1">The Case for Federated Data</h2>
     <p>Every enterprise has systems of record that predate Salesforce — an ERP, a legacy CRM, a data warehouse. The classic integration choice is: replicate the data into Salesforce or query it live. Replication is reliable and fast but creates a second copy that can drift out of sync. Live query is always current but adds latency and creates a dependency on the remote system's availability.</p>
     <p>Salesforce Connect is the native mechanism for live query. It surfaces external data inside Salesforce as External Objects — metadata constructs that behave like Salesforce objects (standard fields, relationships, SOQL support) but store nothing. Every record lookup hits the remote source in real time.</p>
 
@@ -147,7 +147,7 @@
       Connect is often misunderstood as "integration." It is not — it is virtualisation. The data lives elsewhere, and Salesforce is merely rendering a window into it. This distinction matters because every UI interaction triggers a live API call to the external system.
     </div>
 
-    <h2>Connect Architecture: How It Works</h2>
+    <h2 id="s2">Connect Architecture: How It Works</h2>
     <p>The architectural components of Salesforce Connect are:</p>
     <ul>
       <li><strong>External Data Source:</strong> The configuration record that defines the remote system — its URL, auth type (OAuth, Named Credentials, Basic), protocol (OData 2.0, OData 4.0, Apex custom adapter, AWS, Google BigQuery).</li>
@@ -176,7 +176,7 @@ WHERE AccountId = '001...'</div>
       SOQL against External Objects does not run against Salesforce's database engine. It is translated into OData queries (or custom adapter calls) and dispatched to the remote system. The results come back as Salesforce records. This means query complexity is limited — no aggregates, no subqueries in most adapters.
     </div>
 
-    <h2>Adapter Types and When to Use Each</h2>
+    <h2 id="s3">Adapter Types and When to Use Each</h2>
     <p>Salesforce Connect ships with three built-in adapter types plus a custom Apex adapter framework:</p>
 
     <ul>
@@ -207,7 +207,7 @@ global class MyERPAdapter extends DataSource.Connection {
   }
 }</div>
 
-    <h2>Governor Limits and Performance Reality</h2>
+    <h2 id="s4">Governor Limits and Performance Reality</h2>
     <p>Connect calls count against Salesforce callout limits, not query limits. Each External Object query generates one or more callouts to the external system:</p>
     <ul>
       <li>Max 100 callouts per Apex transaction</li>
@@ -222,7 +222,7 @@ global class MyERPAdapter extends DataSource.Connection {
       If your use case involves users running list views, reports, or SOQL with no WHERE clause against an External Object, Connect is the wrong tool. The 2,000 row cap and live-query latency will frustrate users. Replicate the data into Salesforce using ETL or platform events instead.
     </div>
 
-    <h2>When Connect Is the Right Choice</h2>
+    <h2 id="s5">When Connect Is the Right Choice</h2>
     <p>Connect excels in three scenarios:</p>
     <ol>
       <li><strong>Contextual data access:</strong> A sales rep opens an Account and needs to see the last three ERP orders without IT building a full sync pipeline. One External Object with an Account relationship delivers this in a single afternoon.</li>
@@ -235,11 +235,11 @@ global class MyERPAdapter extends DataSource.Connection {
       Use Connect as a prototyping layer. Before committing to a full ETL pipeline, stand up an External Object in a day to validate which fields users actually need. Once the field set is known, build the real integration. This avoids over-engineering the data model before requirements are clear.
     </div>
 
-    <h2>Security and Caching Considerations</h2>
+    <h2 id="s6">Security and Caching Considerations</h2>
     <p>External Objects honour Salesforce object-level and field-level security. FLS and object permissions apply as expected. However, row-level security (record ownership, sharing rules, territory management) does not apply to External Objects — all users with object access can see all returned rows unless the external system enforces row-level filtering.</p>
     <p>For caching, OData adapters have no built-in cache. Each page load triggers a fresh callout. If the external system's API has strict rate limits, Connect can inadvertently exhaust them during peak Salesforce usage. Co-ordinate with the external system's team before production deployment.</p>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Salesforce Connect virtualises external data — no storage, always live, always current.</li>
@@ -257,27 +257,27 @@ global class MyERPAdapter extends DataSource.Connection {
       <div class="quiz-question" id="q1">
         <p>1. What is the hard row limit for a single Salesforce Connect query against an External Object?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">10,000 rows</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">2,000 rows</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">500 rows</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. 10,000 rows</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. 2,000 rows</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. 500 rows</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. A compliance requirement says customer PII cannot be stored in Salesforce. Which Connect feature directly addresses this?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">External Lookup Relationships encrypt data at rest</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Connect virtualises data — nothing is replicated to Salesforce storage</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Salesforce Shield encrypts External Object fields automatically</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. External Lookup Relationships encrypt data at rest</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Connect virtualises data — nothing is replicated to Salesforce storage</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Salesforce Shield encrypts External Object fields automatically</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which adapter type would you use to connect a Salesforce org to data in a separate Salesforce org?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">OData 4.0 Adapter</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Cross-Org Adapter</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Custom Apex Adapter</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. OData 4.0 Adapter</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Cross-Org Adapter</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Custom Apex Adapter</div>
         </div>
       </div>
     </div>
@@ -306,13 +306,13 @@ global class MyERPAdapter extends DataSource.Connection {
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Case for Federated Data</a></li>
-            <li><a href="#">Connect Architecture: How It Works</a></li>
-            <li><a href="#">Adapter Types and When to Use Each</a></li>
-            <li><a href="#">Governor Limits and Performance Reality</a></li>
-            <li><a href="#">When Connect Is the Right Choice</a></li>
-            <li><a href="#">Security and Caching Considerations</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Case for Federated Data</a></li>
+            <li><a href="#s2">Connect Architecture: How It Works</a></li>
+            <li><a href="#s3">Adapter Types and When to Use Each</a></li>
+            <li><a href="#s4">Governor Limits and Performance Reality</a></li>
+            <li><a href="#s5">When Connect Is the Right Choice</a></li>
+            <li><a href="#s6">Security and Caching Considerations</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

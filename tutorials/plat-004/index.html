@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce DX: What Every Delivery Leader Must Know | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="Salesforce DX (Developer Experience) is a set of tools, practices, and platform capabilities introduced in 2017 to bring modern software development practices to Salesforce delivery. At its core, SFDX is three things: the Salesforce CLI (a command-line tool for all org operations), a source-format for metadata (XML-based files that represent org configuration), and a development model that treats source control as the authoritative state of the org."/>
   <meta property="og:title" content="Salesforce DX: What Every Delivery Leader Must Know | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="Salesforce DX (Developer Experience) is a set of tools, practices, and platform capabilities introduced in 2017 to bring modern software development practices to Salesforce delivery. At its core, SFDX is three things: the Salesforce CLI (a command-line tool for all org operations), a source-format for metadata (XML-based files that represent org configuration), and a development model that treats source control as the authoritative state of the org."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-004/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Salesforce DX: What Every Delivery Leader Must Know | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="Salesforce DX (Developer Experience) is a set of tools, practices, and platform capabilities introduced in 2017 to bring modern software development practices to Salesforce delivery. At its core, SFDX is three things: the Salesforce CLI (a command-line tool for all org operations), a source-format for metadata (XML-based files that represent org configuration), and a development model that treats source control as the authoritative state of the org."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Salesforce DX: What Every Delivery Leader Must Know | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "Salesforce DX (Developer Experience) is a set of tools, practices, and platform capabilities introduced in 2017 to bring modern software development practices to Salesforce delivery. At its core, SFDX is three things: the Salesforce CLI (a command-line tool for all org operations), a source-format for metadata (XML-based files that represent org configuration), and a development model that treats source control as the authoritative state of the org.",
   "url": "https://sfvedas.com/tutorials/plat-004/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-004/",
   "author": {
@@ -198,7 +198,7 @@ sf project retrieve start --target-org myFeatureDev</code></pre>
             <strong>Questions to ask your team:</strong> "Can you show me the last 10 production deployments in your CI/CD pipeline?" A healthy answer includes a list of automated pipeline runs with test results and deployer identity. If the answer is "we do manual deployments from sandbox," the team is not practicing SFDX-based delivery regardless of what tools they have installed.
           </div>
         </div>
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Salesforce DX inverts the development model: source control is the system of record, and the org is a deployed instance. This eliminates drift, enables automation, and makes deployments auditable.</li>
@@ -210,32 +210,32 @@ sf project retrieve start --target-org myFeatureDev</code></pre>
           </ul>
         </div>
         <div class="quiz-section" id="quiz">
-      <h2>Test Your Understanding</h2>
+      <h2 id="s6">Test Your Understanding</h2>
 
       <div class="quiz-question" id="q1">
         <p>1. A team has Salesforce CLI installed and uses SFDX commands, but developers still make changes directly in the integration sandbox and "retrieve" them to Git afterward. Are they practicing source-driven development?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Yes — they are using SFDX tools and committing to Git, which satisfies the source-driven development requirement</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">No — source-driven development requires source control to be the primary workspace. Making changes in the org first and retrieving afterward is org-driven development, which still allows drift and untracked changes.</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Partially — they meet the tooling requirement but need to add automated testing to complete the SFDX adoption</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Yes — they are using SFDX tools and committing to Git, which satisfies the source-driven development requirement</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. No — source-driven development requires source control to be the primary workspace. Making changes in the org first and retrieving afterward is org-driven development, which still allows drift and untracked changes.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Partially — they meet the tooling requirement but need to add automated testing to complete the SFDX adoption</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. A 15-person development team uses scratch orgs for feature development. After 3 months they find they frequently hit "maximum active scratch orgs" errors. What is the cause and fix?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Scratch orgs cannot be used by teams larger than 10 — upgrade to full sandboxes for teams above this size</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">The daily scratch org creation limit is exceeded. Solutions: developers delete scratch orgs promptly when done (not let them expire), reduce scratch org default duration, or request a limit increase via Salesforce support.</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The SFDX CLI version is outdated — upgrading the CLI resolves scratch org creation errors</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Scratch orgs cannot be used by teams larger than 10 — upgrade to full sandboxes for teams above this size</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. The daily scratch org creation limit is exceeded. Solutions: developers delete scratch orgs promptly when done (not let them expire), reduce scratch org default duration, or request a limit increase via Salesforce support.</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. The SFDX CLI version is outdated — upgrading the CLI resolves scratch org creation errors</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. At what project stage should the decision to use Second-Generation Packaging (2GP) be made for a large enterprise implementation?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">After the first sprint, once the team understands the complexity of the metadata involved</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">After go-live, as a technical debt reduction initiative once the initial delivery is complete</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">At programme initiation — 2GP package boundaries need to be defined before development starts, as retrofitting package structure into existing org metadata is extremely difficult and disruptive</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. After the first sprint, once the team understands the complexity of the metadata involved</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. After go-live, as a technical debt reduction initiative once the initial delivery is complete</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. At programme initiation — 2GP package boundaries need to be defined before development starts, as retrofitting package structure into existing org metadata is extremely difficult and disruptive</div>
         </div>
       </div>
     </div>
@@ -264,13 +264,13 @@ sf project retrieve start --target-org myFeatureDev</code></pre>
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">What Salesforce DX Is</a></li>
-            <li><a href="#">Source-Driven vs Org-Driven Development</a></li>
-            <li><a href="#">Scratch Orgs: The Developer Workflow</a></li>
-            <li><a href="#">Second-Generation Packaging (2GP)</a></li>
-            <li><a href="#">What a Mature SFDX CI/CD Pipeline Looks Like</a></li>
-            <li><a href="#">Key Takeaways</a></li>
-            <li><a href="#">Test Your Understanding</a></li>
+            <li><a href="#s1">What Salesforce DX Is</a></li>
+            <li><a href="#s2">Source-Driven vs Org-Driven Development</a></li>
+            <li><a href="#s3">Scratch Orgs: The Developer Workflow</a></li>
+            <li><a href="#s4">Second-Generation Packaging (2GP)</a></li>
+            <li><a href="#s5">What a Mature SFDX CI/CD Pipeline Looks Like</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#s6">Test Your Understanding</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

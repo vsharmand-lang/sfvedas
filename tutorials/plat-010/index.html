@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Industries (Vlocity): Architecture Behind Vertical Clouds | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="The architectural anatomy of Salesforce Industries clouds, how OmniStudio, EPC, and CPQ layer together, the customisation model, upgrade risks, and how to evaluate whether an Industries cloud is the right starting point for a vertical deployment."/>
   <meta property="og:title" content="Salesforce Industries (Vlocity): Architecture Behind Vertical Clouds | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="The architectural anatomy of Salesforce Industries clouds, how OmniStudio, EPC, and CPQ layer together, the customisation model, upgrade risks, and how to evaluate whether an Industries cloud is the right starting point for a vertical deployment."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-010/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Salesforce Industries (Vlocity): Architecture Behind Vertical Clouds | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="The architectural anatomy of Salesforce Industries clouds, how OmniStudio, EPC, and CPQ layer together, the customisation model, upgrade risks, and how to evaluate whether an Industries cloud is the right starting point for a vertical deployment."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Salesforce Industries (Vlocity): Architecture Behind Vertical Clouds | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "The architectural anatomy of Salesforce Industries clouds, how OmniStudio, EPC, and CPQ layer together, the customisation model, upgrade risks, and how to evaluate whether an Industries cloud is the right starting point for a vertical deployment.",
   "url": "https://sfvedas.com/tutorials/plat-010/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-010/",
   "author": {
@@ -104,7 +104,7 @@
         Salesforce Industries (Vlocity): Architecture Behind Vertical Clouds
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        The architectural anatomy of Salesforce Industries clouds, how OmniStudio, EPC, and CPQ layer together, the customisation model, upgrade risks, and how to evaluate whether an Industries cloud is the right starting point for a vertical deployment.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>The architectural anatomy of Salesforce Industries clouds, how OmniStudio, EPC, and CPQ layer together, the customisation model, upgrade risks, and how to evaluate whether an Industries cloud is the right starting point for a vertical deployment.</p>
     </div>
 
-    <h2>From Vlocity to Salesforce Industries</h2>
+    <h2 id="s1">From Vlocity to Salesforce Industries</h2>
     <p>Vlocity was an ISV that built vertical-specific accelerators on the Salesforce platform for telecoms, insurance, health, public sector, and media. Each vertical product contained pre-built data models, business processes (via OmniStudio), pricing engines, and integration templates. When Salesforce acquired Vlocity in 2020 for $1.33 billion, it rebranded the portfolio as Salesforce Industries and integrated OmniStudio into the platform proper.</p>
     <p>Today, Salesforce Industries encompasses more than 12 vertical clouds: Communications Cloud, Media Cloud, Energy & Utilities Cloud, Financial Services Cloud, Health Cloud, Public Sector Solutions, Net Zero Cloud, Education Cloud, Nonprofit Cloud, Consumer Goods Cloud, Manufacturing Cloud, and Automotive Cloud. Each is a managed package installed on top of the core Salesforce platform.</p>
 
@@ -147,7 +147,7 @@
       A Salesforce Industries implementation is not just a configuration project — it is a managed package installation with its own data model, release cycle, and upgrade dependencies. Architects who treat it as "just Salesforce" underestimate the upgrade and customisation complexity by an order of magnitude.
     </div>
 
-    <h2>The Three-Layer Architecture</h2>
+    <h2 id="s2">The Three-Layer Architecture</h2>
     <p>Every Salesforce Industries cloud has the same three-layer structure:</p>
     <ol>
       <li><strong>Foundation layer:</strong> The core Salesforce platform — objects, Apex, LWC, Flows, Security. Industries inherits all platform capabilities and limits.</li>
@@ -156,7 +156,7 @@
     </ol>
     <p>The critical constraint is that customisation must flow downward — customer code can extend the Industries layer but cannot modify the managed package internals. This is the same constraint as any managed package implementation, but the Industries packages are significantly larger and more complex than typical ISV packages.</p>
 
-    <h2>Enterprise Product Catalogue (EPC)</h2>
+    <h2 id="s3">Enterprise Product Catalogue (EPC)</h2>
     <p>EPC is the product modelling engine at the heart of Communications, Media, and Energy Industries clouds. It is the component that makes these clouds genuinely different from standard CPQ.</p>
     <p>Where standard Salesforce CPQ models products as records in a flat Product object, EPC models products as hierarchical bundles with complex offer eligibility, configurability, and compatibility rules. A telecom offering might be: a Bundle (Home Internet + TV + Mobile), containing Service Components (Broadband, IPTV, SIM), each with Characteristics (Speed, Channels, Data Allowance), Pricing Rules (base price, discount tiers, promotional periods), and Compatibility Constraints (broadband speed determines available TV packages).</p>
 
@@ -178,7 +178,7 @@ Catalog
       EPC is not a replacement for CPQ — it is a different product model designed for subscription-based, hierarchical offerings. If your products are simple SKUs with optional add-ons, standard CPQ is simpler and cheaper. EPC is justified when products have multi-level configurability and complex eligibility rules.
     </div>
 
-    <h2>Customisation Constraints and Upgrade Risk</h2>
+    <h2 id="s4">Customisation Constraints and Upgrade Risk</h2>
     <p>Industries managed packages receive updates on the Salesforce release cycle (3 per year). Unlike the core platform where upgrades are automatic and controlled by Salesforce, managed package upgrades are controlled by the customer — but they must eventually be applied or the package falls out of support.</p>
     <p>The customisation risk surface for Industries implementations:</p>
     <ul>
@@ -193,7 +193,7 @@ Catalog
       EPC product data migration is the most common delivery risk in Industries projects. Many teams discover late in delivery that their complex EPC catalogue cannot be promoted from sandbox to production via standard deployment pipelines. Establish EPC data migration tooling as a Day 1 delivery concern, not an afterthought.
     </div>
 
-    <h2>When Industries Clouds Are the Right Choice</h2>
+    <h2 id="s5">When Industries Clouds Are the Right Choice</h2>
     <p>An Industries cloud is the right starting point when three conditions align:</p>
     <ol>
       <li><strong>Vertical fit:</strong> The customer's core business domain maps directly to an Industries vertical (telecom, insurance, health, utilities). If the fit is marginal, the pre-built data model creates more friction than value.</li>
@@ -206,7 +206,7 @@ Catalog
       When evaluating Industries fit, run a "process match" exercise in discovery. List the 10 highest-volume processes in scope and score how closely each maps to the Industries accelerator. If fewer than 6 out of 10 are a strong match, consider whether Sales Cloud + custom development might deliver faster with less upgrade risk.
     </div>
 
-    <h2>Governance for Long-Term Industries Implementations</h2>
+    <h2 id="s6">Governance for Long-Term Industries Implementations</h2>
     <p>Industries implementations that survive years of operation share these governance practices:</p>
     <ul>
       <li><strong>Upgrade sandbox cadence:</strong> Maintain a permanent upgrade sandbox where each Salesforce release is applied before production. Test all customised OmniStudio assets and Apex extensions against the new package version.</li>
@@ -215,7 +215,7 @@ Catalog
       <li><strong>OmniStudio version control:</strong> Use LWC-native mode (available since Summer 2023) to store OmniStudio assets as source-controlled metadata rather than data records.</li>
     </ul>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Salesforce Industries clouds are managed packages built on Vlocity technology, installed on top of the core platform.</li>
@@ -233,27 +233,27 @@ Catalog
       <div class="quiz-question" id="q1">
         <p>1. Why does EPC data require custom migration tooling rather than standard Metadata API deployments?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','right')">EPC product data is stored as configuration data (object records), not as metadata, so Metadata API cannot move it</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">EPC data is encrypted and Metadata API does not support encrypted field migration</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Salesforce does not support EPC deployments between non-production orgs</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">A. EPC product data is stored as configuration data (object records), not as metadata, so Metadata API cannot move it</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. EPC data is encrypted and Metadata API does not support encrypted field migration</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Salesforce does not support EPC deployments between non-production orgs</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. Which three conditions should align before recommending a Salesforce Industries cloud implementation?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Large org size, multi-country deployment, and existing Apex codebase</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Vertical fit, process fit, and OmniStudio commitment from the team</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">CRM migration, system integrations, and data warehouse connectivity</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Large org size, multi-country deployment, and existing Apex codebase</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Vertical fit, process fit, and OmniStudio commitment from the team</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. CRM migration, system integrations, and data warehouse connectivity</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Where in the three-layer architecture does an implementation team primarily work?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The Foundation layer — modifying Salesforce core objects</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">The Industries layer — modifying managed package internals</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">The Customisation layer — extending the Industries layer without modifying the managed package</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. The Foundation layer — modifying Salesforce core objects</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. The Industries layer — modifying managed package internals</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. The Customisation layer — extending the Industries layer without modifying the managed package</div>
         </div>
       </div>
     </div>
@@ -282,13 +282,13 @@ Catalog
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">From Vlocity to Salesforce Industries</a></li>
-            <li><a href="#">The Three-Layer Architecture</a></li>
-            <li><a href="#">Enterprise Product Catalogue (EPC)</a></li>
-            <li><a href="#">Customisation Constraints and Upgrade Risk</a></li>
-            <li><a href="#">When Industries Clouds Are the Right Choice</a></li>
-            <li><a href="#">Governance for Long-Term Industries Implementations</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">From Vlocity to Salesforce Industries</a></li>
+            <li><a href="#s2">The Three-Layer Architecture</a></li>
+            <li><a href="#s3">Enterprise Product Catalogue (EPC)</a></li>
+            <li><a href="#s4">Customisation Constraints and Upgrade Risk</a></li>
+            <li><a href="#s5">When Industries Clouds Are the Right Choice</a></li>
+            <li><a href="#s6">Governance for Long-Term Industries Implementations</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

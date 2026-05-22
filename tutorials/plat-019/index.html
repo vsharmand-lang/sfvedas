@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Slack Integration: Architecture Deep Dive | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="The Salesforce-Slack integration architecture layers, how Flow-to-Slack and Slack-to-Salesforce data paths work, how to build Slack Apps on the Salesforce platform, security and governance considerations, and the realistic maturity level of the Slack-first vision in 2026."/>
   <meta property="og:title" content="Salesforce Slack Integration: Architecture Deep Dive | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="The Salesforce-Slack integration architecture layers, how Flow-to-Slack and Slack-to-Salesforce data paths work, how to build Slack Apps on the Salesforce platform, security and governance considerations, and the realistic maturity level of the Slack-first vision in 2026."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-019/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Salesforce Slack Integration: Architecture Deep Dive | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="The Salesforce-Slack integration architecture layers, how Flow-to-Slack and Slack-to-Salesforce data paths work, how to build Slack Apps on the Salesforce platform, security and governance considerations, and the realistic maturity level of the Slack-first vision in 2026."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Salesforce Slack Integration: Architecture Deep Dive | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "The Salesforce-Slack integration architecture layers, how Flow-to-Slack and Slack-to-Salesforce data paths work, how to build Slack Apps on the Salesforce platform, security and governance considerations, and the realistic maturity level of the Slack-first vision in 2026.",
   "url": "https://sfvedas.com/tutorials/plat-019/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-019/",
   "author": {
@@ -104,7 +104,7 @@
         Salesforce Slack Integration: Architecture Deep Dive
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        The Salesforce-Slack integration architecture layers, how Flow-to-Slack and Slack-to-Salesforce data paths work, how to build Slack Apps on the Salesforce platform, security and governance considerations, and the realistic maturity level of the Slack-first vision in 2026.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>The Salesforce-Slack integration architecture layers, how Flow-to-Slack and Slack-to-Salesforce data paths work, how to build Slack Apps on the Salesforce platform, security and governance considerations, and the realistic maturity level of the Slack-first vision in 2026.</p>
     </div>
 
-    <h2>The Salesforce-Slack Vision vs the Reality</h2>
+    <h2 id="s1">The Salesforce-Slack Vision vs the Reality</h2>
     <p>When Salesforce acquired Slack in 2021, the strategic vision was a "digital HQ" — Slack as the primary interface for Salesforce workflows, reducing the need for users to navigate the Salesforce UI directly. Five years in, the integration is mature in some areas and still evolving in others.</p>
     <p>The areas that work well: Salesforce record notifications in Slack channels, Slack-first approval workflows triggered from Salesforce Flow, and Slack commands that surface Salesforce data. The areas still maturing: bidirectional data entry (completing Salesforce records from Slack modals at scale), and AI-powered Slack-Salesforce workflows via Agentforce.</p>
 
@@ -147,7 +147,7 @@
       The Salesforce-Slack integration has two distinct personas: the Salesforce admin building automation, and the Slack developer building Apps. These require different toolchains. Architects need to understand both to design a complete solution.
     </div>
 
-    <h2>Four Integration Layers</h2>
+    <h2 id="s2">Four Integration Layers</h2>
     <p>The Salesforce-Slack integration has four distinct architectural layers:</p>
     <p><strong>Layer 1 — Standard Notifications (Flow):</strong> Salesforce Flow can send messages to Slack channels using the "Send Slack Notification" Flow action. This is the simplest integration: a record change triggers a Flow, which posts a formatted Slack message. No Slack app development required — just a Slack workspace connected to the org via Salesforce Setup.</p>
     <p><strong>Layer 2 — Record-Linked Messages:</strong> Salesforce can post rich "record cards" to Slack — messages that include a preview of the Salesforce record and direct links to open it. Users can view record data without leaving Slack.</p>
@@ -189,7 +189,7 @@ String messageJson = JSON.serialize(new Map&lt;String, Object&gt;{
       Slack message formatting uses Block Kit — a JSON-based component system. Plain text is supported, but rich interactive messages (buttons, dropdowns, modal triggers) require Block Kit JSON. Salesforce Flow's built-in Slack action supports plain text and basic markdown only. For Block Kit messages, you need an Apex callout to the Slack API.
     </div>
 
-    <h2>Authentication and Security Architecture</h2>
+    <h2 id="s3">Authentication and Security Architecture</h2>
     <p>Salesforce-Slack integration uses OAuth 2.0 at both connection points:</p>
     <ul>
       <li><strong>Salesforce → Slack (outbound):</strong> A Slack App with bot token scopes (chat:write, channels:read) is connected to the Salesforce org via a Named Credential or via the standard Slack for Salesforce setup. The Named Credential stores the Slack bot token securely.</li>
@@ -201,7 +201,7 @@ String messageJson = JSON.serialize(new Map&lt;String, Object&gt;{
       Slack webhook payloads must respond within 3 seconds. Any Salesforce processing triggered by a Slack interaction (modal submission, button click) must complete within this window or Slack shows the user an error. Use Salesforce Queueable Apex to defer long-running work and return an immediate acknowledgement response to Slack.
     </div>
 
-    <h2>Governance: What Belongs in Slack vs Salesforce</h2>
+    <h2 id="s4">Governance: What Belongs in Slack vs Salesforce</h2>
     <p>The most common architectural mistake is treating Slack as a primary data entry interface at scale. Slack is excellent for:</p>
     <ul>
       <li>Real-time notifications and alerts</li>
@@ -217,7 +217,7 @@ String messageJson = JSON.serialize(new Map&lt;String, Object&gt;{
       <li>Any workflow requiring audit trail completeness</li>
     </ul>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>The Salesforce-Slack integration has four layers: notifications, record links, interactive modals, and full Slack Apps.</li>
@@ -235,27 +235,27 @@ String messageJson = JSON.serialize(new Map&lt;String, Object&gt;{
       <div class="quiz-question" id="q1">
         <p>1. A Slack user clicks a "Close Case" button in a Slack message. The Salesforce logic to close the case takes 8 seconds. What will happen?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Salesforce will extend the Slack response window to accommodate the processing time</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Slack will show the user an error after 3 seconds. Use Queueable Apex to process the case update asynchronously and return an immediate acknowledgement</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The case will close successfully but the user will see no feedback in Slack</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Salesforce will extend the Slack response window to accommodate the processing time</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Slack will show the user an error after 3 seconds. Use Queueable Apex to process the case update asynchronously and return an immediate acknowledgement</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. The case will close successfully but the user will see no feedback in Slack</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. You need to send a Slack message with interactive buttons. Which tool handles this?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Salesforce Flow's built-in "Send Slack Notification" action — it supports all Slack formatting</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">An Apex callout sending Block Kit JSON to the Slack API — Flow only supports text and basic markdown</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Salesforce Report subscriptions — they natively format Slack notifications with buttons</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Salesforce Flow's built-in "Send Slack Notification" action — it supports all Slack formatting</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. An Apex callout sending Block Kit JSON to the Slack API — Flow only supports text and basic markdown</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Salesforce Report subscriptions — they natively format Slack notifications with buttons</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which use case is Slack NOT the right tool for in a Salesforce context?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Notifying the sales team when a deal reaches Closed Won</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Complex multi-field Account creation with address validation and duplicate checking</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Approving a quote with a single Approve/Reject button interaction</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Notifying the sales team when a deal reaches Closed Won</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Complex multi-field Account creation with address validation and duplicate checking</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Approving a quote with a single Approve/Reject button interaction</div>
         </div>
       </div>
     </div>
@@ -284,11 +284,11 @@ String messageJson = JSON.serialize(new Map&lt;String, Object&gt;{
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Salesforce-Slack Vision vs the Reality</a></li>
-            <li><a href="#">Four Integration Layers</a></li>
-            <li><a href="#">Authentication and Security Architecture</a></li>
-            <li><a href="#">Governance: What Belongs in Slack vs Salesforce</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Salesforce-Slack Vision vs the Reality</a></li>
+            <li><a href="#s2">Four Integration Layers</a></li>
+            <li><a href="#s3">Authentication and Security Architecture</a></li>
+            <li><a href="#s4">Governance: What Belongs in Slack vs Salesforce</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

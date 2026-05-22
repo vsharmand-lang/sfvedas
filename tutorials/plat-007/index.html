@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Custom Labels and Translation Workbench at Scale | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="How Custom Labels work under the hood, when they become unmanageable, strategies for naming conventions and namespace hygiene, and how Translation Workbench fits into enterprise-grade multi-language deployments."/>
   <meta property="og:title" content="Custom Labels and Translation Workbench at Scale | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="How Custom Labels work under the hood, when they become unmanageable, strategies for naming conventions and namespace hygiene, and how Translation Workbench fits into enterprise-grade multi-language deployments."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-007/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Custom Labels and Translation Workbench at Scale | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="How Custom Labels work under the hood, when they become unmanageable, strategies for naming conventions and namespace hygiene, and how Translation Workbench fits into enterprise-grade multi-language deployments."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Custom Labels and Translation Workbench at Scale | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "How Custom Labels work under the hood, when they become unmanageable, strategies for naming conventions and namespace hygiene, and how Translation Workbench fits into enterprise-grade multi-language deployments.",
   "url": "https://sfvedas.com/tutorials/plat-007/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-007/",
   "author": {
@@ -104,7 +104,7 @@
         Custom Labels and Translation Workbench at Scale
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        How Custom Labels work under the hood, when they become unmanageable, strategies for naming conventions and namespace hygiene, and how Translation Workbench fits into enterprise-grade multi-language deployments.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>How Custom Labels work under the hood, when they become unmanageable, strategies for naming conventions and namespace hygiene, and how Translation Workbench fits into enterprise-grade multi-language deployments.</p>
     </div>
 
-    <h2>Why Custom Labels Deserve Architectural Attention</h2>
+    <h2 id="s1">Why Custom Labels Deserve Architectural Attention</h2>
     <p>Custom Labels are often the last thing an architect thinks about and the first thing that breaks during a global rollout. They start as a convenient way to externalise strings — error messages, button text, email subjects — but grow into a sprawling metadata layer that nobody owns, nobody documents, and everybody depends on.</p>
     <p>At the 500+ label mark, teams start hitting real problems: naming collisions, stale labels that no component uses, duplicated values with slightly different wordings, and Translation Workbench exports that are 80% redundant. A disciplined approach from day one prevents months of painful cleanup.</p>
 
@@ -147,7 +147,7 @@
       Custom Labels are global by default. Any Apex class, any LWC, any Flow in any package in your org can read any label. This is a feature and a hazard — a label renamed or deleted can silently break something on the other side of the org.
     </div>
 
-    <h2>How Custom Labels Are Stored and Resolved</h2>
+    <h2 id="s2">How Custom Labels Are Stored and Resolved</h2>
     <p>Each Custom Label is an XML metadata file inside the <code>labels/</code> directory, collected into a single <code>CustomLabels.labels-meta.xml</code> file in SFDX projects. At runtime, Salesforce resolves labels through a locale stack:</p>
     <ol>
       <li>User's personal language setting</li>
@@ -176,7 +176,7 @@ String msg = System.Label.Account_Save_Success;
       In LWC, labels are tree-shaken at build time — only imported labels are bundled. In Apex, all labels are available at runtime with no bundle cost. This means unused labels in Apex are invisible waste; in LWC they are genuinely inert.
     </div>
 
-    <h2>Naming Conventions That Scale</h2>
+    <h2 id="s3">Naming Conventions That Scale</h2>
     <p>The most impactful decision you make about Custom Labels is the naming scheme. A flat namespace ("ErrorMessage", "SaveButton") degrades immediately. A hierarchical scheme using underscores as separators survives a 2,000-label org:</p>
 
     <div class="code-block">// Pattern: &lt;Domain&gt;_&lt;Object&gt;_&lt;Context&gt;_&lt;Type&gt;
@@ -200,7 +200,7 @@ SuccessMessage       // reused across 40 features</div>
       Define a prefix taxonomy and enforce it in code review: <code>Validation_</code> for field/input errors, <code>Toast_</code> for notification messages, <code>Modal_</code> for dialog content, <code>Field_Help_</code> for help text. New contributors should know where their label belongs before they create it.
     </div>
 
-    <h2>Translation Workbench Architecture</h2>
+    <h2 id="s4">Translation Workbench Architecture</h2>
     <p>Translation Workbench (TWB) extends Custom Labels to support multiple languages. It also handles field labels, picklist values, page layouts, and custom object names — not just labels. Understanding the full scope matters because translating labels in isolation misses half the user-facing text.</p>
     <p>The translation pipeline has three stages:</p>
     <ul>
@@ -226,7 +226,7 @@ SuccessMessage       // reused across 40 features</div>
       TWB does not version translations. If you re-export after adding new labels, your translation vendor receives a new export that may overlap with previous work. Always track which labels were exported in which batch to avoid duplicate translation spend.
     </div>
 
-    <h2>Translation at Scale: Governance Patterns</h2>
+    <h2 id="s5">Translation at Scale: Governance Patterns</h2>
     <p>Global deployments with 5+ active languages create workflow complexity. The labels added in a summer release need translation before go-live, which means translation vendors need 2-3 weeks lead time, which means the export must happen before UAT even finishes. This creates pressure to freeze labels early.</p>
     <p>Proven patterns for managing this:</p>
     <ul>
@@ -236,7 +236,7 @@ SuccessMessage       // reused across 40 features</div>
       <li><strong>Automated delta detection:</strong> Script a comparison between the current labels export and the last translated export to identify only new/changed labels. This makes translation faster and cheaper.</li>
     </ul>
 
-    <h2>Labels in Managed Packages</h2>
+    <h2 id="s6">Labels in Managed Packages</h2>
     <p>If you are building a managed package (1GP or 2GP), Custom Labels live in the package namespace. Subscribers see them as <code>namespace__LabelName</code>. This has important implications:</p>
     <ul>
       <li>Subscribers cannot directly edit your package labels. They can override them by creating a label with the same name in their default namespace.</li>
@@ -249,7 +249,7 @@ SuccessMessage       // reused across 40 features</div>
       For ISV products, the ability for subscribers to override labels is a feature — it lets enterprise customers rebrand your UI text without you shipping a custom build. Use protected labels only for strings that must remain exact (legal disclaimers, compliance text).
     </div>
 
-    <h2>Cleaning Up: Label Retirement at Scale</h2>
+    <h2 id="s7">Cleaning Up: Label Retirement at Scale</h2>
     <p>Deleting a Custom Label is a destructive metadata operation that cannot be rolled back from Setup. Before deletion, confirm that no Apex, LWC, Flow, or Visualforce references the label. The safest approach:</p>
     <ol>
       <li>Search the full codebase (including Flow metadata XML) for the label API name.</li>
@@ -260,7 +260,7 @@ SuccessMessage       // reused across 40 features</div>
     </ol>
     <p>Never delete a label and remove its references in the same deployment — the deployment order is not guaranteed, and a timing window can cause a null reference error in production.</p>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Custom Labels are global metadata — naming conventions and ownership matter from day one.</li>
@@ -278,27 +278,27 @@ SuccessMessage       // reused across 40 features</div>
       <div class="quiz-question" id="q1">
         <p>1. In LWC, what happens to Custom Labels that are imported but never referenced in the template or controller?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">They still load at runtime via the global label registry</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">They are tree-shaken at build time and not bundled</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">They cause a compile error in the LWC toolchain</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. They still load at runtime via the global label registry</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. They are tree-shaken at build time and not bundled</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. They cause a compile error in the LWC toolchain</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. You need to retire a Custom Label that is referenced in three LWC components. What is the correct sequence?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Delete the label and the references in one combined deployment</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Remove all references first, deploy to production, then delete the label in a separate step</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Mark the label as protected so it cannot be used, then delete it later</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Delete the label and the references in one combined deployment</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Remove all references first, deploy to production, then delete the label in a separate step</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Mark the label as protected so it cannot be used, then delete it later</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which Translation Workbench capability is NOT available for Custom Labels specifically?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Exporting labels to XML for third-party translation vendors</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Providing locale-based fallback to the master language value</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Versioning translations so rollback to a previous translation is possible</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Exporting labels to XML for third-party translation vendors</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Providing locale-based fallback to the master language value</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">C. Versioning translations so rollback to a previous translation is possible</div>
         </div>
       </div>
     </div>
@@ -327,14 +327,14 @@ SuccessMessage       // reused across 40 features</div>
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">Why Custom Labels Deserve Architectural Attention</a></li>
-            <li><a href="#">How Custom Labels Are Stored and Resolved</a></li>
-            <li><a href="#">Naming Conventions That Scale</a></li>
-            <li><a href="#">Translation Workbench Architecture</a></li>
-            <li><a href="#">Translation at Scale: Governance Patterns</a></li>
-            <li><a href="#">Labels in Managed Packages</a></li>
-            <li><a href="#">Cleaning Up: Label Retirement at Scale</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">Why Custom Labels Deserve Architectural Attention</a></li>
+            <li><a href="#s2">How Custom Labels Are Stored and Resolved</a></li>
+            <li><a href="#s3">Naming Conventions That Scale</a></li>
+            <li><a href="#s4">Translation Workbench Architecture</a></li>
+            <li><a href="#s5">Translation at Scale: Governance Patterns</a></li>
+            <li><a href="#s6">Labels in Managed Packages</a></li>
+            <li><a href="#s7">Cleaning Up: Label Retirement at Scale</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

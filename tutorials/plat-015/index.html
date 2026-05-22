@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Managed Packages Deep Dive: Upgrades, Versions, and Namespace Hell | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="The difference between 1GP and 2GP packaging, how namespace prefixes pollute your org's API schema, the upgrade model and its risks, deprecation versus deletion rules, and how to architect customisations that survive package upgrades."/>
   <meta property="og:title" content="Managed Packages Deep Dive: Upgrades, Versions, and Namespace Hell | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="The difference between 1GP and 2GP packaging, how namespace prefixes pollute your org's API schema, the upgrade model and its risks, deprecation versus deletion rules, and how to architect customisations that survive package upgrades."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-015/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Managed Packages Deep Dive: Upgrades, Versions, and Namespace Hell | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="The difference between 1GP and 2GP packaging, how namespace prefixes pollute your org's API schema, the upgrade model and its risks, deprecation versus deletion rules, and how to architect customisations that survive package upgrades."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Managed Packages Deep Dive: Upgrades, Versions, and Namespace Hell | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "The difference between 1GP and 2GP packaging, how namespace prefixes pollute your org's API schema, the upgrade model and its risks, deprecation versus deletion rules, and how to architect customisations that survive package upgrades.",
   "url": "https://sfvedas.com/tutorials/plat-015/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-015/",
   "author": {
@@ -104,7 +104,7 @@
         Managed Packages Deep Dive: Upgrades, Versions, and Namespace Hell
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        The difference between 1GP and 2GP packaging, how namespace prefixes pollute your org's API schema, the upgrade model and its risks, deprecation versus deletion rules, and how to architect customisations that survive package upgrades.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>The difference between 1GP and 2GP packaging, how namespace prefixes pollute your org's API schema, the upgrade model and its risks, deprecation versus deletion rules, and how to architect customisations that survive package upgrades.</p>
     </div>
 
-    <h2>First vs Second Generation Packaging</h2>
+    <h2 id="s1">First vs Second Generation Packaging</h2>
     <p>Salesforce has two managed package generations. First Generation Packaging (1GP) uses a single Developer Edition org as the packaging org. The package namespace is tied to that org, and package versions are created and uploaded from it. 1GP has been the standard since the AppExchange launched and all existing legacy packages use it.</p>
     <p>Second Generation Packaging (2GP) is the modern approach, introduced with Salesforce DX. Packages are defined in source code as <code>sfdx-project.json</code> artifacts and versions are created via the CLI using scratch orgs. 2GP supports modular package structures, beta/release tracks, and source-controlled versioning. New ISV development should use 2GP.</p>
 
@@ -147,7 +147,7 @@
       From a subscriber perspective, 1GP and 2GP look and behave identically. The difference matters to ISVs who build the packages. As an enterprise implementer, you primarily care about how upgrades work and how customisations survive them — which applies equally to both generations.
     </div>
 
-    <h2>Namespace Prefixes: The Permanent Scar</h2>
+    <h2 id="s2">Namespace Prefixes: The Permanent Scar</h2>
     <p>When a managed package is installed, every API component it introduces gets a namespace prefix: <code>mynamespace__FieldName__c</code>, <code>mynamespace__MyObject__c</code>, <code>mynamespace__MyClass</code>. This prefix is permanent — it cannot be changed or removed after the package is installed, and it affects every SOQL query, Apex reference, and integration mapping that touches those fields.</p>
     <p>The implications for architects:</p>
     <ul>
@@ -179,13 +179,13 @@ List&lt;PackageLicense&gt; pkgs = [
       Namespace prefix pollution is irreversible. Before installing any AppExchange package, evaluate whether its field names will conflict with your existing data model or create readability problems. Uninstalling a package is only possible if the subscriber removes all references to its components — a significant effort for a deeply integrated package.
     </div>
 
-    <h2>The Upgrade Model: Push vs Pull</h2>
+    <h2 id="s3">The Upgrade Model: Push vs Pull</h2>
     <p>Managed package upgrades come in two delivery mechanisms:</p>
     <p><strong>Pull upgrades:</strong> The subscriber visits AppExchange and installs the new package version manually. The subscriber controls the timing. Most packages use this model.</p>
     <p><strong>Push upgrades:</strong> The ISV pushes a new version to subscriber orgs on a scheduled date. The subscriber receives advance notice but cannot defer. Salesforce itself uses push upgrades for security-critical package updates. Some third-party ISVs have negotiated push upgrade rights with their customers.</p>
     <p>The risk profile is different. Pull upgrades give full control to the subscriber but create version fragmentation — if subscribers delay for 12+ months, the ISV must support too many versions. Push upgrades reduce fragmentation but can break customer customisations without warning.</p>
 
-    <h2>Deprecation vs Deletion: The Safe Removal Rules</h2>
+    <h2 id="s4">Deprecation vs Deletion: The Safe Removal Rules</h2>
     <p>A managed package ISV cannot delete a field, class, or object that has been released in a managed version — deletion is permanent and could break any subscriber that references that component. The approved pattern is deprecation:</p>
     <ul>
       <li>Mark the component as deprecated in the packaging org using the <code>@deprecated</code> Apex annotation or the field's "Deprecated" status.</li>
@@ -199,7 +199,7 @@ List&lt;PackageLicense&gt; pkgs = [
       For subscribers building on top of managed packages, never reference deprecated package components in new code. When a package release notes say "Component X is deprecated," treat it as a breaking change on a timer. Schedule migration work immediately rather than waiting for the ISV's hard-removal date.
     </div>
 
-    <h2>Architecting Customisations That Survive Upgrades</h2>
+    <h2 id="s5">Architecting Customisations That Survive Upgrades</h2>
     <p>Customisations that survive package upgrades share these patterns:</p>
     <ul>
       <li><strong>Extension over override:</strong> Extend package Apex classes using virtual/global overrides rather than replacing package logic. Overrides that call <code>super</code> methods will automatically benefit from upstream changes to the parent class.</li>
@@ -208,7 +208,7 @@ List&lt;PackageLicense&gt; pkgs = [
       <li><strong>Version-pin your references:</strong> In Apex that calls package APIs, document the minimum package version your code was tested against. When upgrading, re-test those specific integrations first.</li>
     </ul>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>1GP uses a single packaging org; 2GP uses source code and the CLI — both look identical to subscribers.</li>
@@ -226,27 +226,27 @@ List&lt;PackageLicense&gt; pkgs = [
       <div class="quiz-question" id="q1">
         <p>1. An ISV wants to remove a field from their managed package that was released 2 years ago. What is the approved process?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Delete the field from the packaging org and ship a new version — subscribers get a migration window</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Mark the field as deprecated, ship the version, communicate a removal timeline, and only hard-remove it in a future version</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Contact each subscriber to remove their references, then delete the field</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Delete the field from the packaging org and ship a new version — subscribers get a migration window</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Mark the field as deprecated, ship the version, communicate a removal timeline, and only hard-remove it in a future version</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Contact each subscriber to remove their references, then delete the field</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. What is the primary risk of namespace prefix pollution when installing a new AppExchange package?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">The package will fail to install if the org already uses the same namespace prefix</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">All SOQL queries, integrations, and API mappings referencing package fields must use the namespace prefix, permanently affecting the org's data model readability</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Namespace prefixes cause governor limit consumption to increase for all transactions</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. The package will fail to install if the org already uses the same namespace prefix</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. All SOQL queries, integrations, and API mappings referencing package fields must use the namespace prefix, permanently affecting the org's data model readability</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Namespace prefixes cause governor limit consumption to increase for all transactions</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. What is the key difference between pull upgrades and push upgrades in managed package delivery?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Pull upgrades are automatic; push upgrades require manual subscriber action</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Pull upgrades give subscribers control over timing; push upgrades are delivered by the ISV on their schedule without subscriber deferral</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Push upgrades only work in sandboxes; pull upgrades deploy to production directly</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Pull upgrades are automatic; push upgrades require manual subscriber action</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Pull upgrades give subscribers control over timing; push upgrades are delivered by the ISV on their schedule without subscriber deferral</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Push upgrades only work in sandboxes; pull upgrades deploy to production directly</div>
         </div>
       </div>
     </div>
@@ -275,12 +275,12 @@ List&lt;PackageLicense&gt; pkgs = [
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">First vs Second Generation Packaging</a></li>
-            <li><a href="#">Namespace Prefixes: The Permanent Scar</a></li>
-            <li><a href="#">The Upgrade Model: Push vs Pull</a></li>
-            <li><a href="#">Deprecation vs Deletion: The Safe Removal Rules</a></li>
-            <li><a href="#">Architecting Customisations That Survive Upgrades</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">First vs Second Generation Packaging</a></li>
+            <li><a href="#s2">Namespace Prefixes: The Permanent Scar</a></li>
+            <li><a href="#s3">The Upgrade Model: Push vs Pull</a></li>
+            <li><a href="#s4">Deprecation vs Deletion: The Safe Removal Rules</a></li>
+            <li><a href="#s5">Architecting Customisations That Survive Upgrades</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

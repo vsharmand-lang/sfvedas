@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Salesforce Mobile SDK: When Native Beats Standard | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="When the standard Salesforce Mobile App is insufficient, what the Mobile SDK provides over and above it, the SmartStore offline data architecture, Mobile SDK authentication patterns, and the decision framework for native vs standard mobile."/>
   <meta property="og:title" content="Salesforce Mobile SDK: When Native Beats Standard | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="When the standard Salesforce Mobile App is insufficient, what the Mobile SDK provides over and above it, the SmartStore offline data architecture, Mobile SDK authentication patterns, and the decision framework for native vs standard mobile."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-021/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Salesforce Mobile SDK: When Native Beats Standard | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="When the standard Salesforce Mobile App is insufficient, what the Mobile SDK provides over and above it, the SmartStore offline data architecture, Mobile SDK authentication patterns, and the decision framework for native vs standard mobile."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Salesforce Mobile SDK: When Native Beats Standard | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "When the standard Salesforce Mobile App is insufficient, what the Mobile SDK provides over and above it, the SmartStore offline data architecture, Mobile SDK authentication patterns, and the decision framework for native vs standard mobile.",
   "url": "https://sfvedas.com/tutorials/plat-021/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-021/",
   "author": {
@@ -104,7 +104,7 @@
         Salesforce Mobile SDK: When Native Beats Standard
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        When the standard Salesforce Mobile App is insufficient, what the Mobile SDK provides over and above it, the SmartStore offline data architecture, Mobile SDK authentication patterns, and the decision framework for native vs standard mobile.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>When the standard Salesforce Mobile App is insufficient, what the Mobile SDK provides over and above it, the SmartStore offline data architecture, Mobile SDK authentication patterns, and the decision framework for native vs standard mobile.</p>
     </div>
 
-    <h2>The Standard Mobile App vs the SDK</h2>
+    <h2 id="s1">The Standard Mobile App vs the SDK</h2>
     <p>Salesforce provides two mobile paths. The standard Salesforce Mobile App is a pre-built iOS and Android application that renders your Salesforce org's Lightning Experience inside a native shell. It requires zero mobile development — configure Lightning App Builder and the mobile app is ready. For the majority of internal CRM use cases, it is the right answer.</p>
     <p>The Salesforce Mobile SDK is a set of iOS (Swift/Objective-C), Android (Java/Kotlin), and React Native libraries that allow developers to build custom mobile applications that connect to Salesforce. SDK apps can have fully custom UIs, offline capabilities, access to device hardware (camera, GPS, biometrics), and app store distribution independent of Salesforce's release cycle.</p>
 
@@ -147,7 +147,7 @@
       The Mobile SDK is the right choice for two scenarios: applications that need a branded, custom mobile experience (customer-facing apps, field service apps), and applications that require deep offline support. For internal sales and service team productivity, the standard app covers 90% of use cases at zero development cost.
     </div>
 
-    <h2>SmartStore: Offline Data Architecture</h2>
+    <h2 id="s2">SmartStore: Offline Data Architecture</h2>
     <p>The most powerful feature of the Mobile SDK is SmartStore — an encrypted, on-device SQLite database that stores Salesforce data for offline access. SmartSync sits on top of SmartStore and handles the bidirectional sync between the device and Salesforce when connectivity is restored.</p>
     <p>The SmartStore architecture:</p>
     <ul>
@@ -188,7 +188,7 @@ SyncManager.sharedInstance()?.syncDown(
       SmartStore data is encrypted using AES-256 tied to the user's passcode/biometric. This means the on-device data is secure even if the device is lost. However, if the user has no passcode set on their device, the encryption key falls back to a weaker derivation. Mobile security policy must enforce device passcodes for field workers using SDK apps with sensitive data.
     </div>
 
-    <h2>Authentication: Connected App and OAuth Flow</h2>
+    <h2 id="s3">Authentication: Connected App and OAuth Flow</h2>
     <p>Mobile SDK apps authenticate via a Connected App in Salesforce, using the OAuth 2.0 User Agent flow or the OAuth 2.0 Web Server flow (for server-side code). The SDK handles the token management lifecycle:</p>
     <ul>
       <li>Redirect to the Salesforce login page (or Identity Provider) on first launch</li>
@@ -198,7 +198,7 @@ SyncManager.sharedInstance()?.syncDown(
     </ul>
     <p>For customer-facing apps, consider using Salesforce's External Identity licence (formerly Community licence) rather than full Salesforce licences. External Identity is significantly cheaper for high-volume consumer apps.</p>
 
-    <h2>When Native SDK Is Justified</h2>
+    <h2 id="s4">When Native SDK Is Justified</h2>
     <p>Build with the Mobile SDK when at least two of these conditions are present:</p>
     <ul>
       <li><strong>Custom brand experience:</strong> The mobile app needs to look nothing like Salesforce — matching your product's visual identity is critical</li>
@@ -213,7 +213,7 @@ SyncManager.sharedInstance()?.syncDown(
       Before committing to the Mobile SDK, prototype with the standard Mobile App and Lightning pages for 2-4 weeks. If the standard app delivers acceptable UX and coverage, the SDK investment is not justified. The SDK adds a dedicated iOS/Android development team, App Store certification overhead, and ongoing SDK version maintenance that compounds over time.
     </div>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>The standard Salesforce Mobile App covers 90% of internal CRM mobile use cases at zero development cost.</li>
@@ -231,27 +231,27 @@ SyncManager.sharedInstance()?.syncDown(
       <div class="quiz-question" id="q1">
         <p>1. A field service team works in underground facilities with no connectivity. They need to create work orders and capture photos offline, syncing when they return to connectivity. Which mobile approach is required?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Standard Salesforce Mobile App — it supports offline browsing automatically</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Mobile SDK with SmartStore and SmartSync — the SDK provides the offline data and sync architecture needed</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A Progressive Web App (PWA) — it can cache data and work offline without the SDK</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Standard Salesforce Mobile App — it supports offline browsing automatically</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Mobile SDK with SmartStore and SmartSync — the SDK provides the offline data and sync architecture needed</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. A Progressive Web App (PWA) — it can cache data and work offline without the SDK</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. What encryption standard does SmartStore use to protect on-device data?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">RSA-2048 — asymmetric encryption tied to the Salesforce certificate</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">AES-256 — symmetric encryption tied to the user's device passcode/biometric</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">TLS 1.3 — transport-layer encryption applied to cached data</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. RSA-2048 — asymmetric encryption tied to the Salesforce certificate</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. AES-256 — symmetric encryption tied to the user's device passcode/biometric</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. TLS 1.3 — transport-layer encryption applied to cached data</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. A company wants to build a customer-facing mobile app for 500,000 consumers. They plan to license each consumer as a full Salesforce user. What should the architect recommend instead?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Sales Cloud licences — they are the most feature-complete for CRM use cases</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">External Identity (External User) licences — significantly cheaper for customer-facing apps with high user counts</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Platform licences — they provide API access at lower cost than full Salesforce licences</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Sales Cloud licences — they are the most feature-complete for CRM use cases</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. External Identity (External User) licences — significantly cheaper for customer-facing apps with high user counts</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Platform licences — they provide API access at lower cost than full Salesforce licences</div>
         </div>
       </div>
     </div>
@@ -280,11 +280,11 @@ SyncManager.sharedInstance()?.syncDown(
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Standard Mobile App vs the SDK</a></li>
-            <li><a href="#">SmartStore: Offline Data Architecture</a></li>
-            <li><a href="#">Authentication: Connected App and OAuth Flow</a></li>
-            <li><a href="#">When Native SDK Is Justified</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Standard Mobile App vs the SDK</a></li>
+            <li><a href="#s2">SmartStore: Offline Data Architecture</a></li>
+            <li><a href="#s3">Authentication: Connected App and OAuth Flow</a></li>
+            <li><a href="#s4">When Native SDK Is Justified</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

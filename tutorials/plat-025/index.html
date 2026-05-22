@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Async Apex Deep Dive: Batch, Queueable, Future, and Schedulable | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="The four async Apex mechanisms and when each is the right tool, the governor limits specific to each type, Queueable chaining patterns, Batch Apex cursor and stateful patterns, and the common mistakes that lead to production failures."/>
   <meta property="og:title" content="Async Apex Deep Dive: Batch, Queueable, Future, and Schedulable | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="The four async Apex mechanisms and when each is the right tool, the governor limits specific to each type, Queueable chaining patterns, Batch Apex cursor and stateful patterns, and the common mistakes that lead to production failures."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-025/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Async Apex Deep Dive: Batch, Queueable, Future, and Schedulable | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="The four async Apex mechanisms and when each is the right tool, the governor limits specific to each type, Queueable chaining patterns, Batch Apex cursor and stateful patterns, and the common mistakes that lead to production failures."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Async Apex Deep Dive: Batch, Queueable, Future, and Schedulable | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "The four async Apex mechanisms and when each is the right tool, the governor limits specific to each type, Queueable chaining patterns, Batch Apex cursor and stateful patterns, and the common mistakes that lead to production failures.",
   "url": "https://sfvedas.com/tutorials/plat-025/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-025/",
   "author": {
@@ -104,7 +104,7 @@
         Async Apex Deep Dive: Batch, Queueable, Future, and Schedulable
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        The four async Apex mechanisms and when each is the right tool, the governor limits specific to each type, Queueable chaining patterns, Batch Apex cursor and stateful patterns, and the common mistakes that lead to production failures.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,11 +138,11 @@
       <p>The four async Apex mechanisms and when each is the right tool, the governor limits specific to each type, Queueable chaining patterns, Batch Apex cursor and stateful patterns, and the common mistakes that lead to production failures.</p>
     </div>
 
-    <h2>Why Async Apex Exists</h2>
+    <h2 id="s1">Why Async Apex Exists</h2>
     <p>Synchronous Apex transactions have hard governor limits: 100 SOQL queries, 150 DML statements, 10 MB heap, 10 second CPU time. These limits prevent any single transaction from monopolising the multi-tenant infrastructure. Async Apex runs outside the synchronous transaction, with its own fresh set of limits, enabling long-running and high-volume operations that synchronous code cannot handle.</p>
     <p>The four async mechanisms are: Future methods, Queueable Apex, Batch Apex, and Schedulable Apex. Each has a different use case, different limits, and different capabilities.</p>
 
-    <h2>Future Methods: Simple Fire-and-Forget</h2>
+    <h2 id="s2">Future Methods: Simple Fire-and-Forget</h2>
     <p>Future methods are the simplest async mechanism — annotate a static method with <code>@future</code> and Salesforce runs it in a separate transaction after the current one commits. They accept only primitive parameters (no SObjects, no collections of SObjects) because the current transaction's heap is not available in the async context.</p>
 
     <div class="code-block">// Future method — simple async callout
@@ -162,7 +162,7 @@ public static void syncToERP(Set&lt;Id&gt; accountIds) {
 // - Max 50 future calls per transaction
 // - No Stateful interface</div>
 
-    <h2>Queueable Apex: Chainable and Monitorable</h2>
+    <h2 id="s3">Queueable Apex: Chainable and Monitorable</h2>
     <p>Queueable Apex was introduced to address future method limitations. A class implementing <code>Queueable</code> can accept complex parameters (SObjects, custom objects), can chain to the next job in its <code>execute()</code> method, and returns a job ID that can be monitored via SOQL.</p>
 
     <div class="code-block">// Queueable with chaining
@@ -197,7 +197,7 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
       Queueable chaining depth is limited to 50 levels in production (200 in sandbox). For deeper chains, switch to Batch Apex. Also: in test contexts, Queueable jobs are synchronous by default — wrap in <code>Test.startTest()</code> / <code>Test.stopTest()</code> to process the queue.
     </div>
 
-    <h2>Batch Apex: High-Volume Record Processing</h2>
+    <h2 id="s4">Batch Apex: High-Volume Record Processing</h2>
     <p>Batch Apex processes records in configurable chunks (default 200, max 2,000 per chunk). Salesforce calls <code>execute()</code> once per chunk with fresh governor limits for each chunk. A batch job can process tens of millions of records by breaking them into manageable pieces.</p>
 
     <div class="code-block">public class LeadScoreBatch implements Database.Batchable&lt;SObject&gt;,
@@ -240,7 +240,7 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
       Callouts (HTTP requests) are not allowed in Batch Apex unless the class implements <code>Database.AllowsCallouts</code>. Even with that interface, callouts are limited to one per execute() chunk — you cannot make 200 callouts in a 200-record chunk. Design patterns that batch callout work separately from DML work.
     </div>
 
-    <h2>Choosing the Right Pattern</h2>
+    <h2 id="s5">Choosing the Right Pattern</h2>
     <p>Decision framework:</p>
     <ul>
       <li><strong>Use @future:</strong> Simple fire-and-forget operations with primitive data, single callout, no chaining needed. Legacy code maintenance — prefer Queueable for new code.</li>
@@ -254,7 +254,7 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
       Monitor production async jobs proactively. Set up a daily Apex job that queries <code>AsyncApexJob</code> for any jobs with <code>Status = 'Failed'</code> in the past 24 hours and emails the admin team. Silent job failures are the most common undetected production issue in large orgs.
     </div>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Future methods: simple, limited to primitives, no chaining — best for legacy or simple fire-and-forget.</li>
@@ -272,27 +272,27 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
       <div class="quiz-question" id="q1">
         <p>1. A process needs to make an HTTP callout for each of 5,000 records. Which async mechanism is appropriate?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">@future method with a loop — it supports callouts and can handle any number of records</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Batch Apex with Database.AllowsCallouts — it makes one callout per chunk with fresh governor limits, enabling high-volume callout processing</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Scheduled Flow — it can make callouts via External Services without governor limit constraints</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. @future method with a loop — it supports callouts and can handle any number of records</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Batch Apex with Database.AllowsCallouts — it makes one callout per chunk with fresh governor limits, enabling high-volume callout processing</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Scheduled Flow — it can make callouts via External Services without governor limit constraints</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. A Batch Apex job needs to count total records processed and errors across all chunks and report them in finish(). What interface is required?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Database.AllowsCallouts — it enables inter-chunk state sharing</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Database.Stateful — it preserves instance variable state across execute() calls</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">No interface needed — instance variables persist automatically in Batch Apex</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Database.AllowsCallouts — it enables inter-chunk state sharing</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Database.Stateful — it preserves instance variable state across execute() calls</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. No interface needed — instance variables persist automatically in Batch Apex</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. A Queueable chain needs to process 60 levels of chained operations in production. What is the issue?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">No issue — Queueable chains have no depth limit in production</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">The 50-level chaining limit will halt execution — refactor to Batch Apex for processing depth beyond 50 levels</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Queueable chains over 50 levels require a special Extended Queueable licence</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. No issue — Queueable chains have no depth limit in production</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. The 50-level chaining limit will halt execution — refactor to Batch Apex for processing depth beyond 50 levels</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Queueable chains over 50 levels require a special Extended Queueable licence</div>
         </div>
       </div>
     </div>
@@ -306,7 +306,7 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
             </a>
             <a href="../plat-024/" class="related-card">
               <span class="card-id">PLAT-024</span>
-              <h4>Salesforce DevOps Center: Is It Ready for Enterprise?</h4>
+              <h4>Salesforce DevOps Centre: Is It Ready for Enterprise?</h4>
             </a>
             <a href="../plat-027/" class="related-card">
               <span class="card-id">PLAT-027</span>
@@ -321,12 +321,12 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">Why Async Apex Exists</a></li>
-            <li><a href="#">Future Methods: Simple Fire-and-Forget</a></li>
-            <li><a href="#">Queueable Apex: Chainable and Monitorable</a></li>
-            <li><a href="#">Batch Apex: High-Volume Record Processing</a></li>
-            <li><a href="#">Choosing the Right Pattern</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">Why Async Apex Exists</a></li>
+            <li><a href="#s2">Future Methods: Simple Fire-and-Forget</a></li>
+            <li><a href="#s3">Queueable Apex: Chainable and Monitorable</a></li>
+            <li><a href="#s4">Batch Apex: High-Volume Record Processing</a></li>
+            <li><a href="#s5">Choosing the Right Pattern</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">
@@ -346,7 +346,7 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
           <h4>Previous Tutorial</h4>
           <a href="../plat-024/" class="sidebar-next-link">
             <span class="sidebar-next-id">PLAT-024</span>
-            <span class="sidebar-next-title">Salesforce DevOps Center: Is It Ready for Enterprise?</span>
+            <span class="sidebar-next-title">Salesforce DevOps Centre: Is It Ready for Enterprise?</span>
             <span class="sidebar-next-arrow">&#8592;</span>
           </a>
         </div>

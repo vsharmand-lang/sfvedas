@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Apex Best Practices for Tech Leaders Who Don't Write Code | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="Apex is Salesforce's proprietary programming language — syntactically similar to Java, running server-side on Salesforce infrastructure. It is used for business logic that cannot be expressed in declarative tools: complex calculations, integration callouts, multi-step data processing, and anything requiring programmatic control flow that flows and formulas cannot handle."/>
   <meta property="og:title" content="Apex Best Practices for Tech Leaders Who Don't Write Code | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="Apex is Salesforce's proprietary programming language — syntactically similar to Java, running server-side on Salesforce infrastructure. It is used for business logic that cannot be expressed in declarative tools: complex calculations, integration callouts, multi-step data processing, and anything requiring programmatic control flow that flows and formulas cannot handle."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-001/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Apex Best Practices for Tech Leaders Who Don't Write Code | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="Apex is Salesforce's proprietary programming language — syntactically similar to Java, running server-side on Salesforce infrastructure. It is used for business logic that cannot be expressed in declarative tools: complex calculations, integration callouts, multi-step data processing, and anything requiring programmatic control flow that flows and formulas cannot handle."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Apex Best Practices for Tech Leaders Who Don't Write Code | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "Apex is Salesforce's proprietary programming language — syntactically similar to Java, running server-side on Salesforce infrastructure. It is used for business logic that cannot be expressed in declarative tools: complex calculations, integration callouts, multi-step data processing, and anything requiring programmatic control flow that flows and formulas cannot handle.",
   "url": "https://sfvedas.com/tutorials/plat-001/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-001/",
   "author": {
@@ -194,7 +194,7 @@
         <p><strong>Healthy signals:</strong> Deployments rarely fail due to test coverage. Code reviews happen before every merge. New Apex is written for genuine complexity, not convenience. The team can explain every class's purpose and owner. Technical debt reviews happen quarterly and old code is pruned.</p>
         <p><strong>Degrading signals:</strong> Deployments frequently fail due to test coverage failures in unrelated classes. Developers add new classes without reviewing existing ones for reuse. The response to "what does this class do?" is "I'm not sure, don't touch it." No Apex has been deleted in two years. Production incidents regularly trace back to governor limit exceptions.</p>
         <p>The leading indicator of Apex health is not coverage percentage — it is whether the team can answer questions about their code with confidence. A team that knows their codebase, owns it, and actively maintains it will have healthy Apex metrics as a natural consequence.</p>
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Apex is server-side Salesforce code for logic that declarative tools cannot handle. In a well-governed org it is used selectively; in poorly governed orgs it accumulates as unmaintained debt.</li>
@@ -206,32 +206,32 @@
           </ul>
         </div>
         <div class="quiz-section" id="quiz">
-      <h2>Test Your Understanding</h2>
+      <h2 id="s6">Test Your Understanding</h2>
 
       <div class="quiz-question" id="q1">
         <p>1. A developer reports that their Apex classes have 76% code coverage. A senior developer says this is acceptable because it exceeds the 75% minimum. What follow-up question should a leader ask?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">No follow-up is needed — 76% exceeds the platform minimum and the code can be deployed</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Do the tests assert specific outcomes, or do they just call methods to hit the coverage number? Coverage at 76% with no assertions offers no quality protection.</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Ask whether the coverage was measured in a full sandbox or a developer org, since results vary</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. No follow-up is needed — 76% exceeds the platform minimum and the code can be deployed</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. Do the tests assert specific outcomes, or do they just call methods to hit the coverage number? Coverage at 76% with no assertions offers no quality protection.</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Ask whether the coverage was measured in a full sandbox or a developer org, since results vary</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. Your org has three separate triggers on the Account object — one created in 2021, one in 2023, and one in 2025. What is the primary architectural risk this creates?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Each trigger consumes separate CPU time, tripling the CPU limit usage for Account operations</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">The platform does not guarantee execution order between multiple triggers on the same object, creating unpredictable behaviour when the triggers interact or depend on each other's results</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Salesforce automatically merges multiple triggers on the same object, which can cause logic conflicts during the merge</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Each trigger consumes separate CPU time, tripling the CPU limit usage for Account operations</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. The platform does not guarantee execution order between multiple triggers on the same object, creating unpredictable behaviour when the triggers interact or depend on each other's results</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Salesforce automatically merges multiple triggers on the same object, which can cause logic conflicts during the merge</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. A developer argues that testing in sandbox is sufficient before production deployment. Why is sandbox testing alone insufficient for Apex quality assurance?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Sandbox environments run a different version of Apex than production, so sandbox results don't apply</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Sandbox data volumes are typically much lower than production. Code that works with 5 records in sandbox can hit governor limits (SOQL, CPU, heap) when processing 200 records in production bulk operations.</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Sandbox testing is sufficient — the platform executes the same Apex under the same limits in both environments</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Sandbox environments run a different version of Apex than production, so sandbox results don't apply</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Sandbox data volumes are typically much lower than production. Code that works with 5 records in sandbox can hit governor limits (SOQL, CPU, heap) when processing 200 records in production bulk operations.</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Sandbox testing is sufficient — the platform executes the same Apex under the same limits in both environments</div>
         </div>
       </div>
     </div>
@@ -260,13 +260,13 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">What Apex Is and Where It Fits</a></li>
-            <li><a href="#">Five Questions Every Leader Should Ask</a></li>
-            <li><a href="#">Structural Best Practices: What Good Looks Like</a></li>
-            <li><a href="#">Anti-Patterns That Signal Risk</a></li>
-            <li><a href="#">Governance Signals: Is Your Apex Practice Healthy?</a></li>
-            <li><a href="#">Key Takeaways</a></li>
-            <li><a href="#">Test Your Understanding</a></li>
+            <li><a href="#s1">What Apex Is and Where It Fits</a></li>
+            <li><a href="#s2">Five Questions Every Leader Should Ask</a></li>
+            <li><a href="#s3">Structural Best Practices: What Good Looks Like</a></li>
+            <li><a href="#s4">Anti-Patterns That Signal Risk</a></li>
+            <li><a href="#s5">Governance Signals: Is Your Apex Practice Healthy?</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#s6">Test Your Understanding</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

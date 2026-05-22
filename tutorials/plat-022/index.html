@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lightning Messaging Service: Loosely Coupled Component Communication | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="How LMS solves the cross-DOM communication problem in Lightning, how to define Message Channels, the publish/subscribe API, the scope levels (application vs page), and when LMS is the right choice versus CustomEvent, wire adapters, or Pub/Sub API."/>
   <meta property="og:title" content="Lightning Messaging Service: Loosely Coupled Component Communication | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="How LMS solves the cross-DOM communication problem in Lightning, how to define Message Channels, the publish/subscribe API, the scope levels (application vs page), and when LMS is the right choice versus CustomEvent, wire adapters, or Pub/Sub API."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-022/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Lightning Messaging Service: Loosely Coupled Component Communication | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="How LMS solves the cross-DOM communication problem in Lightning, how to define Message Channels, the publish/subscribe API, the scope levels (application vs page), and when LMS is the right choice versus CustomEvent, wire adapters, or Pub/Sub API."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Lightning Messaging Service: Loosely Coupled Component Communication | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "How LMS solves the cross-DOM communication problem in Lightning, how to define Message Channels, the publish/subscribe API, the scope levels (application vs page), and when LMS is the right choice versus CustomEvent, wire adapters, or Pub/Sub API.",
   "url": "https://sfvedas.com/tutorials/plat-022/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-022/",
   "author": {
@@ -104,7 +104,7 @@
         Lightning Messaging Service: Loosely Coupled Component Communication
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        How LMS solves the cross-DOM communication problem in Lightning, how to define Message Channels, the publish/subscribe API, the scope levels (application vs page), and when LMS is the right choice versus CustomEvent, wire adapters, or Pub/Sub API.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>How LMS solves the cross-DOM communication problem in Lightning, how to define Message Channels, the publish/subscribe API, the scope levels (application vs page), and when LMS is the right choice versus CustomEvent, wire adapters, or Pub/Sub API.</p>
     </div>
 
-    <h2>The Cross-Component Communication Problem</h2>
+    <h2 id="s1">The Cross-Component Communication Problem</h2>
     <p>LWC components in the same parent-child hierarchy can communicate cleanly: parents pass data down via properties, children bubble events up. But what about components in completely different parts of the DOM — a component in the sidebar and a component in the main content area of the same Lightning page? They have no shared parent, so standard event bubbling does not work.</p>
     <p>Before LMS, teams worked around this using URL parameters, custom events dispatched to the window object, or Apex polling. Lightning Messaging Service (LMS) is the proper solution: a framework-native publish/subscribe bus scoped to either a single page or the entire Lightning application.</p>
 
@@ -147,7 +147,7 @@
       LMS is specifically for the Lightning Experience environment. It works across LWC, Aura, and Visualforce in LWC containers on the same page. If you are building communication between standalone pages or external systems, LMS is not the right tool — use Platform Events or the Pub/Sub API.
     </div>
 
-    <h2>Message Channels: The Contract</h2>
+    <h2 id="s2">Message Channels: The Contract</h2>
     <p>A Message Channel is a metadata artifact that defines the "topic" and the payload shape of messages. It is the contract between publishers and subscribers. Defining the channel in metadata (rather than as ad-hoc strings) provides discoverability, namespace isolation, and deployment via Metadata API.</p>
 
     <div class="code-block">// Message Channel metadata file
@@ -167,7 +167,7 @@
   &lt;/lightningMessageFields&gt;
 &lt;/LightningMessageChannel&gt;</div>
 
-    <h2>Publisher and Subscriber Implementation</h2>
+    <h2 id="s3">Publisher and Subscriber Implementation</h2>
     <p>Publishers import the Message Channel and the <code>publish</code> function from the LMS wire adapter. Subscribers import <code>subscribe</code>, <code>unsubscribe</code>, and register a callback in <code>connectedCallback</code>.</p>
 
     <div class="code-block">// Publisher LWC
@@ -219,14 +219,14 @@ export default class AccountDetailPanel extends LightningElement {
       Always unsubscribe in <code>disconnectedCallback</code>. A subscription that is not unsubscribed keeps the subscriber component alive in memory even after it is removed from the DOM, causing a memory leak. This is the most common LMS implementation mistake.
     </div>
 
-    <h2>Scope Levels: APPLICATION vs DEFAULT</h2>
+    <h2 id="s4">Scope Levels: APPLICATION vs DEFAULT</h2>
     <p>LMS messages can be scoped to two levels:</p>
     <ul>
       <li><strong>APPLICATION scope:</strong> Messages are delivered to all subscribers in the entire Lightning application — across multiple tabs, iframes, and Visualforce in LWC containers. Use for truly global events (user changed active record, navigation event).</li>
       <li><strong>DEFAULT scope (recommended):</strong> Messages are delivered only to subscribers on the same Lightning page. More contained and easier to reason about. Prevents unintended subscribers in other tabs from reacting to messages not meant for them.</li>
     </ul>
 
-    <h2>LMS vs Other Communication Patterns</h2>
+    <h2 id="s5">LMS vs Other Communication Patterns</h2>
     <p>When to use LMS versus other mechanisms:</p>
     <ul>
       <li><strong>Use CustomEvent:</strong> When components are in a parent-child hierarchy. CustomEvents bubble up the component tree naturally.</li>
@@ -236,7 +236,7 @@ export default class AccountDetailPanel extends LightningElement {
       <li><strong>Use Pub/Sub API (lwc-recipes):</strong> For non-Salesforce Lightning contexts (LWC OSS, custom web apps) where LMS is not available.</li>
     </ul>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>LMS solves cross-DOM communication between unrelated LWC/Aura/VF components on the same Lightning page.</li>
@@ -254,27 +254,27 @@ export default class AccountDetailPanel extends LightningElement {
       <div class="quiz-question" id="q1">
         <p>1. A subscriber component is removed from the DOM but does not call unsubscribe(). What is the consequence?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">The subscription automatically expires after the component is garbage collected</div>
-          <div class="quiz-option" onclick="answer(this,'q1','right')">The subscription keeps the component in memory, causing a memory leak — always unsubscribe in disconnectedCallback</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">LMS throws an error when the component is removed without unsubscribing</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. The subscription automatically expires after the component is garbage collected</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">B. The subscription keeps the component in memory, causing a memory leak — always unsubscribe in disconnectedCallback</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. LMS throws an error when the component is removed without unsubscribing</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. Two LWC components are siblings in a Lightning App Builder page with no shared parent. What is the correct communication mechanism?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">CustomEvent with bubbles:true — events bubble to the root and the sibling can listen there</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Lightning Messaging Service — it is designed specifically for communication between unrelated components on the same page</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Platform Events — they work across all Salesforce components regardless of hierarchy</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. CustomEvent with bubbles:true — events bubble to the root and the sibling can listen there</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Lightning Messaging Service — it is designed specifically for communication between unrelated components on the same page</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Platform Events — they work across all Salesforce components regardless of hierarchy</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which LMS scope delivers messages to all subscribers across all open Lightning tabs in the browser session?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">DEFAULT scope — it routes to all active subscribers</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">APPLICATION scope — it delivers to the entire Lightning application including multiple tabs</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">GLOBAL scope — a special scope for cross-tab broadcasting</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. DEFAULT scope — it routes to all active subscribers</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. APPLICATION scope — it delivers to the entire Lightning application including multiple tabs</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. GLOBAL scope — a special scope for cross-tab broadcasting</div>
         </div>
       </div>
     </div>
@@ -292,7 +292,7 @@ export default class AccountDetailPanel extends LightningElement {
             </a>
             <a href="../plat-024/" class="related-card">
               <span class="card-id">PLAT-024</span>
-              <h4>Salesforce DevOps Center: Is It Ready for Enterprise?</h4>
+              <h4>Salesforce DevOps Centre: Is It Ready for Enterprise?</h4>
             </a>
           </div>
         </div>
@@ -303,12 +303,12 @@ export default class AccountDetailPanel extends LightningElement {
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">The Cross-Component Communication Problem</a></li>
-            <li><a href="#">Message Channels: The Contract</a></li>
-            <li><a href="#">Publisher and Subscriber Implementation</a></li>
-            <li><a href="#">Scope Levels: APPLICATION vs DEFAULT</a></li>
-            <li><a href="#">LMS vs Other Communication Patterns</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">The Cross-Component Communication Problem</a></li>
+            <li><a href="#s2">Message Channels: The Contract</a></li>
+            <li><a href="#s3">Publisher and Subscriber Implementation</a></li>
+            <li><a href="#s4">Scope Levels: APPLICATION vs DEFAULT</a></li>
+            <li><a href="#s5">LMS vs Other Communication Patterns</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

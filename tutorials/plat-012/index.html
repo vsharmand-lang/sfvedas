@@ -6,16 +6,16 @@
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Platform Cache: Understanding Org, Session, and Partition Caches | SFVedas</title>
-      <meta name="description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+      <meta name="description" content="The difference between Org Cache, Session Cache, and Partition Cache, the API for reading and writing cache values from Apex, appropriate caching patterns, invalidation strategies, and the common mistakes that lead to stale data bugs."/>
   <meta property="og:title" content="Platform Cache: Understanding Org, Session, and Partition Caches | SFVedas"/>
-  <meta property="og:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta property="og:description" content="The difference between Org Cache, Session Cache, and Partition Cache, the API for reading and writing cache values from Apex, appropriate caching patterns, invalidation strategies, and the common mistakes that lead to stale data bugs."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/plat-012/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
   <meta name="twitter:title" content="Platform Cache: Understanding Org, Session, and Partition Caches | SFVedas"/>
-  <meta name="twitter:description" content="Deep Salesforce knowledge for tech leaders and architects."/>
+  <meta name="twitter:description" content="The difference between Org Cache, Session Cache, and Partition Cache, the API for reading and writing cache values from Apex, appropriate caching patterns, invalidation strategies, and the common mistakes that lead to stale data bugs."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -40,7 +40,7 @@
   "@context": "https://schema.org",
   "@type": "Article",
   "headline": "Platform Cache: Understanding Org, Session, and Partition Caches | SFVedas",
-  "description": "Deep Salesforce knowledge for tech leaders and architects.",
+  "description": "The difference between Org Cache, Session Cache, and Partition Cache, the API for reading and writing cache values from Apex, appropriate caching patterns, invalidation strategies, and the common mistakes that lead to stale data bugs.",
   "url": "https://sfvedas.com/tutorials/plat-012/",
   "mainEntityOfPage": "https://sfvedas.com/tutorials/plat-012/",
   "author": {
@@ -104,7 +104,7 @@
         Platform Cache: Understanding Org, Session, and Partition Caches
       </h1>
       <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
-        
+        The difference between Org Cache, Session Cache, and Partition Cache, the API for reading and writing cache values from Apex, appropriate caching patterns, invalidation strategies, and the common mistakes that lead to stale data bugs.
       </p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
@@ -138,7 +138,7 @@
       <p>The difference between Org Cache, Session Cache, and Partition Cache, the API for reading and writing cache values from Apex, appropriate caching patterns, invalidation strategies, and the common mistakes that lead to stale data bugs.</p>
     </div>
 
-    <h2>Why Platform Cache Exists</h2>
+    <h2 id="s1">Why Platform Cache Exists</h2>
     <p>Salesforce governor limits mean that every SOQL query, every callout, and every computation counts against a per-transaction budget. Data that changes rarely — Custom Metadata configurations, product rate tables, org-wide settings, lookup picklist values — is queried repeatedly on every page load or trigger execution. Platform Cache lets you store this data in memory and skip the SOQL entirely on subsequent accesses.</p>
     <p>The performance improvement is significant: a cached value returns in microseconds versus a SOQL query that takes 5-50 milliseconds. For high-volume orgs with hundreds of concurrent users, this difference matters for both user experience and Salesforce platform stability.</p>
 
@@ -147,7 +147,7 @@
       Platform Cache is an in-memory key-value store backed by Salesforce infrastructure. Unlike Static Variables (which are transaction-scoped and reset on every request), cached values persist across requests until their TTL expires or the cache is explicitly invalidated. This persistence is what makes it useful for expensive lookups.
     </div>
 
-    <h2>Three Cache Tiers: Org, Session, and Partition</h2>
+    <h2 id="s2">Three Cache Tiers: Org, Session, and Partition</h2>
     <p><strong>Org Cache</strong> stores data shared across all users in the org. A cached value written by User A is readable by User B. This makes it suitable for global configuration data, shared lookup tables, and org-wide computed values. Org Cache has a maximum TTL of 48 hours and a default capacity of 10 MB (expandable via Platform Cache licence add-on).</p>
     <p><strong>Session Cache</strong> stores data scoped to a single user's Lightning session. Data written during one page load is available on the next page load for the same user, but other users cannot read it. This is appropriate for user-specific preferences, mid-flow state, or data that varies per user but is expensive to recompute.</p>
     <p><strong>Partition Cache</strong> is the namespace concept within each tier. A partition is a named allocation within the Org or Session cache, created in Setup. Partitions allow packages and application components to manage their own cache space without colliding with other components' keys. Default partition names resolve to <code>local</code>.</p>
@@ -180,7 +180,7 @@ Long capacity = p.getCapacity();</div>
       Cached values must implement the <code>Cache.CacheBuilder</code> interface OR be serialisable (primitive types, custom objects with no transient fields, standard Apex types). Classes with static variables, non-serialisable system types (HttpRequest, Database.QueryLocator), or inner classes with references to outer-class state cannot be cached.
     </div>
 
-    <h2>The CacheBuilder Pattern</h2>
+    <h2 id="s3">The CacheBuilder Pattern</h2>
     <p>The <code>Cache.CacheBuilder</code> interface provides a cleaner cache-or-load pattern that avoids the repetitive null-check boilerplate. Implement the interface, and the <code>Cache.Org.get()</code> method handles the miss automatically by calling your builder.</p>
 
     <div class="code-block">// CacheBuilder pattern
@@ -198,7 +198,7 @@ ProductRate__c rate =
 
 // No null check needed — CacheBuilder guarantees a value or throws</div>
 
-    <h2>Invalidation Strategies</h2>
+    <h2 id="s4">Invalidation Strategies</h2>
     <p>Cache invalidation is the classic "hard problem" — data in cache goes stale when the underlying SOQL result changes. Three patterns handle this:</p>
     <ul>
       <li><strong>TTL expiry:</strong> Set the TTL to match the maximum acceptable staleness. For a rate table that is updated weekly, a 24-hour TTL is appropriate. Simple but imprecise — you may serve stale data for up to TTL duration.</li>
@@ -211,7 +211,7 @@ ProductRate__c rate =
       Never cache data that is security-sensitive in Org Cache. Because Org Cache is shared across all users, a record that User A should not see could be read from cache if User B had previously cached it. Use Org Cache only for data that is identical for all users (configuration, rate tables, metadata). User-specific data belongs in Session Cache.
     </div>
 
-    <h2>Cache in Managed Packages and Sandboxes</h2>
+    <h2 id="s5">Cache in Managed Packages and Sandboxes</h2>
     <p>Platform Cache is cleared on sandbox refresh. Any warm-cache assumptions built into application code will fail immediately after a sandbox refresh. Design cache-miss paths to handle cold starts gracefully — the application must function correctly (slowly) when the cache is empty.</p>
     <p>In managed packages, use namespaced partition names to avoid collision with customer org cache content. A partition named <code>mypackage.config</code> is isolated from the customer's <code>local.config</code> partition. Declare required partition sizes in the package's Feature Parameters so customers know what to allocate.</p>
 
@@ -220,7 +220,7 @@ ProductRate__c rate =
       Instrument your cache hit rate in production. Log a custom Platform Event or increment an Org-wide Custom Setting counter on cache misses. If your hit rate drops below 80%, investigate whether TTLs are too short or data is changing too frequently for caching to be effective. A cache miss rate above 40% means you are adding complexity without meaningful performance benefit.
     </div>
 
-    <div class="key-takeaways">
+    <div class="key-takeaways" id="takeaways">
       <h2>Key Takeaways</h2>
       <ul>
         <li>Org Cache is shared across all users — suitable for global configuration data but never for user-specific or security-sensitive data.</li>
@@ -238,27 +238,27 @@ ProductRate__c rate =
       <div class="quiz-question" id="q1">
         <p>1. You need to cache a product rate table that is identical for all users and updated once per day. Which cache tier is appropriate?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q1','right')">Org Cache with a 24-hour TTL</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Session Cache — rate data is user-specific</div>
-          <div class="quiz-option" onclick="answer(this,'q1','wrong')">Static variables — they persist across all transactions</div>
+          <div class="quiz-option" onclick="answer(this,'q1','right')">A. Org Cache with a 24-hour TTL</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. Session Cache — rate data is user-specific</div>
+          <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Static variables — they persist across all transactions</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q2">
         <p>2. What happens to Platform Cache content when a sandbox is refreshed?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Cache content is preserved and carries over to the refreshed sandbox</div>
-          <div class="quiz-option" onclick="answer(this,'q2','right')">Cache is cleared — application code must handle cold-start operation correctly</div>
-          <div class="quiz-option" onclick="answer(this,'q2','wrong')">Cache content migrates from production to the sandbox during the refresh process</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Cache content is preserved and carries over to the refreshed sandbox</div>
+          <div class="quiz-option" onclick="answer(this,'q2','right')">B. Cache is cleared — application code must handle cold-start operation correctly</div>
+          <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Cache content migrates from production to the sandbox during the refresh process</div>
         </div>
       </div>
 
       <div class="quiz-question" id="q3">
         <p>3. Which approach provides the most precise cache invalidation when the source data changes?</p>
         <div class="quiz-options">
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Setting a very short TTL (e.g. 60 seconds) to minimise staleness window</div>
-          <div class="quiz-option" onclick="answer(this,'q3','right')">Trigger-based invalidation that calls orgPart.remove() when the source record changes</div>
-          <div class="quiz-option" onclick="answer(this,'q3','wrong')">Using the CacheBuilder pattern, which automatically invalidates stale data</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Setting a very short TTL (e.g. 60 seconds) to minimise staleness window</div>
+          <div class="quiz-option" onclick="answer(this,'q3','right')">B. Trigger-based invalidation that calls orgPart.remove() when the source record changes</div>
+          <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. Using the CacheBuilder pattern, which automatically invalidates stale data</div>
         </div>
       </div>
     </div>
@@ -287,12 +287,12 @@ ProductRate__c rate =
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#">Why Platform Cache Exists</a></li>
-            <li><a href="#">Three Cache Tiers: Org, Session, and Partition</a></li>
-            <li><a href="#">The CacheBuilder Pattern</a></li>
-            <li><a href="#">Invalidation Strategies</a></li>
-            <li><a href="#">Cache in Managed Packages and Sandboxes</a></li>
-            <li><a href="#">Key Takeaways</a></li>
+            <li><a href="#s1">Why Platform Cache Exists</a></li>
+            <li><a href="#s2">Three Cache Tiers: Org, Session, and Partition</a></li>
+            <li><a href="#s3">The CacheBuilder Pattern</a></li>
+            <li><a href="#s4">Invalidation Strategies</a></li>
+            <li><a href="#s5">Cache in Managed Packages and Sandboxes</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">
