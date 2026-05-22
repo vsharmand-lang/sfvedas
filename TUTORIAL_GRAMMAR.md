@@ -216,7 +216,7 @@ Replace every `{{PLACEHOLDER}}` before saving.
         <p>{{PARAGRAPH}}</p>
 
         <!-- KEY TAKEAWAYS — always the second-to-last content block -->
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>{{TAKEAWAY_1}}</li>
@@ -295,7 +295,7 @@ Replace every `{{PLACEHOLDER}}` before saving.
             <li><a href="#s2">{{SECTION_2_HEADING}}</a></li>
             <li><a href="#s3">{{SECTION_3_HEADING}}</a></li>
             <!-- add one <li> per h2 in the article, in order -->
-            <li><a href="#quiz">Key Takeaways</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
             <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
           </ul>
         </div>
@@ -513,6 +513,99 @@ For side-by-side comparisons use the `.comparison-table` class:
 </div>
 ```
 
+### 4g. Architectural Infographics & Diagrams
+
+All diagrams and conceptual flows should be built as interactive, high-fidelity responsive HTML/CSS grids enclosing inline, theme-adaptive SVGs. This avoids pixelated raster screenshots and guarantees accessibility across light and dark modes.
+
+#### Layout Container & CSS
+
+Define layout grids and colors using site tokens. Place the CSS inside a local `<style>` block directly inside the tutorial file right before the grid markup:
+
+```html
+<style>
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin: 40px 0;
+  }
+  .comparison-col {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.015);
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .comparison-col:hover {
+    border-color: var(--saffron);
+    transform: translateY(-2px);
+  }
+  .comparison-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 6px;
+    text-align: center;
+    color: var(--text-primary);
+  }
+  .comparison-subtitle {
+    font-family: var(--font-ui);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .paradigm-svg {
+    width: 100%;
+    height: auto;
+    max-width: 340px;
+  }
+  @media (max-width: 768px) {
+    .comparison-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+  }
+</style>
+```
+
+#### SVG Graphic Rules & Tokens
+
+1. **Responsive Size:** Never use static `width` or `height` attributes on SVGs. Use the `viewBox="0 0 W H"` attribute and assign `class="paradigm-svg"` to let the SVG scale responsively.
+2. **Adaptive Colors:**
+   - Backgrounds & Card Grids: Use `fill="var(--bg-secondary)"` or `fill="var(--bg-card)"`.
+   - Borders: Use `stroke="var(--border)"`.
+   - Primary Text: Use `fill="var(--text-primary)"` with dynamic typography: `font-family="var(--font-ui)"` or `font-family="var(--font-display)"`.
+   - Accent Elements: Use brand colors like saffron (`var(--saffron)`) or Salesforce Blue (`#0070D2`) to draw focus.
+3. **Markers & SVGs Definition:** Put re-usable gradients and marker definitions inside `<defs>` blocks at the top of the SVG.
+
+```html
+<div class="comparison-grid">
+  <!-- Traditional Paradigm Panel -->
+  <div class="comparison-col">
+    <div class="comparison-title">Traditional Model</div>
+    <div class="comparison-subtitle">Server-Side Routing</div>
+    
+    <svg class="paradigm-svg" viewBox="0 0 340 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--text-secondary)" />
+        </marker>
+      </defs>
+      <rect x="70" y="10" width="200" height="42" rx="8" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+      <text x="170" y="36" font-family="var(--font-ui)" font-size="12" font-weight="600" fill="var(--text-primary)" text-anchor="middle">Adaptive Text</text>
+    </svg>
+  </div>
+</div>
+```
+
 ---
 
 ## 5. Author Role by Category
@@ -544,7 +637,8 @@ For side-by-side comparisons use the `.comparison-table` class:
 - **Quiz** — exactly 3 questions. Each question has exactly 4 options (1 correct, 3 wrong), labelled A/B/C/D. Questions test genuine comprehension, not recall of exact wording.
 - **Related tutorials** — exactly 3 cards. Should include the immediate next tutorial plus 2 thematically related ones from any series.
 - **One callout per section** maximum. Not every section needs one.
-- **Code blocks** — only include when the concept genuinely benefits from seeing code. Do not force code into strategy or management tutorials.
+- **Code blocks** — only include when the concept genuinely benefits from seeing code. Do not force code into strategy or management tutorials. Code blocks must always be written strictly as bare `<pre><code class="language-...">` tags for high-contrast syntax highlighting. Do NOT wrap `<pre>` blocks with outer `<div class="code-block">` container divisions; the parent `article.tutorial-body` styles `<pre>` elements directly.
+- **Redundant Scripts Warning**: NEVER include inline theme listener scripts or custom mode togglers. Global theme state is managed centrally by `/js/main.js`.
 
 ---
 
@@ -556,7 +650,7 @@ Every `<h2 id="sN">` in the article body must have a matching `<li><a href="#sN"
 <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
 ```
 
-Note: add `id="takeaways"` to the `<div class="key-takeaways">` so the TOC link resolves correctly.
+Note: add `id="takeaways"` to the `<div class="key-takeaways" id="takeaways">` so the TOC link resolves correctly.
 
 ---
 
@@ -595,6 +689,8 @@ After creating the file, add an entry to the `TUTORIALS` array in `tutorials/ind
 - [ ] JSON-LD headline and description match title and meta; URLs are clean (no `.html`)
 - [ ] Breadcrumb links to `/tutorials/?tag={{TAG}}`
 - [ ] TOC entries match every h2 id in the article body
+- [ ] TOC Key Takeaways points to `#takeaways` and Checkpoint to `#quiz`
+- [ ] Key Takeaways container has `id="takeaways"` attribute
 - [ ] Quiz has 3 questions, each with exactly 4 options (1 `'right'`, 3 `'wrong'`) labelled A–D
 - [ ] Related tutorials use `href="../{{SLUG}}/"` format (relative, clean)
 - [ ] Sidebar Next/Prev slugs and titles are correct and match `tutorials/index.html`
@@ -602,3 +698,7 @@ After creating the file, add an entry to the `TUTORIALS` array in `tutorials/ind
 - [ ] Entry added to `TUTORIALS` array in `tutorials/index.html` with `available:true`
 - [ ] No duplicate ad units — exactly one `<div class="ad-unit">` per page
 - [ ] All internal links use absolute paths (`/css/main.css`, `/js/main.js`, `/tutorials/`, etc.)
+- [ ] British English spelling verified (e.g., `organisation`, `optimise`, `standardise`, `analyse`, `licence` as a noun, `behaviour`)
+- [ ] Code blocks written as nested `<pre><code class="language-...">` tags WITHOUT any outer `<div class="code-block">` wrappers
+- [ ] Redundant inline theme toggle scripts completely omitted
+- [ ] Infographics & diagrams are built using light/dark adaptive CSS design tokens (`var(--text-primary)`, `var(--border)`, etc.) and utilize responsive SVG viewbox configurations without fixed pixel dimensions on the SVG element
