@@ -156,7 +156,7 @@
       <li><strong>Conflict resolution:</strong> SmartSync detects when a local modification conflicts with a server-side change. The default policy is server-wins; custom policies can implement merge logic.</li>
     </ul>
 
-    <div class="code-block">// SmartStore Soup registration (iOS Swift)
+    <div class="code-block"><pre><code class="language-sql">// SmartStore Soup registration (iOS Swift)
 func registerSoups() {
   let soupSpec = SoupSpec(name: "accounts",
                           features: [.externalStorage])
@@ -181,7 +181,7 @@ SyncManager.sharedInstance()?.syncDown(
       print("Sync complete: \(state!.totalSize) records")
     }
   }
-)</div>
+)</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>

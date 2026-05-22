@@ -2012,6 +2012,18 @@ ul { list-style: none; }
   overflow-x: auto;
   margin: 24px 0;
   border: 1px solid rgba(232,147,10,0.2);
+  color: var(--warm-white);
+  /* Default styles for raw text code blocks */
+  padding: 24px;
+  white-space: pre;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+/* Reset container padding and white-space when code blocks are properly nested inside pre/code elements */
+.code-block:has(pre), .code-block:has(code) {
+  padding: 0;
+  white-space: normal;
 }
 .code-block pre {
   padding: 24px;

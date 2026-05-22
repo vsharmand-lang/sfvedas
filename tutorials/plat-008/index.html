@@ -156,7 +156,7 @@
       <li><strong>Indirect Lookup Relationship:</strong> Links an External Object to a Salesforce object using any uniquely indexed external ID field — useful when the external system has its own identifier.</li>
     </ul>
 
-    <div class="code-block">-- External Object field naming conventions
+    <div class="code-block"><pre><code class="language-sql">-- External Object field naming conventions
 Orders__x          (External Object for Orders entity)
 OrderId__c         (external ID field on Opportunity — join key)
 Order__r           (relationship field name on Opportunity)
@@ -169,7 +169,7 @@ WHERE AccountExternalId__c = 'ACC-12345'
 -- Joining via lookup (from Opportunity)
 SELECT Id, Name, Order__r.TotalAmount__c
 FROM Opportunity
-WHERE AccountId = '001...'</div>
+WHERE AccountId = '001...'</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
@@ -186,7 +186,7 @@ WHERE AccountId = '001...'</div>
       <li><strong>Custom Apex Adapter:</strong> Implement <code>DataSource.Connection</code> and <code>DataSource.Provider</code> interfaces. Full control over the HTTP call, field mapping, and query translation. Required when the remote system does not expose OData.</li>
     </ul>
 
-    <div class="code-block">// Custom Apex Adapter skeleton
+    <div class="code-block"><pre><code class="language-java">// Custom Apex Adapter skeleton
 global class MyERPAdapter extends DataSource.Connection {
   override global List&lt;DataSource.Table&gt; sync() {
     List&lt;DataSource.Column&gt; cols = new List&lt;DataSource.Column&gt;{
@@ -205,7 +205,7 @@ global class MyERPAdapter extends DataSource.Connection {
     List&lt;Map&lt;String,Object&gt;&gt; rows = callExternalERP(ctx);
     return DataSource.TableResult.get(ctx, rows);
   }
-}</div>
+}</code></pre></div>
 
     <h2 id="s4">Governor Limits and Performance Reality</h2>
     <p>Connect calls count against Salesforce callout limits, not query limits. Each External Object query generates one or more callouts to the external system:</p>

@@ -144,7 +144,7 @@
 
     <h2 id="s2">Org Management Commands</h2>
 
-    <div class="code-block"># Authenticate to an org (opens browser OAuth flow)
+    <div class="code-block"><pre><code class="language-bash"># Authenticate to an org (opens browser OAuth flow)
 sf org login web --alias myProdOrg --instance-url https://login.salesforce.com
 
 # Authenticate to a sandbox
@@ -168,11 +168,11 @@ sf org create scratch \
 sf org delete scratch --target-org myScratch --no-prompt
 
 # Set default org for all commands
-sf config set target-org myProdOrg</div>
+sf config set target-org myProdOrg</code></pre></div>
 
     <h2 id="s3">Source Deployment Commands</h2>
 
-    <div class="code-block"># Deploy metadata from local source to org
+    <div class="code-block"><pre><code class="language-bash"># Deploy metadata from local source to org
 sf project deploy start --target-org mySandbox
 
 # Deploy specific metadata types
@@ -198,7 +198,7 @@ sf project retrieve start \
 # Quick deploy after successful validation (avoids re-running tests)
 sf project deploy quick \
   --job-id 0AfXX000000XXXXXX \
-  --target-org myProdOrg</div>
+  --target-org myProdOrg</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
@@ -207,7 +207,7 @@ sf project deploy quick \
 
     <h2 id="s4">Apex and Test Commands</h2>
 
-    <div class="code-block"># Run all Apex tests
+    <div class="code-block"><pre><code class="language-bash"># Run all Apex tests
 sf apex run test --target-org mySandbox --result-format human
 
 # Run tests for specific classes
@@ -229,11 +229,11 @@ sf apex run --file scripts/apex/massUpdate.apex --target-org myProdOrg
 echo "System.debug(Limits.getQueries());" | sf apex run --target-org myProdOrg
 
 # Get Apex debug log (requires log level setup)
-sf apex tail log --target-org mySandbox</div>
+sf apex tail log --target-org mySandbox</code></pre></div>
 
     <h2 id="s5">Metadata Inspection Commands</h2>
 
-    <div class="code-block"># List all metadata types in the org
+    <div class="code-block"><pre><code class="language-bash"># List all metadata types in the org
 sf org list metadata-types --target-org mySandbox
 
 # List all components of a specific type
@@ -253,11 +253,11 @@ sf project deploy preview --target-org mySandbox
 sf project deploy resume --job-id 0AfXX000000XXXXXX
 
 # Cancel a running deployment
-sf project deploy cancel --job-id 0AfXX000000XXXXXX --target-org mySandbox</div>
+sf project deploy cancel --job-id 0AfXX000000XXXXXX --target-org mySandbox</code></pre></div>
 
     <h2 id="s6">Data and SOQL Commands</h2>
 
-    <div class="code-block"># Run a SOQL query and display results
+    <div class="code-block"><pre><code class="language-bash"># Run a SOQL query and display results
 sf data query \
   --query "SELECT Id, Name FROM Account LIMIT 10" \
   --target-org mySandbox
@@ -283,7 +283,7 @@ sf data export tree \
 sf data delete bulk \
   --sobject Contact \
   --file contacts-to-delete.csv \
-  --target-org mySandbox</div>
+  --target-org mySandbox</code></pre></div>
 
     <div class="callout callout--tip">
       <strong>Tip</strong>

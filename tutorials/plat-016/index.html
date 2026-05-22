@@ -175,7 +175,7 @@
     </ol>
     <p>This gives every PR a clean, isolated test environment without consuming sandbox capacity or requiring human intervention.</p>
 
-    <div class="code-block"># Create a scratch org for CI
+    <div class="code-block"><pre><code class="language-bash"># Create a scratch org for CI
 sf org create scratch \
   --definition-file config/project-scratch-def.json \
   --set-default \
@@ -187,7 +187,7 @@ sf project deploy start --target-org ci-test-$BUILD_NUMBER
 sf apex run test --target-org ci-test-$BUILD_NUMBER --result-format human
 
 # Delete after test
-sf org delete scratch --target-org ci-test-$BUILD_NUMBER --no-prompt</div>
+sf org delete scratch --target-org ci-test-$BUILD_NUMBER --no-prompt</code></pre></div>
 
     <h2 id="s4">Data Masking and Compliance</h2>
     <p>Full and Partial Copy sandboxes contain real production data. For orgs in GDPR, HIPAA, or PCI scope, exposing production PII in sandbox environments creates compliance risk. Salesforce offers Data Mask as an add-on — it anonymises specified fields (names, email addresses, phone numbers, tax IDs) during the sandbox copy process.</p>

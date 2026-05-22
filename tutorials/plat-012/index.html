@@ -152,7 +152,7 @@
     <p><strong>Session Cache</strong> stores data scoped to a single user's Lightning session. Data written during one page load is available on the next page load for the same user, but other users cannot read it. This is appropriate for user-specific preferences, mid-flow state, or data that varies per user but is expensive to recompute.</p>
     <p><strong>Partition Cache</strong> is the namespace concept within each tier. A partition is a named allocation within the Org or Session cache, created in Setup. Partitions allow packages and application components to manage their own cache space without colliding with other components' keys. Default partition names resolve to <code>local</code>.</p>
 
-    <div class="code-block">// Writing to Org Cache
+    <div class="code-block"><pre><code class="language-java">// Writing to Org Cache
 Cache.OrgPartition orgPart = Cache.Org.getPartition('local.myConfig');
 orgPart.put('productRateTable', rateTableData, 3600); // TTL: 1 hour
 
@@ -173,7 +173,7 @@ sessPart.put('dashboardLayout', layoutData, 1800);
 // Checking cache capacity
 Cache.OrgPartition p = Cache.Org.getPartition('local.myConfig');
 Long used = p.getNumKeys();
-Long capacity = p.getCapacity();</div>
+Long capacity = p.getCapacity();</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
@@ -183,7 +183,7 @@ Long capacity = p.getCapacity();</div>
     <h2 id="s3">The CacheBuilder Pattern</h2>
     <p>The <code>Cache.CacheBuilder</code> interface provides a cleaner cache-or-load pattern that avoids the repetitive null-check boilerplate. Implement the interface, and the <code>Cache.Org.get()</code> method handles the miss automatically by calling your builder.</p>
 
-    <div class="code-block">// CacheBuilder pattern
+    <div class="code-block"><pre><code class="language-java">// CacheBuilder pattern
 public class ProductRateCacheBuilder implements Cache.CacheBuilder {
   public Object doLoad(String requestedKey) {
     // requestedKey is the key passed to Cache.Org.get()
@@ -196,7 +196,7 @@ public class ProductRateCacheBuilder implements Cache.CacheBuilder {
 ProductRate__c rate =
   (ProductRate__c) Cache.Org.get(ProductRateCacheBuilder.class, 'PROD-001');
 
-// No null check needed — CacheBuilder guarantees a value or throws</div>
+// No null check needed — CacheBuilder guarantees a value or throws</code></pre></div>
 
     <h2 id="s4">Invalidation Strategies</h2>
     <p>Cache invalidation is the classic "hard problem" — data in cache goes stale when the underlying SOQL result changes. Three patterns handle this:</p>

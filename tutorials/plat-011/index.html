@@ -158,7 +158,7 @@
       <li><strong>GAP_*:</strong> Special event types indicating that events were not captured for a period (usually due to bulk API operations that bypass triggers).</li>
     </ul>
 
-    <div class="code-block">// CDC event payload example (Account UPDATE)
+    <div class="code-block"><pre><code class="language-java">// CDC event payload example (Account UPDATE)
 {
   "schema": "TIOb-jG_qRb2ucSBIdByMA",
   "payload": {
@@ -176,7 +176,7 @@
     "Name": "Acme Corp Updated",
     "Phone": "+1 415 555 0100"
   }
-}</div>
+}</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
@@ -187,7 +187,7 @@
     <p>CDC is enabled per object from Setup &gt; Integrations &gt; Change Data Capture. Standard objects and custom objects are supported. Once enabled, Salesforce begins publishing events to the object's channel (e.g. <code>/data/AccountChangeEvent</code>).</p>
     <p>Events are retained in the Salesforce event bus for 72 hours. Subscribers that go offline for less than 72 hours can replay missed events by providing a replay ID when reconnecting. This is the most important reliability feature of CDC — it means brief subscriber downtime does not cause data loss.</p>
 
-    <div class="code-block">// Apex trigger subscribing to CDC events
+    <div class="code-block"><pre><code class="language-java">// Apex trigger subscribing to CDC events
 trigger AccountCDCTrigger on AccountChangeEvent (after insert) {
   for (AccountChangeEvent event : Trigger.new) {
     EventBus.ChangeEventHeader header = event.ChangeEventHeader;
@@ -212,7 +212,7 @@ client.subscribe('/data/AccountChangeEvent', (message) => {
     message.data.payload.ChangeEventHeader;
   console.log(`${changeType} on ${recordIds[0]}: ${changedFields}`);
   if (changeType === 'UPDATE') processAccountUpdate(message.data.payload);
-});</div>
+});</code></pre></div>
 
     <h2 id="s4">CDC vs Outbound Messaging vs Platform Events</h2>
     <p>Salesforce has three event-based integration mechanisms with different trade-offs:</p>

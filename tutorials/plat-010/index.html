@@ -160,7 +160,7 @@
     <p>EPC is the product modelling engine at the heart of Communications, Media, and Energy Industries clouds. It is the component that makes these clouds genuinely different from standard CPQ.</p>
     <p>Where standard Salesforce CPQ models products as records in a flat Product object, EPC models products as hierarchical bundles with complex offer eligibility, configurability, and compatibility rules. A telecom offering might be: a Bundle (Home Internet + TV + Mobile), containing Service Components (Broadband, IPTV, SIM), each with Characteristics (Speed, Channels, Data Allowance), Pricing Rules (base price, discount tiers, promotional periods), and Compatibility Constraints (broadband speed determines available TV packages).</p>
 
-    <div class="code-block">// EPC hierarchy (simplified)
+    <div class="code-block"><pre><code class="language-java">// EPC hierarchy (simplified)
 Catalog
   Product Offering (e.g. "Quad Play Bundle")
     Product Spec (e.g. "100Mbps Broadband")
@@ -171,7 +171,7 @@ Catalog
     Offer Price (monthly recurring charge)
     Offer Price (activation fee)
     Offer Eligibility Rule (geographic availability)
-    Offer Compatibility Rule (bundles TV only with broadband)</div>
+    Offer Compatibility Rule (bundles TV only with broadband)</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>

@@ -150,7 +150,7 @@
     <h2 id="s2">Message Channels: The Contract</h2>
     <p>A Message Channel is a metadata artifact that defines the "topic" and the payload shape of messages. It is the contract between publishers and subscribers. Defining the channel in metadata (rather than as ad-hoc strings) provides discoverability, namespace isolation, and deployment via Metadata API.</p>
 
-    <div class="code-block">// Message Channel metadata file
+    <div class="code-block"><pre><code class="language-java">// Message Channel metadata file
 // AccountSelected.messageChannel-meta.xml
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
@@ -165,12 +165,12 @@
     &lt;fieldName&gt;accountName&lt;/fieldName&gt;
     &lt;description&gt;Name of the selected Account&lt;/description&gt;
   &lt;/lightningMessageFields&gt;
-&lt;/LightningMessageChannel&gt;</div>
+&lt;/LightningMessageChannel&gt;</code></pre></div>
 
     <h2 id="s3">Publisher and Subscriber Implementation</h2>
     <p>Publishers import the Message Channel and the <code>publish</code> function from the LMS wire adapter. Subscribers import <code>subscribe</code>, <code>unsubscribe</code>, and register a callback in <code>connectedCallback</code>.</p>
 
-    <div class="code-block">// Publisher LWC
+    <div class="code-block"><pre><code class="language-java">// Publisher LWC
 import { LightningElement, wire } from 'lwc';
 import { MessageContext, publish } from 'lightning/messageService';
 import ACCOUNT_SELECTED from '@salesforce/messageChannel/AccountSelected__c';
@@ -212,7 +212,7 @@ export default class AccountDetailPanel extends LightningElement {
     this.currentAccountId = message.accountId;
     // load account details
   }
-}</div>
+}</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>

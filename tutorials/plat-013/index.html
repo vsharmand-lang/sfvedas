@@ -151,7 +151,7 @@
     <p>A class implementing <code>Schedulable</code> can be registered for execution at specific times using a cron expression. The <code>execute(SchedulableContext sc)</code> method runs in its own transaction with full governor limits.</p>
     <p>Scheduled Apex almost always delegates work to a Batch Apex class — the schedulable class itself processes zero records but calls <code>Database.executeBatch()</code> to spawn the batch job. The schedulable class is a trigger; the batch class is the worker.</p>
 
-    <div class="code-block">// Schedulable class — triggers a batch job
+    <div class="code-block"><pre><code class="language-java">// Schedulable class — triggers a batch job
 public class DailyLeadScoreJob implements Schedulable {
   public void execute(SchedulableContext sc) {
     Database.executeBatch(new LeadScoreBatch(), 200);
@@ -168,7 +168,7 @@ List&lt;CronTrigger&gt; jobs = [
   SELECT Id, CronJobDetail.Name, NextFireTime, State
   FROM CronTrigger
   WHERE CronJobDetail.JobType = '7'  // 7 = Schedulable
-];</div>
+];</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
@@ -195,7 +195,7 @@ List&lt;CronTrigger&gt; jobs = [
       <li><strong>Review package jobs:</strong> Contact AppExchange vendors about scheduled job consumption. Some vendors allow disabling package-internal scheduled jobs when not needed.</li>
     </ul>
 
-    <div class="code-block">// Batch Apex self-chaining pattern (avoids scheduled job slot)
+    <div class="code-block"><pre><code class="language-java">// Batch Apex self-chaining pattern (avoids scheduled job slot)
 public class ContinuousLeadScoreBatch implements Database.Batchable&lt;SObject&gt;,
                                                   Database.Stateful {
   public Database.QueryLocator start(Database.BatchableContext bc) {
@@ -211,7 +211,7 @@ public class ContinuousLeadScoreBatch implements Database.Batchable&lt;SObject&g
     System.schedule('LeadScore-' + System.now().getTime(),
       buildCron(15), new DailyLeadScoreJob());
   }
-}</div>
+}</code></pre></div>
 
     <div class="callout callout--warning">
       <strong>Warning</strong>

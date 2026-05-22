@@ -157,7 +157,7 @@
     </ol>
     <p>The resolution happens server-side for Apex and Visualforce, and client-side for LWC via the <code>@salesforce/label</code> import.</p>
 
-    <div class="code-block">// LWC — importing a custom label
+    <div class="code-block"><pre><code class="language-java">// LWC — importing a custom label
 import SAVE_BUTTON from '@salesforce/label/c.Save_Button_Label';
 import ERROR_REQUIRED from '@salesforce/label/c.Validation_Required_Field';
 
@@ -169,7 +169,7 @@ export default class MyForm extends LightningElement {
 String msg = System.Label.Account_Save_Success;
 
 // Visualforce
-&lt;apex:outputText value="{!$Label.c.Account_Save_Success}" /&gt;</div>
+&lt;apex:outputText value="{!$Label.c.Account_Save_Success}" /&gt;</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
@@ -179,7 +179,7 @@ String msg = System.Label.Account_Save_Success;
     <h2 id="s3">Naming Conventions That Scale</h2>
     <p>The most impactful decision you make about Custom Labels is the naming scheme. A flat namespace ("ErrorMessage", "SaveButton") degrades immediately. A hierarchical scheme using underscores as separators survives a 2,000-label org:</p>
 
-    <div class="code-block">// Pattern: &lt;Domain&gt;_&lt;Object&gt;_&lt;Context&gt;_&lt;Type&gt;
+    <div class="code-block"><pre><code class="language-java">// Pattern: &lt;Domain&gt;_&lt;Object&gt;_&lt;Context&gt;_&lt;Type&gt;
 
 // Good
 Account_Save_Success_Toast
@@ -191,7 +191,7 @@ Validation_Required_Field_Error
 SaveSuccess          // no domain
 acct_err_1           // cryptic abbreviation
 Button_Label_New     // backwards hierarchy
-SuccessMessage       // reused across 40 features</div>
+SuccessMessage       // reused across 40 features</code></pre></div>
 
     <p>Adopt a governance rule: no label gets merged without a Jira ticket referencing the feature it belongs to. This creates an audit trail when labels need to be retired.</p>
 
@@ -209,7 +209,7 @@ SuccessMessage       // reused across 40 features</div>
       <li><strong>Import translated content:</strong> Import the translated ZIP back, or use the UI to paste values directly for small volumes.</li>
     </ul>
 
-    <div class="code-block">&lt;!-- CustomLabels.labels-meta.xml structure --&gt;
+    <div class="code-block"><pre><code class="language-java">&lt;!-- CustomLabels.labels-meta.xml structure --&gt;
 &lt;CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
   &lt;labels&gt;
     &lt;fullName&gt;Account_Save_Success_Toast&lt;/fullName&gt;
@@ -219,7 +219,7 @@ SuccessMessage       // reused across 40 features</div>
     &lt;shortDescription&gt;Toast shown after account save&lt;/shortDescription&gt;
     &lt;value&gt;Account saved successfully.&lt;/value&gt;
   &lt;/labels&gt;
-&lt;/CustomLabels&gt;</div>
+&lt;/CustomLabels&gt;</code></pre></div>
 
     <div class="callout callout--warning">
       <strong>Warning</strong>

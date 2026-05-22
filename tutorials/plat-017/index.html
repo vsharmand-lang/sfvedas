@@ -152,7 +152,7 @@
     <p><strong>Permission Set Groups (PSGs)</strong> aggregate multiple Permission Sets into a single assignable unit. A "Sales Representative" PSG might include: "Account Management," "Opportunity Management," and "CPQ Quoting" permission sets. Assign one PSG to onboard a new sales rep — no need to remember which individual permission sets are required.</p>
     <p><strong>Muting Permission Sets</strong> solve an edge case: sometimes a PSG grants too much access for a specific sub-group. Rather than building a separate PSG, you add a Muting PS that removes specific permissions from the group for a subset of users. This is additive architecture with surgical removal capability.</p>
 
-    <div class="code-block">-- Permission set assignment in SOQL
+    <div class="code-block"><pre><code class="language-sql">-- Permission set assignment in SOQL
 SELECT Id, PermissionSet.Name, PermissionSet.IsCustom,
        AssigneeId, ExpirationDate
 FROM PermissionSetAssignment
@@ -169,7 +169,7 @@ AND PermissionSet.PermissionsManageCases = true
 
 -- PSG assignment
 INSERT INTO PermissionSetAssignment (AssigneeId, PermissionSetId)
-VALUES ('0055g000003FABCAA4', '0PS5g000001PSGA1')  -- PSG Id</div>
+VALUES ('0055g000003FABCAA4', '0PS5g000001PSGA1')  -- PSG Id</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>

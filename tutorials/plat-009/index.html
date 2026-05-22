@@ -154,7 +154,7 @@
     <p><strong>Integration Procedures</strong> replace Apex service layers for orchestrating multiple data actions. An Integration Procedure might call a DataRaptor to fetch account data, call an external REST API, and merge the results — all without code. They execute server-side and are optimised to minimise browser round trips.</p>
     <p><strong>Expression Sets</strong> handle business rule evaluation — pricing logic, eligibility checks, decisioning rules — in a spreadsheet-like declarative interface. They replaced Calculation Matrices from earlier Vlocity versions.</p>
 
-    <div class="code-block">// OmniStudio runtime architecture
+    <div class="code-block"><pre><code class="language-java">// OmniStudio runtime architecture
 FlexCard / OmniScript  (LWC rendered in browser)
   calls
 Integration Procedure  (server-side orchestration)
@@ -165,7 +165,7 @@ HTTP Action          -- External REST API call
 DataRaptor Load      -- DML writes to Salesforce
 
 // Metadata stored as custom object records
-// Deployed via Metadata API in LWC-native mode (Summer 2023+)</div>
+// Deployed via Metadata API in LWC-native mode (Summer 2023+)</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>

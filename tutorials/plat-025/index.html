@@ -145,7 +145,7 @@
     <h2 id="s2">Future Methods: Simple Fire-and-Forget</h2>
     <p>Future methods are the simplest async mechanism — annotate a static method with <code>@future</code> and Salesforce runs it in a separate transaction after the current one commits. They accept only primitive parameters (no SObjects, no collections of SObjects) because the current transaction's heap is not available in the async context.</p>
 
-    <div class="code-block">// Future method — simple async callout
+    <div class="code-block"><pre><code class="language-sql">// Future method — simple async callout
 @future(callout=true)
 public static void syncToERP(Set&lt;Id&gt; accountIds) {
   List&lt;Account&gt; accounts = [SELECT Id, Name, Phone
@@ -160,12 +160,12 @@ public static void syncToERP(Set&lt;Id&gt; accountIds) {
 // - No SObject parameters (pass Ids, query inside)
 // - Cannot monitor or chain
 // - Max 50 future calls per transaction
-// - No Stateful interface</div>
+// - No Stateful interface</code></pre></div>
 
     <h2 id="s3">Queueable Apex: Chainable and Monitorable</h2>
     <p>Queueable Apex was introduced to address future method limitations. A class implementing <code>Queueable</code> can accept complex parameters (SObjects, custom objects), can chain to the next job in its <code>execute()</code> method, and returns a job ID that can be monitored via SOQL.</p>
 
-    <div class="code-block">// Queueable with chaining
+    <div class="code-block"><pre><code class="language-java">// Queueable with chaining
 public class ProcessOrdersJob implements Queueable, Database.AllowsCallouts {
   private List&lt;Order__c&gt; orders;
   private Integer batchIndex;
@@ -190,7 +190,7 @@ public class ProcessOrdersJob implements Queueable, Database.AllowsCallouts {
 // Monitor via SOQL
 AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
                     FROM AsyncApexJob
-                    WHERE Id = :jobId];</div>
+                    WHERE Id = :jobId];</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
@@ -200,7 +200,7 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
     <h2 id="s4">Batch Apex: High-Volume Record Processing</h2>
     <p>Batch Apex processes records in configurable chunks (default 200, max 2,000 per chunk). Salesforce calls <code>execute()</code> once per chunk with fresh governor limits for each chunk. A batch job can process tens of millions of records by breaking them into manageable pieces.</p>
 
-    <div class="code-block">public class LeadScoreBatch implements Database.Batchable&lt;SObject&gt;,
+    <div class="code-block"><pre><code class="language-java">public class LeadScoreBatch implements Database.Batchable&lt;SObject&gt;,
                                         Database.Stateful {
   // Stateful: instance variables persist across execute() calls
   public Integer processedCount = 0;
@@ -233,7 +233,7 @@ AsyncApexJob job = [SELECT Id, Status, NumberOfErrors
     // Send completion notification
     sendSummaryEmail(processedCount, errorCount);
   }
-}</div>
+}</code></pre></div>
 
     <div class="callout callout--warning">
       <strong>Warning</strong>

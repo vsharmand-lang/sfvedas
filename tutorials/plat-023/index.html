@@ -154,7 +154,7 @@
       <li><strong>Per-User Principal:</strong> Each Salesforce user authenticates individually against the external system via their own OAuth flow. The credential stores the per-user token, refreshes it automatically, and uses it when that user's Apex makes a callout. Ideal for integrations that require user-level audit trails on the external system.</li>
     </ul>
 
-    <div class="code-block">// Apex callout using Named Credential
+    <div class="code-block"><pre><code class="language-java">// Apex callout using Named Credential
 // No credentials in code — Salesforce injects auth headers automatically
 HttpRequest req = new HttpRequest();
 req.setEndpoint('callout:My_ERP_API/orders?status=pending');
@@ -168,7 +168,7 @@ if (res.getStatusCode() == 200) {
 
 // 'callout:My_ERP_API' is the Named Credential API name
 // The base URL and auth headers are merged automatically by Salesforce
-// The endpoint becomes: https://erp.mycompany.com/api/orders?status=pending</div>
+// The endpoint becomes: https://erp.mycompany.com/api/orders?status=pending</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
@@ -185,7 +185,7 @@ if (res.getStatusCode() == 200) {
       <li>Use the generated actions in Flow, Apex, or Einstein Next Best Action.</li>
     </ol>
 
-    <div class="code-block">// After External Services import, the API is callable from Flow:
+    <div class="code-block"><pre><code class="language-java">// After External Services import, the API is callable from Flow:
 // Flow Element: "Action" -> "External Services"
 // Shows: GetOrders, CreateOrder, UpdateOrderStatus, etc.
 // Each action maps to one API endpoint from the OpenAPI spec
@@ -200,7 +200,7 @@ ExternalService.ERPOrders_GetOrdersOutput output =
 
 for (ExternalService.ERPOrders_Order order : output.orders) {
   System.debug(order.id + ': ' + order.status);
-}</div>
+}</code></pre></div>
 
     <h2 id="s4">Security Considerations</h2>
     <p>Named Credentials respect Salesforce data security in the Named Principal model — all callouts use the same service account credentials regardless of the Salesforce user. This means external system audit logs show the service account, not the individual user. If individual user audit trails are required on the external system, use Per-User Principal instead.</p>

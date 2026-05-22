@@ -152,7 +152,7 @@
     <p><strong>Layer 2 — Strategy:</strong> A recommendation strategy (built in the Strategy Builder or via Apex) defines the eligibility rules — which recommendations are relevant for the current record, in what order, and how many to show. The strategy is the "when" — when should this recommendation appear.</p>
     <p><strong>Layer 3 — Action Flow:</strong> Each recommendation can link to a Salesforce Flow that guides the agent through fulfilling the recommendation. A "Upsell Premium" recommendation might trigger a Flow that captures the customer's response, updates the Opportunity, and sends a follow-up email. The action flow is the "how" — how does the agent complete the action.</p>
 
-    <div class="code-block">// Recommendation strategy (Apex-based)
+    <div class="code-block"><pre><code class="language-java">// Recommendation strategy (Apex-based)
 public class UpsellStrategy implements ConnectApi.RecommendationStrategy {
   public ConnectApi.RecommendationStrategyResult evaluate(
     ConnectApi.RecommendationContext context) {
@@ -182,7 +182,7 @@ public class UpsellStrategy implements ConnectApi.RecommendationStrategy {
     result.recommendations = recs;
     return result;
   }
-}</div>
+}</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>

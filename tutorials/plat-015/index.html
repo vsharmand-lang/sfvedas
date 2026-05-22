@@ -156,7 +156,7 @@
       <li>Multiple packages with overlapping concept names create visual noise: <code>pkg1__Status__c</code> vs <code>pkg2__Status__c</code> vs <code>Status__c</code> all appearing on the same record page</li>
     </ul>
 
-    <div class="code-block">// Namespace prefix in SOQL
+    <div class="code-block"><pre><code class="language-sql">// Namespace prefix in SOQL
 SELECT Id,
        pkg1__ContractStatus__c,
        pkg2__SLALevel__c,
@@ -172,7 +172,7 @@ pkg1__Contract__c contract = new pkg1__Contract__c();  // package object
 List&lt;PackageLicense&gt; pkgs = [
   SELECT NamespacePrefix, AllowedLicenses, UsedLicenses
   FROM PackageLicense
-];</div>
+];</code></pre></div>
 
     <div class="callout callout--warning">
       <strong>Warning</strong>

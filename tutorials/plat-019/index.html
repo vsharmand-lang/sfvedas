@@ -154,7 +154,7 @@
     <p><strong>Layer 3 — Slack Modals (Action Back to Salesforce):</strong> Slack modals allow Slack users to submit forms that write data back to Salesforce. A "Close Case" modal in Slack might let the user update the Case resolution fields and close it — without opening Salesforce. This requires a Slack App with a Salesforce backend.</p>
     <p><strong>Layer 4 — Salesforce Slack Apps:</strong> Full Slack Apps built on the Salesforce platform using Heroku or the Slack SDK for Apex. These apps define custom slash commands, interactive message workflows, and App Home experiences in Slack.</p>
 
-    <div class="code-block">// Salesforce Flow — Send Slack Notification action
+    <div class="code-block"><pre><code class="language-java">// Salesforce Flow — Send Slack Notification action
 // Configured in Flow Builder via "Action" element
 // Input parameters:
 // - Channel: Slack channel ID or name
@@ -182,7 +182,7 @@ String messageJson = JSON.serialize(new Map&lt;String, Object&gt;{
     }
   }
 });
-// Post via Named Credential to api.slack.com/chat.postMessage</div>
+// Post via Named Credential to api.slack.com/chat.postMessage</code></pre></div>
 
     <div class="callout callout--key">
       <strong>Key Point</strong>
