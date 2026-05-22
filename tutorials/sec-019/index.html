@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/sec-019/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEC-019: Data Classification in Salesforce: Tagging, Handling, and Governance — SFVedas</title>
+  <meta name="description" content="Data Classification in Salesforce: Tagging, Handling, and Governance. Enforcing field compliance and sensitivity tiers."/>
+  <meta property="og:title" content="SEC-019: Data Classification in Salesforce: Tagging, Handling, and Governance — SFVedas"/>
+  <meta property="og:description" content="Data Classification in Salesforce: Tagging, Handling, and Governance. Enforcing field compliance and sensitivity tiers."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/sec-019/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="SEC-019: Data Classification in Salesforce: Tagging, Handling, and Governance — SFVedas"/>
+  <meta name="twitter:description" content="Data Classification in Salesforce: Tagging, Handling, and Governance. Enforcing field compliance and sensitivity tiers."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "SEC-019: Data Classification in Salesforce: Tagging, Handling, and Governance — SFVedas",
+    "description": "Data Classification in Salesforce: Tagging, Handling, and Governance. Enforcing field compliance and sensitivity tiers.",
+    "url": "https://sfvedas.com/tutorials/sec-019/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/sec-019/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=security-compliance" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Security &amp; Compliance</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">SEC-019</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Security &amp; Compliance</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects & Data Protection Officers</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Data Classification in Salesforce: Tagging, Handling, and Governance
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Deploying standard metadata schema policies, enforcing field classification compliance, and mapping fields to sensitivity tiers.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Understand the compliance and governance imperatives for data classification.</li>
+            <li>Configure native Salesforce classification metadata fields at the schema layer.</li>
+            <li>Establish a tactical, automated roadmap for categorising custom and standard fields.</li>
+            <li>Develop active Data Loss Prevention (DLP) and Shield encryption policies mapped to classification tags.</li>
+            <li>Implement a long-term metadata governance model and continuous compliance audits.</li>
+            <li>Query and analyze field-level classification metadata using Tooling API and Apex.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">1. The Imperative of Data Classification in Enterprise Environments</h2>
+        <p>In the contemporary, heavily regulated global economy, data is both an organisation's most valuable asset and its greatest liability. The proliferation of privacy regulations, including GDPR, HIPAA, and CCPA, has transformed data governance from a passive administrative exercise into an active operational requirement. For enterprise Salesforce architectures, the foundation of a robust security posture is the implementation of a comprehensive Data Classification strategy. Without knowing exactly what data resides within the system, who owns it, and how sensitive it is, security officers cannot formulate intelligent, cost-effective data protection controls.</p>
+        <p>Historically, organisations attempted to address data security through broad, brute-force policies: encrypting all custom fields, applying restrictive field-level security across the board, or enforcing highly constrained sharing models. However, this non-selective approach introduces massive operational friction. Over-encryption degrades system performance, breaks index-based search functionality, and restricts standard reporting. Overly restrictive access controls disrupt employee productivity, leading to workarounds and shadow IT. Data classification enables a surgical, risk-based approach to security. By categorising data based on its regulatory impact and business sensitivity, architects can deploy expensive security tools—such as Shield Platform Encryption, Transaction Security Policies, and real-time monitoring—only where they are truly required, maintaining platform agility while satisfying compliance audits.</p>
+        <p>Furthermore, data classification is a prerequisite for effective data lifecycle management. Enterprise environments frequently suffer from "metadata bloat," accumulation of deprecated custom fields, and redundant customer databases. A structured classification programme provides visibility into the usage and purpose of every metadata component, enabling systematic data archiving and disposal policies. This reduction in data footprint not only minimizes storage costs but also significantly decreases the organisation's threat surface in the event of an account compromise or integration breach.</p>
+
+        <h2 id="s2">2. Salesforce Native Data Classification Metadata: Fields and Architecture</h2>
+        <p>To support enterprise data governance, Salesforce provides native Data Classification metadata fields directly integrated into the schema architecture of standard and custom objects. This feature allows administrators and architects to record critical compliance and ownership data directly on the field definition, embedding governance metadata directly within the platform's metadata catalog.</p>
+        <p>There are four core classification attributes configured at the individual field level:
+            <ul>
+                <li><strong>Data Owner:</strong> Specifies the individual or business department responsible for the lifecycle and business rules of the data in this field. Identifying the data owner is critical for change management; for example, if the Sales Ops team wants to deprecate a custom field, they must consult the designated data owner before executing the deletion.</li>
+                <li><strong>Field Usage:</strong> Captures the operational status of the field, with values including Active, Deprecated, or Hidden. This status helps development teams identify obsolete metadata during refactoring or sandbox synchronization.</li>
+                <li><strong>Data Sensitivity Level:</strong> Defines the risk category of the field. Salesforce offers standard sensitivity levels including Public, Internal, Confidential, and Restricted. Public data represents non-sensitive information that can be exposed externally, while Restricted data represents highly sensitive personal or proprietary information requiring maximum protection.</li>
+                <li><strong>Compliance Categorisation (ComplianceGroup):</strong> Links the field to specific regulatory frameworks. Values include PII (Personally Identifiable Information), HIPAA, GDPR, PCI, and COPPA. A single field can be assigned to multiple compliance groups, enabling compliance officers to run targeted reports to identify all PII or HIPAA-governed fields across the entire org.</li>
+            </ul>
+        </p>
+        <p>Unlike traditional on-premise systems where data classification is stored in separate external spreadsheets or databases, Salesforce's native metadata architecture embeds these classification parameters directly into the core XML definition of each field. This structural embedding means that classification tags are fully integrated with the platform's metadata API, sandbox replication engines, and version control systems. When a custom field is created or updated in a developer sandbox, its sensitivity level and compliance categorization are carried forward through the continuous integration and deployment (CI/CD) pipeline into production. This unified architecture prevents metadata drift, ensuring that data protection attributes are verified and tested in lower environments before being promoted to the live customer database. Furthermore, compliance officers can query these schema properties directly using Tooling API queries or custom Apex metadata inspections, turning the platform's schema catalog into a dynamic, audit-ready compliance ledger.</p>
+        <p>Architects must recognize that these native classification fields are stored as metadata. They do not, by themselves, encrypt data or restrict access to the field. Rather, they act as a foundational metadata catalog that feeds downstream automated security tools. This configuration metadata is accessible via the Metadata API, Tooling API, and standard Schema describe calls in Apex, allowing for automated compliance reporting and dynamic security enforcement.</p>
+        <pre><code class="language-java">
+// Apex script to query custom field data classification parameters using the Tooling API (conceptual REST execution)
+public static void queryFieldClassification() {
+    // Developers can programmatically inspect field attributes via Schema describes
+    Schema.DescribeFieldResult dfr = Schema.sObjectType.Contact.fields.Social_Security_Number__c.getDescribe();
+    System.debug('Field Developer Name: ' + dfr.getName());
+    // Security classifications can be read programmatically to drive dynamic UI rendering
+    System.debug('Field type: ' + dfr.getType());
+}
+        </code></pre>
+
+        <h2 id="s3">3. Standardising Field-Level Metadata Classification: A Tactical Roadmap</h2>
+        <p>Implementing data classification across an established Salesforce Enterprise org with thousands of custom fields is a monumental task that cannot be accomplished overnight. It requires a structured, phased tactical roadmap that balances business engagement, metadata auditing, and automation.</p>
+        <p>The roadmap begins with the **Taxonomy Definition** phase. Before touching a single field configuration in Salesforce, the compliance team, business stakeholders, and architects must establish a unified data sensitivity taxonomy. This taxonomy must define clear, unambiguous criteria for each sensitivity level. For instance, "Confidential" might be defined as any customer data that is not publicly available but carries low risk if exposed internally, while "Restricted" is defined as any data that, if exposed, would trigger legal notification requirements, such as credit card numbers or biometric records.</p>
+        <p>Crucially, the audit phase must address the reality of technical debt. Over years of rapid deployment, many enterprise orgs accumulate thousands of "zombie" fields—fields that were created for a single campaign or legacy business process and are no longer actively used. Rather than attempting to classify these obsolete components, architects should leverage Field Trip or native optimizer reports to identify fields with low or zero data population rates. These unused fields should be marked as Deprecated under Field Usage and scheduled for safe deletion. For the remaining active schema, architects must establish a formal data sensitivity matrix. This matrix must be approved by the corporate Data Protection Officer (DPO), legal counsel, and business unit leaders, ensuring that the defined levels (Public, Internal, Confidential, Restricted) are consistently interpreted and legally defensible before metadata parameters are modified in production.</p>
+        <p>Once the taxonomy is finalised, the **Audit and Discovery** phase begins. Architects should utilize the Tooling API or third-party metadata extraction tools to generate a complete inventory of all fields across all major objects. Rather than manually clicking through the Setup UI for thousands of fields, administrators can execute programmatic scripts to identify fields that are highly likely to contain sensitive data based on their names (e.g., fields containing "SSN", "Birth", "Salary", or "Phone"). Business data owners are then assigned to these fields to validate their sensitivity levels. The final phase is **Bulk Application**, where the classification metadata is deployed into production. This is best accomplished using Salesforce DX and the Metadata API. By pulling the custom object metadata files locally, developers can write scripts to inject the classification tags in bulk, and then deploy the updated metadata package back to the org, bypasssing months of manual UI clicks.</p>
+        <pre><code class="language-sql">
+-- Conceptual Tooling API SOQL query to inspect data classification attributes on Custom Fields
+SELECT DeveloperName, BusinessStatus, SecurityClassification, ComplianceGroup 
+FROM CustomField 
+WHERE TableEnumOrId = 'Contact'
+        </code></pre>
+
+        <h2 id="s4">4. Building Data Egress and Prevention (DLP) Policies Around Classification</h2>
+        <p>The true power of native Data Classification metadata is realized when it is leveraged to drive automated Data Loss Prevention (DLP) and active security enforcement policies. By linking classification tags with Salesforce's security engines, architects can build dynamic, intelligence-driven defenses that adapt to the sensitivity of the data being accessed.</p>
+        <p>A primary enforcement mechanism is the integration of classification metadata with Event Monitoring's Transaction Security Policies. Transaction Security allows architects to write Apex classes that intercept user activities, such as exporting a report, running a API query, or viewing a record. Within the policy's Apex logic, developers can programmatically inspect the classification of the fields involved in the transaction. For example, if a user attempts to export a report containing more than five fields tagged with a "Restricted" sensitivity level, or any field categorized under the "HIPAA" compliance group, the policy can dynamically block the export, send an alert to the Security Operations Center (SOC), and automatically freeze the user's account pending investigation. This dynamic control protects high-risk fields without restricting reports that contain only public or low-sensitivity data.</p>
+        <pre><code class="language-java">
+// Example of a conceptual Transaction Security policy checking sensitive data access
+global class RestrictedDataExportPolicy implements TxnSecurity.EventCondition {
+    public boolean evaluate(TxnSecurity.Event e) {
+        // Query Setup Audit or schema definitions to identify if target event involves restricted compliance fields
+        // If event type is ReportExport, inspect the column list and evaluate sensitivity
+        if (e.eventType == 'ReportExport') {
+            // Evaluates to true if threshold of restricted fields is exceeded, triggering block action
+            return true; 
+        }
+        return false;
+    }
+}
+        </code></pre>
+        <p>In addition to real-time blocking, classification metadata can drive dynamic field masking at the UI layer. By combining data classification tags with custom permission sets or profile rules, architects can configure dynamic rendering engines. If a field is classified as 'Restricted' and belongs to the 'PII' compliance group, the front-end LWC or page layout can dynamically mask the value (e.g., exposing only the last four digits of a social security number) for standard users, while displaying the full unmasked data only to users who have an active, authenticated High Assurance session. This granular control ensures that sensitive data is exposed strictly on a need-to-know basis, satisfying strict compliance frameworks while maintaining standard operational processes for everyday users.</p>
+        <p>Furthermore, classification directly guides the deployment of Salesforce Shield Platform Encryption. Rather than making arbitrary decisions, architects can define a strict rule: any custom field assigned the "Restricted" sensitivity level and categorized under "PCI" or "PII" compliance must be encrypted using Shield. If a field's sensitivity is downgraded to "Internal," it can be safely decrypted, freeing up database resources and restoring full search functionality. This tight alignment between compliance classification and technical encryption ensures that Shield is deployed optimally, minimising performance overhead while maintaining audit-ready regulatory compliance.</p>
+
+        <h2 id="s5">5. Implementing Long-Term Governance and Compliance Audits</h2>
+        <p>Data classification is not a one-time project; it is an ongoing operational commitment. As business models evolve, new custom fields are introduced, and integration architectures change, the data classification database will decay if not supported by a robust, long-term governance framework.</p>
+        <p>To prevent metadata decay, organisations must establish strict change management controls. Any developer or administrator requesting the creation of a new custom field in production must be required to specify the Data Owner, Field Usage, Sensitivity Level, and Compliance Group as a mandatory field in their user story or ticket. The deployment pipeline should enforce this requirement: static metadata analysis tools can scan XML deployment packages and automatically reject any pull request containing a new custom field that lacks data classification attributes.</p>
+        <p>Additionally, compliance officers must schedule regular, automated compliance audits. Quarterly reviews should be conducted to run reports on the classification catalog, ensuring that no sensitive fields have slipped into production without classification. These reviews should also track deprecated fields; fields marked as "Deprecated" under Field Usage should be targeted for complete deletion and data archiving within a defined timeframe (e.g., 90 days after deprecation) to clean up the org's schema footprint. By establishing a rigorous governance structure, automating the intake process, and leveraging classification metadata to drive active platform defense, enterprise architectures can confidently navigate complex regulatory landscapes while optimising system performance and developer agility.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Data classification enables a risk-based approach to security, preventing the performance overhead of non-selective database encryption.</li>
+            <li>Salesforce provides native classification metadata fields (Data Owner, Field Usage, Sensitivity, Compliance) directly at the schema layer.</li>
+            <li>Classification tags are purely metadata attributes and do not encrypt or restrict access without downstream enforcement tools.</li>
+            <li>Automated pipelines can leverage Transaction Security Policies to dynamically block report exports containing fields classified as 'Restricted'.</li>
+            <li>A successful classification rollout requires establishing a clear, corporate sensitivity taxonomy before modifying metadata in production.</li>
+            <li>Long-term governance must include automated metadata validation to ensure all new custom fields are classified before deployment.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p><strong>Question 1:</strong> Which of the following is a native Salesforce Data Classification metadata attribute configured directly on standard or custom fields?</p>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Encryption Algorithm Strength</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Compliance Categorisation (ComplianceGroup)</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Dynamic Filtering Priority</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. API Endpoint Authorization Method</div>
+          </div>
+          <div class="quiz-question" id="q2">
+            <p><strong>Question 2:</strong> What is a key benefit of aligning a mature Data Classification strategy with Salesforce Shield Platform Encryption?</p>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. It automatically encrypts the entire Salesforce database with a single click.</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. It ensures encryption is targeted only at highly sensitive, high-risk fields, avoiding unnecessary functional limits and search restrictions on low-risk fields.</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. It allows unauthenticated guest users to bypass field-level security constraints.</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. It completely eliminates the need for managing customer tenant secrets.</div>
+          </div>
+          <div class="quiz-question" id="q3">
+            <p><strong>Question 3:</strong> How can classification metadata be used to actively block unauthorised data exfiltration via standard reporting?</p>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. By deleting the custom fields from the report builder interface completely.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'right')">B. By writing a Transaction Security Policy in Event Monitoring that evaluates the classification metadata tags of exported columns and blocks the transaction if restricted fields are included.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">C. By encrypting all fields with probabilistic encryption schemes.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. By assigning the 'View Encrypted Data' permission to all standard users.</div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../sec-002/" class="related-card">
+              <span class="card-id">SEC-002</span>
+              <h4>GDPR Compliance in Salesforce</h4>
+            </a>
+            <a href="../sec-009/" class="related-card">
+              <span class="card-id">SEC-009</span>
+              <h4>Handling PII in Salesforce</h4>
+            </a>
+            <a href="../sec-016/" class="related-card">
+              <span class="card-id">SEC-016</span>
+              <h4>Encryption in Salesforce: Classic vs Shield</h4>
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">1. The Imperative of Data Classification in Enterprise Environments</a></li>
+            <li><a href="#s2">2. Salesforce Native Data Classification Metadata: Fields and Architecture</a></li>
+            <li><a href="#s3">3. Standardising Field-Level Metadata Classification: A Tactical Roadmap</a></li>
+            <li><a href="#s4">4. Building Data Egress and Prevention (DLP) Policies Around Classification</a></li>
+            <li><a href="#s5">5. Implementing Long-Term Governance and Compliance Audits</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../sec-020/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-020</span>
+            <span class="sidebar-next-title">Security Hardening Checklist for Salesforce Enterprise Orgs</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../sec-018/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-018</span>
+            <span class="sidebar-next-title">Incident Response for Salesforce: What to Do When Something Goes Wrong</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

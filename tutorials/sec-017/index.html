@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/sec-017/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEC-017: Third-Party App Security: Evaluating AppExchange Packages — SFVedas</title>
+  <meta name="description" content="Third-Party App Security: Evaluating AppExchange Packages. Auditing package permissions and verifying data flow boundaries."/>
+  <meta property="og:title" content="SEC-017: Third-Party App Security: Evaluating AppExchange Packages — SFVedas"/>
+  <meta property="og:description" content="Third-Party App Security: Evaluating AppExchange Packages. Auditing package permissions and verifying data flow boundaries."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/sec-017/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="SEC-017: Third-Party App Security: Evaluating AppExchange Packages — SFVedas"/>
+  <meta name="twitter:description" content="Third-Party App Security: Evaluating AppExchange Packages. Auditing package permissions and verifying data flow boundaries."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "SEC-017: Third-Party App Security: Evaluating AppExchange Packages — SFVedas",
+    "description": "Third-Party App Security: Evaluating AppExchange Packages. Auditing package permissions and verifying data flow boundaries.",
+    "url": "https://sfvedas.com/tutorials/sec-017/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/sec-017/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=security-compliance" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Security &amp; Compliance</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">SEC-017</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Security &amp; Compliance</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: CTOs & Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Third-Party App Security: Evaluating AppExchange Packages
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        A structured playbook for auditing external app package permissions, verifying data flow boundaries, and monitoring OAuth authorizations.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Analyze the depth and limitations of the Salesforce AppExchange Security Review.</li>
+            <li>Evaluate security boundaries and upgrade mechanics of Managed versus Unmanaged Packages.</li>
+            <li>Audit package-level administrative permissions, Apex access, and sharing modes.</li>
+            <li>Identify data egress points by monitoring Remote Site Settings, Named Credentials, and CSP Trusted Sites.</li>
+            <li>Monitor OAuth Connected Apps, session permissions, and dynamic token allocations continuously.</li>
+            <li>Implement a rigorous post-installation review and governance protocol for third-party packages.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">1. The Salesforce AppExchange Security Ecosystem and the Security Review</h2>
+        <p>The Salesforce AppExchange is a powerful marketplace, enabling organisations to rapidly extend platform capabilities through third-party packages. However, installing external code directly into an enterprise environment introduces significant compliance, governance, and security risks. To mitigate these threats, Salesforce enforces a comprehensive AppExchange Security Review. Understanding the mechanics, depth, and inherent limitations of this review is the first line of defence for CTOs and solution architects evaluating external solutions.</p>
+        <p>The AppExchange Security Review is a mandatory, rigorous assessment that every commercial application must undergo before being listed on the public AppExchange. This process combines automated source code analysis with manual penetration testing conducted by Salesforce's internal security engineering team. The review spans multiple layers: static application security testing (SAST) using advanced scanning tools to identify vulnerabilities such as SOQL injection, cross-site scripting (XSS), and insecure sharing configurations in Apex; and dynamic application security testing (DAST) to evaluate the application's behaviour in a live environment. If the application connects to an external web service, Salesforce's engineers perform dynamic penetration testing on the vendor's external infrastructure, validating that the external server is secure against common web vulnerabilities, enforces strong transport-layer security (TLS 1.2+), and adheres to secure authentication standards.</p>
+        <p>While the Security Review represents an industry-leading standard for SaaS security, enterprise security officers must recognize its limitations. The AppExchange Security Review is a point-in-time assessment. Once a package is approved, subsequent minor updates or changes to the vendor's external servers may not be instantly re-evaluated by Salesforce with the same level of depth. Furthermore, the review certifies that the package does not contain malicious code or blatant vulnerabilities, but it does not guarantee that the package aligns with your organisation's specific data privacy policies or regulatory compliance mandates. For instance, a certified app may still legitimately transmit customer data to an external server if that is its stated function; it is the customer's responsibility, not Salesforce's, to ensure that this data transfer is legally compliant and fits within the corporate risk profile. Therefore, the AppExchange Security Review must be viewed as a baseline entry criteria, not a replacement for a rigorous internal security evaluation.</p>
+
+        <h2 id="s2">2. Managed vs Unmanaged Packages: Security and IP Boundaries</h2>
+        <p>When evaluating third-party packages, architects must distinguish between managed and unmanaged packages. These two formats offer vastly different technical structures, upgrade mechanisms, and security boundaries. Understanding how they operate is crucial for maintaining an audit-ready metadata footprint and protecting intellectual property (IP).</p>
+        <p>Managed Packages are the primary vehicle for commercial AppExchange products. They are designed as sealed, version-controlled containers. The most notable security feature of a managed package is code obfuscation: the source Apex code within a managed package is completely hidden from the subscriber organisation, with the sole exception of classes and methods explicitly marked as <code>global</code>. This intellectual property protection prevents subscribers from modifying or copying the underlying proprietary logic. From a security perspective, managed packages enforce a strict namespace boundary. The package operates within its own dedicated namespace (e.g., <code>acme__</code>), which prevents naming collisions with the subscriber's custom configurations and isolates the package's internal classes. In addition, managed packages support seamless upgrade paths, allowing vendors to push security patches and bug fixes directly to subscriber orgs without manual redeployment. However, code obfuscation makes internal static code analysis impossible for the customer; you must rely on the vendor's security certifications and external audit reports to verify the safety of their code.</p>
+        <p>Unmanaged Packages, on the other hand, are essentially open-source templates. When installed, all components—including Apex classes, triggers, pages, and custom fields—are deployed directly into the subscriber's default namespace as if they were written by the subscriber's own developers. This layout provides complete visibility; security teams can run static analysis tools directly on the unmanaged code, review every line of Apex, and customise the code to fit their exact security requirements. However, this absolute flexibility comes with severe governance drawbacks. Unmanaged packages have no upgrade path. If the vendor releases a security patch, the subscriber must manually review, refactor, and redeploy the code, which frequently leads to configuration drift and unpatched vulnerabilities. Furthermore, because unmanaged code runs directly in the subscriber's namespace, it can easily interact with other customisations, increasing the risk of accidental data leakage or privilege escalation if the code is not carefully audited and maintained by the internal development team.</p>
+
+        <h2 id="s3">3. A Structured Framework for Auditing Package Permissions and Apex Access</h2>
+        <p>Upon installing any package, especially a managed package, a key architect task is to execute a granular permission audit. Packages often ship with broad permission sets, custom profiles, or Apex classes that execute in system mode (<code>without sharing</code>). A structured framework is required to restrict package permissions to the absolute minimum necessary for its business function.</p>
+        <p>The audit begins by reviewing the Permission Sets and custom fields deployed by the package. Architects must map every permission set provided by the vendor to identify the exact CRUD (Create, Read, Update, Delete) and FLS (Field-Level Security) privileges granted. Many vendors request broad access to core standard objects (like Accounts, Contacts, or Opportunities) to simplify installation. If the application only requires read-only access to Accounts, but the packaged permission set grants full Edit or Delete access, the architect must decline the default permission set and instead configure a custom permission set that restricts access. Furthermore, architects must inspect the packaged Apex triggers and classes. Triggers in Salesforce run in system context by default. If a packaged trigger executes <code>without sharing</code>, it can read and write data across the entire database, completely bypassing the subscriber's sharing rules and role hierarchy. While some system-level execution is necessary for utility functions, any business logic that handles sensitive customer data should enforce user sharing models. Developers should audit packaged Apex classes (where visible) or require documentation from the vendor detailing their sharing modes.</p>
+        <pre><code class="language-java">
+// Example of auditing query permission metadata programmatically in Apex
+public static void auditPackagePermissions() {
+    List<PermissionSet> pkgPermSets = [
+        SELECT Id, Name, Description 
+        FROM PermissionSet 
+        WHERE NamespacePrefix = 'acme'
+    ];
+    for (PermissionSet ps : pkgPermSets) {
+        System.debug('Auditing Perm Set: ' + ps.Name + ' | Description: ' + ps.Description);
+    }
+}
+        </code></pre>
+        <p>In addition to object-level access, architects must audit custom Apex page overrides, Aura components, and Lightning Web Components (LWCs) packaged by the vendor. These components must enforce strict FLS and CRUD checks during rendering and execution. If a packaged LWC queries data using an Apex controller that does not explicitly enforce FLS, a standard user could potentially view sensitive fields that their profile should restrict. To prevent this, the internal audit must demand that all packaged controllers utilise standard enforcement mechanisms, such as the <code>WITH USER_MODE</code> SOQL clause or the <code>Security.stripInaccessible</code> method, ensuring that data exposure is dynamically limited to the logged-in user's rights.</p>
+        <pre><code class="language-java">
+// Demonstrating the enforcement of user mode in dynamic Apex to prevent data exposure
+public with sharing class PackagedDataController {
+    @AuraEnabled(cacheable=true)
+    public static List<Contact> getContactsSecure(String searchKey) {
+        // Enforcing USER_MODE guarantees that standard FLS, CRUD, and sharing are automatically respected
+        return [
+            SELECT Id, FirstName, LastName, Email 
+            FROM Contact 
+            WHERE LastName LIKE :searchKey 
+            WITH USER_MODE
+        ];
+    }
+}
+        </code></pre>
+
+        <h2 id="s4">4. Verifying Data Flow Boundaries and External Integrations</h2>
+        <p>A primary source of security risk in third-party packages is the transfer of data outside the Salesforce boundary to external servers managed by the vendor or third-party service providers. To verify data flow boundaries, architects must systematically audit the integration configurations established by the package: Remote Site Settings, Named Credentials, and Content Security Policy (CSP) Trusted Sites.</p>
+        <p>Remote Site Settings are the legacy mechanism for permitting outbound HTTP callouts from Apex. By default, Salesforce prevents any Apex class from calling an external URL unless that URL is explicitly registered in the Remote Site Settings list. When installing an AppExchange package, the installation wizard often prompts the administrator to approve one or more remote sites. Architects must scrutinise these endpoints. A common risk is "scope creep," where a package requests access to a broad domain (e.g., <code>*.amazonaws.com</code>) rather than a specific, dedicated bucket endpoint. This broad access allows any malicious code within the org to transmit data to any AWS account, creating a significant data exfiltration risk. The best practice is to restrict remote site endpoints to the absolute most specific URL possible, and actively monitor changes to this metadata.</p>
+        <pre><code class="language-sql">
+-- SOQL query to audit active Remote Site Settings and their target endpoints
+SELECT DeveloperName, EndpointUrl, IsActive, Description FROM RemoteSiteSetting
+        </code></pre>
+        <p>Named Credentials offer a modern, highly secure alternative to Remote Site Settings by combining the endpoint URL and the authentication parameters (such as OAuth tokens or certificates) into a single, managed configuration. Because Named Credentials abstract the authentication logic away from the Apex code, they prevent vendors from hardcoding passwords or secret keys directly within their compiled package classes. During the security audit, architects must verify that the package utilizes Named Credentials for all external integrations. Furthermore, CSP Trusted Sites must be reviewed. CSP sites control where the user's web browser is allowed to send front-end requests (such as AJAX calls) from Lightning components. If a package registers a broad CSP Trusted Site, it could potentially allow front-end components to exfiltrate user session data or keystrokes to an unapproved external server. Every CSP Trusted Site must be validated against the vendor's documented data architecture, ensuring no unauthorised third-party tracking domains are permitted.</p>
+
+        <h2 id="s5">5. Continuous Monitoring of OAuth Authorizations and Connected Apps</h2>
+        <p>The final pillar of a third-party app security framework is the continuous monitoring and governance of OAuth authorizations and Connected Apps. Many AppExchange packages install a Connected App within the subscriber organisation. This Connected App acts as a secure gateway, allowing the vendor's external server to authenticate back into Salesforce via OAuth to perform data synchronization or trigger automated processes without storing user credentials on the external server.</p>
+        <p>Continuous monitoring requires an ongoing review of the Connected App's access policies. Under <code>Setup -> Connected Apps OAuth Usage</code>, administrators can view exactly how many active user sessions are currently authorised for each external application. Architects must establish a strict policy for Connected App permissions. For instance, the "Permitted Users" policy should be set to "Admin approved users are pre-authorised," rather than "All users may self-authorise." This ensures that no standard user can accidentally grant an external application access to the company's Salesforce data without explicit administrative approval. Furthermore, the IP Relaxation policy must be evaluated; relaxing IP restrictions for a Connected App allows the vendor's servers to connect from any location, which might bypass corporate VPN or IP whitelist controls, exposing the API to broader internet-based attack vectors.</p>
+        <pre><code class="language-sql">
+-- SOQL query to inspect active OAuth tokens and track external user connections
+SELECT Id, AppName, UserId, User.Username, DeleteToken, CreateDate FROM OauthTokenType
+        </code></pre>
+        <p>In addition to monitoring active tokens, organisations must schedule regular reviews of the Setup Audit Trail and Event Monitoring logs to detect anomalous behaviour by integration service accounts. If an integration user account assigned to an AppExchange package suddenly begins exporting large volumes of records outside normal business hours, or starts querying objects unrelated to its core function, the security team must have automated transaction security policies in place to alert on or block the transaction. By implementing a lifecycle approach to package governance—spanning rigorous pre-install review, permission containment, data flow verification, and continuous OAuth session auditing—enterprises can confidently harness the innovation of the AppExchange ecosystem while maintaining an absolute lock on their security and compliance boundaries.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>The AppExchange Security Review is a mandatory, rigorous evaluation but represents a point-in-time check that does not replace internal data governance.</li>
+            <li>Managed packages provide strict namespace isolation and obfuscate source Apex code, protecting vendor IP but limiting traditional static analysis.</li>
+            <li>Unmanaged packages offer full visibility into code for custom audits but lack an upgrade path, leading to high maintenance overhead and security drift.</li>
+            <li>Architects must audit packaged permission sets and Apex sharing contexts, enforcing the principle of least privilege over standard vendor configurations.</li>
+            <li>All external data egress endpoints must be mapped and constrained by scrutinising Remote Site Settings, Named Credentials, and CSP Trusted Sites.</li>
+            <li>Connected Apps and OAuth tokens require continuous governance, including strict IP policies and limiting permissions to admin-approved pre-authorised users.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p><strong>Question 1:</strong> Which limitation of the AppExchange Security Review is most critical for an enterprise security officer to understand?</p>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. It only runs on unmanaged packages, leaving managed packages completely unreviewed.</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. It is a point-in-time assessment and does not automatically prevent subsequent configuration changes on the vendor's external servers from altering data-handling behaviours.</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. It completely ignores external web services and only audits Apex code.</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. It does not test for common vulnerabilities like SOQL Injection or Cross-Site Scripting.</div>
+          </div>
+          <div class="quiz-question" id="q2">
+            <p><strong>Question 2:</strong> When installing a commercial managed package, why is the source code of its Apex classes hidden from the subscriber organisation?</p>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Because Salesforce encrypts all managed package metadata using Shield by default.</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">B. To prevent the package from consuming the subscriber's governor limits.</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'right')">C. To protect the vendor's intellectual property and prevent unauthorised modifications to the package's core logic.</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. Because managed packages run exclusively on external databases and do not store code in Salesforce.</div>
+          </div>
+          <div class="quiz-question" id="q3">
+            <p><strong>Question 3:</strong> An architect wants to restrict standard users from self-authorising third-party Connected Apps. Which configuration is the most effective?</p>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'right')">A. Set the Connected App's Permitted Users policy to 'Admin approved users are pre-authorised'.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. Delete the Remote Site Settings associated with the Connected App.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">C. Disable the 'API Enabled' checkbox on all standard profiles.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. Revoke all active OAuth tokens from the Setup Audit Trail page.</div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../sec-007/" class="related-card">
+              <span class="card-id">SEC-007</span>
+              <h4>Salesforce Connected Apps</h4>
+            </a>
+            <a href="../sec-011/" class="related-card">
+              <span class="card-id">SEC-011</span>
+              <h4>Penetration Testing Salesforce</h4>
+            </a>
+            <a href="../sec-012/" class="related-card">
+              <span class="card-id">SEC-012</span>
+              <h4>Security Review for AppExchange</h4>
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">1. The Salesforce AppExchange Security Ecosystem and the Security Review</a></li>
+            <li><a href="#s2">2. Managed vs Unmanaged Packages: Security and IP Boundaries</a></li>
+            <li><a href="#s3">3. A Structured Framework for Auditing Package Permissions and Apex Access</a></li>
+            <li><a href="#s4">4. Verifying Data Flow Boundaries and External Integrations</a></li>
+            <li><a href="#s5">5. Continuous Monitoring of OAuth Authorizations and Connected Apps</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../sec-018/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-018</span>
+            <span class="sidebar-next-title">Incident Response for Salesforce: What to Do When Something Goes Wrong</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../sec-016/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-016</span>
+            <span class="sidebar-next-title">Encryption in Salesforce: Classic vs Shield — When Do You Need It?</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

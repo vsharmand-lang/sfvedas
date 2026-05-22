@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/sec-011/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEC-011: Penetration Testing Salesforce: What's Allowed and What Isn't — SFVedas</title>
+  <meta name="description" content="Penetration Testing Salesforce: What's Allowed and What Isn't. Security assessment agreements and standard vulnerability testing."/>
+  <meta property="og:title" content="SEC-011: Penetration Testing Salesforce: What's Allowed and What Isn't — SFVedas"/>
+  <meta property="og:description" content="Penetration Testing Salesforce: What's Allowed and What Isn't. Security assessment agreements and standard vulnerability testing."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/sec-011/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="SEC-011: Penetration Testing Salesforce: What's Allowed and What Isn't — SFVedas"/>
+  <meta name="twitter:description" content="Penetration Testing Salesforce: What's Allowed and What Isn't. Security assessment agreements and standard vulnerability testing."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "SEC-011: Penetration Testing Salesforce: What's Allowed and What Isn't — SFVedas",
+    "description": "Penetration Testing Salesforce: What's Allowed and What Isn't. Security assessment agreements and standard vulnerability testing.",
+    "url": "https://sfvedas.com/tutorials/sec-011/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/sec-011/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=security-compliance" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Security &amp; Compliance</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">SEC-011</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Security &amp; Compliance</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Penetration Testers & CTOs</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Penetration Testing Salesforce: What's Allowed and What Isn't
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Understanding the Salesforce security assessment agreement, structuring authorization requests, and typical enterprise vulnerabilities to test.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+                        <li>Navigate Salesforce's security assessment policies and penetration testing rules of engagement.</li>
+            <li>Distinguish between customer-responsible layers (e.g., custom code, sharing rules) and platform-responsible layers.</li>
+            <li>Formulate a compliant penetration testing plan that isolates approved targets and avoids restricted systems.</li>
+            <li>Master vulnerability assessment techniques for custom Apex controllers, Visualforce pages, and Lightning Web Components.</li>
+            <li>Implement robust remediations for high-risk findings, including SOQL injection and privilege escalation.</li>
+            <li>Structure formal security assessment documentation to satisfy audit requirements and leadership expectations.</li>
+          </ul>
+        </div>
+
+                <h2 id="s1">1. Rules of Engagement: The Salesforce Security Assessment Agreement</h2>
+        <p>In an era of sophisticated cyber threats, proactive security testing is a non-negotiable requirement for enterprise applications. Penetration testing&mdash;the practice of simulating real-world cyberattacks against a system to discover vulnerabilities&mdash;is a critical component of secure application lifecycle management. However, executing a penetration test against a cloud platform like Salesforce is fundamentally different from testing on-premise infrastructure. Because Salesforce is a multi-tenant environment, a poorly planned automated scan or a distributed attack can degrade system performance for thousands of unrelated organisations or violate federal laws. To perform tests safely and legally, architects and security teams must strictly adhere to Salesforce's Rules of Engagement and its formal Security Assessment Agreement.</p>
+        <p>Historically, Salesforce required customers to submit a detailed notification form and request explicit authorization weeks before executing any penetration test. Today, the process has been modernized. Under the current Security Assessment Agreement, customers are granted pre-authorisation to execute standard, non-disruptive penetration tests and vulnerability assessments without notifying Salesforce in advance, provided they adhere strictly to specific guidelines. The rules of engagement define clear boundaries on what activities are permitted and what is strictly prohibited:</p>
+        <ul>
+          <li><strong>Prohibited Actions:</strong> Under no circumstances may a customer execute a Distributed Denial of Service (DDoS) attack, attempt a physical security breach of Salesforce data centres, execute social engineering campaigns against Salesforce employees, or perform cross-org penetration testing that targets shared database hosts or other customer tenants.</li>
+          <li><strong>Restricted Tools:</strong> High-bandwidth automated vulnerability scanners (such as Nessus, Qualys, or Burp Suite Intruder) must be throttled to prevent resource starvation. Scanners must never target standard Salesforce shared endpoints (like <code>login.salesforce.com</code>) and should only target the customer's specific My Domain subdomain or community URL.</li>
+          <li><strong>Testing Hours and Scope:</strong> Testing must be restricted exclusively to the customer's own tenant and assets, isolating custom interfaces, public Experience Cloud sites, and integrated API endpoints.</li>
+        </ul>
+        <p>Tech leaders must ensure that external security vendors hired to perform penetration tests are fully educated on these rules of engagement. Violating these terms can result in immediate termination of Salesforce sessions, temporary suspension of the Salesforce instance, or legal action for breach of contract.</p>
+
+        <h2 id="s2">2. The Salesforce Shared Responsibility Security Model</h2>
+        <p>To plan a successful and compliant penetration test, architects must understand the Salesforce Shared Responsibility Security Model. In a cloud SaaS environment, security is a shared mandate divided between the platform provider and the customer. Security teams often waste significant time and budget trying to test infrastructure components that are the exclusive responsibility of Salesforce, while ignoring massive security loopholes in their own custom code and configuration layers.</p>
+        <p>The Shared Responsibility Model establishes a clear demarcation line between the platform's infrastructure and the customer's custom implementation:</p>
+        <ul>
+          <li><strong>Platform-Responsible Security (Security of the Cloud):</strong> Salesforce is responsible for securing the underlying physical infrastructure, host operating systems, hypervisors, physical storage arrays, database engines, multi-tenant isolation barriers, and global network routing. Penetration testers should assume that these systems are highly secure and compliant with standard frameworks (such as ISO 27001, SOC 2, and PCI-DSS) and should not waste effort testing them.</li>
+          <li><strong>Customer-Responsible Security (Security in the Cloud):</strong> The customer is responsible for the configuration of their specific Salesforce instance. This includes user profile access controls, permission set architecture, field-level security, record-level sharing rules, custom Apex code, Visualforce and Lightning Web Components (LWC), Connected App settings, integration endpoints, and database security settings.</li>
+        </ul>
+        <p>The vast majority of security breaches in Salesforce instances originate from customer misconfigurations or vulnerable custom code. A penetration test should therefore focus its entire scope on the customer-responsible layers. Testers should evaluate whether a standard user can escalate their privileges, whether guest users can access private objects via Experience Cloud sites, or whether dynamic SOQL queries in custom Apex classes are vulnerable to injection attacks.</p>
+
+        <h2 id="s3">3. Preparing and Structuring the Penetration Testing Environment</h2>
+        <p>A critical operational rule that architects must enforce is that penetration testing must never be executed directly in a live production environment. Executing automated vulnerability scanners or simulating malicious attacks against production data can corrupt operational records, trigger thousands of erroneous automated emails to real customers, deplete API request allocations, and cause service disruptions. To ensure safety and validity, tests must be conducted within a dedicated, isolated sandbox environment.</p>
+        <p>To prepare a sandbox for a penetration test, architects must establish a deliberate, multi-step environment provisioning process:</p>
+        <ol>
+          <li><strong>Provisioning the Sandbox:</strong> Create a newly refreshed Full Sandbox. A Full Sandbox is highly recommended because it mirrors the production data volume, custom metadata, dynamic integrations, and sharing architectures exactly, ensuring that the vulnerability tests yield realistic, actionable results.</li>
+          <li><strong>Obfuscating Customer Data:</strong> Newly refreshed sandboxes copy all production PII. Before handing access to the security testers, administrators must execute Salesforce Data Mask to sanitise all customer names, emails, and phone numbers. This ensures that testers work with simulated datasets, maintaining compliance with data privacy mandates.</li>
+          <li><strong>Configuring Test Accounts:</strong> Provision specific test accounts representing different security personas (e.g., Guest User, Standard Employee, Integration User, System Administrator). This allows testers to perform context-aware privilege escalation tests.</li>
+          <li><strong>Whitelisting Tester IPs:</strong> Add the security testing team's static IP ranges to the sandbox's Trusted IP Ranges. This prevents Salesforce's automated DDoS-prevention systems or IP restriction limits from blocking the testers, allowing the assessment to proceed smoothly.</li>
+        </ol>
+        <p>By establishing these isolation boundaries, organisations can execute deep, rigorous vulnerability assessments without risking the stability or confidentiality of their active production business operations.</p>
+
+        <h2 id="s4">4. Common Vulnerabilities in Custom Apex and Lightning Components</h2>
+        <p>When security vendors execute penetration tests against Salesforce instances, they target custom customisations. While Salesforce's declarative platform is highly secure out of the box, custom code written in Apex or Javascript (LWC) can easily bypass standard security perimeters if developers are not trained in secure coding standards. The most common critical vulnerabilities identified during Salesforce penetration tests include SOQL Injection, Cross-Site Scripting (XSS), and Privilege Escalation due to incorrect sharing configurations.</p>
+        <p><strong>SOQL Injection:</strong> Occurs when user-supplied input is concatenated directly into a dynamic SOQL query string without sanitisation. This allows an attacker to manipulate the query's logic, bypassing database security boundaries to retrieve unauthorized records, delete records, or extract metadata. The following dynamic Apex snippet demonstrates a highly vulnerable dynamic SOQL query:</p>
+
+<pre><code class="language-java">// CRITICAL VULNERABILITY: SOQL Injection via String Concatenation
+public List<Contact> searchContacts(String userInput) {
+    // Dynamic query vulnerable to injection
+    String query = 'SELECT Id, Name, Email FROM Contact WHERE Name LIKE '%' + userInput + '%'';
+    return Database.query(query);
+}</code></pre>
+
+        <p>If an attacker inputs `test%' OR Name LIKE '%`, the query is evaluated as `Name LIKE '%test%' OR Name LIKE '%'`, returning all contacts in the database, regardless of sharing rules. To prevent this, dynamic queries must always utilise bind variables or input sanitisation.</p>
+        <p><strong>Privilege Escalation (Without Sharing):</strong> In Apex, classes execute in the "system context" by default, meaning they bypass the running user's CRUD/FLS and sharing rules. If a developer declares a class using the <code>without sharing</code> keyword, the class has unrestricted access to the database. If this class exposes data to an public Visualforce page or LWC, an unauthenticated guest user can escalate their privileges, querying records they should never see. Penetration testers actively look for public-facing guest profiles to exploit these loose sharing declarations, making strict sharing enforcement a primary security focus.</p>
+        <p>To identify these custom code vulnerabilities before a formal penetration test, development teams must integrate static analysis tools into their deployment pipelines. The industry standard for Apex static analysis is PMD, which runs an extensive ruleset specifically designed for Salesforce security. PMD checks for rules like <code>ApexSharingViolations</code> (identifying classes missing sharing declarations) and <code>ApexBadAPICheck</code> (detecting risky API calls or dynamic DML). When PMD detects a violation, it generates a warning that blocks the continuous integration (CI/CD) pipeline. Developers should never bypass these warnings using suppressions (such as <code>@SuppressWarnings('PMD.ApexSharingViolations')</code>) without formal architectural review and sign-off. Enforcing PMD rules guarantees that the vast majority of common code vulnerabilities are remediated during development, allowing the penetration test to focus on complex, context-aware logical exploits rather than simple coding mistakes.</p>
+
+        <h2 id="s5">5. Advanced Remediation and Secure Coding Design Patterns</h2>
+        <p>Remediating high-risk findings identified during a penetration test requires a systematic transition to secure coding design patterns. Architects must establish strict Apex review checklists, ensuring that developers utilise modern Salesforce features designed to enforce security boundaries programmatically at the database layer.</p>
+        <p>To eliminate SOQL injection, developers should default to static SOQL queries. Static SOQL natively protects against injection because the compiler treats all user inputs as bind variables rather than executable database code. If dynamic SOQL is absolutely mandatory (for instance, when building complex search filters with dynamic field lists), input must be sanitised using <code>String.escapeSingleQuotes()</code> or bind variables. The following Apex code demonstrates the three secure remediation options to correct the vulnerable dynamic query:</p>
+
+<pre><code class="language-java">public class SecureContactSearchController {
+    
+    // Remediation Option 1: Standard Static SOQL with Bind Variables (Highly Recommended)
+    public List<Contact> searchContactsStatic(String userInput) {
+        String searchPattern = '%' + userInput + '%';
+        // Native bind variables are immune to SOQL injection
+        return [SELECT Id, Name, Email FROM Contact WHERE Name LIKE :searchPattern WITH USER_MODE];
+    }
+    
+    // Remediation Option 2: Dynamic SOQL with Bind Variables
+    public List<Contact> searchContactsDynamicBind(String userInput) {
+        String searchPattern = '%' + userInput + '%';
+        String query = 'SELECT Id, Name, Email FROM Contact WHERE Name LIKE :searchPattern';
+        // Dynamic queries utilizing local bind variables are secure
+        return Database.query(query);
+    }
+    
+    // Remediation Option 3: Dynamic SOQL with Single Quote Escaping (Fallback)
+    public List<Contact> searchContactsDynamicEscape(String userInput) {
+        // Escape single quotes to prevent injection attacks
+        String escapedInput = String.escapeSingleQuotes(userInput);
+        String query = 'SELECT Id, Name, Email FROM Contact WHERE Name LIKE '%' + escapedInput + '%'';
+        return Database.query(query);
+    }
+}</code></pre>
+
+        <p>To address privilege escalation and enforce CRUD/FLS, developers must declare Apex classes using the <code>with sharing</code> or <code>inherited sharing</code> keywords. Furthermore, for SOQL queries, developers should append the <code>WITH USER_MODE</code> database clause (introduced in recent releases). <code>WITH USER_MODE</code> forces the query engine to evaluate both sharing rules and field-level security permissions for the running user, throwing a standard exception if the user attempts to query a field or object they lack permission to access. For DML operations, architects should deploy the <code>Security.stripInaccessible()</code> method, which programmatically strips out fields from sObject lists that the running user is not authorised to create or update, maintaining airtight security compliance across all custom interfaces.</p>
+        <p>Architects must understand the granular mechanics of <code>Security.stripInaccessible()</code> to leverage it effectively. This method evaluates the running user's FLS and CRUD permissions for a specified access type&mdash;either <code>AccessType.READABLE</code>, <code>AccessType.CREATABLE</code>, or <code>AccessType.UPDATABLE</code>. It returns a <code>SObjectAccessDecision</code> object containing a sanitised list of sObjects with all unauthorised fields removed, as well as a list of fields that were stripped. Crucially, when handling nested lookup relationships or child subqueries (e.g., querying Contacts as a subquery of Accounts), the method recursively inspects the entire object graph, stripping unauthorized child fields automatically. This makes it an invaluable utility for secure API endpoints, as it prevents accidental field leakage in complex JSON payloads. For DML operations, checking the stripped fields list allows the code to throw a descriptive, custom exception back to the client application, ensuring transparent and secure transaction handling.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+                        <li>Adhere strictly to Salesforce's Rules of Engagement and Security Assessment Agreement when coordinating penetration testing.</li>
+            <li>Focus penetration testing efforts exclusively on customer-responsible layers, such as Apex code, sharing models, and custom interfaces.</li>
+            <li>Never execute vulnerability assessments or automated scanning against live production instances; always utilise an isolated Sandbox.</li>
+            <li>Eliminate dynamic SOQL injection vulnerabilities by defaulting to static SOQL queries or sanitising dynamic inputs.</li>
+            <li>Enforce database security boundaries programmatically in Apex using <code>with sharing</code>, <code>WITH USER_MODE</code>, and <code>Security.stripInaccessible()</code>.</li>
+            <li>Automate code reviews and deploy static analysis tools (like PMD) to detect and remediate vulnerabilities early in the development lifecycle.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+                    <div class="quiz-question" id="q1">
+            <p><strong>Question 1:</strong> According to Salesforce's rules of engagement, which of the following activities is strictly prohibited during a customer's security assessment?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Testing custom dynamic Apex controllers in a full sandbox.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">B. Scanning public Experience Cloud endpoints using a throttled web scanner.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">C. Executing a Distributed Denial of Service (DDoS) attack against Salesforce endpoints.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. Assessing field-level security settings for integration profiles.</div>
+            </div>
+          </div>
+          
+          <div class="quiz-question" id="q2">
+            <p><strong>Question 2:</strong> What is the safest way to prevent SOQL injection vulnerabilities in dynamic Apex queries that rely on user-supplied inputs?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Declaring the Apex class with the 'without sharing' keyword.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. Utilizing static SOQL with bind variables, or applying String.escapeSingleQuotes() if dynamic SOQL is mandatory.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. Encrypting the user input using probabilistic encryption before passing it to the query.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. Routing all database queries through standard Named Credentials.</div>
+            </div>
+          </div>
+          
+          <div class="quiz-question" id="q3">
+            <p><strong>Question 3:</strong> Which clause should be appended to a SOQL query to force the execution engine to evaluate both sharing rules and field-level security for the running user?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. WITH SYSTEM_MODE</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. WITH SECURITY_ENFORCED</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. WITH USER_MODE</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. WITHOUT SHARING</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../sec-012/" class="related-card">
+              <span class="card-id">SEC-012</span>
+              <h4>Security Review for AppExchange</h4>
+            </a>
+            <a href="../sec-017/" class="related-card">
+              <span class="card-id">SEC-017</span>
+              <h4>Third-Party App Security</h4>
+            </a>
+            <a href="../sec-020/" class="related-card">
+              <span class="card-id">SEC-020</span>
+              <h4>Security Hardening Checklist</h4>
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+                        <li><a href="#s1">1. Rules of Engagement: The Salesforce Security Assessment Agreement</a></li>
+            <li><a href="#s2">2. The Salesforce Shared Responsibility Security Model</a></li>
+            <li><a href="#s3">3. Preparing and Structuring the Penetration Testing Environment</a></li>
+            <li><a href="#s4">4. Common Vulnerabilities in Custom Apex and Lightning Components</a></li>
+            <li><a href="#s5">5. Advanced Remediation and Secure Coding Design Patterns</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../sec-012/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-012</span>
+            <span class="sidebar-next-title">Security Review for AppExchange: What the Process Actually Tests</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../sec-010/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-010</span>
+            <span class="sidebar-next-title">Audit Trail and Event Monitoring: Who Did What and When</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

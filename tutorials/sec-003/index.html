@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/sec-003/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEC-003: Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail — SFVedas</title>
+  <meta name="description" content="Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail. Technical deep dive."/>
+  <meta property="og:title" content="SEC-003: Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail — SFVedas"/>
+  <meta property="og:description" content="Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail. Technical deep dive."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/sec-003/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="SEC-003: Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail — SFVedas"/>
+  <meta name="twitter:description" content="Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail. Technical deep dive."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "SEC-003: Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail — SFVedas",
+    "description": "Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail. Technical deep dive.",
+    "url": "https://sfvedas.com/tutorials/sec-003/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/sec-003/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=security-compliance" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Security &amp; Compliance</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">SEC-003</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Security &amp; Compliance</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Lead Security Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Salesforce Shield: Platform Encryption, Event Monitoring, and Field Audit Trail
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        An architectural deep dive into key lifecycle management, real-time event logging, and long-retention policy audits for highly regulated environments.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Designing a robust encryption strategy using Shield Platform Encryption (Deterministic vs Probabilistic).</li>
+<li>Structuring Tenant Secret management, rotation cycles, and key derivation processes.</li>
+<li>Capturing, analysing, and acting upon real-time security events using Real-Time Event Monitoring.</li>
+<li>Implementing Field Audit Trail (FAT) to enforce a 10-year audit history retention policy.</li>
+<li>Overcoming technical limitations, indexing challenges, and performance impacts of Shield.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">Shield Platform Encryption Architecture (Probabilistic vs Deterministic)</h2>
+<p>
+Salesforce Shield Platform Encryption provides enterprise-grade data encryption at rest while maintaining critical CRM functionalities. The foundation of this system relies on a two-tier key architecture consisting of a Master Secret managed by Salesforce and a Tenant Secret managed by the customer. When these secrets are combined, the application server generates a unique Data Encryption Key (DEK) locally to encrypt and decrypt fields on the fly using standard AES-256 encryption.
+</p>
+<p>
+Architects must choose between two encryption schemes: Probabilistic and Deterministic. Probabilistic encryption is the most secure option. It generates completely different, random ciphertext every single time the same plaintext is encrypted. For instance, if you encrypt the word "Vedas" twice, the resulting ciphertexts will not match. While highly secure, this method prevents users from filtering, searching, or grouping by this field in SOQL queries, since the database cannot perform match operations on dynamic ciphertext.
+</p>
+<p>
+To support standard search and filtering requirements, Salesforce introduced Deterministic encryption. With Deterministic encryption, the same plaintext always yields the identical ciphertext (e.g. "Vedas" always encrypts to "Xy78z"). This allows exact match filtering in WHERE clauses, index structures, and report filters. Within Deterministic encryption, you must choose between <code>Case-Sensitive</code> (requires precise case matching) and <code>Case-Insensitive</code> (converts text to lowercase prior to encryption) schemes.
+</p>
+<p>
+When designing schemas, probabilistic encryption should be utilised for highly sensitive fields that do not require search filtering (such as Credit Card Numbers or Social Security Numbers). Conversely, deterministic encryption is suited for fields like Email Address or Account Name that are regularly queried.
+</p>
+
+<h2 id="s2">Secret Management, Rotation, and Key Derivation</h2>
+<p>
+Securing and managing encryption keys is a critical governance requirement. Salesforce Shield employs a secure, hardware-based key derivation process. The tenant secret is generated using a secure Hardware Security Module (HSM) on demand. Architects can choose to have Salesforce generate this secret, or they can opt for a "Bring Your Own Key" (BYOK) architecture, where the tenant secret is generated in their own external cloud key manager (such as AWS KMS) and uploaded securely to Salesforce.
+</p>
+<p>
+To maintain standard compliance, organizations must establish a routine rotation cycle for tenant secrets. Rotating a secret changes the active key used for encrypting new data. Crucially, legacy archived data remains encrypted with the old archived secrets. If you rotate your tenant secret, historical data is not automatically re-encrypted. The legacy keys must remain stored in an archived state within the org to allow decryption on the fly, unless you trigger a full data sync to rewrite and re-encrypt historical records.
+</p>
+<p>
+Managing tenant secrets programmatically can be achieved via the Tooling API. The following metadata pattern outlines the logical structure of a TenantSecret representation in Salesforce:
+</p>
+<pre><code class="language-java">
+// Conceptual representation of querying Tenant Secret metadata for compliance auditing
+public class TenantKeyAuditService {
+    public static void logActiveSecrets() {
+        // Querying the active tenant secret metadata via Tooling API mock/query structure
+        List&lt;TenantSecretInfo&gt; secrets = new List&lt;TenantSecretInfo&gt;();
+        // Standard compliance mandates that we check for active, archived, and destroyed key states
+        for (TenantSecretInfo secret : secrets) {
+            System.debug('Secret Id: ' + secret.Id + ' Status: ' + secret.Status + ' Type: ' + secret.Type);
+        }
+    }
+    
+    private class TenantSecretInfo {
+        public String Id;
+        public String Status; // Active, Archived, Destroyed
+        public String Type;   // DataTemplate, SearchIndex, Analytics
+    }
+}
+</code></pre>
+<p>
+Archiving a key makes it read-only, which is necessary for historical decryption. Under no circumstances should you destroy an archived tenant secret unless you are absolutely certain that no data in the database remains encrypted with that specific key. Destroying an archived secret without re-encrypting the associated data will lead to permanent, unrecoverable data loss.
+</p>
+
+<h2 id="s3">Real-Time Event Monitoring and Threat Detection</h2>
+<p>
+Salesforce Shield Event Monitoring exposes deep behavioural analytics by tracking user activity across more than 50 different event types, including logins, report exports, API queries, and page views. While legacy Event Monitoring relies on daily log files stored in the <code>EventLogFile</code> object, Real-Time Event Monitoring leverages the Salesforce Event Bus to broadcast events as they occur, enabling instant threat mitigation.
+</p>
+<p>
+Using Transaction Security Policies (built on the enhanced policy framework), architects can write Apex classes that continuously evaluate user behaviour against risk thresholds. If a user attempts to export more than a specific limit of Contact records, the system can dynamically block the transaction, log the threat, and prompt the user to complete Multi-Factor Authentication (MFA).
+</p>
+<p>
+The following Apex pattern illustrates how to construct an enhanced Transaction Security policy to intercept and block high-volume report exports:
+</p>
+<pre><code class="language-java">
+global class HighVolumeExportBlocker implements TxnSecurity.EventCondition {
+    public boolean evaluate(SObject event) {
+        if (event instanceof ReportEvent) {
+            ReportEvent repEvent = (ReportEvent) event;
+            // Intercept report exports where the row count exceeds 1000 records
+            if (repEvent.Operation == 'Export' && repEvent.RowsProcessed > 1000) {
+                return true; // Trigger policy action (e.g. block or enforce MFA)
+            }
+        }
+        return false;
+    }
+}
+</code></pre>
+<p>
+Deploying this automated defensive logic directly onto the Salesforce Event Bus secures the perimeter of the CRM, ensuring that external threats or malicious insider behaviours are instantly blocked before data leakage can occur.
+</p>
+
+<h2 id="s4">Field Audit Trail (FAT) and Historical Data Archival</h2>
+<p>
+Standard Field History Tracking is limited to 20 fields per object and retains history records for up to 18 months. In highly regulated sectors like banking, healthcare, and insurance, standard compliance rules require changes to be audited for up to a decade. Field Audit Trail (FAT) elevates this limit, allowing organizations to track up to 60 fields per object and store history records for up to 10 years.
+</p>
+<p>
+FAT achieves this long-term storage capacity by offloading history records into high-scale big tables (Big Objects). Managing the retention lifecycle of these histories is configured via the Metadata API using the <code>HistoryRetentionPolicy</code> component. This XML-based policy specifies how long history records remain in standard active storage before being automatically archived into big tables.
+</p>
+<p>
+Below is an example of a <code>HistoryRetentionPolicy</code> metadata configuration for a custom object:
+</p>
+<pre><code class="language-java">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;CustomObject xmlns="http://soap.sforce.com/2006/04/metadata"&gt;
+    &lt;historyRetentionPolicy&gt;
+        &lt;archiveAfterMonths&gt;6&lt;/archiveAfterMonths&gt;
+        &lt;archiveRetentionYears&gt;10&lt;/archiveRetentionYears&gt;
+        &lt;gracePeriodDays&gt;30&lt;/gracePeriodDays&gt;
+    &lt;/historyRetentionPolicy&gt;
+&lt;/CustomObject&gt;
+</code></pre>
+<p>
+Once archived into big tables, these histories can be queried using standard SOQL (provided you filter exactly on the primary key fields of the Big Object) or by using Async SOQL for complex reporting. This architecture ensures that historical changes remain queryable for audits without degrading the performance of active CRM databases.
+</p>
+
+<h2 id="s5">Performance Optimisation and Technical Limitations of Shield</h2>
+<p>
+While Shield Platform Encryption is essential for security compliance, it introduces specific technical limitations and performance impacts that must be carefully managed. When encryption is active, the database must decrypt fields on the fly, which can introduce processing latency during high-volume data loads.
+</p>
+<p>
+The most significant impact is on database indexing. Standard custom indexes cannot be built directly on probabilistically encrypted fields because the index cannot match random ciphertexts. Consequently, using a probabilistically encrypted field in a SOQL <code>WHERE</code> clause will trigger a full table scan, degrading query performance and potentially resulting in query timeouts on large tables.
+</p>
+<p>
+To optimise performance and maintain scalability, architects should adhere to the following best practices:
+</p>
+<ul>
+    <li>Prefer Deterministic encryption for fields that must be used in search forms, filters, or SOQL queries.</li>
+    <li>Use custom indexes specifically derived for deterministic fields by coordinating with Salesforce Support.</li>
+    <li>Avoid encrypting system fields, formula fields, or fields used in active workflow rules and validation rules.</li>
+    <li>Optimise search layouts and restrict wildcard searches, as standard searching behaves differently with encrypted strings.</li>
+</ul>
+<p>
+By systematically addressing indexing challenges, managing key lifecycles, and writing precise real-time transaction guards, you can design a secure, compliant Salesforce org that scales effortlessly under extreme workloads.
+</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Understand that Probabilistic encryption generates random ciphertexts, preventing any SOQL search or filtering.</li>
+<li>Deploy Deterministic encryption (Case-Sensitive or Case-Insensitive) when you must search or filter on encrypted fields.</li>
+<li>Establish robust tenant secret rotation policies, and never destroy archived secrets to avoid permanent data corruption.</li>
+<li>Leverage Real-Time Event Monitoring and Transaction Security Policies to intercept and block unauthorised high-volume exports.</li>
+<li>Utilise Field Audit Trail (FAT) to track changes on up to 60 fields per object and retain histories for up to 10 years.</li>
+<li>Configure the HistoryRetentionPolicy metadata component to define the transition rules from active storage to big tables.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+  <p><strong>Question 1:</strong> What is the main operational difference between Probabilistic and Deterministic encryption in Salesforce Shield?</p>
+  <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Probabilistic encryption allows exact match filtering, while Deterministic does not.</div>
+  <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Deterministic allows exact match filtering in WHERE clauses, whereas Probabilistic does not support search filtering.</div>
+  <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Probabilistic encryption is only available for custom objects.</div>
+  <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. Deterministic encryption is significantly less secure because it uses standard MD5 hashing.</div>
+</div>
+
+<div class="quiz-question" id="q2">
+  <p><strong>Question 2:</strong> How is the actual Data Encryption Key (DEK) generated in Salesforce Shield?</p>
+  <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. It is generated by the user's browser during authentication.</div>
+  <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">B. Stored permanently inside the Salesforce metadata database.</div>
+  <div class="quiz-option" onclick="answer(this, 'q2', 'right')">C. Derived locally on the application server by combining the Salesforce master secret and the customer-managed Tenant Secret.</div>
+  <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. Retained inside the external cloud directory server.</div>
+</div>
+
+<div class="quiz-question" id="q3">
+  <p><strong>Question 3:</strong> Which metadata component is configured to define the archive and retention policy for Field Audit Trail?</p>
+  <div class="quiz-option" onclick="answer(this, 'q3', 'right')">A. HistoryRetentionPolicy</div>
+  <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. FieldAuditTrailPolicy</div>
+  <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">C. ObjectHistoryRetention</div>
+  <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. DataRetentionSchedule</div>
+</div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../sec-010/" class="related-card">
+              <span class="card-id">SEC-010</span>
+              <h4>Audit Trail and Event Monitoring</h4>
+            </a>
+            <a href="../sec-016/" class="related-card">
+              <span class="card-id">SEC-016</span>
+              <h4>Encryption in Salesforce: Classic vs Shield</h4>
+            </a>
+            <a href="../sec-019/" class="related-card">
+              <span class="card-id">SEC-019</span>
+              <h4>Data Classification</h4>
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Shield Platform Encryption Architecture (Probabilistic vs Deterministic)</a></li>
+<li><a href="#s2">Secret Management, Rotation, and Key Derivation</a></li>
+<li><a href="#s3">Real-Time Event Monitoring and Threat Detection</a></li>
+<li><a href="#s4">Field Audit Trail (FAT) and Historical Data Archival</a></li>
+<li><a href="#s5">Performance Optimisation and Technical Limitations of Shield</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../sec-004/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-004</span>
+            <span class="sidebar-next-title">Zero-Trust Security in Salesforce: The Modern Approach</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../sec-002/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-002</span>
+            <span class="sidebar-next-title">GDPR Compliance in Salesforce</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

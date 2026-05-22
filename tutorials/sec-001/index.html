@@ -482,7 +482,7 @@ WITH    SECURITY_ENFORCED
         <p>When reviewing a Salesforce org's security posture, certain findings should immediately escalate the concern level. <strong>More than 20 active profiles</strong> suggests profile sprawl and indicates the permission model has grown organically without design. <strong>Any profile with View All Data or Modify All Data outside System Admin</strong> is almost always a mistake. <strong>Any external-facing integration user with more than Read access to financial objects</strong> is a risk that should be investigated immediately. <strong>A role hierarchy with more than 7 levels of depth</strong> suggests an org-chart-driven design that will cause performance problems. And <strong>any org that has never had a security review</strong> — and has been live for more than two years — should be assumed to have at least three of the misconfigurations listed above.</p>
 
         <!-- KEY TAKEAWAYS -->
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Salesforce security operates in four layers — object, field, record, and system — each of which can only restrict, never grant above the layer above it. Diagnose access issues top-down, always starting at the object level.</li>
@@ -571,9 +571,9 @@ WITH    SECURITY_ENFORCED
         </div>
         <div class="sidebar-next">
           <h4>Next Tutorial</h4>
-          <a href="../arch-001/" class="sidebar-next-link">
-            <span class="sidebar-next-id">ARCH-001</span>
-            <span class="sidebar-next-title">Multi-Tenant Architecture</span>
+          <a href="../sec-002/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-002</span>
+            <span class="sidebar-next-title">GDPR Compliance in Salesforce: A Technical Implementation Guide</span>
             <span class="sidebar-next-arrow">&#8594;</span>
           </a>
         </div>

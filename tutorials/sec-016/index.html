@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/sec-016/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEC-016: Encryption in Salesforce: Classic vs Shield — When Do You Need It? — SFVedas</title>
+  <meta name="description" content="Encryption in Salesforce: Classic vs Shield. Technical overhead, search restrictions, and functional limitations."/>
+  <meta property="og:title" content="SEC-016: Encryption in Salesforce: Classic vs Shield — When Do You Need It? — SFVedas"/>
+  <meta property="og:description" content="Encryption in Salesforce: Classic vs Shield. Technical overhead, search restrictions, and functional limitations."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/sec-016/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="SEC-016: Encryption in Salesforce: Classic vs Shield — When Do You Need It? — SFVedas"/>
+  <meta name="twitter:description" content="Encryption in Salesforce: Classic vs Shield. Technical overhead, search restrictions, and functional limitations."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "SEC-016: Encryption in Salesforce: Classic vs Shield — When Do You Need It? — SFVedas",
+    "description": "Encryption in Salesforce: Classic vs Shield. Technical overhead, search restrictions, and functional limitations.",
+    "url": "https://sfvedas.com/tutorials/sec-016/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/sec-016/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=security-compliance" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Security &amp; Compliance</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">SEC-016</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Security &amp; Compliance</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Lead Architects & Security Officers</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Encryption in Salesforce: Classic vs Shield — When Do You Need It?
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Analyzing technical overhead, search and filter restrictions, and functional limitations of database encryption vs field history logs.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Understand the core architectural differences between Classic Encryption and Shield Platform Encryption.</li>
+            <li>Evaluate the cryptographic variance between probabilistic and deterministic encryption schemes.</li>
+            <li>Identify the severe functional impacts on filtering, sorting, list views, and reporting when using encryption.</li>
+            <li>Formulate a strict key lifecycle and rotation programme for managing customer-managed tenant secrets.</li>
+            <li>Determine key criteria for choosing when to deploy encryption versus other platform security controls.</li>
+            <li>Learn how Apex code handles encrypted fields at rest and during execution.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">1. The Cryptographic Foundations: Classic vs Shield Encryption</h2>
+        <p>In the contemporary enterprise landscape, data protection is not merely a technical preference; it is a fundamental regulatory mandate. Within the Salesforce ecosystem, architects and security officers are frequently confronted with the critical decision of implementing data encryption at rest. To execute this decision correctly, one must understand the distinct cryptographic foundations of Classic Encryption and Salesforce Shield Platform Encryption. These two technologies operate at completely different tiers of the platform architecture, offering varied levels of security, administrative control, and functional impact.</p>
+        <p>Classic Encryption is a native, free feature of the Salesforce platform. It operates strictly at the application tier. When a field is designated as Classic Encrypted (using the custom field type <code>Text (Encrypted)</code>), Salesforce encrypts the data using a shared 128-bit Advanced Encryption Standard (AES) key. This key is entirely managed by Salesforce; the subscriber organisation has no visibility into, nor control over, its lifecycle, rotation, or composition. The primary objective of Classic Encryption is not database-level threat mitigation, but rather user-interface level data masking. It is designed to prevent standard users from seeing sensitive values in plain text on their screens while allowing authorised administrators (with the "View Encrypted Data" permission) to view the actual data. This is a critical distinction: the data is encrypted at the application layer before being written to the database, but it shares a key infrastructure with other customers and offers no granular key governance.</p>
+        <p>In contrast, Salesforce Shield Platform Encryption is a premium, enterprise-grade offering that integrates deeply with the database tier. Shield does not merely mask data at the UI layer; it encrypts the underlying data at rest across the entire Salesforce multi-tenant infrastructure. It employs a much more robust cryptographic standard, utilizing 256-bit AES encryption in Cipher Block Chaining (CBC) mode. More importantly, Shield introduces a split-key architecture that empowers organisations with Bring Your Own Key (BYOK) capabilities. The final encryption key is derived dynamically by a secure key derivation function (KDF) using two distinct components: a master secret generated by Salesforce's Hardware Security Modules (HSMs) and a tenant secret generated and managed solely by the subscriber organisation. This means that even Salesforce personnel cannot decrypt the customer's data, as they lack access to the customer's tenant secret. Shield Platform Encryption provides comprehensive coverage, allowing architects to encrypt standard fields, custom fields, files, attachments, search indexes, and even platform events, thereby meeting stringent compliance frameworks like GDPR, HIPAA, and PCI-DSS.</p>
+
+        <h2 id="s2">2. Classic Encryption: Capabilities, Use Cases, and Major Limitations</h2>
+        <p>Classic Encryption represents a legacy approach to field-level security that remains highly useful for specific, low-complexity scenarios. Its implementation is straightforward: an administrator creates a custom field of type <code>Text (Encrypted)</code>, defines a masking character (such as an asterisk) and a masking schema (such as masking all characters or exposing only the last four digits), and establishes the field length. Because it operates at the application tier, the data is stored in the database in a formatted ciphertext structure. Only users whose profiles or permission sets contain the "View Encrypted Data" system permission can see the decrypted value in the user interface. For all other users, the value remains obscured by the designated masking pattern.</p>
+        <p>While this UI masking is highly effective for basic use cases like storing credit card numbers or government identity numbers that only a select payroll or billing team should see, the functional limitations of Classic Encryption are severe and far-reaching. First and foremost, Classic Encrypted fields cannot be indexed by the Salesforce database engine. This lack of indexing means that these fields cannot be used in search filters, list view filters, lookup filters, or report criteria. If a business process requires users to locate a record by searching for a Classic Encrypted value, the platform will return an error or fail to locate the record entirely. Furthermore, Classic Encrypted fields cannot be designated as Unique or as External IDs, preventing them from being used as target keys in upsert operations or integration mapping.</p>
+        <p>From a development perspective, Classic Encrypted fields introduce strict programming constraints. They cannot be referenced in formula fields, workflow rules, validation rules, or process builder criteria. Any attempt to access the field value in an Apex class will return the decrypted plain text if the executing context has the necessary permissions, but will return the masked string otherwise. This unpredictable behaviour can cause silent failures in integration services or Apex triggers if the system context does not align perfectly with user permissions. Furthermore, because Classic Encryption is restricted exclusively to custom text fields, standard fields (such as a Contact's primary email address or a Lead's phone number) cannot be protected using this tool, forcing organisations to create redundant custom fields and complex synchronization routines to secure standard customer details.</p>
+
+        <h2 id="s3">3. Salesforce Shield Platform Encryption: Deterministic vs Probabilistic Schemes</h2>
+        <p>To overcome the indexing and functional roadblocks of Classic Encryption while elevating cryptographic strength, Salesforce Shield Platform Encryption offers two distinct encryption schemes: Probabilistic Encryption and Deterministic Encryption. Choosing the correct scheme is one of the most critical architectural decisions during a Shield rollout, as it represents a direct trade-off between cryptographic strength and application functionality.</p>
+        <p>Probabilistic Encryption is the default and cryptographically strongest scheme. It uses AES-256 in CBC mode with a randomly generated Initialization Vector (IV) for every single encryption transaction. Because the IV is unique each time data is written, the exact same plaintext value (for example, "London") will result in entirely different ciphertexts every time it is saved. This cryptographic high-entropy behaviour ensures absolute protection against pattern analysis and ciphertext-only attacks. However, this high security comes at a significant functional cost. Because the ciphertext for "London" on Record A is different from the ciphertext for "London" on Record B, the database cannot perform any index lookups or equality checks. Consequently, fields encrypted with the probabilistic scheme cannot be filtered in SOQL queries, cannot be used in reports, cannot be sorted, and cannot be used in list view search criteria. It is an absolute barrier to search and filter operations, making it suitable only for unstructured data, notes, attachments, or fields that are accessed purely as read-only values on a known record detail page.</p>
+        <p>To restore search and filter capabilities, Salesforce introduced Deterministic Encryption. This scheme uses a static or predictable IV derived from the plaintext value and the key, or a specialised Feistel-based format. Under this scheme, the plaintext "London" will always generate the exact same ciphertext whenever it is encrypted within the organisation. Because of this consistency, the database engine can build indexes on the ciphertext values. Consequently, when a user or an Apex class executes a SOQL query using an exact match operator (e.g., <code>WHERE City__c = 'London'</code>), Salesforce can encrypt the query parameter "London" using the same deterministic algorithm, locate the matching ciphertext in the database index, and return the records instantly. Deterministic encryption supports exact-match filtering in SOQL, lookup filters, report filters, and list views. However, architects must remain aware that it does not support range-based filtering (such as <code>WHERE Age__c > 30</code>), fuzzy matching, or wildcard searches using the <code>LIKE</code> operator (such as <code>WHERE City__c LIKE 'Lon%'</code>). The data must be matched exactly, and the field must be configured for deterministic search before the index can be built.</p>
+        <pre><code class="language-java">
+// Example of a valid exact-match SOQL query on a deterministically encrypted custom field
+List<Contact> contacts = [SELECT Id, LastName, National_ID__c FROM Contact WHERE National_ID__c = '123-45-6789'];
+System.debug('Found Contact: ' + contacts.size());
+        </code></pre>
+
+        <h2 id="s4">4. The Architectural and Functional Impact of Shield Encryption</h2>
+        <p>Deploying Salesforce Shield Platform Encryption introduces a profound architectural overlay that impacts almost every subsystem of the platform. Unlike Classic Encryption, which is transparent to the database engine but opaque to UI filters, Shield is transparent to the UI (relying on standard FLS for access control) but alters how the database engine interacts with indexes, search engines, and background processes. When Shield is activated, the application server handles decryption on-the-fly as records are retrieved. If a user has Field-Level Security access to see the field, they will see the plain text; if not, standard FLS restrictions apply. This eliminates the need for the special "View Encrypted Data" permission for everyday business activities, standardising data access control under a single permission model.</p>
+        <p>However, the downstream impacts on standard Salesforce features can be disruptive if not meticulously analysed during the design phase. For instance, standard search functionality (SOSL) is heavily impacted. When a field is probabilistically encrypted, it is completely excluded from the search index; searching for a keyword will never return records based on that field. When a field is deterministically encrypted, it is indexed, but users must search for the exact, case-sensitive term to retrieve a match. Furthermore, Shield alters the behaviour of skin-deep features like Lead Conversion. If a custom field on the Lead is encrypted, it can only map to a custom field on the Contact or Account that is also encrypted using the exact same scheme and key. Similar restrictions apply to custom formula fields: a formula cannot reference a probabilistically encrypted field, and can only reference a deterministically encrypted field under strict conditions where no text manipulation or range calculation occurs.</p>
+        <p>For custom development, developers must write Apex triggers and classes with extreme caution. Standard triggers that execute custom validation or data cleansing must be tested to ensure they do not perform unsupported operations on encrypted fields. For example, if a developer attempts to concatenate an encrypted field with a plain-text string, or attempts to execute a dynamic SOQL query with a wildcard filter on an encrypted field, the transaction will fail at runtime. Architects must also evaluate third-party integrations. When external systems fetch data via REST or SOAP APIs, the data is automatically decrypted by Salesforce before being sent across the wire, provided the integration user account has the appropriate FLS permissions. This means that Shield protects data "at rest" within the Salesforce database, but does not secure it "in transit" or once it leaves the platform; integrations must employ transport-layer security (TLS 1.3) and secure endpoints to maintain end-to-end data protection.</p>
+        <pre><code class="language-java">
+// Apex utility method to demonstrate check for field encryption status programmatically
+public static void checkFieldEncryption() {
+    Schema.DescribeFieldResult dfr = Schema.sObjectType.Contact.fields.National_ID__c.getDescribe();
+    System.debug('Is Encrypted at Rest: ' + dfr.isEncrypted());
+    // Best practice: Always verify FLS before querying or displaying sensitive data
+    if (dfr.isAccessible()) {
+        System.debug('Field is accessible for current execution context.');
+    } else {
+        System.debug('Field access denied: Enforcing least privilege.');
+    }
+}
+        </code></pre>
+
+        <h2 id="s5">5. Designing a Risk-Based Encryption Strategy and Governance Model</h2>
+        <p>Because of the functional overhead and potential performance penalties associated with database-level encryption, enterprise organisations must avoid the temptation to "encrypt everything." Instead, lead architects must design a risk-based encryption strategy that aligns with corporate governance models and regulatory requirements. The first step in this strategy is comprehensive data classification. Every custom and standard field must be analysed to determine its sensitivity level and compliance classification. Encryption should be reserved exclusively for fields classified as "High Sensitivity" or "Restricted," such as personally identifiable information (PII), protected health information (PHI), or cardholder data (CHD).</p>
+        <p>Once the target fields are identified, a structured Key Management Lifecycle must be established. Under Shield Platform Encryption's split-key architecture, managing the tenant secret is a critical administrative responsibility. A tenant secret must be rotated regularly in accordance with the organisation's security policy (e.g., every 90 or 180 days). When a tenant secret is rotated, Salesforce generates a new active key which is used to encrypt all newly created or updated records. However, historically encrypted records remain encrypted using the archived tenant secret. To bring all historical data up to the latest key standard, administrators must trigger a background data sync or contact Salesforce Support to execute an active re-encryption process. Furthermore, tenant secrets must never be destroyed unless the organisation is absolutely certain that no data remains encrypted under that specific archived key; deleting or destroying a tenant secret without careful validation will result in permanent, unrecoverable data corruption for all records encrypted with that key.</p>
+        <p>A mature governance model also requires robust business continuity and disaster recovery planning. Architects must implement a secure process for exporting and backing up tenant secrets. These backups should be stored in highly secure, off-platform locations, such as an enterprise key vault or a hardware security module, accessible only by authorised security trustees under strict dual-control (four-eyes) protocols. By establishing a rigorous governance framework, automating key rotation routines, and carefully balancing the deployment of probabilistic and deterministic schemes, enterprise organisations can successfully safeguard their most sensitive assets while preserving the functional richness and performance of the Salesforce platform.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Classic Encryption is an application-level UI masking tool designed for custom text fields, whereas Shield Platform Encryption is a database-level encryption engine.</li>
+            <li>Shield Platform Encryption utilizes a robust AES-256 split-key architecture, combining a Salesforce-managed master secret with a customer-managed tenant secret.</li>
+            <li>Probabilistic encryption provides the highest level of cryptographic security but entirely disables SOQL filtering, sorting, indexing, and report searching.</li>
+            <li>Deterministic encryption permits exact-match filtering and lookups by producing predictable ciphertext, but restricts range queries, wildcards, and fuzzy matching.</li>
+            <li>Key rotation is a critical governance duty: rotating a tenant secret only encrypts new data, requiring background synchronization to update historical records.</li>
+            <li>Archived keys must be preserved indefinitely; destroying an archived tenant secret renders all records encrypted under that key permanently unreadable.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p><strong>Question 1:</strong> Which cryptographic characteristic uniquely identifies Shield Probabilistic Encryption compared to Deterministic Encryption?</p>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'right')">A. It uses a unique, randomly generated Initialization Vector (IV) for every transaction, producing different ciphertext for identical plaintexts.</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">B. It stores data in an unencrypted format in the database and only encrypts it when exporting.</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. It allows exact-match SOQL queries using the standard equality operator.</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. It operates strictly at the UI layer using a shared 128-bit key.</div>
+          </div>
+          <div class="quiz-question" id="q2">
+            <p><strong>Question 2:</strong> A developer must query a Contact record using a deterministically encrypted custom field named <code>National_ID__c</code>. Which SOQL clause will execute successfully without errors?</p>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. WHERE National_ID__c LIKE '123%'</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. WHERE National_ID__c = '123-45-6789'</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. WHERE National_ID__c &gt; '100-00-0000'</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. WHERE National_ID__c = null OR National_ID__c LIKE '%89'</div>
+          </div>
+          <div class="quiz-question" id="q3">
+            <p><strong>Question 3:</strong> What occurs immediately after an administrator rotates the Active Tenant Secret in Salesforce Shield?</p>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. All existing database records are instantly decrypted and re-encrypted with the new key in the background.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. Historical data becomes unreadable until the administrator manually runs a delete key command.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. Only new data created or updated after the rotation is encrypted with the new key, while older data remains encrypted with archived keys.</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. The system automatically converts all deterministically encrypted fields into probabilistic fields.</div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../sec-003/" class="related-card">
+              <span class="card-id">SEC-003</span>
+              <h4>Salesforce Shield Encryption</h4>
+            </a>
+            <a href="../sec-015/" class="related-card">
+              <span class="card-id">SEC-015</span>
+              <h4>Role Hierarchy Design</h4>
+            </a>
+            <a href="../sec-019/" class="related-card">
+              <span class="card-id">SEC-019</span>
+              <h4>Data Classification</h4>
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">1. The Cryptographic Foundations: Classic vs Shield Encryption</a></li>
+            <li><a href="#s2">2. Classic Encryption: Capabilities, Use Cases, and Major Limitations</a></li>
+            <li><a href="#s3">3. Salesforce Shield Platform Encryption: Deterministic vs Probabilistic Schemes</a></li>
+            <li><a href="#s4">4. The Architectural and Functional Impact of Shield Encryption</a></li>
+            <li><a href="#s5">5. Designing a Risk-Based Encryption Strategy and Governance Model</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../sec-017/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-017</span>
+            <span class="sidebar-next-title">Third-Party App Security: Evaluating AppExchange Packages</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../sec-015/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-015</span>
+            <span class="sidebar-next-title">Role Hierarchy Design: Balancing Security and Reporting Access</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/sec-013/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SEC-013: HIPAA Compliance on Salesforce: The Healthcare Leader's Guide — SFVedas</title>
+  <meta name="description" content="HIPAA Compliance on Salesforce: The Healthcare Leader's Guide. Protecting PHI under federal rules and managing BAAs."/>
+  <meta property="og:title" content="SEC-013: HIPAA Compliance on Salesforce: The Healthcare Leader's Guide — SFVedas"/>
+  <meta property="og:description" content="HIPAA Compliance on Salesforce: The Healthcare Leader's Guide. Protecting PHI under federal rules and managing BAAs."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/sec-013/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="SEC-013: HIPAA Compliance on Salesforce: The Healthcare Leader's Guide — SFVedas"/>
+  <meta name="twitter:description" content="HIPAA Compliance on Salesforce: The Healthcare Leader's Guide. Protecting PHI under federal rules and managing BAAs."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "SEC-013: HIPAA Compliance on Salesforce: The Healthcare Leader's Guide — SFVedas",
+    "description": "HIPAA Compliance on Salesforce: The Healthcare Leader's Guide. Protecting PHI under federal rules and managing BAAs.",
+    "url": "https://sfvedas.com/tutorials/sec-013/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/sec-013/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=security-compliance" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Security &amp; Compliance</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">SEC-013</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Security &amp; Compliance</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Healthcare CTOs & Compliance Officers</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        HIPAA Compliance on Salesforce: The Healthcare Leader's Guide
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Configuring Salesforce to protect Protected Health Information (PHI) under US federal guidelines, and auditing Business Associate Agreements.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Architecture Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Demystify the legal frameworks of HIPAA and the HITECH Act within a multi-tenant cloud context.</li>
+            <li>Define the limits and mutual obligations established by the Salesforce Business Associate Agreement (BAA).</li>
+            <li>Implement Shield Platform Encryption using deterministic and probabilistic cryptographic strategies for PHI.</li>
+            <li>Build Real-Time Event Monitoring transaction policies to detect and block unauthorised clinical data exports.</li>
+            <li>Configure Field Audit Trail (FAT) to establish a compliant, immutable forensic change log for up to ten years.</li>
+            <li>Harden external-facing Experience Cloud patient portals against access-control and data-exposure vulnerabilities.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">1. HIPAA and HITECH on Salesforce: Regulatory Foundations and BAA Boundaries</h2>
+        <p>For healthcare organisations operating in the United States, compliance with the Health Insurance Portability and Accountability Act (HIPAA) and the Health Information Technology for Economic and Clinical Health (HITECH) Act is a legal imperative. These regulations dictate how Protected Health Information (PHI) must be stored, processed, and transmitted. Failure to comply can result in severe financial penalties, reputational damage, and loss of clinical trust.</p>
+            <p>Salesforce is fully capable of hosting HIPAA-compliant applications, but doing so requires strict adherence to administrative, physical, and technical safeguards. The foundational step for any healthcare organisation deploying Salesforce is signing a Business Associate Agreement (BAA) with Salesforce. This agreement establishes a legally binding contract that defines each party's regulatory obligations regarding the protection of sensitive medical data.</p>
+            <p>The BAA is a legal contract that establishes Salesforce as a "business associate" of your healthcare organisation (the "covered entity"). By signing the BAA, Salesforce guarantees that its infrastructure meets the physical security and data integrity requirements of HIPAA. However, signing the BAA does not make your Salesforce implementation instantly compliant. It merely creates the legal framework under which you must configure the platform's security controls to protect PHI. Healthcare leaders must understand that compliance is an active, ongoing operational configuration process rather than a static procurement checkbox.</p>
+
+        <h2 id="s2">2. The Salesforce Shared Responsibility Model for Protected Health Information (PHI)</h2>
+        <p>The cornerstone of cloud compliance is the Shared Responsibility Model. Under this framework, Salesforce guarantees the physical security of the data centres, hypervisor isolation, and the core platform infrastructure. Your organisation is responsible for how the platform is configured, who is granted access to the data, and how clinical processes are operationalised. This division of duties ensures that both the platform provider and the customer collaborate to maintain compliance.</p>
+            <p>For instance, if a system administrator accidentally opens up sharing settings on the Patient object so that all external guest users can read patient medical records, this is a breach of HIPAA caused by the customer's configuration, not Salesforce's infrastructure. To maintain compliance, healthcare organisations must map their business processes to the technical controls provided by Salesforce. This involves classifying fields containing PHI, configuring restrictive role hierarchies, enforcing multi-factor authentication (MFA), and regularly auditing access logs.</p>
+            <p>Establishing a comprehensive data classification scheme is a vital first step. Within Salesforce, fields should be tagged with metadata indicating their sensitivity (e.g., classifying a Field Usage as 'Active' and Data Sensitivity as 'Confidential' or 'PHI'). This structured labelling allows architects to apply targeted access controls, encryption, and monitoring rules to fields containing social security numbers, medical histories, or treatment plans. Regular reviews of this data mapping ensure that new custom fields are automatically captured within the organisation's security posture.</p>
+
+        <h2 id="s3">3. Architecting Shield Platform Encryption for Healthcare Data</h2>
+        <p>Under HIPAA, data must be encrypted both in transit and at rest. Salesforce encrypts all data in transit using TLS 1.2 or higher. To encrypt data at rest, healthcare organisations must utilise Salesforce Shield Platform Encryption. This advanced security feature allows customers to encrypt sensitive fields, files, and attachments at the database level while preserving core platform functionalities like search, reports, and workflows.</p>
+            <p>Unlike standard classic encryption, which only masks fields on the user interface, Shield Platform Encryption encrypts the data at the database level. When architecting Shield Platform Encryption, architects must select between two primary encryption strategies:
+            1. <strong>Probabilistic Encryption</strong>: This method uses a unique initialisation vector for every record, meaning the same text will encrypt to different ciphertext each time. While highly secure, it blocks indexing, searching, and filtering on the encrypted fields.
+            2. <strong>Deterministic Encryption</strong>: This method generates static ciphertext for a given plaintext, allowing developers to run SOQL queries, execute search indexes, and use the fields in reports.</p>
+            <p>For PHI, deterministic encryption is widely preferred for key identifiers (like Medical Record Numbers or National Insurance Numbers) because it allows clinical coordinators to search for patients without exposing the data to unauthorised users. Let us see an Apex pattern that handles encrypted fields dynamically and securely:</p>
+            <pre><code class="language-java">public class PatientDataService {
+    public Patient__c findPatientByMRN(String mrn) {
+        // Enforcing deterministic search query on encrypted field in user mode
+        List<Patient__c> patients = [
+            SELECT Id, First_Name__c, Last_Name__c, Medical_Record_Number__c, Medical_History__c 
+            FROM Patient__c 
+            WHERE Medical_Record_Number__c = :mrn
+            WITH USER_MODE
+        ];
+        return patients.isEmpty() ? null : patients[0];
+    }
+}</code></pre>
+            <p>Key Lifecycle Management is another critical aspect. Healthcare leaders must define policies for generating, rotating, and destroying tenant encryption keys. Under HIPAA, keys should be rotated at least annually, and older keys must be archived securely to allow decryption of legacy backups. Standardising these cryptographic procedures ensures that the organisation is prepared for compliance audits and can rapidly respond to potential key compromise scenarios.</p>
+
+        <h2 id="s4">4. Forensic Auditing with Field Audit Trail and Real-Time Event Monitoring</h2>
+        <p>HIPAA requires covered entities to maintain detailed logs of who accessed clinical records and what modifications were made. The standard Salesforce history tracking only retains field changes for 18 months. To meet the rigorous auditing requirements of HIPAA (which often require up to 6 or even 10 years of audit history), organisations must implement Shield Field Audit Trail (FAT).</p>
+            <p>FAT allows you to define custom metadata policies to retain history data for up to 10 years, archiving it to cold storage while keeping it queryable via the API. This provides a reliable, immutable forensic audit trail of all changes made to patient data. Healthcare organisations can use this historical record to demonstrate compliance during regulatory audits or internal investigations.</p>
+            <p>In addition to tracking changes, healthcare organisations must monitor read access. If a user exports a report containing 10,000 patient records, this represents a massive security risk. Real-Time Event Monitoring allows you to construct transaction security policies that evaluate user behaviour in real time. If a user attempts to export data outside of normal working hours, or exceeds a specific record threshold, the policy can block the export, send an alert to the security team, or force a multi-factor challenge. Here is a conceptual Apex Transaction Security policy that checks for suspicious clinical data access:</p>
+            <pre><code class="language-java">global class PatientDataExportControl implements TxnSecurity.EventCondition {
+    public boolean evaluate(SObject event) {
+        switch on event {
+            when ReportEvent reportEvt {
+                // If user attempts to export more than 200 patient records, trigger block
+                if (reportEvt.Operation == 'Export' && reportEvt.RowsProcessed > 200) {
+                    return true; // Block or challenge user
+                }
+            }
+        }
+        return false;
+    }
+}</code></pre>
+            <p>Optimising these policies is critical to avoid disrupting clinical workflows. By customising parameters based on roles, locations, and time-windows, organisations can establish a secure environment that protects PHI without hindering the delivery of patient care.</p>
+
+        <h2 id="s5">5. Access Control and Hardening Portal Architectures for Patients</h2>
+        <p>Modern healthcare organisations leverage Experience Cloud (formerly Communities) to build portals where patients can view medical records, message doctors, and schedule appointments. Portals represent a significant compliance risk because they expose your Salesforce org to external networks, making them a prime target for malicious actors.</p>
+            <p>Architects must enforce strict data segregation in these portals. The primary rule is that guest users (unauthenticated visitors) must never have read or write access to PHI. Guest user sharing rules must be checked and locked down. For authenticated patients, access must be governed using User-Share mappings. High-Volume Customer Portal licences or Customer Community Plus licences should be configured with sharing sets or sharing groups that dynamically grant access only to records linked directly to the patient's Contact record.</p>
+            <p>Furthermore, any APEX controllers backing these portals must enforce strict object-level and field-level security checks using <code>WITH USER_MODE</code> or programmatic schema validation to prevent privilege escalation or IDOR vulnerabilities. Regular penetration testing and vulnerability assessments of the portal interface should be conducted to ensure that external access vectors remain secure. Customising error messages to avoid disclosing system architecture and limiting API request rates are additional best practices for hardening patient portals against cyber threats.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>HIPAA compliance on Salesforce is a shared responsibility; the BAA covers infrastructure security, while you must secure your custom configuration.</li>
+            <li>Shield Platform Encryption encrypts PHI at rest, and deterministic encryption should be utilised on fields requiring search, reports, or indexing.</li>
+            <li>Key lifecycle management policies must be defined, including annual rotation of tenant encryption keys and secure archiving of legacy keys.</li>
+            <li>Shield Field Audit Trail must be configured to retain history tracking data for up to ten years to comply with healthcare auditing regulations.</li>
+            <li>Real-Time Event Monitoring transaction security policies should be deployed to detect, block, or challenge suspicious patient report exports.</li>
+            <li>Experience Cloud patient portals must be hardened by enforcing strict sharing sets, disabling guest user PHI access, and validating all Apex inputs.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-question" id="q1">
+            <p class="quiz-q-text">What does signing a Business Associate Agreement (BAA) with Salesforce guarantee?</p>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. That the customer's custom apex code is automatically secured and compliant</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. That the physical and infrastructure layer of Salesforce meets HIPAA security standards</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. That patient medical record fields are automatically encrypted with Shield Platform Encryption</div>
+            <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. That Salesforce assumes all legal liability for any data breach or configuration exploit</div>
+          </div>
+          <div class="quiz-question" id="q2">
+            <p class="quiz-q-text">Which encryption type should be used under Shield Platform Encryption for a Field like a Patient ID that users need to search for?</p>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Probabilistic Encryption</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">B. Classic Masked Encryption</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'right')">C. Deterministic Encryption</div>
+            <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. Standard Transport Layer Security</div>
+          </div>
+          <div class="quiz-question" id="q3">
+            <p class="quiz-q-text">How can an architect prevent a standard call-centre agent from exporting massive volumes of patient data using event logs?</p>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. By disabling the API access checkbox on all standard user profiles</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'right')">B. By writing a Real-Time Event Monitoring transaction security policy that evaluates ReportEvent parameters</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">C. By customising the Role Hierarchy to place agents at the absolute bottom of the organization tree</div>
+            <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. By configuring classic field history tracking to log data exports</div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../sec-002/" class="related-card">
+              <span class="card-id">SEC-002</span>
+              <h4>GDPR Compliance in Salesforce</h4>
+            </a>
+            <a href="../sec-009/" class="related-card">
+              <span class="card-id">SEC-009</span>
+              <h4>Handling PII in Salesforce</h4>
+            </a>
+            <a href="../sec-014/" class="related-card">
+              <span class="card-id">SEC-014</span>
+              <h4>SOC 2 and Salesforce</h4>
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">HIPAA and HITECH on Salesforce: Regulatory Foundations and BAA Boundaries</a></li>
+            <li><a href="#s2">The Salesforce Shared Responsibility Model for Protected Health Information (PHI)</a></li>
+            <li><a href="#s3">Architecting Shield Platform Encryption for Healthcare Data</a></li>
+            <li><a href="#s4">Forensic Auditing with Field Audit Trail and Real-Time Event Monitoring</a></li>
+            <li><a href="#s5">Access Control and Hardening Portal Architectures for Patients</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../sec-014/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-014</span>
+            <span class="sidebar-next-title">SOC 2 and Salesforce: What Compliance Means for Your Implementation</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../sec-012/" class="sidebar-next-link">
+            <span class="sidebar-next-id">SEC-012</span>
+            <span class="sidebar-next-title">Security Review for AppExchange: What the Process Actually Tests</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
