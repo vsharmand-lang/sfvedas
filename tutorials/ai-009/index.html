@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-009/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight | SFVedas</title>
+  <title>AI-009: AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight — SFVedas</title>
   <meta name="description" content="How to govern AI features in Salesforce programmes — where bias enters, how oversight roles are structured, what policies are needed, and how to audit AI behaviour in production."/>
-  <meta property="og:title" content="AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight | SFVedas"/>
+  <meta property="og:title" content="AI-009: AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight — SFVedas"/>
   <meta property="og:description" content="How to govern AI features in Salesforce programmes — where bias enters, how oversight roles are structured, what policies are needed, and how to audit AI behaviour in production."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-009/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight | SFVedas"/>
+  <meta name="twitter:title" content="AI-009: AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight — SFVedas"/>
   <meta name="twitter:description" content="How to govern AI features in Salesforce programmes — where bias enters, how oversight roles are structured, what policies are needed, and how to audit AI behaviour in production."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight | SFVedas",
+    "headline": "AI-009: AI Governance in Salesforce Programmes: Ethics, Bias, and Oversight — SFVedas",
     "description": "How to govern AI features in Salesforce programmes — where bias enters, how oversight roles are structured, what policies are needed, and how to audit AI behaviour in production.",
     "url": "https://sfvedas.com/tutorials/ai-009/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-009/",
@@ -193,7 +193,7 @@
         <p>For generative features, the monitoring signals are qualitative: output sample reviews, user feedback mechanisms (a simple thumbs-down on a generated email that feeds into a review queue), and tracking of "did not use" rates. If a generative feature's "did not use" rate is consistently above 40% — users generate the output and then discard it without sending or saving — the feature is producing outputs that fall below the bar where users trust them. This is both a quality problem and a licence cost problem.</p>
         <p>For Agentforce agents, monitoring requires audit log review. Salesforce logs every action an agent takes — every record it updates, every flow it invokes, every external call it makes. Establish a weekly spot-check of agent activity logs, looking for patterns that indicate the agent is operating outside its intended scope: updating record types it should not be touching, invoking actions in unexpected sequences, or escalating to humans at a rate that suggests its Topics are not covering the full range of inputs it is receiving.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>AI governance is distinct from data governance because it must address feedback loops — AI features that automate decisions based on historical patterns can perpetuate and amplify those patterns, not just reflect them.</li>
@@ -210,25 +210,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> An Einstein Lead Scoring model is excluding the "Lead Owner" field to avoid rep performance bias. However, the model still produces systematically lower scores for leads from a specific territory. What is the most likely explanation?</p>
-            <button onclick="answer(this,'q1','wrong')">The field exclusion is not working correctly due to a Salesforce configuration bug</button>
-            <button onclick="answer(this,'q1','right')">Other retained fields — such as lead source, territory code, or campaign — are acting as proxies for lead owner, preserving the bias despite the explicit exclusion</button>
-            <button onclick="answer(this,'q1','wrong')">Leads from that territory are genuinely lower quality and the model is scoring them correctly</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. The field exclusion is not working correctly due to a Salesforce configuration bug</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Other retained fields — such as lead source, territory code, or campaign — are acting as proxies for lead owner, preserving the bias despite the explicit exclusion</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Leads from that territory are genuinely lower quality and the model is scoring them correctly</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. The Einstein model was trained on corrupted data and must be deleted and rebuilt</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> Which governance role is responsible for approving the activation of a new Einstein AI feature in production?</p>
-            <button onclick="answer(this,'q2','wrong')">The AI Technical Steward, who validates the configuration before deployment</button>
-            <button onclick="answer(this,'q2','right')">The AI Feature Owner — the business stakeholder accountable for the outcomes the feature produces</button>
-            <button onclick="answer(this,'q2','wrong')">The Data Steward, who confirms data quality is sufficient for the feature to operate</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. The AI Technical Steward, who validates the configuration before deployment</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. The AI Feature Owner — the business stakeholder accountable for the outcomes the feature produces</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. The Data Steward, who confirms data quality is sufficient for the feature to operate</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. The third-party systems integrator who completed the configuration work</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> A generative AI email drafting feature shows a consistent 50% "did not use" rate — users generate the output and then write their own email instead. What does this indicate?</p>
-            <button onclick="answer(this,'q3','wrong')">Users are unfamiliar with the feature and need more training on how to trigger it correctly</button>
-            <button onclick="answer(this,'q3','wrong')">The feature is working correctly — a 50% adoption rate is typical for AI features in the first six months</button>
-            <button onclick="answer(this,'q3','right')">The generated outputs are consistently falling below the quality threshold where users trust them, indicating a prompt template or data grounding problem that needs investigation</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. Users are unfamiliar with the feature and need more training on how to trigger it correctly</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. The feature is working correctly — a 50% adoption rate is typical for AI features in the first six months</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. The generated outputs are consistently falling below the quality threshold where users trust them, indicating a prompt template or data grounding problem that needs investigation</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. The Salesforce server is running too slowly, causing the email generation to time out</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>

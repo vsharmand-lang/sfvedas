@@ -143,7 +143,7 @@
           </ul>
         </div>
 
-        <h2 id="s1">The Architecture of an Agentforce Customer Service Agent</h2>
+        <h3>The Architecture of an Agentforce Customer Service Agent</h3>
 
         <p>An Agentforce agent is not a chatbot with better language. It is a reasoning system that interprets customer intent, retrieves relevant data, decides on an action, executes it, and responds. The distinction matters because it changes how you design, test, and operate it.</p>
 
@@ -157,7 +157,7 @@
           </div>
         </div>
 
-        <h2 id="s2">Escalation Design: The Make-or-Break Decision</h2>
+        <h2 id="s1">Escalation Design: The Make-or-Break Decision</h2>
 
         <p>Every autonomous agent deployment lives or dies on its escalation design. Get it wrong and customers either get stuck in loops or escalate unnecessarily — both outcomes destroy trust faster than a well-designed human service ever would.</p>
 
@@ -181,7 +181,7 @@
           </div>
         </div>
 
-        <h2 id="s3">Data Architecture: What the Agent Needs to Resolve Enquiries</h2>
+        <h2 id="s2">Data Architecture: What the Agent Needs to Resolve Enquiries</h2>
 
         <p>An autonomous agent is only as capable as the data it can access. For a customer service agent handling order, billing, and account enquiries, you need to define explicitly what data is accessible via agent actions — and what is not.</p>
 
@@ -205,7 +205,7 @@
           </div>
         </div>
 
-        <h2 id="s4">Channel Architecture</h2>
+        <h2 id="s3">Channel Architecture</h2>
 
         <p>Agentforce can be deployed across multiple channels — web chat (Messaging for In-App and Web), SMS, WhatsApp, and voice via Einstein Voice. Each channel has different constraints that affect your agent design.</p>
 
@@ -215,7 +215,7 @@
 
         <p>Voice via Einstein Voice adds speech-to-text transcription as an input layer. Transcription errors compound agent misunderstandings — "cancel my order" and "cancel my offer" are transcribed differently but sound similar. Voice agents require more defensive intent classification and more explicit confirmation steps before taking action. Deploy voice agents after you have proven your chat agent at scale, not in parallel.</p>
 
-        <h2 id="s5">Measuring Autonomous Resolution Rate</h2>
+        <h2 id="s4">Measuring Autonomous Resolution Rate</h2>
 
         <p>Autonomous resolution rate (ARR) is the percentage of conversations handled entirely by the agent without human escalation. It is the headline metric for agent deployment ROI but is easily gamed and easily misunderstood.</p>
 
@@ -231,7 +231,7 @@
           </div>
         </div>
 
-        <h2 id="s6">The Operational Model After Go-Live</h2>
+        <h2 id="s5">The Operational Model After Go-Live</h2>
 
         <p>Autonomous agents are not deploy-and-forget systems. They require an operational model that covers three recurring activities: performance monitoring, topic and action refinement, and knowledge base maintenance.</p>
 
@@ -241,7 +241,7 @@
 
         <p><strong>Model version management</strong> becomes relevant when Salesforce updates the underlying LLM. A model update that improves general capability can change agent behaviour in ways that your topic and guardrail configuration does not anticipate. Test against the new model version before allowing it to serve live traffic. This is an area where Salesforce's platform governance tools are still maturing — build explicit version testing into your operational runbook.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Agentforce agents are structured around Topics (domains), Actions (capabilities), and Guardrails (constraints) — the quality of topic descriptions is the single most impactful architectural input to agent accuracy</li>
@@ -312,14 +312,14 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#s1">The Architecture of an Agentforce Customer Service Agent</a></li>
-            <li><a href="#s2">Escalation Design: The Make-or-Break Decision</a></li>
-            <li><a href="#s3">Data Architecture: What the Agent Needs</a></li>
-            <li><a href="#s4">Channel Architecture</a></li>
-            <li><a href="#s5">Measuring Autonomous Resolution Rate</a></li>
-            <li><a href="#s6">The Operational Model After Go-Live</a></li>
+            <li><a href="#s1">Escalation Design: The Make-or-Break Decision</a></li>
+            <li><a href="#s2">Data Architecture: What the Agent Needs</a></li>
+            <li><a href="#s3">Channel Architecture</a></li>
+            <li><a href="#s4">Measuring Autonomous Resolution Rate</a></li>
+            <li><a href="#s5">The Operational Model After Go-Live</a></li>
             <li><a href="#quiz">Key Takeaways</a></li>
             <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+                      <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-001/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Agentforce vs Einstein Bots: What's Actually Different? | SFVedas</title>
+  <title>AI-001: Agentforce vs Einstein Bots: What's Actually Different? — SFVedas</title>
   <meta name="description" content="A precise architectural comparison of Agentforce and Einstein Bots — what changed, why it matters, and how to think about migration."/>
-  <meta property="og:title" content="Agentforce vs Einstein Bots: What's Actually Different? | SFVedas"/>
+  <meta property="og:title" content="AI-001: Agentforce vs Einstein Bots: What's Actually Different? — SFVedas"/>
   <meta property="og:description" content="A precise architectural comparison of Agentforce and Einstein Bots — what changed, why it matters, and how to think about migration."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-001/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Agentforce vs Einstein Bots: What's Actually Different? | SFVedas"/>
+  <meta name="twitter:title" content="AI-001: Agentforce vs Einstein Bots: What's Actually Different? — SFVedas"/>
   <meta name="twitter:description" content="A precise architectural comparison of Agentforce and Einstein Bots — what changed, why it matters, and how to think about migration."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Agentforce vs Einstein Bots: What's Actually Different? | SFVedas",
+    "headline": "AI-001: Agentforce vs Einstein Bots: What's Actually Different? — SFVedas",
     "description": "A precise architectural comparison of Agentforce and Einstein Bots — what changed, why it matters, and how to think about migration.",
     "url": "https://sfvedas.com/tutorials/ai-001/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-001/",
@@ -140,12 +140,12 @@
           </ul>
         </div>
 
-        <h2 id="s1">The Confusion Is Understandable</h2>
+        <h3>The Confusion Is Understandable</h3>
         <p>When Salesforce announced Agentforce at Dreamforce 2024, the marketing positioned it as a successor to Einstein Bots. That framing has led many teams to treat the migration as a version upgrade — swap one bot configuration for another, keep the same conversation flows, redeploy. This is the wrong mental model, and teams that approach it that way will either under-build their Agentforce deployment or spend months retrofitting constraints they didn't anticipate.</p>
         <p>Einstein Bots and Agentforce share some surface-level similarities: both handle automated customer interactions, both sit inside Service Cloud, both can hand off to a human agent. But the underlying execution model is different enough that the design skills, the governance requirements, and the operational overhead of the two systems have almost nothing in common.</p>
         <p>This tutorial gives you the precise architectural picture of each so you can make an informed decision about what Agentforce means for your existing deployments — and what it genuinely enables that wasn't possible before.</p>
 
-        <h2 id="s2">Einstein Bots: What It Actually Was</h2>
+        <h2 id="s1">Einstein Bots: What It Actually Was</h2>
         <p>Einstein Bots, introduced in 2018, were a dialogue management system built on top of Service Cloud. At their core, they were structured conversation trees: an admin configured a set of dialogue flows using a visual builder, and the bot followed those flows deterministically based on user input matching.</p>
         <p>The intelligence layer in Einstein Bots was Natural Language Understanding (NLU) — specifically, intent classification and entity extraction. The NLU component would take user input, classify it into a configured intent (e.g. "check order status", "reset password", "speak to an agent"), and route the conversation to the appropriate dialogue branch. That was the extent of the AI. Everything else — what to ask next, how to handle ambiguity, when to escalate — was explicit logic authored by the admin in the dialogue builder.</p>
         <p><strong>What this meant in practice:</strong> Einstein Bots were only as capable as their explicitly configured flows. If a customer asked something the admin hadn't anticipated, the bot would either misclassify it into the nearest intent or fall back to a "I didn't understand that" response. The bot had no ability to reason about novel situations, compose responses from underlying data, or take multi-step actions without each step being pre-programmed.</p>
@@ -159,7 +159,7 @@
 
         <p>This made Einstein Bots effective for high-volume, predictable interactions — password resets, order lookups, FAQ deflection — where the range of valid inputs was limited and the desired outputs were well-defined. For anything requiring nuanced judgement, multi-turn reasoning, or dynamic response composition, they required significant engineering effort and became increasingly brittle as edge cases accumulated.</p>
 
-        <h2 id="s3">Agentforce: A Different Architectural Model</h2>
+        <h2 id="s2">Agentforce: A Different Architectural Model</h2>
         <p>Agentforce is not a better bot builder. It is a different execution paradigm: an autonomous agent framework built on top of a large language model (LLM) reasoning engine that Salesforce calls Atlas. Rather than following pre-authored dialogue trees, an Agentforce agent reasons about what to do at runtime, using the tools and data available to it to handle the customer's request.</p>
         <p>The building blocks of an Agentforce agent are <strong>Topics</strong> and <strong>Actions</strong>. A Topic defines a domain of responsibility — "handle billing enquiries", "process returns", "answer product questions". Within each Topic, you configure Actions: the specific capabilities the agent can invoke, such as running a Flow, querying a record, calling an Apex method, or invoking an external API.</p>
         <p>When a customer sends a message, the Atlas Reasoning Engine determines which Topic is relevant, then determines which sequence of Actions to execute to address the request. Crucially, this sequencing is not pre-authored — the LLM reasons about the best path at runtime based on the customer's specific input, the available actions, and any contextual data from Data Cloud or CRM records.</p>
@@ -171,7 +171,7 @@
           </div>
         </div>
 
-        <h2 id="s4">The Core Difference: Reactive vs Autonomous</h2>
+        <h2 id="s3">The Core Difference: Reactive vs Autonomous</h2>
 
         <style>
           .comparison-grid {
@@ -374,13 +374,13 @@
           </div>
         </div>
 
-        <h2 id="s5">Practical Architectural Implications</h2>
+        <h2 id="s4">Practical Architectural Implications</h2>
         <p>The shift to Agentforce changes several architectural decisions that were settled in the Einstein Bots era.</p>
         <p><strong>Data access model:</strong> Einstein Bots accessed CRM data through explicitly configured API calls within dialogue nodes — you built a data step, specified the SOQL query, and mapped the result to a variable. Agentforce agents access data through Actions, which can include Flow-invoked queries, Apex methods, or Data Cloud segments. The agent's reasoning engine decides when to invoke which action. This means your data model and access patterns need to be action-addressable, not query-addressable — a meaningful shift for orgs with complex data architectures.</p>
         <p><strong>Handoff logic:</strong> In Einstein Bots, the escalation to a human agent was a dialogue node — a configured point in the conversation tree where the bot transferred to a queue. In Agentforce, the agent can decide autonomously to escalate based on its assessment of the situation: if it has exhausted its available actions without resolving the issue, if the customer expresses frustration beyond a configured threshold, or if the topic falls outside its defined scope. The handoff is a reasoning decision, not a hard-wired branch.</p>
         <p><strong>Channel architecture:</strong> Einstein Bots were primarily deployed via Embedded Service (web chat) and Messaging. Agentforce extends to voice, email, and in-app channels with a unified agent configuration. If you designed your service channel architecture around the limitations of Einstein Bots, it is worth reviewing whether those design decisions still make sense.</p>
 
-        <h2 id="s6">The Migration Decision</h2>
+        <h2 id="s5">The Migration Decision</h2>
         <p>If you have a live Einstein Bots deployment, the migration question is not "when" but "whether, and for which use cases". Not every Einstein Bot should become an Agentforce agent, and not every Agentforce capability requires retiring an Einstein Bot first.</p>
         <p>Einstein Bots remain the right tool for highly constrained, compliance-sensitive interactions where every response must be pre-approved and determinism is a hard requirement — some financial services and healthcare use cases fall here. The predictability and auditability of a script-driven system is a feature, not a limitation, in these contexts.</p>
         <p>Agentforce makes the most sense where the current bot suffers from coverage gaps — where customers regularly fall through to a human agent because the bot didn't have a configured path for their specific phrasing or edge-case combination. The LLM's ability to handle novel input is precisely what addresses this class of failure.</p>
@@ -394,7 +394,7 @@
 
         <p>The migration itself is not a lift-and-shift. Your dialogue flows do not port to Agentforce Topics — the concepts are too different. Start by mapping the intents your bot currently handles to Topics, then define the Actions needed to fulfil those Topics. Treat it as a new build informed by the operational learnings of the existing bot, not a conversion.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Einstein Bots were dialogue management systems driven by NLU intent classification and pre-authored conversation trees — every behaviour had to be explicitly configured by an admin.</li>
@@ -411,25 +411,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> A customer asks an Einstein Bot a question that doesn't match any configured intent. What happens?</p>
-            <button onclick="answer(this,'q1','wrong')">The bot queries the LLM to generate a contextually appropriate response</button>
-            <button onclick="answer(this,'q1','wrong')">The bot searches the knowledge base and surfaces the closest article</button>
-            <button onclick="answer(this,'q1','right')">The bot falls back to a default response or escalates, because no configured path exists for that input</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. The bot queries the LLM to generate a contextually appropriate response</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">B. The bot searches the knowledge base and surfaces the closest article</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">C. The bot falls back to a default response or escalates, because no configured path exists for that input</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. The bot automatically registers a new intent in Setup and flags it for administrator review</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> What does an Agentforce Topic define?</p>
-            <button onclick="answer(this,'q2','wrong')">A specific dialogue path the agent will follow step by step</button>
-            <button onclick="answer(this,'q2','right')">A domain of responsibility and the set of Actions the agent can invoke within that domain</button>
-            <button onclick="answer(this,'q2','wrong')">A training dataset used to fine-tune the underlying LLM for a specific interaction type</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. A specific dialogue path the agent will follow step by step</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. A domain of responsibility and the set of Actions the agent can invoke within that domain</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. A training dataset used to fine-tune the underlying LLM for a specific interaction type</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. A CSS style class used to customise the chat widget layout for different customer segments</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> Your compliance team approved an Einstein Bot for handling sensitive financial queries. Can that approval be applied to an Agentforce agent performing the same function?</p>
-            <button onclick="answer(this,'q3','wrong')">Yes — the function is the same, so the compliance basis carries over</button>
-            <button onclick="answer(this,'q3','wrong')">Yes, provided the Agentforce agent uses the same data sources as the Einstein Bot</button>
-            <button onclick="answer(this,'q3','right')">No — Agentforce uses non-deterministic LLM reasoning, which changes the risk profile and requires a separate compliance review</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. Yes — the function is the same, so the compliance basis carries over</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. Yes, provided the Agentforce agent uses the same data sources as the Einstein Bot</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. No — Agentforce uses non-deterministic LLM reasoning, which changes the risk profile and requires a separate compliance review</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. No, unless you deploy the agent on a private, local server completely disconnected from the internet</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>
@@ -458,13 +467,13 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#s1">The Confusion Is Understandable</a></li>
-            <li><a href="#s2">Einstein Bots: What It Actually Was</a></li>
-            <li><a href="#s3">Agentforce: A Different Architectural Model</a></li>
-            <li><a href="#s4">The Core Difference: Reactive vs Autonomous</a></li>
-            <li><a href="#s5">Practical Architectural Implications</a></li>
-            <li><a href="#s6">The Migration Decision</a></li>
+            <li><a href="#s1">Einstein Bots: What It Actually Was</a></li>
+            <li><a href="#s2">Agentforce: A Different Architectural Model</a></li>
+            <li><a href="#s3">The Core Difference: Reactive vs Autonomous</a></li>
+            <li><a href="#s4">Practical Architectural Implications</a></li>
+            <li><a href="#s5">The Migration Decision</a></li>
             <li><a href="#quiz">Check Your Understanding</a></li>
+                      <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

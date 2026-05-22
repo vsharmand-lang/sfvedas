@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-007/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Einstein Copilot: Current State and Where It's Heading | SFVedas</title>
+  <title>AI-007: Einstein Copilot: Current State and Where It's Heading — SFVedas</title>
   <meta name="description" content="What Einstein Copilot actually delivers today, how it differs from Agentforce, what its real limitations are, and what tech leaders should plan for as the roadmap evolves."/>
-  <meta property="og:title" content="Einstein Copilot: Current State and Where It's Heading | SFVedas"/>
+  <meta property="og:title" content="AI-007: Einstein Copilot: Current State and Where It's Heading — SFVedas"/>
   <meta property="og:description" content="What Einstein Copilot actually delivers today, how it differs from Agentforce, what its real limitations are, and what tech leaders should plan for as the roadmap evolves."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-007/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Einstein Copilot: Current State and Where It's Heading | SFVedas"/>
+  <meta name="twitter:title" content="AI-007: Einstein Copilot: Current State and Where It's Heading — SFVedas"/>
   <meta name="twitter:description" content="What Einstein Copilot actually delivers today, how it differs from Agentforce, what its real limitations are, and what tech leaders should plan for as the roadmap evolves."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Einstein Copilot: Current State and Where It's Heading | SFVedas",
+    "headline": "AI-007: Einstein Copilot: Current State and Where It's Heading — SFVedas",
     "description": "What Einstein Copilot actually delivers today, how it differs from Agentforce, what its real limitations are, and what tech leaders should plan for as the roadmap evolves.",
     "url": "https://sfvedas.com/tutorials/ai-007/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-007/",
@@ -186,7 +186,7 @@
         <p>For tech leaders making investment decisions, the practical implication is: capabilities you build on Prompt Builder templates and well-defined Copilot Actions today are forward-compatible with Agentforce as the platform evolves. You are not building throwaway configurations if you adopt Copilot now — you are building the configuration foundations that autonomous agents will use later. The prompts, the action definitions, and the data grounding work transfer.</p>
         <p>What changes as the platform matures is the degree of human confirmation required and the range of actions the AI can take autonomously. Plan your governance framework and your data quality programme for a world where the AI assistant will eventually do more without asking first. The organisations that will deploy autonomous agents successfully are the ones whose data is clean, whose action definitions are precise, and whose governance model was designed before the AI needed to use it.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Einstein Copilot is a human-in-the-loop AI assistant that makes individual user tasks faster — it is architecturally and operationally distinct from Agentforce, which replaces human steps in a workflow rather than assisting with them.</li>
@@ -203,25 +203,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> A tech leader is trying to decide whether to deploy Einstein Copilot or Agentforce for a customer service use case where the goal is to automatically resolve common tier-1 queries without a human agent involved. Which platform is appropriate?</p>
-            <button onclick="answer(this,'q1','wrong')">Einstein Copilot, because it is embedded in the Service Cloud UI and has access to case data</button>
-            <button onclick="answer(this,'q1','right')">Agentforce, because it can operate autonomously and resolve queries without requiring human confirmation at each step</button>
-            <button onclick="answer(this,'q1','wrong')">Either platform — both support autonomous case resolution in the current release</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Einstein Copilot, because it is embedded in the Service Cloud UI and has access to case data</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Agentforce, because it can operate autonomously and resolve queries without requiring human confirmation at each step</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Either platform — both support autonomous case resolution in the current release</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. Neither — customer service automation requires a third-party application from AppExchange</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> An organisation deploys Einstein Copilot to its 500-person sales team. Adoption surveys at 90 days show that usage has concentrated heavily on email drafting but barely any users are using the record update and query features. What is the most likely explanation?</p>
-            <button onclick="answer(this,'q2','wrong')">The Copilot Actions for record update and query were not configured correctly and are unavailable</button>
-            <button onclick="answer(this,'q2','right')">Users encountered variable or unexpected results from natural language record update and query requests and defaulted to manual methods, while email drafting produced consistently reviewable outputs they could trust</button>
-            <button onclick="answer(this,'q2','wrong')">Record update and query features require a separate licence tier that was not purchased for this deployment</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. The Copilot Actions for record update and query were not configured correctly and are unavailable</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. Users encountered variable or unexpected results from natural language record update and query requests and defaulted to manual methods, while email drafting produced consistently reviewable outputs they could trust</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. Record update and query features require a separate licence tier that was not purchased for this deployment</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. The Salesforce mobile app does not support record updates via natural language commands</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> What is the primary strategic reason to invest in Prompt Builder templates and Action definitions for Copilot today, given that Salesforce's roadmap points toward convergence with Agentforce?</p>
-            <button onclick="answer(this,'q3','wrong')">Prompt Builder templates will be deprecated and replaced by a new tool when Agentforce is fully released, so it is important to build on the current tool before migration</button>
-            <button onclick="answer(this,'q3','wrong')">Einstein Copilot configurations are cloud-specific and will not transfer to Agentforce, so separate investments are required for each</button>
-            <button onclick="answer(this,'q3','right')">Configurations built on Prompt Builder and well-defined Actions are forward-compatible with Agentforce — the same prompts and action definitions serve both assisted and autonomous modes as the platform converges</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. Prompt Builder templates will be deprecated and replaced by a new tool when Agentforce is fully released, so it is important to build on the current tool before migration</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. Einstein Copilot configurations are cloud-specific and will not transfer to Agentforce, so separate investments are required for each</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. Configurations built on Prompt Builder and well-defined Actions are forward-compatible with Agentforce — the same prompts and action definitions serve both assisted and autonomous modes as the platform converges</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. Salesforce offers substantial licensing discounts to organisations that have active Copilot configurations</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>

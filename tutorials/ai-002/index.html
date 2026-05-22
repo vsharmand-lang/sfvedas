@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-002/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Einstein GPT and Generative AI in Salesforce: Real vs Marketed | SFVedas</title>
+  <title>AI-002: Einstein GPT and Generative AI in Salesforce: Real vs Marketed — SFVedas</title>
   <meta name="description" content="Cut through the Salesforce AI marketing. What Einstein GPT actually does, how the Trust Layer works, and which generative AI use cases deliver real value today."/>
-  <meta property="og:title" content="Einstein GPT and Generative AI in Salesforce: Real vs Marketed | SFVedas"/>
+  <meta property="og:title" content="AI-002: Einstein GPT and Generative AI in Salesforce: Real vs Marketed — SFVedas"/>
   <meta property="og:description" content="Cut through the Salesforce AI marketing. What Einstein GPT actually does, how the Trust Layer works, and which generative AI use cases deliver real value today."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-002/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Einstein GPT and Generative AI in Salesforce: Real vs Marketed | SFVedas"/>
+  <meta name="twitter:title" content="AI-002: Einstein GPT and Generative AI in Salesforce: Real vs Marketed — SFVedas"/>
   <meta name="twitter:description" content="Cut through the Salesforce AI marketing. What Einstein GPT actually does, how the Trust Layer works, and which generative AI use cases deliver real value today."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Einstein GPT and Generative AI in Salesforce: Real vs Marketed | SFVedas",
+    "headline": "AI-002: Einstein GPT and Generative AI in Salesforce: Real vs Marketed — SFVedas",
     "description": "Cut through the Salesforce AI marketing. What Einstein GPT actually does, how the Trust Layer works, and which generative AI use cases deliver real value today.",
     "url": "https://sfvedas.com/tutorials/ai-002/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-002/",
@@ -140,7 +140,7 @@
           </ul>
         </div>
 
-        <h2 id="s1">What Einstein GPT Actually Is</h2>
+        <h3>What Einstein GPT Actually Is</h3>
         <p>Einstein GPT was announced at TrailblazerDX in March 2023 as the "world's first generative AI for CRM". The name has since been folded into the broader Einstein umbrella, and individual features carry names like Einstein for Sales, Einstein for Service, and Einstein Copilot. The name is less important than understanding what the underlying infrastructure actually does.</p>
         <p>Einstein GPT is not a single AI model built or owned by Salesforce. It is an integration framework that routes prompts to external LLMs — primarily OpenAI's models, with options for Azure OpenAI, Anthropic, and other providers — while applying a layer of Salesforce-specific processing before and after the LLM call. That processing layer is where the meaningful Salesforce engineering sits: grounding prompts with CRM data, applying the Trust Layer filters, and returning structured output that maps to Salesforce records.</p>
         <p>This architecture means Salesforce is both dependent on and abstracted from the underlying models. When OpenAI releases a more capable model, Salesforce can swap it in with minimal change to the product surface. It also means the quality ceiling of any given Einstein feature is substantially determined by the quality of the LLM beneath it and the grounding data fed to it.</p>
@@ -152,7 +152,7 @@
           </div>
         </div>
 
-        <h2 id="s2">The AI Trust Layer</h2>
+        <h2 id="s1">The AI Trust Layer</h2>
         <p>Data security is the first objection every enterprise raises when Salesforce presents its generative AI features. The Salesforce AI Trust Layer is the architectural response to that objection. Understanding what it actually does — and what it doesn't — is essential for any compliance or InfoSec conversation.</p>
         <p>The Trust Layer operates at the prompt level. Before a prompt is sent to an external LLM, the Trust Layer applies dynamic data masking to replace personally identifiable information (PII) and sensitive field values with anonymised tokens. The LLM receives a version of the prompt with real data replaced by tokens like <code>[ACCOUNT_NAME]</code> or <code>[EMAIL_ADDRESS]</code>. The response comes back with those tokens in place, and the Trust Layer re-substitutes the real values into the output before it is displayed in Salesforce.</p>
         <p>Zero data retention is the other critical guarantee: Salesforce's agreement with its LLM providers prohibits those providers from storing or training on the data passed through Trust Layer-enabled requests. Customer data does not persist outside the Salesforce trust boundary after the API call completes.</p>
@@ -164,13 +164,13 @@
           </div>
         </div>
 
-        <h2 id="s3">Grounding: The Critical Variable</h2>
+        <h2 id="s2">Grounding: The Critical Variable</h2>
         <p>A large language model without grounding is a fluent text generator with no reliable access to facts. Grounding is the mechanism by which relevant, factual context is injected into the prompt before the LLM generates a response — transforming a generic text completion into a contextually accurate, data-aware output.</p>
         <p>In Salesforce's generative AI stack, grounding draws from two sources. The first is CRM data: the current record's fields, related records, recent activity, and cases are dynamically inserted into the prompt template. When a service agent uses Einstein to draft a reply to a case, the prompt includes the case description, the customer's recent interactions, and any relevant knowledge articles — the LLM is responding to that specific customer situation, not generating generic text.</p>
         <p>The second grounding source is Data Cloud: unified customer profiles, behavioural segments, and cross-channel interaction history can be pulled into prompts for organisations with Data Cloud deployed. This is what enables genuinely personalised outreach at scale — not just inserting a first name, but referencing recent purchase behaviour, service history, or engagement patterns that live outside the CRM record.</p>
         <p>The quality of AI outputs in Salesforce is almost entirely a function of grounding quality. An org with a clean, well-structured data model and a deployed Data Cloud produces dramatically better AI outputs than an org with sparse records and inconsistent field population. Before evaluating AI features, evaluate your data estate.</p>
 
-        <h2 id="s4">What Is Actually Working in Production</h2>
+        <h2 id="s3">What Is Actually Working in Production</h2>
         <p>Several Einstein generative AI features have reached production maturity and are delivering measurable results across early adopters. These are not future-state commitments — they are shipping features with real deployment patterns.</p>
         <p><strong>Einstein for Service — Case Summarisation and Reply Drafting:</strong> This is the highest-adoption generative AI feature in Salesforce's portfolio. Service agents receive a draft reply to an incoming case, grounded on the case history and knowledge base. Productivity gains of 20–30% in average handle time are being cited across multiple enterprise deployments. The use case is well-bounded, the grounding is strong (case data is typically well-populated), and the risk of a bad output is low because a human agent reviews before sending.</p>
         <p><strong>Einstein for Sales — Call Summaries and Next Steps:</strong> Integration with Sales Cloud and Slack allows Einstein to generate summaries of call recordings or meeting notes, extracting action items and updating CRM fields automatically. The accuracy depends heavily on transcript quality from the underlying telephony or meeting platform. Organisations using Salesforce's own telephony integrations or partners with clean transcription get better results than those with low-quality source data.</p>
@@ -183,17 +183,17 @@
           </div>
         </div>
 
-        <h2 id="s5">Where the Marketing Has Outpaced the Product</h2>
+        <h2 id="s4">Where the Marketing Has Outpaced the Product</h2>
         <p>The gap between Salesforce's AI marketing and the product's current state is real, and it creates problems for programme managers whose business cases include features that are not yet stable.</p>
         <p><strong>Predictive and prescriptive analytics claims:</strong> Many Einstein features described as "AI-driven" are statistical models trained on historical data — closer to regression analysis than true AI reasoning. Einstein Opportunity Scoring, for instance, uses gradient-boosted trees, not an LLM. This is not a criticism — statistical models are often more reliable than LLMs for prediction tasks — but it means the "AI" label covers a very wide range of underlying technologies, and the appropriate governance and validation approach differs between them.</p>
         <p><strong>Autonomous task completion:</strong> The vision of agents that independently handle end-to-end customer interactions without human oversight is a roadmap item at most organisations, not a current capability. The Agentforce platform exists and is being deployed, but production deployments in 2025–2026 are mostly in bounded, low-risk interaction types — FAQ deflection, appointment booking, order status — not complex multi-turn service resolution or sales process management.</p>
         <p><strong>Cross-cloud intelligence:</strong> Marketing materials suggest deep, unified intelligence across Sales Cloud, Service Cloud, Marketing Cloud, and Commerce. In practice, the AI features are mostly per-cloud, and cross-cloud grounding requires Data Cloud, which adds cost and implementation complexity that many organisations have not yet absorbed.</p>
 
-        <h2 id="s6">Evaluating AI Claims Systematically</h2>
+        <h2 id="s5">Evaluating AI Claims Systematically</h2>
         <p>When evaluating Einstein generative AI features — whether during procurement, roadmap planning, or a vendor presentation — apply a consistent set of questions that cut through the marketing surface.</p>
         <p>First: what model powers this feature, and what is the grounding source? If the answer to grounding is "Salesforce's knowledge base" rather than "your org's data", the feature may not perform on your specific content. Second: what does "available" mean? General Availability (GA), Limited GA, Beta, and Pilot represent materially different levels of enterprise readiness and support. Third: what is the Trust Layer classification — does this feature route data through Salesforce's managed LLM infrastructure, or does it require a separate data processing agreement? Fourth: what metric proves this is working — not "users are engaging with it", but what measurable business outcome has improved and by how much?</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Einstein GPT is an integration framework routing prompts to third-party LLMs, not a proprietary Salesforce model — Salesforce's value-add is the grounding infrastructure, Trust Layer, and product integration.</li>
@@ -210,25 +210,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> A service team wants to use Einstein to draft replies to incoming cases. What is the single most important factor that will determine the quality of those drafts?</p>
-            <button onclick="answer(this,'q1','wrong')">The version of the LLM model Salesforce is currently using</button>
-            <button onclick="answer(this,'q1','right')">The quality and completeness of the case data and knowledge articles used to ground the prompt</button>
-            <button onclick="answer(this,'q1','wrong')">The number of Einstein feature licences assigned to the service team</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. The version of the LLM model Salesforce is currently using</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. The quality and completeness of the case data and knowledge articles used to ground the prompt</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. The number of Einstein feature licences assigned to the service team</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. The speed of the network connection between the Salesforce org and the external LLM gateway</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> What does the AI Trust Layer's "zero data retention" guarantee specifically cover?</p>
-            <button onclick="answer(this,'q2','wrong')">All LLM API calls made by any Salesforce user in the org</button>
-            <button onclick="answer(this,'q2','right')">LLM calls routed through Salesforce's managed Trust Layer infrastructure — not custom integrations built by the org</button>
-            <button onclick="answer(this,'q2','wrong')">Salesforce's internal model training, ensuring customer data is never used to improve Einstein models</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. All LLM API calls made by any Salesforce user in the org</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. LLM calls routed through Salesforce's managed Trust Layer infrastructure — not custom integrations built by the org</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. Salesforce's internal model training, ensuring customer data is never used to improve Einstein models</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. Data stored in your standard custom objects, which is automatically deleted after 30 days</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> A Salesforce AE demo shows an autonomous Einstein agent handling a complex multi-step service request end-to-end without human review. What should a tech leader ask first?</p>
-            <button onclick="answer(this,'q3','wrong')">Which LLM model powers this feature and what is its context window size</button>
-            <button onclick="answer(this,'q3','wrong')">How many actions per minute the agent can process in a high-volume service centre</button>
-            <button onclick="answer(this,'q3','right')">Whether this is GA, Limited GA, Beta, or Pilot — and whether they can demonstrate it on your org's own data</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. Which LLM model powers this feature and what is its context window size</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. How many actions per minute the agent can process in a high-volume service centre</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. Whether this is GA, Limited GA, Beta, or Pilot — and whether they can demonstrate it on your org's own data</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. Whether the demo can be run on a mobile device using a different custom stylesheet</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>
@@ -257,13 +266,13 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#s1">What Einstein GPT Actually Is</a></li>
-            <li><a href="#s2">The AI Trust Layer</a></li>
-            <li><a href="#s3">Grounding: The Critical Variable</a></li>
-            <li><a href="#s4">What Is Actually Working in Production</a></li>
-            <li><a href="#s5">Where the Marketing Has Outpaced the Product</a></li>
-            <li><a href="#s6">Evaluating AI Claims Systematically</a></li>
+            <li><a href="#s1">The AI Trust Layer</a></li>
+            <li><a href="#s2">Grounding: The Critical Variable</a></li>
+            <li><a href="#s3">What Is Actually Working in Production</a></li>
+            <li><a href="#s4">Where the Marketing Has Outpaced the Product</a></li>
+            <li><a href="#s5">Evaluating AI Claims Systematically</a></li>
             <li><a href="#quiz">Check Your Understanding</a></li>
+                      <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

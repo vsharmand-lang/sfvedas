@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-003/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI-Powered Lead Scoring: How It Actually Works in Salesforce | SFVedas</title>
+  <title>AI-003: AI-Powered Lead Scoring: How It Actually Works in Salesforce — SFVedas</title>
   <meta name="description" content="How Einstein Lead Scoring builds and applies its model, what your data needs to look like, and how to interpret scores in a way that actually helps sales teams."/>
-  <meta property="og:title" content="AI-Powered Lead Scoring: How It Actually Works in Salesforce | SFVedas"/>
+  <meta property="og:title" content="AI-003: AI-Powered Lead Scoring: How It Actually Works in Salesforce — SFVedas"/>
   <meta property="og:description" content="How Einstein Lead Scoring builds and applies its model, what your data needs to look like, and how to interpret scores in a way that actually helps sales teams."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-003/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="AI-Powered Lead Scoring: How It Actually Works in Salesforce | SFVedas"/>
+  <meta name="twitter:title" content="AI-003: AI-Powered Lead Scoring: How It Actually Works in Salesforce — SFVedas"/>
   <meta name="twitter:description" content="How Einstein Lead Scoring builds and applies its model, what your data needs to look like, and how to interpret scores in a way that actually helps sales teams."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "AI-Powered Lead Scoring: How It Actually Works in Salesforce | SFVedas",
+    "headline": "AI-003: AI-Powered Lead Scoring: How It Actually Works in Salesforce — SFVedas",
     "description": "How Einstein Lead Scoring builds and applies its model, what your data needs to look like, and how to interpret scores in a way that actually helps sales teams.",
     "url": "https://sfvedas.com/tutorials/ai-003/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-003/",
@@ -186,7 +186,7 @@
         <p>Establish a quarterly calibration review. Pull a cohort of leads scored in the top quartile (score 75+) three months ago and compare conversion rates against the bottom quartile (score 25 and below). The conversion rate ratio should be meaningful — ideally 3:1 or better. If the ratio is approaching 1:1, the model has lost discriminative power and needs investigation. Common causes are a significant change in the lead mix, a drop in conversion data quality, or field population changes that removed key signal sources.</p>
         <p>Document the model's dominant signal fields — Einstein surfaces these in the scoring setup — and treat them as governed fields. Changes to picklist values, field removal, or field renames on these key fields will degrade the model. Any change to these fields should trigger a model validation check before deployment to production.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Einstein Lead Scoring trains exclusively on your org's own historical lead data — it learns your conversion patterns, not an industry benchmark, which means data quality and volume are the binding constraints.</li>
@@ -203,25 +203,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> A new Salesforce org has 400 converted leads and 600 unconverted leads from the past year. What should you expect from Einstein Lead Scoring?</p>
-            <button onclick="answer(this,'q1','wrong')">Reliable scores — Einstein will supplement the org's data with industry benchmarks to fill the gap</button>
-            <button onclick="answer(this,'q1','right')">Unreliable or absent scores — the model requires at least 1,000 examples in each class to train effectively</button>
-            <button onclick="answer(this,'q1','wrong')">Scores that are usable but will improve automatically as more leads are added over time</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Reliable scores — Einstein will supplement the org's data with industry benchmarks to fill the gap</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Unreliable or absent scores — the model requires at least 1,000 examples in each class to train effectively</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Scores that are usable but will improve automatically as more leads are added over time</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. An immediate system error that will block all lead creation until more data is loaded</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> A lead has an Einstein score of 92. What does this mean?</p>
-            <button onclick="answer(this,'q2','wrong')">There is a 92% probability this lead will convert based on Salesforce's AI model</button>
-            <button onclick="answer(this,'q2','wrong')">This lead is in the top 8% of all leads ever scored by Salesforce Einstein globally</button>
-            <button onclick="answer(this,'q2','right')">This lead's field values closely resemble the top-converting leads in your org's historical data</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. There is a 92% probability this lead will convert based on Salesforce's AI model</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">B. This lead is in the top 8% of all leads ever scored by Salesforce Einstein globally</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">C. This lead's field values closely resemble the top-converting leads in your org's historical data</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. This lead was created by a user who has a 92% performance rating in Salesforce</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> After a product launch, the sales team notices lead scores have shifted significantly across the pipeline despite no changes to individual lead records. What is the most likely cause?</p>
-            <button onclick="answer(this,'q3','wrong')">A Salesforce platform bug affecting score calculation during the release window</button>
-            <button onclick="answer(this,'q3','right')">The model retrained on the updated lead mix, which shifted the pattern of "high-converting leads" enough to re-rank existing records</button>
-            <button onclick="answer(this,'q3','wrong')">The lead scoring feature was reset by a Salesforce update and needs to be reconfigured</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. A Salesforce platform bug affecting score calculation during the release window</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">B. The model retrained on the updated lead mix, which shifted the pattern of "high-converting leads" enough to re-rank existing records</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">C. The lead scoring feature was reset by a Salesforce update and needs to be reconfigured</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. The sales team changed their personal list view filters, which forced the AI to calculate scores differently</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>

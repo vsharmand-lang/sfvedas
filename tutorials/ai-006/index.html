@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-006/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes | SFVedas</title>
+  <title>AI-006: Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes — SFVedas</title>
   <meta name="description" content="A technical guide to Salesforce Prompt Builder — template types, grounding with CRM data, prompt engineering principles, versioning, governance, and common failure modes."/>
-  <meta property="og:title" content="Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes | SFVedas"/>
+  <meta property="og:title" content="AI-006: Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes — SFVedas"/>
   <meta property="og:description" content="A technical guide to Salesforce Prompt Builder — template types, grounding with CRM data, prompt engineering principles, versioning, governance, and common failure modes."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-006/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes | SFVedas"/>
+  <meta name="twitter:title" content="AI-006: Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes — SFVedas"/>
   <meta name="twitter:description" content="A technical guide to Salesforce Prompt Builder — template types, grounding with CRM data, prompt engineering principles, versioning, governance, and common failure modes."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes | SFVedas",
+    "headline": "AI-006: Prompt Builder Deep Dive: Engineering Prompts for Business Outcomes — SFVedas",
     "description": "A technical guide to Salesforce Prompt Builder — template types, grounding with CRM data, prompt engineering principles, versioning, governance, and common failure modes.",
     "url": "https://sfvedas.com/tutorials/ai-006/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-006/",
@@ -140,7 +140,7 @@
           </ul>
         </div>
 
-        <h2 id="s1">What Prompt Builder Actually Does</h2>
+        <h3>What Prompt Builder Actually Does</h3>
         <p>Prompt Builder is Salesforce's declarative tool for creating, managing, and deploying prompt templates. A prompt template is a structured instruction to an LLM that combines static text (the instructions and context framing) with dynamic content merged from Salesforce records (the grounding data). When a user triggers an Einstein feature — generating a call summary, drafting a renewal email, summarising a case — Prompt Builder assembles the final prompt by merging the template instructions with live data retrieved from the org, then sends the complete prompt to the LLM.</p>
         <p>The key architectural role Prompt Builder plays is separating the "what to do" (the template instructions) from the "what data to use" (the merge fields and grounding queries). This separation means that changes to how AI features behave — the tone of generated content, the fields they reference, the output format — can be made by editing prompt templates rather than touching Apex code or configuration. For large deployments where non-technical team members need to tune AI behaviour, this separation is significant.</p>
 
@@ -151,13 +151,13 @@
           </div>
         </div>
 
-        <h2 id="s2">Prompt Template Types</h2>
+        <h2 id="s1">Prompt Template Types</h2>
         <p>Prompt Builder supports three template types, each serving a distinct use case. Choosing the wrong type is a common source of configuration complexity that is easily avoided by understanding what each type is optimised for.</p>
         <p><strong>Field Generation templates</strong> generate content that populates a specific field on a Salesforce record. The output is deterministic in format — it writes to a defined field — and typically short and structured. Use this type for auto-populating case summaries, generating a meeting debrief that writes back to an activity record, or creating a product description that populates a custom text field on an opportunity line item.</p>
         <p><strong>Flex templates</strong> are the most general-purpose type. They produce free-form content that is surfaced to a user in context — a drafted email, a generated response to a customer query, a suggested next-step recommendation. Flex templates are used by Einstein for Work and are the primary template type for Agentforce Actions that generate textual output. The user typically reviews the output before it is acted upon.</p>
         <p><strong>Sales Email templates</strong> are a specialised subtype of Flex templates optimised for email composition. They have built-in merge field support for contact, account, and opportunity data, and they integrate directly with the Einstein Sales Emails feature in the email composer. For standard sales email use cases, using this type rather than a generic Flex template provides better default behaviour and tighter integration with the Sales Cloud UI.</p>
 
-        <h2 id="s3">Grounding with CRM Data</h2>
+        <h2 id="s2">Grounding with CRM Data</h2>
         <p>Grounding is the process of injecting real CRM data into a prompt before it is sent to the LLM. In Prompt Builder, grounding is done through merge fields — placeholders in the template that are replaced with actual field values when the prompt is assembled. A merge field like <code>{!$Record.Account.Name}</code> is replaced with the actual account name before the prompt reaches the LLM.</p>
         <p>More sophisticated grounding uses related record traversal — including data from related objects, not just the record the template is invoked on. A case summary template can ground with data from the related account, the case's contact, the most recent case comment, and the products associated with the account's active contracts. Each of these requires a separate merge field referencing the appropriate relationship path.</p>
         <p>The constraint on grounding is the LLM context window. Every field value you include in the prompt consumes context tokens. A template that attempts to include the full text of the last 20 case comments plus the complete account history will routinely hit the context limit, causing truncation. Effective grounding is selective: include the data that is genuinely necessary for the LLM to produce the desired output, not everything that might be relevant. This requires understanding what signals actually matter for the specific output you are generating.</p>
@@ -169,7 +169,7 @@
           </div>
         </div>
 
-        <h2 id="s4">Prompt Engineering Principles</h2>
+        <h2 id="s3">Prompt Engineering Principles</h2>
         <p>Enterprise prompt engineering is not the same as personal LLM usage. Prompts that produce excellent results in ad hoc testing often perform inconsistently at scale because they rely on LLM defaults that vary across model versions, token budget differences, or edge cases in the merge field data. Prompts designed for enterprise consistency need to be deliberately structured to remove ambiguity.</p>
         <p><strong>Specify the output format explicitly:</strong> If the LLM should produce three bullet points, say "Output exactly three bullet points." If it should produce a paragraph of no more than 100 words, say "Write one paragraph of no more than 100 words." Vague instructions like "write a brief summary" produce outputs that vary in length from two sentences to six paragraphs depending on the input data. Format specification reduces variance.</p>
         <p><strong>Define the persona and audience in the system instruction:</strong> "You are a senior Salesforce account executive writing to a CFO at a manufacturing company" produces more appropriate tone and vocabulary than "write an email". The more specific the persona and audience definition, the more consistent the output register and content focus.</p>
@@ -182,18 +182,18 @@
           </div>
         </div>
 
-        <h2 id="s5">Testing, Versioning, and Governance</h2>
+        <h2 id="s4">Testing, Versioning, and Governance</h2>
         <p>Prompt Builder includes a preview panel that lets you test a template against a specific record before deploying it. This is the minimum viable testing approach, but for enterprise deployments it is insufficient on its own. A single test record confirms the template works for that record; it does not confirm it works correctly across the distribution of records it will encounter in production.</p>
         <p>For rigorous testing, maintain a test dataset — a curated set of 20–30 records that covers the range of values, field population rates, and edge cases your template will encounter. Run the template against all records in the test dataset after any change and review the outputs for regressions. This is the prompt equivalent of a unit test suite.</p>
         <p>Prompt Builder supports template versioning — each saved version of a template is preserved and can be rolled back to. Treat version management like code: document what changed and why in the template description field, use meaningful naming conventions for versions, and do not overwrite the active production version without validating the change against your test dataset. Changes to a prompt template that is used in a high-volume Agentforce agent can produce immediate visible changes in every agent conversation — there is no gradual rollout.</p>
 
-        <h2 id="s6">Common Prompt Failures</h2>
+        <h2 id="s5">Common Prompt Failures</h2>
         <p>The failures that degrade prompt template quality in production follow identifiable patterns. Most are avoidable if you understand them before deployment.</p>
         <p><strong>Hallucination from undergrounding:</strong> When a template asks the LLM to write about the customer's product usage or recent interactions but does not include actual product or interaction data in the grounding, the LLM fills the gap with plausible-sounding but fabricated content. The fix is always to add the relevant data as merge fields, not to rewrite the instructions to be more emphatic about accuracy.</p>
         <p><strong>Register mismatch:</strong> A template designed for B2B enterprise communication that is invoked in the context of a consumer support case produces inappropriately formal responses. If a single template is used across different customer segments with different communication norms, it needs explicit persona switching based on account or case type — either through conditional merge fields or separate templates for each segment.</p>
         <p><strong>Instruction drift at scale:</strong> Prompt templates that work correctly for short, simple inputs often ignore parts of their instructions when the grounding data is long and complex. The LLM loses track of specific format requirements buried in the middle of a long prompt as the context fills. Critical constraints (output format, maximum length, prohibited content) should be positioned at the end of the prompt, immediately before the task instruction, not buried in the system framing at the beginning.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Prompt Builder is the declarative layer for managing AI behavioural logic — it separates the template instructions from the CRM data grounding, enabling non-code changes to how AI features behave.</li>
@@ -210,25 +210,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> A prompt template generates a case summary and writes the output back to a summary field on the case record. Which template type is most appropriate?</p>
-            <button onclick="answer(this,'q1','right')">Field Generation, because the output is written to a specific record field</button>
-            <button onclick="answer(this,'q1','wrong')">Flex, because it is a general-purpose content generation task</button>
-            <button onclick="answer(this,'q1','wrong')">Sales Email, because it involves account and contact data from the related case</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">A. Field Generation, because the output is written to a specific record field</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">B. Flex, because it is a general-purpose content generation task</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Sales Email, because it involves account and contact data from the related case</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. Search Generation, because it searches the case comments for relevant summary information</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> A prompt template for generating sales call debrief notes is producing outputs that include fabricated details about products the customer never mentioned. What is the most likely cause?</p>
-            <button onclick="answer(this,'q2','wrong')">The LLM model version has a known accuracy issue with sales content</button>
-            <button onclick="answer(this,'q2','right')">The template instructs the LLM to include product details but does not ground the prompt with actual product data, causing the LLM to hallucinate plausible-sounding content</button>
-            <button onclick="answer(this,'q2','wrong')">The template is using a Flex type when it should be using a Field Generation type</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. The LLM model version has a known accuracy issue with sales content</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. The template instructs the LLM to include product details but does not ground the prompt with actual product data, causing the LLM to hallucinate plausible-sounding content</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. The template is using a Flex type when it should be using a Field Generation type</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. The user who ran the prompt template did not have read permission on the Product2 object</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> After updating a prompt template used in a high-volume Agentforce agent, the team immediately receives user complaints about changed agent behaviour. What process should have been followed before the change was deployed?</p>
-            <button onclick="answer(this,'q3','wrong')">The template update should have been submitted as a change request to Salesforce support for review before activation</button>
-            <button onclick="answer(this,'q3','wrong')">A feature flag should have been used to route only 10% of agent sessions to the new template version initially</button>
-            <button onclick="answer(this,'q3','right')">The updated template should have been tested against a curated dataset of representative records and validated before overwriting the active production version</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. The template update should have been submitted as a change request to Salesforce support for review before activation</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. A feature flag should have been used to route only 10% of agent sessions to the new template version initially</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. The updated template should have been tested against a curated dataset of representative records and validated before overwriting the active production version</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. The prompt template should have been built in a developer sandbox and manually activated by each user</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>
@@ -257,13 +266,13 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#s1">What Prompt Builder Actually Does</a></li>
-            <li><a href="#s2">Prompt Template Types</a></li>
-            <li><a href="#s3">Grounding with CRM Data</a></li>
-            <li><a href="#s4">Prompt Engineering Principles</a></li>
-            <li><a href="#s5">Testing, Versioning, and Governance</a></li>
-            <li><a href="#s6">Common Prompt Failures</a></li>
+            <li><a href="#s1">Prompt Template Types</a></li>
+            <li><a href="#s2">Grounding with CRM Data</a></li>
+            <li><a href="#s3">Prompt Engineering Principles</a></li>
+            <li><a href="#s4">Testing, Versioning, and Governance</a></li>
+            <li><a href="#s5">Common Prompt Failures</a></li>
             <li><a href="#quiz">Check Your Understanding</a></li>
+                      <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

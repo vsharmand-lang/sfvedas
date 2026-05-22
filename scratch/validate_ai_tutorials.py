@@ -274,7 +274,7 @@ def main():
     except Exception:
         pass
 
-    ai_dirs = sorted([d for d in os.listdir(TUTORIALS_DIR) if d.startswith('ai-') and os.path.isdir(os.path.join(TUTORIALS_DIR, d)) and int(d.split('-')[1]) >= 24])
+    ai_dirs = sorted([d for d in os.listdir(TUTORIALS_DIR) if d.startswith('ai-') and os.path.isdir(os.path.join(TUTORIALS_DIR, d)) and int(d.split('-')[1]) >= 1])
     
     print("============================================================")
     print(f"RUNNING AUTOMATED GRAMMAR TESTS ON {len(ai_dirs)} NEW AI TUTORIALS")

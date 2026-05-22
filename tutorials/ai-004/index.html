@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-004/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Agentforce Architecture: The Technical Foundation of Autonomous Agents | SFVedas</title>
+  <title>AI-004: Agentforce Architecture: The Technical Foundation of Autonomous Agents — SFVedas</title>
   <meta name="description" content="How Agentforce is structured under the hood — Topics, Actions, the Atlas reasoning engine, security guardrails, and what the architecture means for solution design."/>
-  <meta property="og:title" content="Agentforce Architecture: The Technical Foundation of Autonomous Agents | SFVedas"/>
+  <meta property="og:title" content="AI-004: Agentforce Architecture: The Technical Foundation of Autonomous Agents — SFVedas"/>
   <meta property="og:description" content="How Agentforce is structured under the hood — Topics, Actions, the Atlas reasoning engine, security guardrails, and what the architecture means for solution design."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-004/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Agentforce Architecture: The Technical Foundation of Autonomous Agents | SFVedas"/>
+  <meta name="twitter:title" content="AI-004: Agentforce Architecture: The Technical Foundation of Autonomous Agents — SFVedas"/>
   <meta name="twitter:description" content="How Agentforce is structured under the hood — Topics, Actions, the Atlas reasoning engine, security guardrails, and what the architecture means for solution design."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Agentforce Architecture: The Technical Foundation of Autonomous Agents | SFVedas",
+    "headline": "AI-004: Agentforce Architecture: The Technical Foundation of Autonomous Agents — SFVedas",
     "description": "How Agentforce is structured under the hood — Topics, Actions, the Atlas reasoning engine, security guardrails, and what the architecture means for solution design.",
     "url": "https://sfvedas.com/tutorials/ai-004/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-004/",
@@ -140,7 +140,7 @@
           </ul>
         </div>
 
-        <h2 id="s1">The Shift from Reactive to Autonomous Execution</h2>
+        <h3>The Shift from Reactive to Autonomous Execution</h3>
         <p>Every prior Salesforce AI feature — Einstein Lead Scoring, Next Best Action, Einstein Bots — follows the same pattern: the platform computes a recommendation, a human or a workflow acts on it. The intelligence and the execution are separated. Agentforce collapses that separation. An agent receives a goal, reasons about how to achieve it, selects tools to call, calls them, evaluates the result, and continues — all within a single conversation turn or across multiple turns — without requiring a human to approve each step.</p>
         <p>This is what the industry means by "agentic": the AI is not advising; it is acting. For architects, the implication is significant. Every decision you make about what an agent can access, what actions it can invoke, and under what circumstances it should escalate to a human has direct operational consequences. A misconfigured flow invoked by a human is caught before it does damage. A misconfigured action invoked by an agent at scale is not.</p>
 
@@ -151,7 +151,7 @@
           </div>
         </div>
 
-        <h2 id="s2">Topics, Actions, and the Instruction Layer</h2>
+        <h2 id="s1">Topics, Actions, and the Instruction Layer</h2>
         <p>An Agentforce agent is defined by three things: its system prompt (the role and behavioural instructions), its Topics, and its Actions. Topics are logical groupings of intent — they tell the agent which domains it is responsible for and how it should approach requests that fall within those domains. Actions are the discrete operations the agent can invoke: Apex methods, flows, external API calls, or prompt templates.</p>
         <p>When a user (or system) sends a message, Atlas — Agentforce's reasoning engine — classifies the request against the agent's Topics. If the message matches a Topic, Atlas identifies the relevant Actions available within that Topic, determines which action to invoke based on the instructions and the current conversation context, calls it, and then evaluates whether the result satisfies the goal or whether additional steps are needed.</p>
         <p><strong>Topics are not routing rules:</strong> A common design mistake is treating Topics as static intent classifiers — the same role that utterances played in Einstein Bots. Topics in Agentforce are more open-ended. They describe the scope of what the agent handles and the approach it should take, rather than mapping specific phrases to specific outcomes. This flexibility is powerful but also the source of most non-determinism: the agent's behaviour within a Topic is shaped by the LLM's interpretation of the instructions, not by a deterministic decision tree.</p>
@@ -163,12 +163,12 @@
           </div>
         </div>
 
-        <h2 id="s3">The Atlas Reasoning Engine</h2>
+        <h2 id="s2">The Atlas Reasoning Engine</h2>
         <p>Atlas is the Salesforce-hosted reasoning layer that sits between the LLM and the platform. It is responsible for the reasoning loop: receiving the user's input, determining what action to take, executing it, evaluating the result, and deciding whether the goal is achieved or further steps are needed. Atlas is not a single LLM call — each turn in an agentic conversation may involve multiple LLM invocations: one to classify intent, one to plan the next action, one to formulate a response.</p>
         <p>The reasoning loop in Agentforce follows what Salesforce calls a "plan-act-observe" cycle. Atlas plans what to do based on the current goal and available Actions. It acts by invoking the chosen Action. It observes the result and updates its understanding of the current state. It then repeats the cycle until it determines the goal is complete, it cannot proceed (escalation), or it hits a configured limit.</p>
         <p><strong>Grounding is applied at the Atlas layer:</strong> Before Atlas passes context to the LLM, it retrieves relevant data from the org — CRM records, Einstein Search results, Data Cloud unified profiles — and injects them into the prompt. This is the grounding mechanism. The LLM never has direct access to Salesforce data; it only sees what Atlas retrieves and includes in the prompt. This is also how the Trust Layer enforces data access: Atlas applies the running user's sharing rules and field-level security when retrieving records to include in the grounding context.</p>
 
-        <h2 id="s4">How Agentforce Connects to Data and Systems</h2>
+        <h2 id="s3">How Agentforce Connects to Data and Systems</h2>
         <p>Agentforce Actions can invoke three types of operations: Flows (Screen Flows or Autolaunched Flows), Apex (invocable methods), and external API calls via named credentials. Each type has different implications for what the agent can do, how it is governed, and what can go wrong.</p>
         <p><strong>Flows</strong> are the primary recommended mechanism for Actions because they are declarative, auditable, and can be changed without a deployment. An agent that updates a case status, creates a task, or sends a notification via a Flow benefits from all of Salesforce's built-in record-level security and field-level security enforcement. The Flow runs in the context of the named credential or the running user, depending on how the Action is configured.</p>
         <p><strong>Apex invocable methods</strong> are appropriate when the logic is too complex for a Flow or requires performance optimisations that declarative tools cannot achieve. The tradeoff is that Apex bypasses some of the guardrails that Flows enforce by default. Any Apex method exposed as an agent Action needs explicit security review — it is running at the agent's instruction, not a human's explicit trigger.</p>
@@ -181,12 +181,12 @@
           </div>
         </div>
 
-        <h2 id="s5">Security Model and Guardrails</h2>
+        <h2 id="s4">Security Model and Guardrails</h2>
         <p>Agentforce's security architecture operates at multiple layers. The Trust Layer is the brand name for Salesforce's suite of guardrails: it includes the data masking that prevents sensitive data from being sent to the LLM, the toxicity filters that block harmful outputs, and the audit logging that records what the agent did and why.</p>
         <p>At the platform level, the Einstein Trust Layer intercepts every prompt before it is sent to the LLM and applies two operations: data de-identification (masking field values that are classified as PII based on org-level classification settings) and content policy enforcement. The LLM receives a version of the prompt where sensitive values have been replaced with tokens. The response is re-hydrated with the original values before being returned to the agent. This means the LLM never processes the actual sensitive data — only a token representation of it.</p>
         <p>At the agent level, guardrails are configured in the agent's system prompt and via Topic-level instructions. You can specify that an agent should never take actions above a certain risk threshold without human confirmation, that it should decline requests outside its defined Topics, and that it should escalate to a human agent in specific scenarios. These are instructions to the LLM — they are effective for most cases but are not cryptographically enforced. A sufficiently clever adversarial prompt can sometimes bypass LLM-level instructions. For high-risk operations, the guardrail needs to exist at the Action level, not just in the instructions.</p>
 
-        <h2 id="s6">Capacity, Limits, and Design Constraints</h2>
+        <h2 id="s5">Capacity, Limits, and Design Constraints</h2>
         <p>Agentforce is metered. Every agent conversation consumes Einstein Conversation credits, and each Action invocation within a turn consumes additional capacity. For architects designing agents intended to run at volume — high-traffic customer service channels, fully automated back-office processes — understanding the credit consumption model is not optional; it directly affects the business case and the architecture.</p>
         <p>Conversation turns are limited within a single session, and the reasoning loop has a maximum number of iterations per turn. These limits are intended to prevent runaway agents that loop indefinitely, but they also constrain the complexity of tasks an agent can complete in a single turn. Complex multi-step processes may need to be broken across multiple sessions, which introduces state persistence requirements. Agentforce does not natively persist intermediate state between sessions — if a multi-turn workflow is interrupted, you need an external state store (a custom object or a Platform Event queue) to resume correctly.</p>
         <p>The LLM context window is another hard constraint. As the conversation history grows, Atlas must decide what context to retain and what to truncate. Very long agent sessions where the agent has invoked many Actions and accumulated substantial conversation history will begin to lose earlier context, which can cause the agent to repeat steps it has already taken or forget earlier decisions. Design long-running agent workflows to externalise state rather than relying on the LLM's in-context memory.</p>
@@ -198,7 +198,7 @@
           </div>
         </div>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Agentforce is an autonomous execution runtime, not a chatbot — the agent calls real Actions that produce real changes, so permissions and scope must be designed with the same rigour as any automated process.</li>
@@ -215,25 +215,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> An Agentforce agent needs to update a case record and send a notification as part of a single task. What is the recommended Action type for this operation?</p>
-            <button onclick="answer(this,'q1','wrong')">A direct SOQL update via Apex, because it is more performant than declarative tools</button>
-            <button onclick="answer(this,'q1','right')">An Autolaunched Flow, because it is declarative, auditable, and enforces record-level and field-level security by default</button>
-            <button onclick="answer(this,'q1','wrong')">An external API call, because it keeps the logic outside the Salesforce platform for easier maintenance</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. A direct SOQL update via Apex, because it is more performant than declarative tools</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. An Autolaunched Flow, because it is declarative, auditable, and enforces record-level and field-level security by default</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. An external API call, because it keeps the logic outside the Salesforce platform for easier maintenance</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. A standard screen flow, which prompts the customer to manually complete the case update</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> How does the Einstein Trust Layer prevent sensitive data from being processed by the external LLM?</p>
-            <button onclick="answer(this,'q2','wrong')">Salesforce runs its own on-premises LLM so no data ever leaves the platform</button>
-            <button onclick="answer(this,'q2','wrong')">Sensitive fields are excluded from grounding entirely and the LLM never receives records containing them</button>
-            <button onclick="answer(this,'q2','right')">Sensitive values are replaced with tokens before the prompt is sent to the LLM, and the response is re-hydrated with the original values before being returned</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Salesforce runs its own on-premises LLM so no data ever leaves the platform</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">B. Sensitive fields are excluded from grounding entirely and the LLM never receives records containing them</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">C. Sensitive values are replaced with tokens before the prompt is sent to the LLM, and the response is re-hydrated with the original values before being returned</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. The data is converted into an encrypted PDF attachment that the LLM decodes using a shared private key</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> A complex agent workflow spans many turns and the agent starts repeating steps it already completed earlier in the session. What is the most likely architectural cause?</p>
-            <button onclick="answer(this,'q3','wrong')">An Apex exception in one of the Action invocations is resetting the agent's state</button>
-            <button onclick="answer(this,'q3','right')">The LLM context window is truncating earlier conversation history, causing the agent to lose memory of completed steps</button>
-            <button onclick="answer(this,'q3','wrong')">The Atlas reasoning engine has a bug in its deduplication logic that causes it to replay completed steps</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. An Apex exception in one of the Action invocations is resetting the agent's state</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">B. The LLM context window is truncating earlier conversation history, causing the agent to lose memory of completed steps</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">C. The Atlas reasoning engine has a bug in its deduplication logic that causes it to replay completed steps</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. The user is repeatedly typing the exact same query, forcing the agent to execute identical actions</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>
@@ -262,13 +271,13 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#s1">The Shift from Reactive to Autonomous Execution</a></li>
-            <li><a href="#s2">Topics, Actions, and the Instruction Layer</a></li>
-            <li><a href="#s3">The Atlas Reasoning Engine</a></li>
-            <li><a href="#s4">How Agentforce Connects to Data and Systems</a></li>
-            <li><a href="#s5">Security Model and Guardrails</a></li>
-            <li><a href="#s6">Capacity, Limits, and Design Constraints</a></li>
+            <li><a href="#s1">Topics, Actions, and the Instruction Layer</a></li>
+            <li><a href="#s2">The Atlas Reasoning Engine</a></li>
+            <li><a href="#s3">How Agentforce Connects to Data and Systems</a></li>
+            <li><a href="#s4">Security Model and Guardrails</a></li>
+            <li><a href="#s5">Capacity, Limits, and Design Constraints</a></li>
             <li><a href="#quiz">Check Your Understanding</a></li>
+                      <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

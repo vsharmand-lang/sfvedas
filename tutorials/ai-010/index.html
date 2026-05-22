@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-010/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Salesforce AI Trust Layer: What It Does and Doesn't Protect | SFVedas</title>
+  <title>AI-010: The Salesforce AI Trust Layer: What It Does and Doesn't Protect — SFVedas</title>
   <meta name="description" content="A technical breakdown of the Salesforce Einstein Trust Layer — data de-identification, toxicity filtering, audit logging, what it genuinely protects, and the significant gaps architects must design around."/>
-  <meta property="og:title" content="The Salesforce AI Trust Layer: What It Does and Doesn't Protect | SFVedas"/>
+  <meta property="og:title" content="AI-010: The Salesforce AI Trust Layer: What It Does and Doesn't Protect — SFVedas"/>
   <meta property="og:description" content="A technical breakdown of the Salesforce Einstein Trust Layer — data de-identification, toxicity filtering, audit logging, what it genuinely protects, and the significant gaps architects must design around."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-010/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="The Salesforce AI Trust Layer: What It Does and Doesn't Protect | SFVedas"/>
+  <meta name="twitter:title" content="AI-010: The Salesforce AI Trust Layer: What It Does and Doesn't Protect — SFVedas"/>
   <meta name="twitter:description" content="A technical breakdown of the Salesforce Einstein Trust Layer — data de-identification, toxicity filtering, audit logging, what it genuinely protects, and the significant gaps architects must design around."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "The Salesforce AI Trust Layer: What It Does and Doesn't Protect | SFVedas",
+    "headline": "AI-010: The Salesforce AI Trust Layer: What It Does and Doesn't Protect — SFVedas",
     "description": "A technical breakdown of the Salesforce Einstein Trust Layer — data de-identification, toxicity filtering, audit logging, what it genuinely protects, and the significant gaps architects must design around.",
     "url": "https://sfvedas.com/tutorials/ai-010/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-010/",
@@ -140,7 +140,7 @@
           </ul>
         </div>
 
-        <h2 id="s1">What the Trust Layer Actually Is</h2>
+        <h3>What the Trust Layer Actually Is</h3>
         <p>The Einstein Trust Layer is Salesforce's collective term for the set of security and safety controls that sit between Salesforce data and the external large language models used by Einstein and Agentforce features. It is not a single technical component — it is a suite of controls: a data de-identification pipeline, a toxicity filter, an audit logging system, and a set of contractual and architectural commitments about how Salesforce manages the LLM vendors it partners with.</p>
         <p>The core claim of the Trust Layer is that your Salesforce data is never used to train the LLMs that Einstein and Agentforce use. When your data is sent to an external LLM provider for inference, Salesforce contractually prohibits that provider from using the data to retrain or fine-tune their model. This is the "zero data retention" commitment. It addresses the concern that activating Einstein features would cause proprietary customer data to leak into the LLM's training corpus and potentially surface in other customers' outputs.</p>
         <p>Understanding what this commitment actually covers — and, critically, what it does not — is the prerequisite for evaluating whether the Trust Layer is sufficient for your organisation's security and compliance requirements.</p>
@@ -152,7 +152,7 @@
           </div>
         </div>
 
-        <h2 id="s2">Data De-identification and Tokenisation</h2>
+        <h2 id="s1">Data De-identification and Tokenisation</h2>
         <p>Before a prompt is sent from Salesforce to the external LLM, the Trust Layer applies a de-identification scan. The scanner identifies field values that match configured sensitive data patterns — names, email addresses, phone numbers, national identification numbers, financial account references — and replaces them with opaque tokens. The LLM receives the tokenised version of the prompt; it never processes the actual sensitive values.</p>
         <p>When the LLM returns a response, the Trust Layer intercepts it before it reaches the Salesforce application and re-hydrates the tokens with the original values. From the user's perspective, the output contains the actual customer names and contact details; the LLM only ever processed tokens. This architecture means that even if the LLM provider had a data exposure incident, the exposed data would be a set of tokens rather than your customers' actual PII.</p>
         <p><strong>The scope of de-identification is configured, not automatic:</strong> The Trust Layer de-identifies fields that match the patterns in its PII detection configuration. It does not automatically understand that your custom field "Contract_Value__c" contains commercially sensitive pricing information, or that your "Internal_Account_Code__c" field maps to a specific high-value customer in a way that should be protected. De-identification coverage is bounded by the PII pattern configuration — fields that are sensitive but do not match standard PII patterns will not be de-identified unless you explicitly extend the configuration.</p>
@@ -164,12 +164,12 @@
           </div>
         </div>
 
-        <h2 id="s3">Toxicity Filtering and Content Policy</h2>
+        <h2 id="s2">Toxicity Filtering and Content Policy</h2>
         <p>The Trust Layer applies a content filter to LLM outputs before they are returned to the Salesforce application. The filter screens for responses that contain harmful, hateful, sexually explicit, or otherwise policy-violating content. If the filter identifies a policy violation in the output, the response is blocked and the user receives an error message rather than the harmful content.</p>
         <p>The toxicity filter is applied to the LLM's response, not to the user's input. This is an important asymmetry: the filter prevents the platform from surfacing harmful outputs to users, but it does not prevent users from attempting to elicit those outputs through adversarial prompts. If a user submits a prompt designed to manipulate the LLM into producing harmful content, the Trust Layer will attempt to block the output — but the attempt was still made, and the attempt itself may warrant investigation.</p>
         <p>The filter is calibrated for general enterprise content — it is not domain-specific. For highly regulated industries (healthcare, financial services, legal), the Trust Layer's general content policy may not align precisely with your sector's specific prohibited content definitions. A financial services firm whose compliance policy prohibits the LLM from making any statement that could be construed as investment advice will find that the Trust Layer's general filter does not enforce that specific prohibition. Domain-specific content restrictions require additional guardrail design at the prompt template and agent instruction level.</p>
 
-        <h2 id="s4">Audit Logging and the Accountability Chain</h2>
+        <h2 id="s3">Audit Logging and the Accountability Chain</h2>
         <p>The Trust Layer logs every LLM interaction — every prompt sent and every response received — in the Einstein audit trail. The log captures the timestamp, the user identity, the feature invoked, and metadata about the interaction. For Agentforce agents, the log also captures the sequence of actions the agent took and the data it accessed during the session.</p>
         <p>This audit capability is genuinely useful for compliance and incident investigation. If a data subject submits a GDPR access request asking what AI features processed their data, the Einstein audit trail provides a queryable record. If an Agentforce agent takes an unexpected action, the audit log provides the reconstructable sequence of what the agent did and why.</p>
         <p>The limitation of the audit log is that it captures what happened, not whether what happened was appropriate. The log records that the agent updated a record; it does not flag whether that update was outside the agent's intended scope. Identifying anomalies requires either automated monitoring rules against the audit log, or periodic manual review — neither of which the Trust Layer provides out of the box. The audit log is evidence; the governance programme provides the interpretation.</p>
@@ -181,20 +181,20 @@
           </div>
         </div>
 
-        <h2 id="s5">What the Trust Layer Does Not Protect Against</h2>
+        <h2 id="s4">What the Trust Layer Does Not Protect Against</h2>
         <p>The Trust Layer is designed around a specific threat model: data leakage into LLM training corpora, harmful content generation, and the absence of an accountability record. It addresses those threats meaningfully. It does not address the following threat vectors, which architects must compensate for explicitly.</p>
         <p><strong>Prompt injection:</strong> An adversarial user who crafts an input designed to override the agent's instructions or extract information beyond their access rights is not blocked by the Trust Layer. The Trust Layer filters outputs for toxicity; it does not validate that the LLM is honouring its instruction boundaries. Prompt injection resistance must be designed into the agent's system instructions and validated through adversarial testing before production deployment.</p>
         <p><strong>Excessive data exposure via grounding:</strong> The Trust Layer de-identifies specific sensitive values, but it does not limit how much data Atlas retrieves from the org to include in the grounding context. An agent whose Actions allow it to query broad record sets and include them in the LLM context is exposing that data to the LLM — de-identified at the field level, but still potentially revealing through the aggregate. The grounding scope must be designed with the principle of minimum necessary data, not maximum available context.</p>
         <p><strong>Business logic violations:</strong> An agent that invokes a valid Action in an inappropriate business context is not caught by the Trust Layer. If an agent approves a discount request it should have escalated to a manager, or sends an outreach email to a customer who has opted out, the Trust Layer's controls do not prevent this. Business logic guardrails must live in the Action definitions themselves and in the agent's Topic instructions — they cannot be delegated to the Trust Layer.</p>
         <p><strong>Sharing model bypass through agentic context:</strong> When an Agentforce agent runs a session, it accesses data using the running user's sharing permissions. But the agent may request data across multiple records in ways that a human user would not typically query — effectively combining information from multiple records into a single context that the human user could technically access individually but would rarely assemble in practice. This is not a Trust Layer bypass; it is a valid use of existing permissions. But it is a data minimisation concern that the Trust Layer is not designed to address.</p>
 
-        <h2 id="s6">Designing for the Gaps</h2>
+        <h2 id="s5">Designing for the Gaps</h2>
         <p>Filling the Trust Layer's gaps requires deliberate architectural decisions at the design phase — not compensating controls bolted on after deployment. Three principles guide this design.</p>
         <p><strong>Minimum necessary grounding:</strong> Every merge field in a prompt template and every record query in an agent Action should be justified by a specific output quality requirement. If including a field does not demonstrably improve the quality of the LLM output, it should not be included. This principle limits the exposure surface without degrading output quality.</p>
         <p><strong>Action-level business rule enforcement:</strong> Business logic that must never be violated — cannot-contact flags, manager approval requirements, regulatory disclosures — should be enforced in the Flow or Apex that implements the Action, not in the LLM's instructions. The LLM can be instructed not to approve discounts above 20%; the Flow that executes the discount approval should enforce the 20% ceiling regardless of what the LLM decided. Defence in depth at the execution layer compensates for instruction drift at the reasoning layer.</p>
         <p><strong>Adversarial testing before production:</strong> Every agent and every high-volume generative feature should undergo structured adversarial testing before production deployment. This means attempting to elicit out-of-scope behaviour through carefully crafted inputs, testing boundary conditions on field access, and verifying that business rule enforcement at the Action level works correctly when the LLM attempts to invoke the Action with unexpected parameters. The Trust Layer protects against known harmful patterns; adversarial testing identifies the unknown ones specific to your deployment.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>The Einstein Trust Layer is a suite of controls — de-identification, toxicity filtering, audit logging, and zero-data-retention commitments — not a single security boundary or a complete AI security solution.</li>
@@ -211,25 +211,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> A prompt template for an Agentforce agent includes a merge field for a custom "Contract_Pricing_Tier__c" field that contains commercially sensitive pricing information. Does the Einstein Trust Layer's de-identification automatically protect this field?</p>
-            <button onclick="answer(this,'q1','wrong')">Yes — the Trust Layer de-identifies all fields classified as sensitive in the Salesforce data model</button>
-            <button onclick="answer(this,'q1','right')">Not automatically — the Trust Layer de-identifies standard PII patterns; commercially sensitive custom fields must be explicitly added to the de-identification configuration</button>
-            <button onclick="answer(this,'q1','wrong')">Yes — all custom field values are tokenised by default before being included in any prompt</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Yes — the Trust Layer de-identifies all fields classified as sensitive in the Salesforce data model</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Not automatically — the Trust Layer de-identifies standard PII patterns; commercially sensitive custom fields must be explicitly added to the de-identification configuration</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Yes — all custom field values are tokenised by default before being included in any prompt</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. No, custom fields are completely blocked from prompt templates for security reasons</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> An Agentforce agent is configured to apply a renewal discount and send a confirmation email. The business rule states no discount above 15% can be approved without manager authorisation. Where should this rule be enforced?</p>
-            <button onclick="answer(this,'q2','wrong')">In the agent's system prompt instructions, telling the LLM not to approve discounts above 15%</button>
-            <button onclick="answer(this,'q2','wrong')">In the Einstein Trust Layer's content policy configuration</button>
-            <button onclick="answer(this,'q2','right')">In the Flow or Apex that implements the discount Action, enforcing the 15% ceiling at execution regardless of the LLM's decision</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. In the agent's system prompt instructions, telling the LLM not to approve discounts above 15%</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">B. In the Einstein Trust Layer's content policy configuration</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">C. In the Flow or Apex that implements the discount Action, enforcing the 15% ceiling at execution regardless of the LLM's decision</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. In a validation rule on the opportunity object, which forces the agent to retry with a lower value</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> What is the primary limitation of the Einstein audit log from a compliance monitoring perspective?</p>
-            <button onclick="answer(this,'q3','wrong')">It only logs generative AI interactions and does not capture Agentforce agent actions</button>
-            <button onclick="answer(this,'q3','right')">It captures what happened but does not flag whether it was appropriate — identifying anomalies requires active monitoring rules or manual review that the audit log does not provide by default</button>
-            <button onclick="answer(this,'q3','wrong')">It is only accessible to Salesforce support staff and cannot be queried by the org's own administrators</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. It only logs generative AI interactions and does not capture Agentforce agent actions</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">B. It captures what happened but does not flag whether it was appropriate — identifying anomalies requires active monitoring rules or manual review that the audit log does not provide by default</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">C. It is only accessible to Salesforce support staff and cannot be queried by the org's own administrators</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. It only retains records for 24 hours before they are permanently purged</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>
@@ -258,13 +267,13 @@
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#s1">What the Trust Layer Actually Is</a></li>
-            <li><a href="#s2">Data De-identification and Tokenisation</a></li>
-            <li><a href="#s3">Toxicity Filtering and Content Policy</a></li>
-            <li><a href="#s4">Audit Logging and the Accountability Chain</a></li>
-            <li><a href="#s5">What the Trust Layer Does Not Protect Against</a></li>
-            <li><a href="#s6">Designing for the Gaps</a></li>
+            <li><a href="#s1">Data De-identification and Tokenisation</a></li>
+            <li><a href="#s2">Toxicity Filtering and Content Policy</a></li>
+            <li><a href="#s3">Audit Logging and the Accountability Chain</a></li>
+            <li><a href="#s4">What the Trust Layer Does Not Protect Against</a></li>
+            <li><a href="#s5">Designing for the Gaps</a></li>
             <li><a href="#quiz">Check Your Understanding</a></li>
+                      <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-005/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Data Cloud as the AI Foundation: Why Clean Data Wins | SFVedas</title>
+  <title>AI-005: Data Cloud as the AI Foundation: Why Clean Data Wins — SFVedas</title>
   <meta name="description" content="Why Data Cloud is the foundational layer for Salesforce AI features, how unified profiles are built, what data readiness actually requires, and where organisations consistently fail."/>
-  <meta property="og:title" content="Data Cloud as the AI Foundation: Why Clean Data Wins | SFVedas"/>
+  <meta property="og:title" content="AI-005: Data Cloud as the AI Foundation: Why Clean Data Wins — SFVedas"/>
   <meta property="og:description" content="Why Data Cloud is the foundational layer for Salesforce AI features, how unified profiles are built, what data readiness actually requires, and where organisations consistently fail."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-005/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Data Cloud as the AI Foundation: Why Clean Data Wins | SFVedas"/>
+  <meta name="twitter:title" content="AI-005: Data Cloud as the AI Foundation: Why Clean Data Wins — SFVedas"/>
   <meta name="twitter:description" content="Why Data Cloud is the foundational layer for Salesforce AI features, how unified profiles are built, what data readiness actually requires, and where organisations consistently fail."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Data Cloud as the AI Foundation: Why Clean Data Wins | SFVedas",
+    "headline": "AI-005: Data Cloud as the AI Foundation: Why Clean Data Wins — SFVedas",
     "description": "Why Data Cloud is the foundational layer for Salesforce AI features, how unified profiles are built, what data readiness actually requires, and where organisations consistently fail.",
     "url": "https://sfvedas.com/tutorials/ai-005/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-005/",
@@ -187,7 +187,7 @@
         <p><strong>Historical data gaps:</strong> Many AI features require historical interaction data — past purchases, past cases, past email engagement — to generate personalised recommendations. If that historical data lives in a legacy system that was never migrated to Salesforce, or if it was purged as part of a data cleanup, the AI feature starts with no history and cannot produce useful outputs until sufficient new history accumulates. This is a multi-month delay that surprises organisations who assumed their Salesforce data was the complete picture.</p>
         <p><strong>Permission-driven gaps:</strong> If the AI feature queries records that users in certain roles or territories cannot see due to sharing rules, the unified profile it builds for those customers will be incomplete — missing the data that only certain users can access. Einstein features that run in system context may see more than the Einstein features that run as a specific user. Validating the effective query scope of each AI feature against your sharing model is a necessary architecture step.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>AI output quality is a direct function of data quality — the model amplifies what it receives, so fragmented or inconsistent source data produces fragmented or inconsistent AI outputs regardless of the model's sophistication.</li>
@@ -204,25 +204,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> An organisation activates Einstein Next Best Action but finds the recommendations are generic and unhelpful. The consultant identifies that the "Customer Segment" field — a key signal for the feature — is only populated on 35% of account records. What should be done first?</p>
-            <button onclick="answer(this,'q1','wrong')">Reconfigure the Einstein model to use a different field as the primary signal</button>
-            <button onclick="answer(this,'q1','wrong')">Purchase additional Einstein credits to improve model training volume</button>
-            <button onclick="answer(this,'q1','right')">Improve the population rate of the Customer Segment field before expecting the feature to produce meaningful recommendations</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Reconfigure the Einstein model to use a different field as the primary signal</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">B. Purchase additional Einstein credits to improve model training volume</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">C. Improve the population rate of the Customer Segment field before expecting the feature to produce meaningful recommendations</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. Deploy a custom lightning component that overrides the default recommendation engine</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> During Data Cloud identity resolution setup, the team finds that records that should be merged into a single unified profile are remaining as separate profiles. What is the most likely root cause?</p>
-            <button onclick="answer(this,'q2','wrong')">Data Cloud's identity resolution algorithm has a known limitation with B2B account data</button>
-            <button onclick="answer(this,'q2','right')">Key identifier fields (such as email or phone) are formatted inconsistently across source systems, preventing match rules from recognising records as the same person</button>
-            <button onclick="answer(this,'q2','wrong')">The match threshold is set too aggressively, causing records to be kept separate when they should be merged</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Data Cloud's identity resolution algorithm has a known limitation with B2B account data</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. Key identifier fields (such as email or phone) are formatted inconsistently across source systems, preventing match rules from recognising records as the same person</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. The match threshold is set too aggressively, causing records to be kept separate when they should be merged</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. The source systems are using different API versions, which prevents Data Cloud from reading the fields</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> What is the correct description of Data Cloud's role in the Salesforce AI stack?</p>
-            <button onclick="answer(this,'q3','wrong')">A replacement for the Salesforce data warehouse that stores all customer records in a new schema</button>
-            <button onclick="answer(this,'q3','wrong')">A machine learning platform that trains Einstein models on ingested customer data</button>
-            <button onclick="answer(this,'q3','right')">A real-time unification layer that ingests data from multiple sources, resolves identity, and produces unified customer profiles for AI features to consume</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. A replacement for the Salesforce data warehouse that stores all customer records in a new schema</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. A machine learning platform that trains Einstein models on ingested customer data</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. A real-time unification layer that ingests data from multiple sources, resolves identity, and produces unified customer profiles for AI features to consume</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. An offline archival storage system designed to reduce data storage fees on the core platform</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>

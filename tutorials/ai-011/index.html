@@ -143,7 +143,7 @@
           </ul>
         </div>
 
-        <h2 id="s1">What These Services Are — and What They Are Not</h2>
+        <h3>What These Services Are — and What They Are Not</h3>
 
         <p>Einstein Vision and Einstein Language are <em>predictive AI services</em> — not generative ones. They classify and analyse. They do not generate text, answer questions, or hold conversations. This distinction matters enormously for solution design because the two categories of AI have entirely different use cases, latency profiles, cost models, and failure modes.</p>
 
@@ -159,7 +159,7 @@
           </div>
         </div>
 
-        <h2 id="s2">How Einstein Vision Works</h2>
+        <h2 id="s1">How Einstein Vision Works</h2>
 
         <p>Einstein Vision is a hosted image classification and object detection service. Classification tells you what an image is. Object detection tells you where specific things are within an image, returning bounding box coordinates alongside labels.</p>
 
@@ -211,7 +211,7 @@ public static String classifyImage(String base64ImageData, String modelId) {
           </div>
         </div>
 
-        <h2 id="s3">How Einstein Language Works</h2>
+        <h2 id="s2">How Einstein Language Works</h2>
 
         <p>Einstein Language provides two capabilities: <strong>Intent</strong> (text classification into user-defined categories) and <strong>Sentiment</strong> (positive / negative / neutral classification using a pre-built model). Both invoke the same REST API pattern as Einstein Vision but against text rather than image data.</p>
 
@@ -235,7 +235,7 @@ public static String classifyImage(String base64ImageData, String modelId) {
           </div>
         </div>
 
-        <h2 id="s4">Invocation Patterns in a Salesforce Architecture</h2>
+        <h2 id="s3">Invocation Patterns in a Salesforce Architecture</h2>
 
         <p>There are three practical invocation patterns for Einstein Vision and Language in a Salesforce context. The right choice depends on latency requirements and transaction boundary constraints.</p>
 
@@ -259,7 +259,7 @@ public static String classifyImage(String base64ImageData, String modelId) {
           </div>
         </div>
 
-        <h2 id="s5">Real Use Cases and Where They Fail</h2>
+        <h2 id="s4">Real Use Cases and Where They Fail</h2>
 
         <p>The use cases where these services reliably deliver value share a common shape: the classification task is well-defined, the training data is representative, and the output drives a process — not a final decision.</p>
 
@@ -271,7 +271,7 @@ public static String classifyImage(String base64ImageData, String modelId) {
 
         <p>Where these services fail: when the classification problem is more nuanced than a well-defined label set can capture; when training data quality is poor; when the model is expected to understand context that spans multiple sentences or turns in a conversation; or when automated action is taken directly on low-confidence predictions without human review.</p>
 
-        <h2 id="s6">Positioning Alongside Agentforce and Data Cloud</h2>
+        <h2 id="s5">Positioning Alongside Agentforce and Data Cloud</h2>
 
         <p>Einstein Vision and Language are narrow, purpose-built classification services. Agentforce is a generative, multi-step reasoning engine. They are not substitutes — they operate at different layers of intelligence.</p>
 
@@ -279,7 +279,7 @@ public static String classifyImage(String base64ImageData, String modelId) {
 
         <p>Data Cloud's role here is as the training data source. If your Einstein Language models are trained on case data, keeping that training pipeline connected to Data Cloud's unified profile ensures that the training corpus stays current as customer language and product categories evolve. This is not a native out-of-the-box integration — it requires deliberate architecture — but it is the right long-term approach for programmes where AI quality matters.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Einstein Vision and Language are predictive classification services, not generative AI — they classify inputs into predefined labels, not generate content</li>
@@ -350,14 +350,14 @@ public static String classifyImage(String base64ImageData, String modelId) {
         <div class="sidebar-toc">
           <h4>In This Tutorial</h4>
           <ul class="toc-list">
-            <li><a href="#s1">What These Services Are — and What They Are Not</a></li>
-            <li><a href="#s2">How Einstein Vision Works</a></li>
-            <li><a href="#s3">How Einstein Language Works</a></li>
-            <li><a href="#s4">Invocation Patterns in a Salesforce Architecture</a></li>
-            <li><a href="#s5">Real Use Cases and Where They Fail</a></li>
-            <li><a href="#s6">Positioning Alongside Agentforce and Data Cloud</a></li>
+            <li><a href="#s1">How Einstein Vision Works</a></li>
+            <li><a href="#s2">How Einstein Language Works</a></li>
+            <li><a href="#s3">Invocation Patterns in a Salesforce Architecture</a></li>
+            <li><a href="#s4">Real Use Cases and Where They Fail</a></li>
+            <li><a href="#s5">Positioning Alongside Agentforce and Data Cloud</a></li>
             <li><a href="#quiz">Key Takeaways</a></li>
             <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+                      <li><a href="#takeaways">Key Takeaways</a></li>
           </ul>
         </div>
         <div class="sidebar-progress">

@@ -5,16 +5,16 @@
   <link rel="canonical" href="https://sfvedas.com/tutorials/ai-008/"/>
   <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Predictive vs Generative AI in Salesforce: The Leader's Framework | SFVedas</title>
+  <title>AI-008: Predictive vs Generative AI in Salesforce: The Leader's Framework — SFVedas</title>
   <meta name="description" content="A decision framework for tech leaders on when to use predictive AI versus generative AI in Salesforce — what each does, where each fails, and how to build a portfolio approach."/>
-  <meta property="og:title" content="Predictive vs Generative AI in Salesforce: The Leader's Framework | SFVedas"/>
+  <meta property="og:title" content="AI-008: Predictive vs Generative AI in Salesforce: The Leader's Framework — SFVedas"/>
   <meta property="og:description" content="A decision framework for tech leaders on when to use predictive AI versus generative AI in Salesforce — what each does, where each fails, and how to build a portfolio approach."/>
   <meta property="og:type" content="article"/>
   <meta property="og:url" content="https://sfvedas.com/tutorials/ai-008/"/>
   <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
   <meta property="og:site_name" content="SFVedas"/>
   <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Predictive vs Generative AI in Salesforce: The Leader's Framework | SFVedas"/>
+  <meta name="twitter:title" content="AI-008: Predictive vs Generative AI in Salesforce: The Leader's Framework — SFVedas"/>
   <meta name="twitter:description" content="A decision framework for tech leaders on when to use predictive AI versus generative AI in Salesforce — what each does, where each fails, and how to build a portfolio approach."/>
   <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -38,7 +38,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Predictive vs Generative AI in Salesforce: The Leader's Framework | SFVedas",
+    "headline": "AI-008: Predictive vs Generative AI in Salesforce: The Leader's Framework — SFVedas",
     "description": "A decision framework for tech leaders on when to use predictive AI versus generative AI in Salesforce — what each does, where each fails, and how to build a portfolio approach.",
     "url": "https://sfvedas.com/tutorials/ai-008/",
     "mainEntityOfPage": "https://sfvedas.com/tutorials/ai-008/",
@@ -188,7 +188,7 @@
         <p>Agentforce is the most complete convergence: an Agentforce agent can invoke a predictive Einstein feature (checking a lead score, querying a forecast) as an Action within its reasoning loop, use the result to decide the next step, and then invoke a generative Prompt Builder template to produce the communication or summary that results from that decision. The autonomous agent orchestrates across both AI types, using each for what it is best at.</p>
         <p>For tech leaders, the practical implication is that the two types are not competing investments — they are complementary layers. Predictive AI tells you what matters. Generative AI tells you what to say about it. Agentic AI orchestrates the response. Building a platform capability that supports all three layers — starting with generative, adding predictive, then enabling agentic — is the architecture that maximises long-term AI value on Salesforce.</p>
 
-        <div class="key-takeaways">
+        <div class="key-takeaways" id="takeaways">
           <h2>Key Takeaways</h2>
           <ul>
             <li>Predictive AI produces scores, classifications, and ranked recommendations from historical patterns; generative AI produces text and action outputs from current context — they solve different problems and have different data prerequisites.</li>
@@ -205,25 +205,34 @@
 
           <div class="quiz-question" id="q1">
             <p><strong>Q1.</strong> A CTO asks whether Einstein Lead Scoring can be activated for a Salesforce org that went live three months ago with 200 converted leads. What is the correct assessment?</p>
-            <button onclick="answer(this,'q1','wrong')">Yes — Einstein Lead Scoring is generative AI and does not require historical data to produce scores</button>
-            <button onclick="answer(this,'q1','right')">Not yet — Einstein Lead Scoring is predictive AI and requires at least 1,000 converted leads for a reliable model; the org needs more conversion history first</button>
-            <button onclick="answer(this,'q1','wrong')">Yes — 200 converted leads is above Salesforce's minimum threshold and a reliable model can be trained immediately</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Yes — Einstein Lead Scoring is generative AI and does not require historical data to produce scores</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Not yet — Einstein Lead Scoring is predictive AI and requires at least 1,000 converted leads for a reliable model; the org needs more conversion history first</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Yes — 200 converted leads is above Salesforce's minimum threshold and a reliable model can be trained immediately</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. No, unless you purchase the premium Einstein Predictor suite to bypass the data threshold</div>
+            </div>
             <p class="quiz-feedback" id="q1-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q2">
             <p><strong>Q2.</strong> Which of the following outputs is a generative AI problem, not a predictive AI problem?</p>
-            <button onclick="answer(this,'q2','wrong')">Predicting which open opportunities are most likely to close this quarter based on historical win patterns</button>
-            <button onclick="answer(this,'q2','right')">Drafting a personalised renewal email for a customer using their account history, product usage, and upcoming contract date</button>
-            <button onclick="answer(this,'q2','wrong')">Classifying incoming cases into the correct service queue based on past routing decisions</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Predicting which open opportunities are most likely to close this quarter based on historical win patterns</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. Drafting a personalised renewal email for a customer using their account history, product usage, and upcoming contract date</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. Classifying incoming cases into the correct service queue based on past routing decisions</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. Aggregating monthly sales revenue across ten global regional territories</div>
+            </div>
             <p class="quiz-feedback" id="q2-feedback"></p>
           </div>
 
           <div class="quiz-question" id="q3">
             <p><strong>Q3.</strong> An Agentforce agent checks a contact's Einstein Lead Score, decides the lead is high priority, and then generates a personalised outreach email. Which statement best describes what is happening?</p>
-            <button onclick="answer(this,'q3','wrong')">The agent is using generative AI for both the scoring and the email generation</button>
-            <button onclick="answer(this,'q3','wrong')">The agent is using predictive AI for both the scoring and the email generation</button>
-            <button onclick="answer(this,'q3','right')">The agent is using predictive AI for the score and generative AI for the email, combining both types within a single autonomous workflow</button>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. The agent is using generative AI for both the scoring and the email generation</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. The agent is using predictive AI for both the scoring and the email generation</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. The agent is using predictive AI for the score and generative AI for the email, combining both types within a single autonomous workflow</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. The agent is executing manual rules configured in a standard workflow rule</div>
+            </div>
             <p class="quiz-feedback" id="q3-feedback"></p>
           </div>
         </div>
