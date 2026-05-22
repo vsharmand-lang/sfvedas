@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/del-013/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DEL-013: Hypercare After Go-Live: What Success Looks Like — SFVedas</title>
+  <meta name="description" content="Hypercare After Go-Live: What Success Looks Like. Triage support structures and response SLAs."/>
+  <meta property="og:title" content="DEL-013: Hypercare After Go-Live: What Success Looks Like — SFVedas"/>
+  <meta property="og:description" content="Hypercare After Go-Live: What Success Looks Like. Triage support structures and response SLAs."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/del-013/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="DEL-013: Hypercare After Go-Live: What Success Looks Like — SFVedas"/>
+  <meta name="twitter:description" content="Hypercare After Go-Live: What Success Looks Like. Triage support structures and response SLAs."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "DEL-013: Hypercare After Go-Live: What Success Looks Like — SFVedas",
+    "description": "Hypercare After Go-Live: What Success Looks Like. Triage support structures and response SLAs.",
+    "url": "https://sfvedas.com/tutorials/del-013/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/del-013/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=delivery-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Delivery Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">DEL-013</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Delivery Management</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Delivery Managers · Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Hypercare After Go-Live: What Success Looks Like
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Defining critical triage support structures, response SLA targets, and user adoption metrics to secure stability in the post-launch window.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Delivery Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The strategic architecture of a Salesforce Hypercare phase, focusing on technical stabilisation and user enablement.</li>
+            <li>How to design and staff a three-tier support model that insulates core technical assets from common operational queries.</li>
+            <li>A comprehensive triage framework with distinct severity classifications, target SLAs, and safe hotfix deployment protocols.</li>
+            <li>Key performance metrics and adoption signals to monitor using platform telemetry and service desk data.</li>
+            <li>A structured, step-by-step roadmap for handing over system governance and documentation to BAU operations.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Anatomy of an Enterprise Salesforce Hypercare Phase</h2>
+
+        <p>In the lifecycle of an enterprise Salesforce programme, go-live is not the finish line; it is the point of maximum risk. The moment the switch is flipped, the theoretical designs, sandbox tests, and user acceptance processes are subjected to the brutal reality of operational transaction volumes, diverse user behaviours, and real-world data complexity. Hypercare is the structured, intensive operational buffer designed to manage this risk. It is a high-attention, dual-track stabilisation window that operates immediately post-launch, bridging the gap between the project delivery phase and business-as-usual (BAU) operations. If discovery sets the trajectory of a programme, Hypercare secures its landing.</p>
+
+        <p>The strategic mistake many delivery leaders make is viewing Hypercare as a purely technical warranty period — an extended period of bug-fixing funded by the system integrator. In reality, a successful Hypercare phase must pursue a dual-track mandate: technical stabilisation and user enablement. Technical stabilisation focuses on technical telemetry — eliminating Apex exceptions, resolving platform timeouts, tuning sharing rules, and debugging integration pipelines (such as MuleSoft or custom REST APIs). User enablement, however, addresses the human telemetry — clearing user navigation confusion, correcting data-entry errors, refining page layouts, and realigning business processes that look good on a flow diagram but fail in real-world application. Without equal investment in both tracks, an organisation risks delivering a technically flawless platform that nobody actually adopts, or a highly desired system that is perpetually crippled by underlying integration failures.</p>
+
+        <p>The standard duration of a Hypercare phase typically ranges from four to six weeks. This timeline is not arbitrary; it is designed to encompass key financial and operational cycle boundaries — most notably the first month-end close. Month-end processes represent the first time the Salesforce platform is pushed to its absolute limits, particularly in multi-cloud deployments involving Sales, Service, and Billing systems. A Hypercare phase that exits before the first month-end close leaves the organisation highly vulnerable to undocumented billing errors, revenue recognition blockages, and integration bottlenecks.</p>
+
+        <p>Crucially, Hypercare must not be exited simply because a calendar milestone has been reached. Transitioning to operations must be governed by strict, objective quality gates. The exit criteria should be formalised during the cutover planning phase and signed off by both the business sponsor and the operational owner. These criteria must include:</p>
+
+        <ul>
+          <li><strong>Defect Thresholds:</strong> Zero open Severity 1 (Critical) and Severity 2 (High) defects, and a clearly documented, stabilised, or downward trend in active ticket volumes over a consecutive ten-day period.</li>
+          <li><strong>Technical Performance:</strong> Apex exception rates maintained below 0.1% of total transaction volumes, integration transaction success rates exceeding 99.5%, and zero active Governor Limit alerts or database lock contentions.</li>
+          <li><strong>Support Readiness:</strong> The internal Salesforce Centre of Excellence (CoE) or BAU support desk must have co-managed the active ticket queue for a minimum of two weeks, validating their operational competence.</li>
+          <li><strong>Documentation Completeness:</strong> Delivery team handover of signed-off Architectural Decision Records (ADRs), comprehensive entity-relationship diagrams (ERDs), process flows, and step-by-step hotfix deployment playbooks.</li>
+        </ul>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>The Twin Mandate of Hypercare</strong>
+            <p>Hypercare is not merely a warranty period for fixing software defects; it is a critical operational buffer. Its success depends equally on resolving system errors and enabling user adoption, ensuring the organisation's business processes do not stall under the weight of change.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Designing the Hypercare Triage Support Structure</h2>
+
+        <p>An enterprise Salesforce implementation introduces an inevitable surge in support queries immediately post-launch. These queries are a chaotic mix of genuine system bugs, user training gaps, data migration issues, and simple access requests. Without a structured triage model, this volume will immediately overwhelm the core implementation team. Developers and architects will spend their days answering basic questions about how to reset passwords or find custom buttons, leaving them no time to resolve critical integration failures or custom code exceptions. To prevent this, delivery leaders must implement a tiered triage structure that insulates highly specialised resources while systematically resolving user queries.</p>
+
+        <p>The first line of defence is Tier 1: Local Business Champions or Super Users. These are business subject matter experts embedded directly within the operational departments (e.g., sales desks, customer service units, finance offices). They are trained extensively during the UAT phase and act as the first point of contact for colleagues. Tier 1 champions filter out low-complexity issues — such as 'how-to' queries, navigation confusion, and basic data-entry mistakes — which frequently constitute over 50% of all post-go-live inquiries. If a champion validates that the issue is not a user error but a systemic functional gap or platform defect, they escalate it to Tier 2.</p>
+
+        <p>Tier 2 is the Dedicated Hypercare Desk, staffed by intermediate-to-senior Salesforce Administrators and IT support specialists. Operating out of a centralised support queue (typically managed in tools like ServiceNow or Jira Service Desk), Tier 2 analysts troubleshoot platform-specific issues. Their scope includes managing user profiles and permission sets, updating validation rule criteria, correcting sharing and visibility settings, making minor page layout adjustments, and executing basic Flow diagnostics. Tier 2 is responsible for isolating the root cause of an issue. If they identify that the problem stems from a custom Apex class exception, a Lightning Web Component bug, or a middleware integration timeout, they document the technical replication steps and escalate the ticket to Tier 3.</p>
+
+        <p>Tier 3 consists of the Core Implementation Team, including Solution Architects, Lead Developers, and Integration Engineers. These resources possess deep knowledge of the custom code base, database schema design, and middleware architectures. Insulated from direct user contact, they focus exclusively on complex defect remediation, hotfix engineering, custom integration debugging, and third-party vendor escalation (such as raising high-priority cases with Salesforce Premier Support). They do not interact directly with end users; instead, they resolve the underlying platform issues and pass the resolution back down the support chain, ensuring that standard support desks learn the resolutions and can handle similar issues in the future.</p>
+
+        <div class="table-container" style="margin: 24px 0; overflow-x: auto;">
+          <table class="data-table" style="width: 100%; border-collapse: collapse; font-family: var(--font-body); font-size: 0.95rem; text-align: left; border: 1px solid var(--border);">
+            <thead>
+              <tr style="background-color: var(--bg-secondary); border-bottom: 2px solid var(--border);">
+                <th style="padding: 12px; border: 1px solid var(--border); font-weight: 600;">Support Tier</th>
+                <th style="padding: 12px; border: 1px solid var(--border); font-weight: 600;">Primary Roles</th>
+                <th style="padding: 12px; border: 1px solid var(--border); font-weight: 600;">Scope of Responsibility</th>
+                <th style="padding: 12px; border: 1px solid var(--border); font-weight: 600;">Key Platform Tooling</th>
+                <th style="padding: 12px; border: 1px solid var(--border); font-weight: 600;">Target Resolution %</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 12px; border: 1px solid var(--border); font-weight: 600;">Tier 1</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">Super Users, Business SMEs, Change Champions</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">Addressing 'how-to' queries, filtering data-entry issues, resolving navigation confusion.</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">Standard UI, In-App Guidance, Training Collateral</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">45% – 55%</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 12px; border: 1px solid var(--border); font-weight: 600;">Tier 2</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">Salesforce Administrators, Support Analysts</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">Managing access and permissions, minor layout adjustments, basic Flow diagnostics, data corrections.</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">Setup Menu, Event Log Files, Data Loader, Sharing Hierarchy</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">30% – 35%</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border);">
+                <td style="padding: 12px; border: 1px solid var(--border); font-weight: 600;">Tier 3</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">Core Build Developers, Solution Architects, Middleware Engineers</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">Remediating code errors (Apex, LWC), resolving integration API and middleware issues, managing platform governor limit failures.</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">VS Code / CLI, Debug Logs, MuleSoft Anypoint, Apex Exceptions</td>
+                <td style="padding: 12px; border: 1px solid var(--border);">15% – 20%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Protecting Development Velocity</strong>
+            <p>By routing low-complexity user support tickets through Tier 1 business champions, you prevent the 'developer context-switching tax'. This ensures that the engineers tasked with resolving critical integration and database locks can operate without constant, ad-hoc interruptions.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">Response SLAs, Severity Classifications, and Escalation Paths</h2>
+
+        <p>Operational stability during Hypercare requires a transparent, rigorous triage framework that prioritises issues based on business impact, not user noise. A common failure mode is treating every ticket submitted by a senior executive as critical, regardless of its actual functional impact. To establish objectivity, delivery organisations must define and enforce a strict triage matrix specifically tailored to the Salesforce platform ecosystem. This matrix must categorise incidents into four distinct severity levels with associated response and resolution Service Level Agreements (SLAs):</p>
+
+        <p><strong>Severity 1 (Critical):</strong> Core platform functionality is completely unavailable, blocking a vital business process for an entire department or the entire organisation, with no viable workaround. Examples include: a database lock contention preventing all sales reps from creating or saving Opportunity records; a total breakdown of the integration between Service Cloud and the core billing middleware, stopping customer billing; or a widespread Salesforce platform outage. Target Response: 15 minutes. Target Resolution: 4 hours.</p>
+
+        <p><strong>Severity 2 (High):</strong> High-impact functional degradation that severely restricts operations for a business unit. A workaround may exist, but it introduces extreme operational friction, requires excessive manual intervention, or is highly inefficient. Examples include: a critical validation rule exception preventing the finance team from converting Accounts to active customers; a failure in a custom Apex trigger blocking the generation of digital contracts; or the complete failure of a high-volume batch interface that synchronises inventory data overnight. Target Response: 60 minutes. Target Resolution: 24 hours.</p>
+
+        <p><strong>Severity 3 (Medium):</strong> Moderate-to-minor functional issues affecting a subset of users. The system remains operational, and a clear, simple workaround exists. Examples include: a page layout error where mandatory fields are misplaced; a custom Lightning Web Component rendering incorrectly on mobile devices but functional on desktop; or minor discrepancies in custom reports and dashboard charts. Target Response: 4 hours. Target Resolution: 5 business days.</p>
+
+        <p><strong>Severity 4 (Low):</strong> Standard system questions, cosmetic glitches, or simple enhancement requests. These issues do not disrupt business operations and represent long-term system optimisation rather than immediate stability risks. Examples include: minor spelling errors in help text, requesting new non-blocking field tracking, or minor adjustments to list views. Target Response: 24 hours. Target Resolution: deferred to the standard post-go-live release cycle backlog.</p>
+
+        <p>A critical component of managing these severities is the <em>Emergency Hotfix Deployment Protocol</em>. During Hypercare, there is intense pressure to deploy fixes immediately. However, bypassing standard governance is highly dangerous. To safely execute emergency hotfixes, the team must maintain a strict, automated path to Production. Developers must write and test fixes in isolated Developer sandboxes, merge them into a dedicated Hotfix Sandbox (which acts as a direct clone of Production), run automated regression test suites, and execute quick UAT sign-off before deploying to Production. Under no circumstances should code be compiled directly in Production or validation rules disabled without formal impact assessments. Adhering to this protocol protects data integrity and prevents the introduction of regression bugs that could trigger a worse Severity 1 outage.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The Danger of Direct Production Fixes</strong>
+            <p>During the pressure of a go-live, the temptation to make direct modifications in Production (e.g. disabling a validation rule or editing a Flow active version) is immense. This behaviour almost always introduces technical debt, bypasses version control, and risks triggering severe data integrity failures downstream.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Establishing User Adoption and Operational Readiness Metrics</h2>
+
+        <p>A Salesforce implementation is only successful if it is adopted by its users. During Hypercare, delivery leaders must shift their focus from purely technical monitoring to tracking user adoption and operational readiness metrics. Measuring the technical success of a go-live (e.g., system uptime and bug counts) is meaningless if the business processes themselves are stalling because users cannot or will not use the system. Senior leaders must monitor a balanced scorecard of operational KPIs that combine platform telemetry with service desk analytics to paint an accurate picture of post-launch health.</p>
+
+        <p><strong>1. System Telemetry and Technical Health:</strong> Technical health is tracked through automated logs. This includes monitoring Apex execution exception rates, platform governor limit warning alerts, integration API response latencies, and transaction error frequencies. Tools such as Salesforce Event Monitoring, Real-Time Event Monitoring, and custom application logging frameworks (like Nebula Logger) should be leveraged. If the rate of Apex exceptions exceeds 0.1% of total daily transactions, or if database lock times spike during business hours, the system is showing technical stress. These alerts allow architects to proactively tune query performance before users experience noticeable platform degradation.</p>
+
+        <p><strong>2. User Engagement and Adoption Velocity:</strong> True adoption is measured by tracking active user trends and data creation rates. Delivery managers should monitor Daily Active Users (DAU) to Weekly Active Users (WAU) ratios, segmented by business unit and geography. A low ratio indicates that users are logging in only when forced, rather than integrating Salesforce into their daily workflows. Furthermore, tracking data creation volume on core objects (e.g., Accounts created, Cases logged, Leads converted) provides tangible proof of platform utility. If Account creation rates are 40% below the legacy system baseline two weeks post-launch, it is a leading indicator of process friction or user resistance, requiring immediate intervention from the change management team.</p>
+
+        <p><strong>3. Process Velocity and Cycle Times:</strong> The ultimate goal of a Salesforce implementation is to optimise business operations. Therefore, tracking process velocity metrics is critical. Delivery managers should measure key lifecycle durations, such as the time it takes to convert a Lead, resolve a Customer Case, or generate a Billing Quote. If the average time to resolve a Service Case spikes by 50% post-launch, it indicates that service agents are struggling with the new console layout or validation rules, pointing to a training gap that requires immediate on-floor coaching.</p>
+
+        <p><strong>4. Service Queue Health and Backlog Velocity:</strong> The health of the Hypercare support structure itself is a powerful indicator of operational readiness. Delivery leaders must track ticket velocity (the volume of incoming tickets versus resolved tickets daily), ticket categorisation (percentage of bugs versus 'how-to' training issues), and average resolution cycle times. A healthy Hypercare phase exhibits a 'burn-up' trend, where ticket closure rates exceed intake, and the ratio of training issues to technical defects steadily decreases, signifying that both the platform is stabilising and the user base is becoming self-sufficient.</p>
+
+        <h2 id="s5">The Post-Hypercare Transition to Business-As-Usual (BAU) Operations</h2>
+
+        <p>The ultimate goal of Hypercare is to make the project team redundant. A successful transition is a highly structured handover of system governance, documentation, and operations from the temporary implementation project team to the permanent business-as-usual (BAU) support structure. Transitioning too early leads to operational disruption, as the BAU team is forced to resolve complex design bugs they do not understand. Transitioning too late creates an expensive dependency on external consultants, inflating the project budget. To achieve a seamless transition, delivery leaders must execute a formal handover roadmap that addresses platform governance, documentation transfer, and knowledge sharing.</p>
+
+        <p>The transition begins with the formal handover of platform governance. During the project delivery phase, decisions are made rapidly by a temporary project steering committee. As Hypercare closes, governance must transition to a permanent Salesforce Centre of Excellence (CoE) or an internal Platform Governance Board. This body takes ownership of the platform roadmap, release cycles, customisation standards, and licence management. They ensure that future changes are evaluated for architecture alignment, preventing the org from descending into technical debt and configuration sprawl.</p>
+
+        <p>Equally critical is the delivery of the <em>Operational Handover Pack</em>. This is not a dump of raw design folders, but a structured, curated suite of documentation that the BAU support team can immediately action. This pack must include:</p>
+
+        <ul>
+          <li><strong>Architectural Decision Records (ADRs):</strong> A complete history of major architectural choices, detailing the business context, alternatives considered, and technical rationales.</li>
+          <li><strong>Updated Entity Relationship Diagrams (ERDs):</strong> Comprehensive data models reflecting standard and custom object structures, field types, and relationships.</li>
+          <li><strong>Integration Interface Specifications:</strong> Detailed maps of all active API connections, data sync frequencies, payload schemas, and middleware mappings.</li>
+          <li><strong>Automated Test Suite Documentation:</strong> Details of standard unit test classes, automated UI regression scripts (e.g., using Selenium or Copado), and test coverage margins.</li>
+        </ul>
+
+        <p>The final pillar of transition is <em>Structured Knowledge Transfer (KT) and Shadowing</em>. Rather than relying on static documents, the delivery team must conduct live, interactive walkthroughs. The KT process should follow a defined progression: the project team leads support operations while the BAU team observes; the teams then co-manage the queues; finally, the BAU team leads support operations while the project team shadows, stepping in only for complex queries. Once the BAU team has successfully run the support queue independently for two weeks, meeting all SLA targets, the handover is signed off. The temporary Hypercare support queues are retired, and user requests are permanently routed to the standard corporate IT service desk, marking the successful transition of the Salesforce platform to stable, long-term operations.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Hypercare is a high-attention, dual-track transition window focused equally on platform stabilisation and end-user adoption.</li>
+            <li>Staffing a three-tiered triage structure ensures low-level 'how-to' queries are filtered out early, protecting development resources from the developer context-switching tax.</li>
+            <li>Salesforce-specific triage frameworks must differentiate between core platform blocking defects and standard user training gaps using a strict severity classification matrix.</li>
+            <li>Continuous monitoring of user adoption, data creation rates, and process velocity metrics is essential to validate that the new platform delivers business value.</li>
+            <li>A formalised transition framework, backed by a comprehensive Architectural Decision Record (ADR) history and structured shadowing, ensures long-term operational success.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+      <div class="quiz-question" id="q1">
+        <p>1. What is the primary operational objective of a tiered Hypercare support model in a Salesforce go-live context?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. To allow the implementation partner to exit the project early without resolving outstanding defects.</div>
+          <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. To shield high-cost technical resources from simple 'how-to' user queries while systematically capturing real system defects.</div>
+          <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. To force business users to resolve their own data entry issues without any technical assistance from the project team.</div>
+          <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. To bypass standard ITIL service management frameworks and deploy hotfixes directly into the production environment.</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q2">
+        <p>2. Which severity classification should be assigned if a critical Salesforce validation rule prevents the finance team from converting Accounts to active customers, but a manual, complex workaround exists?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. Severity 4 (Low), since a workaround exists and the issue is not technically blocking all platform users.</div>
+          <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">B. Severity 3 (Medium), because finance teams can execute the workaround indefinitely without affecting overall organisation revenue.</div>
+          <div class="quiz-option" onclick="answer(this, 'q2', 'right')">C. Severity 2 (High), as a workaround exists but causes significant business friction and operational inefficiency for a core department.</div>
+          <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. Severity 1 (Critical), because any issue affecting the finance department must be treated as a platform-wide outage.</div>
+        </div>
+      </div>
+
+      <div class="quiz-question" id="q3">
+        <p>3. What is the most critical technical criterion for initiating the formal transition from Hypercare to Business-As-Usual (BAU) operations?</p>
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. The calendar schedule for Hypercare has expired, regardless of the active defect count or queue status.</div>
+          <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. All user feedback has been resolved and no new feature requests have been submitted to the project backlog.</div>
+          <div class="quiz-option" onclick="answer(this, 'q3', 'right')">C. Stabilisation metrics are met, showing a downward trend in tickets, zero active Severity 1 or 2 defects, and completed knowledge transfer.</div>
+          <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">D. The internal Salesforce Centre of Excellence (CoE) has fully automated the deployment pipeline to run without manual intervention.</div>
+        </div>
+      </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../del-014/" class="related-card">
+              <span class="card-id">DEL-014</span>
+              <h4>Running a Salesforce Retrospective</h4>
+            </a>
+            <a href="../del-012/" class="related-card">
+              <span class="card-id">DEL-012</span>
+              <h4>Cutover Planning</h4>
+            </a>
+            <a href="../del-011/" class="related-card">
+              <span class="card-id">DEL-011</span>
+              <h4>Offshore & Hybrid Delivery Models</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Anatomy of an Enterprise Salesforce Hypercare Phase</a></li>
+            <li><a href="#s2">Designing the Hypercare Triage Support Structure</a></li>
+            <li><a href="#s3">Response SLAs, Severity Classifications, and Escalation Paths</a></li>
+            <li><a href="#s4">Establishing User Adoption and Operational Readiness Metrics</a></li>
+            <li><a href="#s5">The Post-Hypercare Transition to Business-As-Usual (BAU) Operations</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../del-014/" class="sidebar-next-link">
+            <span class="sidebar-next-id">DEL-014</span>
+            <span class="sidebar-next-title">Running a Salesforce Programme Retrospective That Actually Changes Things</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../del-012/" class="sidebar-next-link">
+            <span class="sidebar-next-id">DEL-012</span>
+            <span class="sidebar-next-title">Cutover Planning: The 30-60-90 Day Plan Before Go-Live</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

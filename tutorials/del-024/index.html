@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/del-024/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DEL-024: Running a Salesforce Steering Committee That Actually Steers — SFVedas</title>
+  <meta name="description" content="Running a Salesforce Steering Committee That Actually Steers. Yielding executive actions and decisions."/>
+  <meta property="og:title" content="DEL-024: Running a Salesforce Steering Committee That Actually Steers — SFVedas"/>
+  <meta property="og:description" content="Running a Salesforce Steering Committee That Actually Steers. Yielding executive actions and decisions."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/del-024/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="DEL-024: Running a Salesforce Steering Committee That Actually Steers — SFVedas"/>
+  <meta name="twitter:description" content="Running a Salesforce Steering Committee That Actually Steers. Yielding executive actions and decisions."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "DEL-024: Running a Salesforce Steering Committee That Actually Steers — SFVedas",
+    "description": "Running a Salesforce Steering Committee That Actually Steers. Yielding executive actions and decisions.",
+    "url": "https://sfvedas.com/tutorials/del-024/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/del-024/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=delivery-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Delivery Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">DEL-024</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Delivery Management</span>
+        <span class="card-read">18 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Delivery Managers · CTOs</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Running a Salesforce Steering Committee That Actually Steers
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Structuring executive committee meetings to yield actionable decisions, resolve escalated programme risks, and maintain strategic support.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Delivery Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The fundamental reasons why traditional project status steering committees fail to drive Salesforce programme success.</li>
+            <li>How to design a formal Salesforce Steering Committee Charter with explicit decision-making authority.</li>
+            <li>Best practices for structuring a steering committee agenda focused entirely on actions and decisions rather than progress updates.</li>
+            <li>Practical strategies for escalating programme risks, managing budget requests, and resolving stakeholder conflicts.</li>
+            <li>How to maintain active executive sponsorship and alignment across conflicting business departments.</li>
+            <li>Key operational and financial metrics senior leaders must monitor to evaluate overall platform ROI.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Anatomy of an Ineffective Steering Committee</h2>
+        <p>In enterprise Salesforce delivery, the steering committee (SteerCo) is theoretically the highest governing body of the programme. It is comprised of executive sponsors, department heads, technology leaders, and delivery partners who gather regularly to oversee progress, resolve major escalations, and protect the programme's budget and strategic alignment. However, in reality, a shocking number of Salesforce steering committees are highly ineffective, operating as expensive, slow-moving status meetings where executives silently review color-coded slides and listen to generic updates without making a single meaningful decision.</p>
+
+        <p>The primary driver of steering committee failure is **status update fixation**. Traditional committees spend 90% of their meeting time walking through historical progress decks, detailing developer velocity metrics, reviewing past task completions, and explaining minor schedule variances. By the time the technical team finishes presenting these details, the meeting is almost over, leaving only a few rushed minutes to address critical program risks or architectural escalations. Executives leave the meeting feeling under-utilized, while the delivery team leaves without the critical strategic decisions and approvals needed to maintain momentum.</p>
+
+        <p>The second driver is the **lack of explicit decision-making authority**. Many committees are established without a clear operational charter defining who owns the final vote, what constitutes a quorum, and what financial or scope boundaries the committee can approve. When a major escalation occurs—such as a budget overrun on middleware licensing or a resource conflict between sales and service workstreams—the committee descends into endless debate. Instead of making an active decision, they defer the choice to subsequent sub-committees or request further analysis, stalling the program and accumulating technical and operational debt.</p>
+
+        <p>Finally, steering committees frequently suffer from **executive disconnect**. Senior business sponsors are often time-poor and unfamiliar with the Salesforce platform. If the delivery team presents escalations using highly technical, platform-specific terminology (such as discussing trigger recursion, governor limits, or metadata merge conflicts), the executives will check out. They cannot evaluate the business impact of these technical risks, leading them to either rubber-stamp poor architectural choices or block critical DevOps investments. To secure true program velocity, we must restructure our steering committees, transforming them from passive status forums into high-performance decision-making machines.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The Status Trap</strong>
+            <p>If your steering committee meetings rely on walking through a slide deck detailing completed tasks and sprint burn-downs, you are wasting your executives' time. A status update can be read in a five-minute email. The steering committee exists to steer, which means making hard, binary choices about budget, scope, resources, and risk.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Designing the Executive Salesforce SteerCo Charter</h2>
+        <p>To rescue a steering committee from passive status fixation, delivery leaders must implement a formal, signed **Salesforce Steering Committee Charter**. The charter is a foundational governance document that establishes the committee's purpose, membership, voting rules, and explicit boundaries of authority, ensuring that every participant understands their operational responsibilities and accountability from day one.</p>
+
+        <p>The core of the charter is the **Explicit Authority matrix**. The charter must define exactly what decisions the committee can authorize without escalating to the board or executive committee. This includes setting clear financial approval thresholds (e.g. approving contract variations up to £250,000 or license purchases up to a specific limit), authorizing major milestone schedule shifts (up to a set number of weeks), and resolving cross-workstream design disputes. By establishing these predefined boundaries, the committee can act decisively, eliminating the need to request external approvals for standard programme remediation.</p>
+
+        <p>The charter must also define the **Membership and Voting structure**. Membership must be restricted to individuals who hold absolute accountability for their department's budget and operations, including the Chief Technology Officer, the heads of the business units adopting Salesforce (such as the VP of Sales or Customer Success), and the Program Director. The charter should enforce a strict **no-proxy rule**: if an executive sponsor cannot attend, they cannot delegate their voting authority to a junior staff member who lacks the mandate to make financial or operational commitments. This ensures that the meeting maintains its decision-making capacity.</p>
+
+        <p>Additionally, the charter establishes the **formal quorum and escalation paths**. A meeting is only valid if a quorum of voting sponsors is present. If a critical decision must be made and quorum is not met, the charter defines an immediate, time-boxed escalation procedure to secure written approvals within 24 hours. By codifying these governance rules, you prevent key decisions from stalling due to calendar conflicts, protecting the delivery team's sprint momentum and maintaining platform velocity.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The No-Proxy Mandate</strong>
+            <p>Enforcing a strict no-proxy rule in your steering committee charter is a game-changer. When executives know that they cannot delegate their seat and that their physical absence will block critical department decisions, they will prioritize the SteerCo in their calendars, ensuring high-level alignment and rapid sign-offs.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">Structuring the SteerCo Agenda for Decisions, Not Status</h2>
+        <p>Once the charter is signed, the delivery manager must radically restructure the steering committee's meeting format. The absolute standard rule of successful executive governance is the **90/10 Rule**: 90% of the meeting time must be dedicated to discussing key decisions, escalated risks, and strategic alignment; only 10% may be spent reviewing high-level programme health metrics. Status updates are completely removed from the oral agenda, replaced by a pre-distributed dashboard.</p>
+
+        <p>The foundation of this new model is the **Pre-Read Dashboard**. At least 48 hours prior to the meeting, the delivery team distributes a concise, three-page status report. The report utilizes standardized RAG (Red-Amber-Green) indicators to summarize schedule, budget, scope, and technical quality. It includes key milestone tracking, active sprint velocity, and a summary of budget burn rate. Executives are expected to review this document prior to entering the room. The meeting begins with the immediate assumption that the status report has been read, bypassing the need to walk through slides and launching directly into the decision-making agenda.</p>
+
+        <p>The oral meeting agenda must be structured around the **Decision Log**. The agenda is divided into three distinct segments. The first segment is **Decisions Required** (30 minutes). The Program Director presents a maximum of three critical choices, using structured **Decision Briefs**. Each brief maps out the context, the business impact, the options considered, the financial implications, and the lead architect's recommended path. The committee debates the options and records a formal, binary vote. The second segment is **Escalated Risk Remediation** (20 minutes), where the committee approves mitigation plans for active threats. The final segment is **Strategic Alignment Review** (10 minutes).</p>
+
+        <p>By structuring the meeting around active choices, you change the energy of the room. Executives are engaged because they are executing their strategic mandate. They are not being talked at; they are actively steering the program, resolving resource bottlenecks, and removing blockers that would otherwise stall the technical delivery team, ensuring a clean, predictable path to go-live.</p>
+
+        <div class="callout callout--key">
+          <div class="callout-icon">🔑</div>
+          <div class="callout-body">
+            <strong>Restructure the Agenda</strong>
+            <p>Restructure your SteerCo agenda: 1. Status Dashboard (Take as Read) -> 2. Decision Brief 1 (Vote) -> 3. Decision Brief 2 (Vote) -> 4. Active Risk Remediation -> 5. Strategic Alignment. Keep status updates in writing, and use the meeting exclusively for live, active decisions.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Resolving Escalated Risks and Managing Budget Requests</h2>
+        <p>One of the primary strategic functions of a steering committee is the resolution of escalated programme risks and the management of budget contingency requests. In complex Salesforce rollouts, risks often cross departmental boundaries—such as an integration delay caused by an external ERP team, or a licensing cost variation driven by an increase in active users. When these risks escalate, the SteerCo must act as a collaborative resolution body, not a combative auditing committee.</p>
+
+        <p>To manage risk escalations effectively, the delivery team must utilize a **Quantitative Risk Register**. Risks cannot be described in vague terms; they must be quantified by probability, operational impact, and cost. For example, instead of stating: "The middleware integration is delayed," the register documents: "Delay in SAP integration API delivery by external vendor. Probability: High. Impact: Postpones end-to-end testing by 3 weeks, costing £45,000 in technical team burn rate." This quantitative formatting immediately frames the risk in language that business sponsors understand, allowing them to evaluate the cost of inaction.</p>
+
+        <p>When a risk requires a **budget contingency request**, the Program Director must present a formal variation request. The variation request must document three elements: the root cause of the variation, the technical and business alternatives considered, and the precise ROI of the requested budget. For instance, if the lead architect recommends purchasing a specialized AppExchange backup tool to secure data compliance, the brief must contrast the software cost with the massive financial risk of manual database restoration and compliance failure. The committee evaluates the request against the remaining programme contingency funds, ensuring that additional investments are routed to high-value, strategic needs.</p>
+
+        <p>Additionally, the steering committee must enforce a strict **remediation accountability loop**. When a risk mitigation plan or budget variation is approved, the committee assigns a specific executive sponsor to own the remediation action. If the risk is a delay in partner API delivery, the Chief Technology Officer is tasked with personally contacting the partner's leadership to resolve the bottleneck. This active executive intervention removes operational roadblocks that the delivery team has no authority to touch, accelerating progress and protecting the project timeline.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>Never bring a risk or budget escalation to your steering committee without presenting three viable, quantified remediation options and a clear recommendation from your technical leadership. Executives are not there to brainstorm technical solutions; they are there to select the best strategic option from a pre-analyzed menu.</p>
+          </div>
+        </div>
+
+        <h2 id="s5">Maintaining Executive Sponsorship and Strategic Alignment</h2>
+        <p>Salesforce is not merely a database or a departmental CRM; in modern enterprises, it is a core business transformation platform that alters how multiple departments interact with customers and each other. Consequently, a Salesforce rollout inevitably triggers **intense departmental conflicts** over business processes, sharing rules, and resource allocation. The steering committee must act as the ultimate arbiter of these conflicts, maintaining long-term strategic alignment and protecting the program's vision.</p>
+
+        <p>The first major alignment challenge is **cross-departmental process ownership**. For example, during a Sales and Service Cloud implementation, sales leaders may demand a highly open sharing model to maximize pipeline visibility, while service leaders demand a restricted model to secure sensitive customer support logs. The delivery team cannot resolve this conflict; attempting to configure a compromised middle ground leads to a messy sharing architecture and security gaps. The steering committee must step in, review the business impacts against the strategic charter, and declare a single, authoritative policy that the entire organization must follow.</p>
+
+        <p>The second challenge is maintaining **long-term executive sponsorship**. As a multi-year Salesforce transformation progresses, initial excitement can decay, especially if business units experience minor go-live friction or operational change fatigue. To combat this, the steering committee must establish a **Continuous Value Realisation workstream**. The committee runs regular audits to track active system usage, user feedback, and financial ROI against the original business case. By communicating these positive outcomes to the board and the wider organization, the committee preserves strategic support, protecting the program from budget cuts and maintaining platform investment.</p>
+
+        <p>Ultimately, a high-performing steering committee transforms Salesforce delivery from a high-risk technical project into a highly successful, strategic business capability. By combining a signed operational charter, a decision-focused agenda, quantitative risk management, and active executive sponsorship, you establish a world-class governance framework that protects your team, secures your budget, and guarantees the long-term strategic success of your platform.</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>SteerCo Activity</th>
+                <th>Traditional Status Meeting (Failed)</th>
+                <th>High-Performance SteerCo (Success)</th>
+                <th>Strategic Business Outcome</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Time Allocation</strong></td>
+                <td>90% status updates; 10% rushed risk discussion</td>
+                <td>10% status review (read pre-read); 90% decision briefs</td>
+                <td>Rapid operational decisions; zero timeline bottlenecks</td>
+              </tr>
+              <tr>
+                <td><strong>Meeting Agenda</strong></td>
+                <td>Reviewing developer task details and slide decks</td>
+                <td>Voting on 2-3 structured Decision Briefs and risk remediation</td>
+                <td>Binary choices; clear technical and financial accountability</td>
+              </tr>
+              <tr>
+                <td><strong>Conflict Resolution</strong></td>
+                <td>Endless debates deferred to subsequent meetings</td>
+                <td>Sponsors vote on aligned options; assign remediation owners</td>
+                <td>Elimination of departmental silos and process compromises</td>
+              </tr>
+              <tr>
+                <td><strong>Attendance</strong></td>
+                <td>Junior proxies attending; voting delayed</td>
+                <td>Active executive sponsors only; strict no-proxy rule</td>
+                <td>Instant strategic alignment; direct executive backing</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Avoid status-fixated steering committees; they waste executive capacity and fail to provide the critical decisions required for delivery.</li>
+            <li>Establish a signed Steering Committee Charter to codify explicit decision-making authority, membership, and strict quorum rules.</li>
+            <li>Enforce the 90/10 rule: 90% of meeting time must be dedicated to Decision Briefs, leaving status tracking to a pre-distributed dashboard.</li>
+            <li>Implement a strict no-proxy rule to ensure that only sponsors with absolute operational and financial mandates occupy committee seats.</li>
+            <li>Quantify escalated risks by probability, impact, and cost to enable executives to evaluate the financial implications of choices.</li>
+            <li>Assign active remediation ownership to specific executive sponsors to remove cross-departmental roadblocks and external bottlenecks.</li>
+            <li>Audit post-launch feature adoption and financial ROI to maintain strategic executive sponsorship and justify continuous platform investment.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          <div class="quiz-section" id="quiz">
+            <h2>Checkpoint: Test Your Understanding</h2>
+
+            <div class="quiz-question" id="q1">
+              <p>1. What is the primary operational flaw of status-fixated Salesforce steering committees?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. They do not invite junior developers or configurators to present.</div>
+                <div class="quiz-option" onclick="answer(this,'q1','wrong')">B. They meet too frequently, causing sprint schedules to slip.</div>
+                <div class="quiz-option" onclick="answer(this,'q1','right')">C. They spend 90% of meeting time reviewing historical task details rather than voting on critical decisions and resolving escalations.</div>
+                <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. They require the technical team to write detailed business requirement specifications.</div>
+              </div>
+            </div>
+
+            <div class="quiz-question" id="q2">
+              <p>2. How does a signed Steering Committee Charter protect a Salesforce programme's delivery velocity?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. It guarantees that the project will never exceed its original budget or scope limits.</div>
+                <div class="quiz-option" onclick="answer(this,'q2','right')">B. It codifies the committee's explicit boundaries of authority, voting quorum, and no-proxy rules, enabling rapid decision-making.</div>
+                <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. It allows developers to configure custom Apex code without undergoing security reviews.</div>
+                <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. It routes all minor picklist modifications directly to executive board votes.</div>
+              </div>
+            </div>
+
+            <div class="quiz-question" id="q3">
+              <p>3. Under the 90/10 steering committee format, how should weekly programme progress and status updates be communicated to executives?</p>
+              <div class="quiz-options">
+                <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Via an oral presentation led by the lead developer during the first 45 minutes of the meeting.</div>
+                <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. By hosting daily stand-up meetings with the executive sponsors in UAT.</div>
+                <div class="quiz-option" onclick="answer(this,'q3','right')">C. Via a concise, pre-read dashboard distributed at least 48 hours prior to the meeting, which is taken as read.</div>
+                <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. By inviting executives to scrub through the team's Jira backlog dashboard during the meeting.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../del-025/" class="related-card">
+              <span class="card-id">DEL-025</span>
+              <h4>Post-Go-Live Support Models</h4>
+            </a>
+            <a href="../del-023/" class="related-card">
+              <span class="card-id">DEL-023</span>
+              <h4>Testing Strategy</h4>
+            </a>
+            <a href="../del-022/" class="related-card">
+              <span class="card-id">DEL-022</span>
+              <h4>Salesforce Data Migration</h4>
+            </a>
+
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Anatomy of an Ineffective Steering Committee</a></li>
+            <li><a href="#s2">Designing the Executive Salesforce SteerCo Charter</a></li>
+            <li><a href="#s3">Structuring the SteerCo Agenda for Decisions, Not Status</a></li>
+            <li><a href="#s4">Resolving Escalated Risks and Managing Budget Requests</a></li>
+            <li><a href="#s5">Maintaining Executive Sponsorship and Strategic Alignment</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../del-025/" class="sidebar-next-link">
+            <span class="sidebar-next-id">DEL-025</span>
+            <span class="sidebar-next-title">Post-Go-Live Support Models: In-House vs Partner vs Hybrid</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../del-023/" class="sidebar-next-link">
+            <span class="sidebar-next-id">DEL-023</span>
+            <span class="sidebar-next-title">Testing Strategy: Unit, Integration, and Regression in Salesforce</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

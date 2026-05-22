@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/del-012/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DEL-012: Cutover Planning: The 30-60-90 Day Plan Before Go-Live — SFVedas</title>
+  <meta name="description" content="Cutover Planning: The 30-60-90 Day Plan Before Go-Live. A granular blueprint for the critical weeks before launch."/>
+  <meta property="og:title" content="DEL-012: Cutover Planning: The 30-60-90 Day Plan Before Go-Live — SFVedas"/>
+  <meta property="og:description" content="Cutover Planning: The 30-60-90 Day Plan Before Go-Live. A granular blueprint for the critical weeks before launch."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/del-012/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="DEL-012: Cutover Planning: The 30-60-90 Day Plan Before Go-Live — SFVedas"/>
+  <meta name="twitter:description" content="Cutover Planning: The 30-60-90 Day Plan Before Go-Live. A granular blueprint for the critical weeks before launch."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "DEL-012: Cutover Planning: The 30-60-90 Day Plan Before Go-Live — SFVedas",
+    "description": "Cutover Planning: The 30-60-90 Day Plan Before Go-Live. A granular blueprint for the critical weeks before launch.",
+    "url": "https://sfvedas.com/tutorials/del-012/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/del-012/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=delivery-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Delivery Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">DEL-012</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Delivery Management</span>
+        <span class="card-read">25 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Delivery Managers · Senior Practitioners</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Cutover Planning: The 30-60-90 Day Plan Before Go-Live
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        A granular blueprint for the critical weeks preceding launch, mapping data migrations, freeze periods, dry runs, and team assignments.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Delivery Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li><strong>Platform Architecture:</strong> Master the non-linear complexities of deploying Salesforce metadata coupled with transactional data volumes.</li>
+            <li><strong>Sequential Planning:</strong> Implement a robust 30-60-90 day planning structure with binary Go/No-Go readiness gates.</li>
+            <li><strong>Rehearsal Telemetry:</strong> Design and execute realistic timed dry runs to replace scheduling estimates with validated telemetry.</li>
+            <li><strong>Freeze Protocols:</strong> Establish code locks, sandbox freezing, and hotfix paths to prevent staging environment drift.</li>
+            <li><strong>Data Optimization:</strong> Architect high-volume data load sequences utilizing Bulk API 2.0 with triggers bypassed and pre-staged historical records.</li>
+            <li><strong>Live Execution Control:</strong> Coordinate a timed command center sequence encompassing lockout scripts, integration silencing, and hypercare transitions.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Cutover Paradigm: Why Salesforce Deployments are Non-Linear</h2>
+        <p>In traditional custom software engineering—such as custom Java, .NET, or React web applications—the cutover process is relatively linear. A compiled binary is pushed to an application server, database migration scripts are executed sequentially, and integration pathways are redirected. However, Salesforce operates on a highly complex, multi-tenant cloud architecture that introduces a fundamentally non-linear cutover paradigm. On a modern enterprise Salesforce programme, a release is never a simple binary swap. Instead, it is an intricate orchestration where platform-native metadata (Apex classes, Lightning Web Components, Flow orchestrations, Permission Sets) must be synchronised with active database transactional records, environment-specific integration configurations, and configuration-as-data (such as Salesforce CPQ pricing tables, Field Service templates, OmniStudio structures, or Advanced Promotions).</p>
+
+        <p>This coupling of transactional data and application architecture is the core challenge. Unlike a standard relational database where schemas change slowly, a Salesforce system update often modifies active object structures while high-volume transactional pipelines are running. This means that a standard cutover plan cannot treat data migration and metadata deployment as isolated phases. They are structurally interdependent. For instance, you cannot import new child transactional records (like Order Items or Assets) until the parent lookup relationships and validation rules are deployed; yet, you cannot deploy the metadata validations without temporarily disabling them to allow legacy data that does not conform to the new rules to be loaded. This chicken-and-egg dilemma requires a non-linear, multi-pass deployment strategy where validation rules, triggers, and automated flows are deployed, partially disabled, executed upon, and then systematically re-enabled.</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Cutover Dimension</th>
+                <th>Traditional Custom Software Releases</th>
+                <th>Enterprise Salesforce Cloud Deployments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Deployment Unit</strong></td>
+                <td>Linear binary package (Docker container, JAR/DLL file).</td>
+                <td>Non-linear metadata package consisting of thousands of XML components, profiles, and custom permissions.</td>
+              </tr>
+              <tr>
+                <td><strong>Data &amp; Logic Boundary</strong></td>
+                <td>Highly isolated logic layers separate from the raw relational schema.</td>
+                <td>Fluid boundary; custom business logic is heavily driven by metadata, active validation rules, and configuration-as-data.</td>
+              </tr>
+              <tr>
+                <td><strong>Migration Execution</strong></td>
+                <td>Direct SQL scripts executed during a complete database offline window.</td>
+                <td>Asynchronous API loads (Bulk API 2.0) subject to governor limits, platform lockouts, and concurrent-request limits.</td>
+              </tr>
+              <tr>
+                <td><strong>Post-Deployment Validation</strong></td>
+                <td>Automated smoke tests executing against a single web endpoint.</td>
+                <td>Multi-tiered validation across declarative logic, custom Apex tests, integration endpoints, and user licensing permissions.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Furthermore, Salesforce's multi-tenant architecture imposes strict governor limits that do not exist on self-hosted infrastructure. During high-volume data migrations, a cutover team must navigate concurrent request limits, Bulk API batch allocations, and apex CPU timeout constraints. If a data migration script attempts to insert 5 million records while complex, active apex triggers are enabled, the transaction will hit Apex CPU limit violations and roll back completely, ruining the cutover timeline. Delivery leaders must design cutover runbooks that categorise every deployment step not just by technical layer, but by platform limit consumption, planning freeze periods and system bypasses to navigate these multi-tenant guardrails safely.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Architectural Warning</strong>
+            <p>Beware of dormant metadata activations during cutover. Certain metadata components—such as active Salesforce Flows, Einstein Next Best Action strategies, or OmniStudio Integration Procedures—will automatically activate upon deployment if not specifically configured otherwise. If these processes trigger external API integrations, a metadata-only deployment can inadvertently bombard downstream production systems with mock transactions during the cutover weekend.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">The 90-Day Horizon: Establishing the Readiness Baseline</h2>
+        <p>The success of an enterprise Salesforce cutover is decided three months before the actual go-live weekend. At the 90-day mark (T-minus 90 days), the programme must transition from a pure development mindset to a rigorous operational readiness framework. The first step in this transition is establishing the <strong>Cutover Governance Board</strong>, led by a dedicated Cutover Manager. This role must be distinct from the day-to-day Project Manager or Release Engineer; the Cutover Manager is the ultimate orchestrator, responsible for driving the cutover runbook compilation, coordinating across third-party vendor teams, and managing the live communication bridges during execution. Supporting the Cutover Manager are key stakeholders representing Salesforce Platform Architecture, Core Integrations, Business Readiness, and external business-critical systems (like SAP ERP, MuleSoft Middleware, or corporate data warehouses).</p>
+
+        <p>During this initial phase, the team must identify the optimal cutover window by analysing historical transactional volume. The target is a period of minimum business activity—typically a weekend or a holiday window—where system downtime will not cause significant revenue disruption or customer-facing failures. Once this window is agreed upon, the Cutover Manager begins drafting the <strong>Master Cutover Runbook</strong>. This document acts as the single source of truth for the entire cutover team. It is a highly granular, chronological schedule detailing every task, its duration, its specific owner, its immediate pre-requisites, its target environment state, and its validation criteria. Crucially, every task must be assigned to a real person, not an abstract team name, ensuring absolute accountability when executing under pressure.</p>
+
+        <p>Simultaneously, the Lead Platform Architect must map all external integration dependencies. Salesforce is rarely a standalone silo; it is the hub of the corporate customer ecosystem. The team must document the state of every integration during the cutover: which APIs must be silenced, which endpoints must point to maintenance holding pages, and how delta transactions will be queued in the middleware (e.g., MuleSoft or Kafka) during the transition. A detailed data-mapping document must also be drafted, establishing how legacy record IDs will be stored in the new Salesforce org to maintain parent-child integrity across asynchronous data migration batches.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>At T-minus 90 days, you must also define your Go/No-Go Gate Criteria. These criteria are objective, binary metrics that the steering committee will review at sequential checkpoints. For example, you might establish that Dry Run 1 must achieve a metadata deployment pass rate of 98% or higher, and the data migration validation must show zero integrity errors, before the programme is allowed to proceed to the T-minus 60-day gateway.</p>
+          </div>
+        </div>
+
+        <h2 id="s3">The 60-Day Horizon: Environment Hardening and Dry Run Execution</h2>
+        <p>At the 60-day mark, the focus shifts to environment hardening and testing the actual execution runbook. The first priority is to freeze developer sandbox creations and ensure that the Staging/Full-copy sandbox is refreshed to mimic the exact state of the production environment, including its metadata volume, active sharing rules, and configuration records. Once this Staging environment is locked down, the team initiates <strong>Dry Run 1 (Rehearsal 1)</strong>. This is not a theoretical review; it is a full, timed simulation of the cutover runbook executed in the Staging sandbox by the actual individuals assigned to the live cutover tasks. The primary goal of Dry Run 1 is to capture the baseline duration of every single deployment step, from metadata migration to data loads, and to discover undocumented dependencies.</p>
+
+        <p>Timing the execution to the minute is critical because it replaces estimation guesswork with solid telemetry. A script that a developer estimated would take "about 20 minutes" may actually run for 4 hours when subjected to standard sandbox data volume and API limits. When Dry Run 1 is executed, the Cutover Manager logs the start and end times of every step, capturing the variance between planned and actual durations. This log immediately highlights bottlenecks and critical-path dependencies, allowing the team to optimise the master schedule. If a specific data load task is identified as a bottleneck, the team can focus on optimising the ETL queries, tuning bulk batch sizes, or restructuring the sequencing to run parallel loads where no dependencies exist.</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Runbook Activity</th>
+                <th>Role / Owner</th>
+                <th>Target Duration</th>
+                <th>Immediate Dependencies</th>
+                <th>Environment State</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. Revoke User Access</strong></td>
+                <td>Lead Administrator</td>
+                <td>0h 15m</td>
+                <td>Cutover Window Declared</td>
+                <td>Production Active, Users Logged Out</td>
+              </tr>
+              <tr>
+                <td><strong>2. Silence Inbound APIs</strong></td>
+                <td>Middleware Lead</td>
+                <td>0h 30m</td>
+                <td>User Access Revoked</td>
+                <td>Integration Sandboxes Silenced</td>
+              </tr>
+              <tr>
+                <td><strong>3. Deploy Core Metadata</strong></td>
+                <td>Release Engineer</td>
+                <td>1h 45m</td>
+                <td>APIs Silenced, Git Branch Frozen</td>
+                <td>Metadata Validations Completed</td>
+              </tr>
+              <tr>
+                <td><strong>4. Execute Delta Data Load</strong></td>
+                <td>Data Migration Lead</td>
+                <td>4h 30m</td>
+                <td>Metadata Deployed, Triggers Bypassed</td>
+                <td>Bulk API 2.0 In Progress</td>
+              </tr>
+              <tr>
+                <td><strong>5. Run Post-Load Verifications</strong></td>
+                <td>Lead QA Engineer</td>
+                <td>1h 15m</td>
+                <td>Data Load Completed</td>
+                <td>Apex Smoke Testing Active</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Dry Run 1 also acts as a stress test for the deployment architecture. The team will inevitably encounter failures: Salesforce custom validations rejecting legacy records, record-locking conflicts during concurrent API loads, or Apex trigger limits being exceeded due to complex processing loops. Rather than viewing these as setbacks, delivery leaders should celebrate these discoveries. Finding a validation error 60 days before go-live allows the team to modify the migration mapping or write a custom bypass logic script; finding it during cutover weekend is a catastrophic delay that can derail the entire launch.</p>
+
+        <h2 id="s4">The 30-Day Horizon: Freeze Protocols and Final Data Preparation</h2>
+        <p>As the programme crosses into the final 30 days, the governance must become extremely strict. The first operational mandate is enforcing the <strong>Code and Metadata Freeze</strong>. From this point forward, no new features, enhancements, or non-critical refactoring are permitted into the release branch. The git repository is locked, and only critical bug fixes or emergency hotfixes—explicitly approved by both the Lead Architect and the Cutover Board—are allowed to be merged. This freeze is crucial to eliminate the risk of environment drift, where Staging sandboxes undergo rapid changes that diverge from the validated target state of Production, making the results of previous dry runs obsolete.</p>
+
+        <p>To support this freeze while maintaining release integrity, the team must establish a formal <strong>Emergency Hotfix Process</strong>. A dedicated hotfix sandbox is configured, and any approved change must be developed, unit tested, and immediately back-ported to both the release branch and the Staging/Full-copy sandbox. This rigorous governance ensures that the environment utilized for the final rehearsal remains a true mirror of what will be deployed on cutover weekend. Simultaneously, the Data Migration team begins pre-staging historical data. Moving massive data volumes—such as ten years of historical transactional logs or closed opportunities—during the cutover weekend is highly risky and mathematically unnecessary. By migrating these static, read-only historical records to the Production org 30 days early, you dramatically reduce the volume of data that must be loaded during the critical downtime window, leaving only the "delta" changes (records created or updated during the freeze) to be migrated on cutover weekend.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Delivery Leader Tip</strong>
+            <p>Do not underestimate the complexity of user credentials distribution and training. At T-minus 30 days, you must initiate the Business Readiness communication track. This includes sending personalised welcome emails, setting up MFA (Multi-Factor Authentication) onboarding schedules, and distributing step-by-step guidelines on how to access the new platform. If users cannot log in on Monday morning due to credential issues, the deployment is perceived as a failure, regardless of how flawless the technical cutover was.</p>
+          </div>
+        </div>
+
+        <p>Finally, at T-minus 15 days, the team executes <strong>Dry Run 2 (The Final Rehearsal)</strong>. This run is an exact mirror of the actual cutover weekend, using the final version of the code and the pre-staged data set. The goal of Dry Run 2 is to achieve a flawless run with zero manual interventions, validating that all bulk delta scripts operate within the expected time window and that the post-load integration reconciliation scripts execute successfully. The successful completion of Dry Run 2 provides the steering committee with the statistical confidence required to authorize the final go-live decision.</p>
+
+        <h2 id="s5">Execution Weekend: The T-Minus Command Center and Hypercare Handover</h2>
+        <p>When cutover weekend arrives, the execution must run like a highly choreographed military operation. The Cutover Manager establishes the <strong>T-Minus Command Center</strong>, keeping a live virtual bridge line open 24 hours a day with representatives from all technical and business teams. Every task in the runbook is tracked in real-time, and shift rotations are strictly enforced to prevent fatigue-induced errors among the engineering teams. The cutover execution proceeds through eight discrete, highly structured stages, each requiring explicit approval before passing the next gate:</p>
+
+        <p><strong>Stage 1: System Lockout and User Freezing.</strong> The very first action of the cutover is preventing business transactions from occurring in the legacy system. In Salesforce, this is achieved by executing an automated script (typically using the Salesforce CLI or Apex anonymous code) that freezes all active user accounts, preventing them from logging in or making changes. Only integration users and the deployment team's administrative accounts remain unfrozen. System administrators also update the login policies, activate custom maintenance pages, and terminate any active OAuth user sessions.</p>
+
+        <pre><code class="language-apex">// Apex Anonymous Script to freeze all non-deployment users during the cutover window
+List&lt;UserLogin&gt; loginsToFreeze = new List&lt;UserLogin&gt;();
+Set&lt;String&gt; exemptUsernames = new Set&lt;String&gt;{
+    'deployment.admin@sfvedas.com',
+    'integration.user@sfvedas.com'
+};
+
+for (UserLogin ul : [SELECT Id, UserId, IsFrozen FROM UserLogin WHERE IsFrozen = false]) {
+    User u = [SELECT Username FROM User WHERE Id = :ul.UserId LIMIT 1];
+    if (!exemptUsernames.contains(u.Username)) {
+        ul.IsFrozen = true;
+        loginsToFreeze.add(ul);
+    }
+}
+
+if (!loginsToFreeze.isEmpty()) {
+    update loginsToFreeze;
+    System.debug(loginsToFreeze.size() + ' users successfully frozen for cutover.');
+}</code></pre>
+
+        <p><strong>Stage 2: Integration Silencing and Middleware Queuing.</strong> With the system locked, the Middleware Lead silences all inbound and outbound integration pipelines. Downstream systems are placed into read-only mode, and upstream message queues (such as MuleSoft or RabbitMQ) are configured to hold transactions rather than attempting to deliver them to Salesforce. This ensures that no data drift occurs while metadata is being replaced and database tables are restructured.</p>
+
+        <p><strong>Stage 3: Metadata Release.</strong> The Release Engineer executes the final deployment of the metadata branch from the CI/CD pipeline. This includes custom objects, Apex code, Aura/LWC packages, flow orchestrations, and permission sets. Manual pre-deployment and post-deployment configurations—such as custom settings activation or third-party package licence assignments—are performed by designated engineers and validated against the runbook checklist.</p>
+
+        <p><strong>Stage 4: Delta Data Load and Reconciliation.</strong> The Data Migration team initiates the final data import. Using optimized Bulk API 2.0 loads, they migrate all transactional records created or updated since the pre-staging freeze. Once the load completes, they run automated data reconciliation queries (comparing source and target database checksums and record counts) to verify that no record loss occurred during the migration. Validation rules and apex triggers are systematically re-enabled, and any transient integration errors are resolved.</p>
+
+        <p><strong>Stage 5: Integration Re-activation and Sync.</strong> The Middleware Lead switches integration API endpoints to point to the live Production environment, restores secure credentials, and starts the processing queues. The system begins processing the backlog of queued messages, and integration synchronisation is verified by monitoring the API request logs for any persistent errors.</p>
+
+        <p><strong>Stage 6: Multi-tiered Smoke Testing.</strong> Designated Business Leads and technical experts conduct extensive smoke testing. This testing follows a strict script designed to validate core system behaviours: creating an account, generating an opportunity, executing a CPQ quote, and verifying integration calls. This testing must be conducted using specific test profiles to ensure security structures and sharing rules are fully functional.</p>
+
+        <p><strong>Stage 7: The Go/No-Go steering committee meeting.</strong> The steering committee convenes to review the results of the data reconciliation and smoke testing. If all validation criteria are met, the official "Go" decision is declared. In the rare event of an unresolvable, business-critical failure, the Cutover Manager invokes the pre-defined <strong>Roll-back Plan</strong>, reverting metadata and database states back to the pre-cutover baseline using pre-compiled backup files.</p>
+
+        <p><strong>Stage 8: System Unlock and Hypercare Commencement.</strong> Upon receiving the "Go" decision, administrators execute a script to unfreeze all active user accounts, distribute credentials, and announce that the platform is live. The T-Minus Command Center is officially dissolved, and the project transitions into the <strong>Hypercare Support phase</strong>. This phase—staffed by dedicated, highly responsive helpdesk and engineering teams—ensures that any post-launch user adoption friction or minor system anomalies are addressed immediately, protecting the business from operational disruption and securing a highly successful go-live.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li><strong>Non-Linear Architecture Complexity:</strong> Salesforce cutovers require highly coordinated metadata deployments and data loads to successfully navigate platform governor limits and validation locks.</li>
+            <li><strong>Objective Gateway Planning:</strong> Establish a clear chronological timeline with Go/No-Go criteria at the 90, 60, and 30-day marks to systematically de-risk the deployment process.</li>
+            <li><strong>Timed Sandbox Rehearsals:</strong> Execute multiple comprehensive dry runs in Full Copy sandboxes to obtain precise telemetry and eliminate operational timing assumptions.</li>
+            <li><strong>Strict Environment Locking:</strong> Enforce code freezes and a rigid emergency hotfix process 30 days prior to launch to prevent sandboxes from diverging from target production states.</li>
+            <li><strong>Hour-by-Hour Command Orchestration:</strong> Run the execution weekend as a continuous operational bridge with strict system locking, delta migration reconciliation, and smoke testing protocols.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          
+          <div class="quiz-question" id="q1">
+            <p>1. Why is an enterprise Salesforce cutover considered inherently non-linear compared to traditional software deployments?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">A. Because Salesforce code compile times are highly unstable and depend on public internet bandwidth variations during the deployment window.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'right')">B. Because platform metadata validations, apex trigger execution limits, active flow automations, and transactional data loads are structurally interdependent.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">C. Because Salesforce multi-tenant environments automatically delete all transactional tables whenever a new XML metadata file is uploaded.</div>
+              <div class="quiz-option" onclick="answer(this, 'q1', 'wrong')">D. Because external middleware endpoints must remain fully active and accept customer transactions throughout the entire metadata deployment process.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. What is the primary tactical objective of executing Dry Run 1 at the 60-day horizon (T-minus 60 days)?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">A. To demonstrate completed product features to business users and secure formal post-sprint user acceptance testing approvals.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'right')">B. To obtain precise baseline runbook durations, resolve early metadata validation errors, and uncover hidden technical and scheduling dependencies.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">C. To train the helpdesk support staff on the day-to-day configuration maintenance procedures of the newly deployed clouds.</div>
+              <div class="quiz-option" onclick="answer(this, 'q2', 'wrong')">D. To purge all historical records from the Staging environment and test the bulk data compression utility limits.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. How should a Salesforce administrator prevent business users from editing records during the cutover execution window?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">A. By deleting the login profiles of all users and manually recreating them from scratch on Monday morning.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">B. By editing the global network access parameters to block all IP addresses except the corporate head office gateway.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'wrong')">C. By manually sending email notifications asking users to voluntarily avoid logging in during the cutover weekend.</div>
+              <div class="quiz-option" onclick="answer(this, 'q3', 'right')">D. By executing an automated administrative script that freezes all active user accounts except specific deployment and integration users.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../del-013/" class="related-card">
+              <span class="card-id">DEL-013</span>
+              <h4>Hypercare After Go-Live: What Success Looks Like</h4>
+            </a>
+            <a href="../del-011/" class="related-card">
+              <span class="card-id">DEL-011</span>
+              <h4>Offshore and Hybrid Delivery Models for Salesforce</h4>
+            </a>
+            <a href="../del-010/" class="related-card">
+              <span class="card-id">DEL-010</span>
+              <h4>Vendor Management on Salesforce Programmes: Holding Partners Accountable</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Cutover Paradigm: Why Salesforce Deployments are Non-Linear</a></li>
+            <li><a href="#s2">The 90-Day Horizon: Establishing the Readiness Baseline</a></li>
+            <li><a href="#s3">The 60-Day Horizon: Environment Hardening and Dry Run Execution</a></li>
+            <li><a href="#s4">The 30-Day Horizon: Freeze Protocols and Final Data Preparation</a></li>
+            <li><a href="#s5">Execution Weekend: The T-Minus Command Center and Hypercare Handover</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../del-013/" class="sidebar-next-link">
+            <span class="sidebar-next-id">DEL-013</span>
+            <span class="sidebar-next-title">Hypercare After Go-Live: What Success Looks Like</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../del-011/" class="sidebar-next-link">
+            <span class="sidebar-next-id">DEL-011</span>
+            <span class="sidebar-next-title">Offshore and Hybrid Delivery Models for Salesforce</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

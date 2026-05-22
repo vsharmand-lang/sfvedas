@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/del-018/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DEL-018: Risk Management for Salesforce Implementations — SFVedas</title>
+  <meta name="description" content="Risk Management for Salesforce Implementations. Constructing a predictive risk register."/>
+  <meta property="og:title" content="DEL-018: Risk Management for Salesforce Implementations — SFVedas"/>
+  <meta property="og:description" content="Risk Management for Salesforce Implementations. Constructing a predictive risk register."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/del-018/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="DEL-018: Risk Management for Salesforce Implementations — SFVedas"/>
+  <meta name="twitter:description" content="Risk Management for Salesforce Implementations. Constructing a predictive risk register."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "DEL-018: Risk Management for Salesforce Implementations — SFVedas",
+    "description": "Risk Management for Salesforce Implementations. Constructing a predictive risk register.",
+    "url": "https://sfvedas.com/tutorials/del-018/",
+    "mainEntityOfPage": "https://sfvedas.com/tutorials/del-018/",
+    "author": {
+      "@type": "Person",
+      "name": "Vishal Sharma",
+      "url": "https://sfvedas.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "SFVedas",
+      "url": "https://sfvedas.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sfvedas.com/images/logo.svg"
+      }
+    },
+    "image": "https://sfvedas.com/images/og-default.png"
+  }
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=delivery-management" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to Delivery Management</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">DEL-018</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">Delivery Management</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Delivery Managers · Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Risk Management for Salesforce Implementations
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        How to construct a predictive risk register tailored to specific Salesforce pitfalls like data volume limitations, sandbox drift, and legacy API deprecation.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">Salesforce Delivery Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ad-unit">
+    <ins class="adsbygoogle"
+         style="display:block;text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-4584420180521124"
+         data-ad-slot=""></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <!-- SECTION SUMMARY -->
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>How to transition from generic project risks to platform-specific Salesforce technical risks.</li>
+            <li>Tactical methodologies for identifying and mitigating Large Data Volume (LDV) risks and database skew.</li>
+            <li>Comprehensive strategies to eliminate environment sandbox drift and manage legacy API deprecation.</li>
+            <li>Resilient architecture designs for integrations, avoiding the traps of synchronous point-to-point calls.</li>
+            <li>Actionable steps for constructing a live, metrics-driven predictive risk register that senior stakeholders trust.</li>
+          </ul>
+        </div>
+
+        <h2 id="s1">The Fallacy of Generic Risk Registers in Salesforce Programmes</h2>
+        <p>To manage risk on a complex Salesforce programme, one must first abandon the comfort of generic IT risk templates. Standard delivery registers are replete with warnings about "insufficient stakeholder engagement," "lack of training," or "poorly defined requirements." While these risks are real, they are generic to all software delivery. They do absolutely nothing to mitigate the silent, systemic failure modes unique to the Salesforce platform.</p>
+        <p>Salesforce is a highly opinionated, multi-tenant environment. When you build on it, you are not writing code in a blank-slate custom stack where hardware scaling can rescue sub-optimised code. You are building within a shared infrastructure governed by strict, non-negotiable platform boundaries. In a multi-tenant architecture, resource hoarding is the cardinal sin, and Salesforce actively prevents it through governor limits, API quotas, and metadata bounds.</p>
+        <p>If a delivery leader treats a Salesforce project as if it were a standard custom web application, they fail to anticipate how minor architectural oversights compile into project-halting bottlenecks. For instance, a delivery plan might track user acceptance testing (UAT) dates carefully while completely ignoring the volume of data being loaded. When UAT starts, and the database runs at volume, Apex CPU timeouts block critical transactional processes, causing the rollout to fail.</p>
+        <p>A tech-first approach to Salesforce risk management addresses these platform characteristics directly. It treats technical architecture decisions as primary delivery risks rather than technical chores to be delegated to developers. By elevating platform limits, metadata volume, sandbox architecture, licence allocations, and API boundaries to first-class items in the risk register, organisations can navigate the actual complexities of Salesforce at scale.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Insight</strong>
+            <p>A Salesforce implementation is not merely a software deployment; it is the construction of a custom metadata-driven runtime engine inside a multi-tenant environment. Traditional risk management methodologies fail because they treat platform limits as minor implementation details rather than structural architecture boundaries.</p>
+          </div>
+        </div>
+
+        <h2 id="s2">Architecture-Level Risks: Large Data Volumes (LDV) and Governor Limits</h2>
+        <p>One of the most common risks that silently sabotages a Salesforce programme is the transition into Large Data Volumes (LDV). An implementation that performs beautifully with a few thousand records can grind to a complete halt when exposed to millions of records. This is because Salesforce’s query optimiser behaves differently as data grows, and data skew can trigger severe locking contention.</p>
+        <p>Data skew occurs in three distinct forms: parent-child skew, lookup skew, and account skew. Parent-child skew arises when a single parent record has more than 10,000 child records. Lookup skew occurs when a large number of records point to a single lookup destination. Account skew happens when a single account owns an excessive number of contacts or opportunities. When Salesforce performs updates on child records under these conditions, it must lock the parent record to maintain data integrity. This results in lock contention, where concurrent transactions queue up, wait for locks, and ultimately fail with standard <code>UNABLE_TO_LOCK_ROW</code> exceptions.</p>
+        <p>To mitigate LDV risks, delivery leaders must design the data model with partition strategies from day one. This involves distributing child records across multiple dummy parent records to keep relationship counts below the critical 10,000 threshold. Furthermore, architects must implement query skinning by ensuring that all queries utilise indexed fields in their filters (such as external IDs, custom indexes, or standard audit fields). This prevents full-table scans that consume massive Apex CPU time.</p>
+
+        <div class="comparison-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Mitigation Strategy</th>
+                <th>Typical Use Case</th>
+                <th>Implementation Complexity</th>
+                <th>Impact on Governor Limits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Custom Indexing &amp; Query Skinning</strong></td>
+                <td>Frequent operational lookups on tables with 5M+ rows</td>
+                <td>Low to Medium</td>
+                <td>Drastically reduces Apex CPU time and query timeouts</td>
+              </tr>
+              <tr>
+                <td><strong>Data Archiving (Heroku Connect)</strong></td>
+                <td>Historical transactional data (e.g. completed cases)</td>
+                <td>Medium to High</td>
+                <td>Bypasses Salesforce data storage limits; reduces search skew</td>
+              </tr>
+              <tr>
+                <td><strong>Salesforce Big Objects</strong></td>
+                <td>High-volume system audit trails or interaction logs</td>
+                <td>High</td>
+                <td>Zero impact on operational database; requires custom UI/queries</td>
+              </tr>
+              <tr>
+                <td><strong>Salesforce Connect (OData)</strong></td>
+                <td>Real-time view of massive external legacy ERP tables</td>
+                <td>Medium</td>
+                <td>Zero data storage impact; subject to callout limits and latency</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Beyond data volume, transaction-level governor limits present a constant risk to system stability. Apex CPU time limits (10,000 milliseconds for synchronous transactions), heap size limitations (6MB), and SOQL query limits (100 queries per transaction) act as hard boundaries. If an implementation relies heavily on synchronous triggers, process builders, or record-triggered flows, these limits will be breached as transactional complexity rises. Mitigating this risk requires a transition toward asynchronous processing (using Queueable Apex, Batch Apex, or Platform Events) and strict enforcement of trigger-handler frameworks that consolidate database operations.</p>
+
+        <h2 id="s3">Environment Drift and the Sandbox Strategy Risk</h2>
+        <p>In a multi-stream Salesforce programme, environment management is frequently the weakest link. Unlike standard custom development environments, where local servers can be spun up instantly, Salesforce development depends on sandboxes. Sandbox drift occurs when active development environments diverge from each other and from the production environment, leading to a state where metadata becomes unsynchronised and brittle.</p>
+        <p>When multiple workstreams operate in silos without continuous back-promotion, they create a perfect storm for deployment day. Developers build customisations based on outdated metadata, leading to silent overwrites, missing dependencies, and broken Apex test classes during deployment to staging or production. This drift is amplified by manual changes ("hotfixes") made directly in production or upstream environments, bypassing the version control repository.</p>
+        <p>Another environmental risk is legacy API deprecation and technical debt retention. Salesforce regularly deprecates old API versions (typically those older than version 30.0). If an organisation keeps outdated integrations or Apex code running on obsolete APIs, they expose the organisation to sudden service disruptions when Salesforce officially retires those versions.</p>
+        <p>To mitigate these risks, delivery leaders must implement a strict branch-and-sandbox strategy. This framework should mandate daily back-promotions of all merged and approved metadata from the main branch into active developer sandboxes. This ensures that every developer is working against a unified and current target. Additionally, organisations must establish automated static analysis tools, such as PMD or Salesforce DX Scanner, integrated into the continuous integration (CI) pipeline. This setup automatically flags deprecated API references and blocks non-compliant code from entering the pipeline.</p>
+
+        <div class="callout callout--tip">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body">
+            <strong>Leader Perspective</strong>
+            <p>A dynamic environment strategy is a premier delivery asset, not a DevOps footnote. By making continuous back-promotions and static code analysis mandatory parts of the daily sprint cycle, delivery leaders can reduce technical launch risks by up to eighty percent.</p>
+          </div>
+        </div>
+
+        <h2 id="s4">Integration and Middleware Architecture Risks</h2>
+        <p>Large-scale Salesforce implementations rarely exist in isolation; they are deeply integrated into complex enterprise ecosystems. The integration patterns selected can represent either a source of resilience or a significant delivery risk. The most dangerous anti-pattern in Salesforce integration is the reliance on custom, point-to-point, synchronous integration architectures.</p>
+        <p>Synchronous integrations force Salesforce to wait for a response from the external system before completing a transaction. This blocks the execution thread, rapidly consuming the platform's concurrent request limit (which allows only 10 long-running requests lasting longer than 5 seconds in any org). Under peak loads, if the receiving system experiences latency, Salesforce immediately runs out of concurrent threads, resulting in system-wide service unavailability.</p>
+        <p>Furthermore, point-to-point integrations create a spiderweb of brittle dependencies. Every endpoint change, authentication upgrade, or payload restructure requires direct customisation in Apex or middleware, inflating maintenance costs and slowing release velocity. Organisations also run the risk of exceeding their daily API request limits, particularly if batch syncs are poorly scheduled.</p>
+        <p>To counter these risks, modern Salesforce architecture advocates for event-driven, asynchronous integration patterns. By leveraging Salesforce Platform Events or the Pub/Sub API alongside an Enterprise Service Bus (ESB) like MuleSoft, organisations can decouple Salesforce from external systems. In this model, Salesforce publishes a lightweight event to the bus and immediately frees its transactional thread. The ESB then handles delivery, transformation, and retry mechanisms independently. This asynchronous architecture completely mitigates concurrency risks and insulates Salesforce from external downtime.</p>
+
+        <h2 id="s5">Building the Tech-First Predictive Risk Register: A Practical Framework</h2>
+        <p>Understanding these Salesforce-specific technical risks is only the first step. To manage them effectively, they must be structured into a dynamic, predictive risk register. Unlike a standard risk log that remains static throughout the programme lifecycle, a predictive register utilises technical metrics as leading indicators of project health.</p>
+        <p>A predictive register monitors key telemetry points to flag risks before they manifest as critical defects or deployment failures. For instance, rather than waiting for UAT performance degradation, the register tracks "Apex CPU consumption trend per transaction" and "Metadata container density" across development sandboxes. If the average Apex CPU execution time for a key process rises from 2,000ms to 6,000ms over three sprints, the registry triggers an automated warning, prompting immediate code refactoring.</p>
+        <p>A tech-first risk register should define specific risk categories, indicators, and mitigation plans tailored to the Salesforce platform. Let's outline the core components:</p>
+        <ul>
+          <li><strong>Sandbox Divergence Index</strong> — Calculated by comparing the number of unmerged git commits between the development branch and the release branch. If the index exceeds twenty commits, the risk level is escalated to "High", and a mandatory environment synchronisation is scheduled.</li>
+          <li><strong>Apex Test Coverage and Performance</strong> — Monitored via CI/CD telemetry. A downward trend in test coverage or an increase in total test run time (exceeding thirty minutes) indicates rising technical debt and potential deployment blockages.</li>
+          <li><strong>API and Event Limits Utilisation</strong> — Tracked daily through administrative dashboards. Approaching eighty percent of the daily platform event or API callout limits triggers immediate architecture reviews to optimise batch sizes and integration schedules.</li>
+        </ul>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>Warning for Architects</strong>
+            <p>Never allow your project risk register to become a static slide deck shown only to the steering committee. If technical risk trends (such as Apex CPU consumption or metadata limits) are not actively monitored via dashboard metrics, you are driving your implementation blind.</p>
+          </div>
+        </div>
+
+        <p>Senior delivery leaders, CTOs, and Enterprise Architects must review these technical indicators in tandem with standard budget and timeline metrics. Technical risk reviews should be embedded into the governance cadence, ensuring that architecture debt is prioritised alongside new feature requests. This unified governance ensures that the Salesforce platform remains scalable, secure, and resilient for the long term.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Standard risk registers fail because they treat Salesforce as a custom database rather than a highly opinionated, multi-tenant platform.</li>
+            <li>Large Data Volume (LDV) risks must be managed proactively using indexing, query skinning, and asynchronous data archiving strategies to prevent performance degradation.</li>
+            <li>Sandbox drift is a major deployment risk that must be addressed through a rigorous continuous integration and regular back-promotion schedule.</li>
+            <li>Brittle synchronous integrations should be replaced with event-driven, asynchronous patterns like Change Data Capture (CDC) to protect API limits and platform concurrency.</li>
+            <li>A predictive risk register must rely on hard technical metrics, such as sandbox divergence indices and transaction execution times, to remain action-oriented.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+          
+          <div class="quiz-question" id="q1">
+            <p>1. Why do traditional IT risk registers fail to protect large-scale Salesforce programmes?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Traditional risk registers are completely useless for any cloud platform because they lack agile estimation matrices.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. They focus on high-level operational symptoms like "lack of training" rather than specific metadata-driven architectural limits and platform boundaries.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. They do not account for the licensing costs associated with different Salesforce user profiles and add-ons.</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. They assume that Salesforce can only be deployed using standard change sets instead of modern CI/CD tools.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. Which of the following is the most robust mitigation for database skew caused by Large Data Volumes (LDV)?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Creating formula fields on parent objects to aggregate child record details dynamically.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. Increasing the CPU timeout limit by submitting a support ticket directly to Salesforce.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. Distributing child records across multiple dummy parent records to keep any single parent from having more than 10,000 child relations.</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Re-platforming the entire transactional dataset into Custom Metadata Types to bypass storage limitations.</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. How should a delivery manager mitigate the risk of "Sandbox Drift" in a multi-stream programme?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Force all developers to work in a single shared Developer Pro sandbox to guarantee code alignment.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Refresh all sandboxes from Production on a weekly basis, discarding any unmerged local metadata features.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Establish an automated CI/CD pipeline that mandates daily back-promotions of merged metadata to all active sandboxes.</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Stop using version control and rely entirely on metadata comparison tools before every production release.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RELATED TUTORIALS -->
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../del-019/" class="related-card">
+              <span class="card-id">DEL-019</span>
+              <h4>Configuration Management</h4>
+            </a>
+            <a href="../del-017/" class="related-card">
+              <span class="card-id">DEL-017</span>
+              <h4>Dependency Management</h4>
+            </a>
+            <a href="../del-016/" class="related-card">
+              <span class="card-id">DEL-016</span>
+              <h4>Change Request Management</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">The Fallacy of Generic Risk Registers</a></li>
+            <li><a href="#s2">Architecture Risks: LDV and Governor Limits</a></li>
+            <li><a href="#s3">Environment Drift and Sandbox Strategy</a></li>
+            <li><a href="#s4">Integration and Middleware Architecture Risks</a></li>
+            <li><a href="#s5">Building the Tech-First Predictive Risk Register</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../del-019/" class="sidebar-next-link">
+            <span class="sidebar-next-id">DEL-019</span>
+            <span class="sidebar-next-title">Configuration Management: Tracking What Was Changed, When, and Why</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+        
+                <div class="sidebar-next">
+          <h4>Previous Tutorial</h4>
+          <a href="../del-017/" class="sidebar-next-link">
+            <span class="sidebar-next-id">DEL-017</span>
+            <span class="sidebar-next-title">Dependency Management in Multi-Workstream Salesforce Programmes</span>
+            <span class="sidebar-next-arrow">&#8592;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => {
+        opt.classList.remove('correct', 'incorrect');
+        opt.style.pointerEvents = 'none';
+      });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) {
+            opt.classList.add('correct');
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
