@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/crm-009/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRM-009: Migrating from Microsoft Dynamics to Salesforce: What Nobody Tells You — SFVedas</title>
+  <meta name="description" content="The real complexity of migrating from Dynamics 365 to Salesforce — data migration, process re-engineering, adoption risks, and the commercial negotiations that determine whether the migration delivers value."/>
+  <meta property="og:title" content="CRM-009: Migrating from Microsoft Dynamics to Salesforce: What Nobody Tells You — SFVedas"/>
+  <meta property="og:description" content="The real complexity of migrating from Dynamics 365 to Salesforce — data migration, process re-engineering, adoption risks, and the commercial negotiations that determine whether the migration delivers value."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/crm-009/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CRM-009: Migrating from Microsoft Dynamics to Salesforce: What Nobody Tells You — SFVedas"/>
+  <meta name="twitter:description" content="The real complexity of migrating from Dynamics 365 to Salesforce — data migration, process re-engineering, adoption risks, and the commercial negotiations that determine whether the migration delivers value."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"CRM-009: Migrating from Microsoft Dynamics to Salesforce: What Nobody Tells You — SFVedas","description":"The real complexity of migrating from Dynamics 365 to Salesforce — data migration, process re-engineering, adoption risks, and the commercial negotiations that determine whether the migration delivers value.","url":"https://sfvedas.com/tutorials/crm-009/","mainEntityOfPage":"https://sfvedas.com/tutorials/crm-009/","author":{"@type":"Person","name":"Vishal Sharma","url":"https://sfvedas.com/about/"},"publisher":{"@type":"Organization","name":"SFVedas","url":"https://sfvedas.com","logo":{"@type":"ImageObject","url":"https://sfvedas.com/images/logo.svg"}},"image":"https://sfvedas.com/images/og-default.png"}</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=crm-comparison" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to CRM Comparison</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">CRM-009</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">CRM Comparison</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Solution Architects</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Migrating from Microsoft Dynamics to Salesforce: What Nobody Tells You
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        The sales process makes the migration look straightforward; the delivery process reveals that data model differences, process re-engineering, and adoption risk make it one of the most complex CRM programmes you can run.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">CRM Strategy Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>Why the vendor sales process systematically understates the true complexity of a Dynamics-to-Salesforce migration</li>
+            <li>The specific data model incompatibilities between Dynamics and Salesforce that create the most dangerous migration risks</li>
+            <li>Why process re-engineering — not process translation — is the correct framing, and what it costs to get it right</li>
+            <li>The adoption risk profile that has killed otherwise technically sound migrations, and how to mitigate it</li>
+            <li>How to build a realistic programme plan with contingency, and the commercial negotiation levers that determine whether the migration delivers value</li>
+          </ul>
+        </div>
+
+        <!-- SECTION 1 -->
+        <h2 id="s1">What the Sales Process Obscures</h2>
+
+        <p>Every Salesforce AE who has sold a Dynamics displacement knows the pitch. The narrative is familiar: Salesforce is more innovative, more extensible, better supported by a global partner ecosystem, and — subtly implied — the choice that demonstrates CRM ambition rather than CRM adequacy. The sales process is professionally executed and commercially compelling. It is also, in important respects, a distortion of what the programme actually involves.</p>
+
+        <p>The distortion is not malicious. Salesforce AEs are not lying when they tell you the migration is achievable. It is achievable. Hundreds of organisations have done it. The problem is that the sales process is optimised to make the decision to proceed feel safe, and the delivery process then reveals the complexity that was either minimised or simply never raised. By that point, the contract is signed, the programme budget is approved, and the organisation is committed.</p>
+
+        <p>The first distortion is the data migration estimate. A Salesforce SI will typically scope data migration as a discrete workstream with a fixed cost. That estimate almost always underestimates the complexity of the actual data state in the Dynamics environment. Dynamics organisations accumulate years of customisation, data quality debt, decommissioned workflows that left orphaned records, and custom entities that have no direct Salesforce equivalent. The data migration is not a lift-and-shift. It is a transformation, and the cost of that transformation scales with the complexity of the source data — which is almost always worse than the initial assessment suggests.</p>
+
+        <p>The second distortion is process translation. The sales pitch implies that business processes running in Dynamics will be reproduced in Salesforce. That is rarely what actually happens — or rather, it is what happens when the programme is badly run. The correct approach is process re-engineering: using the migration as an opportunity to improve the processes, not replicate them. But process re-engineering is expensive, takes significantly longer than translation, and requires business ownership that many organisations cannot mobilise at the pace a CRM programme demands.</p>
+
+        <p>The third distortion is timeline. A competent Dynamics-to-Salesforce migration for a mid-sized enterprise — say, 500 sales users, moderate data complexity, standard integrations — will take 12 to 18 months to deliver a production-quality system. The sales process will often anchor on 9 months. The anchor is aspirational. The delivery reality is not.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The Discovery Gap</strong>
+            <p>The most dangerous moment in any Dynamics-to-Salesforce programme is the gap between the initial scoping estimate and the findings from a proper discovery phase. Organisations that skip or compress discovery to save cost almost always encounter the full complexity later — at a point when the programme is committed and the cost of change is highest. A thorough technical discovery of the Dynamics environment — including data quality assessment, integration inventory, and customisation audit — is not a cost to be minimised. It is the risk management investment that makes the programme deliverable.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <h2 id="s2">The Data Migration Complexity</h2>
+
+        <p>Dynamics 365 and Salesforce share a broad conceptual CRM data model — Accounts, Contacts, Opportunities, Activities — but the implementation differences at the field and relationship level create significant migration complexity. Understanding these differences before the programme starts is the difference between a manageable migration and a programme that loses control of scope in the data workstream.</p>
+
+        <h3>The Entity Model Mismatch</h3>
+
+        <p>Dynamics uses the concept of Business Units as the primary security and organisational hierarchy mechanism. Salesforce uses a combination of Role Hierarchy, Territory Management, and Sharing Rules. These two models are not equivalent. An organisation that has spent five years structuring its Dynamics security model around Business Units cannot translate that model directly into Salesforce. The migration team must map the intent of the security model — who should see what, under what conditions — and rebuild it using Salesforce constructs. This mapping exercise is almost always underestimated, particularly when Business Units have been used in Dynamics to manage regional or divisional data separation in ways that have no clean Salesforce equivalent.</p>
+
+        <p>The Activity data model presents a different problem. Dynamics stores Tasks, Phone Calls, Emails, and Appointments as separate entity types with separate schemas. Salesforce uses a unified Activity object with a Type field. The migration must not only move the records but resolve the schema differences, and in doing so must decide how historical activity data is presented in the target system. A phone call log in Dynamics becomes a Task record with Type = "Call" in Salesforce — but if the Dynamics Phone Call entity had custom fields that captured call outcome, call duration, or call direction, those fields may not have a direct target in Salesforce. Every custom field is a migration decision.</p>
+
+        <h3>The Data Quality Reality</h3>
+
+        <p>Most Dynamics environments that have been in production for more than three years carry significant data quality debt. Duplicate Account records — sometimes in the thousands — that accumulated when Dynamics deduplication was not enforced. Contact records that are not linked to Accounts, or are linked to archived Accounts that were never formally decommissioned. Opportunity records that were never closed because the team found it easier to create a new one than to update the old one. Custom lookup fields that point to records that were deleted without cascading the change.</p>
+
+        <p>The data quality assessment in the discovery phase must quantify this debt, because it determines the data migration timeline. Cleaning 50,000 Account records before migration is not the same programme as cleaning 500,000. The cleaning effort is linear but the complexity is not — data quality problems in Dynamics are often interdependent, and resolving one category of problem can expose another. Build the timeline from the data quality assessment findings, not from a standard template.</p>
+
+        <h3>The Historical Data Decision</h3>
+
+        <p>One of the most important programme decisions, and one of the least well-handled in most migrations, is how much historical data to migrate to the new Salesforce environment. The tempting answer is "all of it." The correct answer is almost never "all of it."</p>
+
+        <p>Historical data that pre-dates a reasonable retention window — typically three to five years for active CRM data — has limited operational value in the new system. Migrating it adds cost, extends the migration timeline, introduces more opportunity for data quality issues in the target environment, and increases the org's data storage costs in Salesforce. The right approach for most organisations is to migrate active data and recent historical data to Salesforce, and archive older historical data in a read-only reporting environment — either a data warehouse or a maintained Dynamics environment in read-only mode. This decision must be made early and must have business sign-off, because revisiting it mid-programme is expensive.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>The Archive-Not-Migrate Decision</strong>
+            <p>Organisations that decide to migrate everything discover that "everything" is not a stable number. Each time the data team queries the Dynamics environment for migration planning, they find additional entity types, additional custom objects, additional historical records that someone insists are critical. Establishing a formal data migration scope — signed off by the business — before the first extract prevents scope from expanding indefinitely. An archival decision for data older than a defined cutoff date, documented and agreed, is one of the most valuable governance decisions a migration programme can make.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <h2 id="s3">Process Re-Engineering, Not Process Translation</h2>
+
+        <p>The distinction between process re-engineering and process translation is not semantic. It is the difference between a migration that improves the business and a migration that rebuilds the existing problems in a more expensive platform.</p>
+
+        <p>Process translation means: take the workflow that exists in Dynamics today and reproduce it in Salesforce. The Lead qualification process that uses three stages in Dynamics becomes a three-stage process in Salesforce. The Opportunity approval workflow that routes through four managers in Dynamics is rebuilt as a four-step approval process in Salesforce. The outcome of process translation is a system that does exactly what the old system did — with the same inefficiencies, the same workarounds, and the same data quality problems — but now running on Salesforce.</p>
+
+        <p>Process re-engineering means: using the migration as the forcing function to question every process. Why does the Lead qualification process have three stages? Are all three stages adding value, or have they accumulated over years of incremental addition? Does the Opportunity approval workflow actually enforce any risk controls, or has it become a rubber-stamp process that delays deals without adding oversight? These are the questions that process re-engineering asks — and answering them well requires business stakeholder time, process expertise, and the organisational courage to eliminate processes that people are attached to even when they no longer serve a purpose.</p>
+
+        <h3>The Business Readiness Problem</h3>
+
+        <p>Process re-engineering requires business engagement at a level that most organisations underestimate when they approve the programme. It requires sales leaders, operations managers, and process owners to attend workshops, review designs, make decisions, and approve changes — repeatedly, over the full duration of the programme. In most organisations, these are the busiest people, with day jobs that do not disappear because a CRM migration programme is running.</p>
+
+        <p>The failure mode is predictable: business engagement starts strong in the discovery and design phases, degrades during the build phase, and essentially collapses in the UAT phase when the business nominally "tests" the system but actually reviews it superficially and then raises a wave of change requests in the two weeks before go-live. Those change requests are not malicious — they reflect genuine feedback from the first time the business has seen a near-complete system. But they arrive too late to be absorbed without either delaying go-live or accepting a system that does not meet requirements.</p>
+
+        <p>The mitigation is structural. The programme plan must build in business engagement as a formal dependency — not a nice-to-have — with named individuals accountable for specific decisions at specific times. The programme director must have the authority to escalate when business engagement falls below the required level, because the alternative is a system that fails user acceptance.</p>
+
+        <h3>The Dynamics-Specific Process Patterns to Question</h3>
+
+        <p>Several process patterns that are common in mature Dynamics environments should be reviewed critically rather than migrated automatically. Business Unit-based security that enforces data separation between teams or regions deserves particular scrutiny: in many cases, the separation was implemented for technical reasons in the early Dynamics deployment and is no longer operationally necessary. Migrating it to Salesforce Sharing Rules adds complexity with no business benefit.</p>
+
+        <p>Custom entity usage is another area for review. Dynamics environments frequently accumulate custom entities that were created to solve specific problems — sometimes several custom entities that solve the same problem slightly differently, built by different teams at different times. Each custom entity is a migration candidate. Not all of them should be migrated. A review of custom entity usage data — which entities are being actively used, by how many users, at what frequency — will typically reveal that 30 to 40 percent of custom entities have very low usage and are candidates for consolidation or retirement.</p>
+
+        <!-- SECTION 4 -->
+        <h2 id="s4">The User Adoption Problem</h2>
+
+        <p>The most technically competent Dynamics-to-Salesforce migration in history will fail if users do not adopt the new system. Adoption failure is the single most common reason CRM migrations do not deliver the business case — and it is far more common in migrations than in greenfield CRM implementations, because migration users have a working alternative system to revert to.</p>
+
+        <h3>The Dynamics User Profile</h3>
+
+        <p>Dynamics users in large organisations are frequently characterised by deep familiarity with a specific workflow in a specific interface, and low enthusiasm for changing either. The Dynamics interface — particularly for organisations running the older Dynamics CRM or early Dynamics 365 versions — has a desktop application feel that many users are very comfortable with. Salesforce's interface is different in character: more web-native, more configurable, more reliant on the administrator having correctly configured the page layouts and record types for the specific workflow. A Salesforce environment that has been carefully configured for the user's workflow can be highly efficient. One that has been configured generically, or configured by a technical team that did not deeply understand the sales process, can feel significantly less efficient than the Dynamics system it replaced.</p>
+
+        <p>The adoption risk from this profile is that users find Salesforce harder to use in the first months, revert to workarounds — maintaining their own spreadsheets, logging activity in Dynamics if it remains accessible, or simply not logging activity at all — and the business case for the migration fails on CRM adoption metrics. That failure is recoverable, but recovering it requires significant investment in retraining, process adjustment, and sometimes system reconfiguration that was not budgeted.</p>
+
+        <h3>The Parallel Running Decision</h3>
+
+        <p>One of the most consequential decisions in a Dynamics-to-Salesforce migration is whether to run both systems in parallel during the transition period. Parallel running — maintaining a live Dynamics environment while Salesforce is being adopted — reduces the risk of a failed go-live but introduces a different risk: users maintaining records in Dynamics rather than adopting Salesforce.</p>
+
+        <p>The organisations that have managed this best have done two things. First, they have established a clear, public, immovable decommission date for Dynamics from the moment of go-live. Not "we will decommission Dynamics when we are comfortable" — that date never arrives. A specific date, communicated widely, makes the migration to Salesforce the path of least resistance. Second, they have made specific, high-visibility workflows Salesforce-only from day one of go-live — pipeline reporting for the executive team, deal approval workflows, forecast submissions. When the workflows that leaders care about live only in Salesforce, adoption follows.</p>
+
+        <h3>Training That Works for Dynamics Users</h3>
+
+        <p>Standard Salesforce onboarding training is designed for users who have not previously used a CRM. It explains concepts — pipelines, stages, activities, contacts — that Dynamics users already understand. Using standard onboarding training for a Dynamics migration is a waste of time that leaves users less prepared than if the training had been role-specific and focused on the specific workflows they will use in Salesforce.</p>
+
+        <p>The training that works for Dynamics migrations is comparative and workflow-specific. It explicitly acknowledges what the user already knows from Dynamics, explains how the equivalent in Salesforce is structured differently, and demonstrates the specific daily workflows — not generic Salesforce capabilities — that the user will perform. It is significantly more expensive to design than standard training, requires process knowledge that most training vendors do not have, and must be built after the system is configured, not before. Organisations that build this training — and that invest in a network of trained "champions" who can provide peer support during the adoption period — achieve measurably better adoption outcomes.</p>
+
+        <!-- SECTION 5 -->
+        <h2 id="s5">Realistic Timeline and Risk Planning</h2>
+
+        <p>The final capability a programme director needs for a Dynamics-to-Salesforce migration is a realistic view of timeline and a structured approach to risk. Both are frequently absent from the initial programme plan, and both are essential to delivering a programme that the organisation retains confidence in.</p>
+
+        <h3>The Phases That Actually Take the Most Time</h3>
+
+        <p>Data migration takes longer than almost every initial estimate suggests. The typical pattern: initial estimate of eight weeks, actual delivery of sixteen to twenty weeks, driven by data quality findings that were not fully understood at estimation time. The mitigation is to start the data migration workstream in parallel with the design and build phases, not sequentially after them. An organisation that begins data profiling, data cleansing, and transformation rule development at the start of the programme — rather than waiting until the Salesforce environment is built — will consistently hit a more predictable go-live date.</p>
+
+        <p>User Acceptance Testing takes longer than planned because business stakeholders are not available at the intensity the testing phase requires, and because UAT in a migration programme reveals requirements that were not captured in the design phase. Budget two rounds of UAT for a migration of any complexity. Plan for at least four weeks of UAT per round. Treat the first round as a findings exercise, not a sign-off exercise — it will be.</p>
+
+        <p>Integration build and testing takes longer than planned because Dynamics-connected integrations are almost never documented to the level of detail that Salesforce integration architects need. Integration endpoints change during the programme. Authentication models differ between Dynamics and Salesforce in ways that require rework on the upstream system side. Buffer the integration workstream with 50% contingency from the outset.</p>
+
+        <h3>The Commercial Negotiation That Determines Value</h3>
+
+        <p>The commercial structure of a Dynamics-to-Salesforce migration has several negotiation levers that organisations frequently do not use effectively. On the Salesforce licence side, the period between contract signature and go-live is dead licence cost — you are paying for licences that are not yet live. Negotiating a delayed licence start date, or a phased licence ramp that matches the go-live schedule, can save six to twelve months of licence cost on a programme of typical length.</p>
+
+        <p>On the SI side, the most important commercial principle is to avoid fixed-price contracts for data migration and integration workstreams. Both workstreams have cost drivers — data quality, integration complexity — that are not knowable at the time of contract. Fixed-price contracts for unknowable work either produce an inflated fixed price (the SI's risk premium) or a change control war when the unknowable complexity materialises. Time-and-materials with a defined governance framework for scope control is the more honest commercial model for these workstreams.</p>
+
+        <p>The Dynamics decommission cost is a frequently overlooked item. Microsoft licences do not end at go-live date. If the organisation is mid-contract on a Dynamics Enterprise Agreement, breaking that contract or maintaining it for its remaining term has a real cost that must be in the migration TCO. Organisations that plan for Salesforce cost without modelling the Dynamics exit cost underestimate the total investment in the migration by a material amount.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>The Salesforce sales process is optimised to make the migration decision feel safe — the delivery process reveals complexity in data migration, process re-engineering, and adoption that is systematically understated during the sales cycle.</li>
+            <li>Data model differences between Dynamics and Salesforce — Business Unit security, Activity entity structure, custom entity proliferation — create migration complexity that scales with the age and customisation depth of the source environment.</li>
+            <li>Process re-engineering is the correct programme objective, not process translation; organisations that rebuild Dynamics processes unchanged in Salesforce inherit the same inefficiencies at higher cost and complexity.</li>
+            <li>User adoption failure is more common in migrations than in greenfield implementations because users have a working alternative system to revert to; a firm Dynamics decommission date from day one of go-live is the single most effective adoption lever.</li>
+            <li>Data migration and integration build take 50 to 100% longer than initial estimates in most programmes; both workstreams should start in parallel with design and build, not sequentially after.</li>
+            <li>Commercial negotiations must cover licence start date deferral, phased licence ramp, time-and-materials contracts for data and integration workstreams, and Dynamics Enterprise Agreement exit cost — all are material to whether the migration delivers a positive TCO outcome.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. An organisation begins a Dynamics-to-Salesforce migration and the SI proposes a fixed-price contract for data migration and integration. What is the primary risk of this approach?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Fixed-price contracts always cost more than time-and-materials because of the SI's margin requirements</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. The cost drivers for data migration and integration — data quality and integration complexity — are not fully knowable at contract time, so fixed-price contracts either carry an inflated risk premium or produce a change control dispute when complexity materialises</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Fixed-price contracts prevent the organisation from changing scope once the programme starts</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. The SI will reduce the quality of delivery to protect its margin under a fixed-price model</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. Which of the following best describes the correct approach to historical data in a Dynamics-to-Salesforce migration?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Migrate all historical data to Salesforce to ensure no data is lost during the transition</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">B. Define a formal data migration scope with a cutoff date, migrate active and recent historical data to Salesforce, and archive older data in a read-only environment — signed off by the business before migration begins</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. Migrate only data from the past 12 months to minimise migration cost and timeline</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. Allow business users to decide individually which historical records they need migrated</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. An organisation goes live on Salesforce but keeps Dynamics running in parallel indefinitely. What is the most likely outcome?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Users will adopt Salesforce quickly because they can compare both systems directly</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">B. Users will maintain records in Dynamics rather than adopting Salesforce, because Dynamics remains the path of least resistance — adoption failure becomes the primary programme risk</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. The parallel running period allows the organisation to identify Salesforce deficiencies before full commitment</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Both systems will be used for different purposes, creating a natural division of CRM work</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../crm-001/" class="related-card">
+              <span class="card-id">CRM-001</span>
+              <h4>Salesforce vs Microsoft Dynamics 365</h4>
+            </a>
+            <a href="../crm-012/" class="related-card">
+              <span class="card-id">CRM-012</span>
+              <h4>Platform Consolidation: Sunset the Old CRM or Coexist?</h4>
+            </a>
+            <a href="../crm-015/" class="related-card">
+              <span class="card-id">CRM-015</span>
+              <h4>The Post-Migration Regret Study: Why Some Salesforce Migrations Failed</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">What the Sales Process Obscures</a></li>
+            <li><a href="#s2">The Data Migration Complexity</a></li>
+            <li><a href="#s3">Process Re-Engineering, Not Process Translation</a></li>
+            <li><a href="#s4">The User Adoption Problem</a></li>
+            <li><a href="#s5">Realistic Timeline and Risk Planning</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-prev">
+          <h4>Previous Tutorial</h4>
+          <a href="../crm-008/" class="sidebar-next-link">
+            <span class="sidebar-next-arrow">&#8592;</span>
+            <span class="sidebar-next-id">CRM-008</span>
+            <span class="sidebar-next-title">Total Cost of Ownership: Salesforce vs Dynamics 365 Head-to-Head</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../crm-010/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CRM-010</span>
+            <span class="sidebar-next-title">The Multi-CRM Problem: When You Inherit Two Platforms</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) opt.classList.add('correct');
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

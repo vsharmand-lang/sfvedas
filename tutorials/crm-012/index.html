@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/crm-012/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRM-012: Platform Consolidation: Sunset the Old CRM or Coexist? — SFVedas</title>
+  <meta name="description" content="The strategic decision between consolidating onto a single CRM and managing two platforms in coexistence — the real cost of coexistence, when it is the right answer, and how to execute a sunset."/>
+  <meta property="og:title" content="CRM-012: Platform Consolidation: Sunset the Old CRM or Coexist? — SFVedas"/>
+  <meta property="og:description" content="The strategic decision between consolidating onto a single CRM and managing two platforms in coexistence — the real cost of coexistence, when it is the right answer, and how to execute a sunset."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/crm-012/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CRM-012: Platform Consolidation: Sunset the Old CRM or Coexist? — SFVedas"/>
+  <meta name="twitter:description" content="The strategic decision between consolidating onto a single CRM and managing two platforms in coexistence — the real cost of coexistence, when it is the right answer, and how to execute a sunset."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"CRM-012: Platform Consolidation: Sunset the Old CRM or Coexist? — SFVedas","description":"The strategic decision between consolidating onto a single CRM and managing two platforms in coexistence — the real cost of coexistence, when it is the right answer, and how to execute a sunset.","url":"https://sfvedas.com/tutorials/crm-012/","mainEntityOfPage":"https://sfvedas.com/tutorials/crm-012/","author":{"@type":"Person","name":"Vishal Sharma","url":"https://sfvedas.com/about/"},"publisher":{"@type":"Organization","name":"SFVedas","url":"https://sfvedas.com","logo":{"@type":"ImageObject","url":"https://sfvedas.com/images/logo.svg"}},"image":"https://sfvedas.com/images/og-default.png"}</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=crm-comparison" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to CRM Comparison</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">CRM-012</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">CRM Comparison</span>
+        <span class="card-read">22 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        Platform Consolidation: Sunset the Old CRM or Coexist?
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Coexistence is almost always a tactical decision that becomes a strategic liability — but it is sometimes genuinely right, and the distinction matters.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">CRM Strategy Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The organisational dynamics that make coexistence the default choice even when it is the wrong one</li>
+            <li>The full cost of coexistence — including the costs that rarely appear in the initial business case</li>
+            <li>The specific scenarios in which coexistence is genuinely the right strategic answer</li>
+            <li>A structured decision framework for choosing between coexistence and consolidation</li>
+            <li>How to execute a CRM sunset effectively, including the decommission sequencing and stakeholder management that determine whether the programme succeeds</li>
+          </ul>
+        </div>
+
+        <!-- SECTION 1 -->
+        <h2 id="s1">Why Coexistence Is More Common Than It Should Be</h2>
+
+        <p>In most organisations that are running two CRM platforms, coexistence was not a strategic decision. It is the accumulated result of deferred decisions — the rationalisation that was scheduled, delayed, descoped, and eventually normalised as the operating model. Understanding why coexistence becomes entrenched is necessary context for dismantling it.</p>
+
+        <p>The most common dynamic is post-acquisition paralysis. A company acquires another, both entities run different CRM systems, and the integration plan is clear: rationalise onto one platform within two years. The two-year mark arrives. The CRM rationalisation workstream was deprioritised in favour of ERP integration, HR system consolidation, and the operational demands of integrating the acquired business. The "we will rationalise CRM next year" statement is renewed annually without ever becoming a funded programme. The organisation that was meant to have one CRM platform now has two fully embedded ones, each with three years of additional development, integration, and user dependency since the acquisition.</p>
+
+        <p>The second dynamic is organisational politics. One CRM platform belongs to a powerful division — typically the acquired entity or the division that implemented it first — whose leadership is resistant to consolidation. The political cost of forcing the issue is judged to be higher than the operational cost of maintaining two systems. The coexistence continues not because it is the right answer but because the consolidation requires a level of organisational authority that no one is willing to exercise.</p>
+
+        <p>The third dynamic is risk aversion. A CRM consolidation programme is a significant undertaking with real programme risk. The CTO who approves it is accountable for the outcome. If the programme fails — if adoption is poor, if data quality is worse in the new system, if the go-live is six months late — the failure is visible and attributable. Maintaining two imperfect systems is low-visibility failure. Attempting consolidation and struggling is high-visibility failure. The incentive structure favours inaction.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Naming the Real Reason</strong>
+            <p>The most valuable thing a CTO or technology leader can do when inheriting a coexistence situation is to be explicit about the real reason consolidation has not happened. If it is political — a powerful divisional stakeholder who refuses consolidation — name that clearly and address it at the executive level. If it is risk aversion — no one wants to own the programme risk — name that clearly and build the risk management framework that makes the programme governable. Coexistence is only a rational choice once you have genuinely examined the alternatives and found them worse. Most coexistence situations have not reached that stage.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <h2 id="s2">The Real Cost of Coexistence</h2>
+
+        <p>The business case for coexistence — insofar as one is ever made — typically compares the cost of coexistence to the cost of consolidation and concludes that consolidation is more expensive. This comparison is usually correct in Year 1. It is almost always wrong over a three-to-five year horizon, because it captures only the direct costs of coexistence and ignores the indirect and structural costs that accumulate over time.</p>
+
+        <h3>The Direct Costs</h3>
+
+        <p>The direct costs of coexistence are two licence contracts where one would suffice, two administration teams (or two sets of administration responsibilities for one team), two upgrade cycles to manage, two vendor relationships to maintain, and two security models to keep aligned. These costs are real and largely uncontested. A mid-sized organisation running Salesforce and Dynamics simultaneously pays £300,000 to £600,000 per year in duplicate licence cost alone, before counting administration overhead.</p>
+
+        <h3>The Integration Tax</h3>
+
+        <p>In most coexistence situations, some form of integration connects the two CRM systems to maintain data consistency. That integration has a build cost, a maintenance cost, and a failure cost. The build cost was incurred once. The maintenance cost — keeping the integration current as both platforms release updates, managing schema changes, handling authentication token renewals — is ongoing and typically underestimated in the initial integration budget. The failure cost — the operational disruption when the integration fails, which it will — is real but difficult to quantify in advance and therefore usually absent from the business case.</p>
+
+        <h3>The Reporting and Insight Cost</h3>
+
+        <p>An organisation running two CRM systems does not have a unified view of its customers. Sales data in Salesforce and service data in Dynamics produce a fragmented customer record. Analytics and reporting that span both systems require a data warehouse layer or a manual reconciliation process. The absence of a unified customer view degrades the quality of every decision that depends on customer insight: cross-sell strategy, churn analysis, account health scoring, and sales territory planning. This cost is structural and invisible — no budget line captures the quality of insight not obtained — but it is real and it compounds over time.</p>
+
+        <h3>The Talent and Knowledge Cost</h3>
+
+        <p>An organisation that runs two CRM platforms must recruit and retain expertise in both. Salesforce administrators and Dynamics administrators are different people with different skills and different salary expectations. The organisation is carrying the talent cost of two platform competencies rather than one. When experienced administrators leave, replacing them with staff who must maintain coexistence across both platforms is harder than replacing a single-platform specialist. The knowledge cost of two platforms also affects change delivery — every new business requirement must be assessed for its impact on both systems, doubling the analysis overhead for process and system changes.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="s3">When Coexistence Is Actually the Right Answer</h2>
+
+        <p>Coexistence is the correct answer in a genuinely small number of scenarios. Claiming it applies more broadly is either analytically lazy or politically motivated. The scenarios where it is genuinely right are worth stating precisely.</p>
+
+        <p>The first scenario is permanently separated business units with no cross-sell or shared customer base. If an organisation has acquired a business that operates in a completely different market, has different customers, and has no commercial interaction with the acquiring organisation's customer base, the integration and shared view benefits of a single CRM are minimal. The cost of consolidation — migrating users who will see no benefit, disrupting processes that work, retraining a team that operates independently — is real. The benefit is theoretical. In this specific scenario, coexistence is a rational architectural decision.</p>
+
+        <p>The second scenario is an active and bounded transition. An organisation that has decided to consolidate and has a funded programme running needs both systems active during the transition. This is not a coexistence strategy — it is a consolidation programme with a defined decommission date. The critical distinction is that the timeline is fixed and immovable. The transition period ends. The old system is decommissioned. Calling this "coexistence" is a category error that normalises the dual-system state rather than treating it as a temporary programme constraint.</p>
+
+        <p>The third scenario is a regulatory or contractual constraint. Some industries and some contracts require data to remain in specific systems for audit trail purposes. A financial services firm with a regulatory commitment to its CRM audit trail may not be able to migrate historical data without regulatory approval. A customer contract may specify that CRM data is held in a particular system. These constraints are real, but they are typically time-limited — regulatory obligations for audit trail data have retention periods, and contracts eventually expire. They justify temporary coexistence with a defined endpoint, not permanent coexistence.</p>
+
+        <!-- SECTION 4 -->
+        <h2 id="s4">The Consolidation Decision Framework</h2>
+
+        <p>The consolidation decision framework has three components: the strategic test, the TCO test, and the feasibility test. All three must support consolidation before committing to a programme.</p>
+
+        <p><strong>The Strategic Test:</strong> Does the organisation have a coherent long-term CRM strategy that a single platform serves better than two? This is a straightforward question with a surprisingly high rate of non-answer. Many organisations that are running two CRM platforms do not have a documented CRM strategy — they have inherited the platforms without ever having decided what CRM is meant to do for the business. The strategic test forces that conversation. If consolidation is the right answer, the strategy will clearly identify a single platform as the vehicle for delivering the CRM vision. If consolidation is uncertain, the strategic test will identify what the organisation needs to resolve before the platform decision can be made.</p>
+
+        <p><strong>The TCO Test:</strong> Build a five-year TCO model for three scenarios: coexistence maintained, consolidation onto Platform A, and consolidation onto Platform B. The model must include all four cost components — licence, implementation, operations, and staff — for all three scenarios. In most organisations, this model will show that both consolidation scenarios are cheaper than sustained coexistence beyond year two or three. The model will also clarify which consolidation platform is cheaper, which directly informs the platform survival decision.</p>
+
+        <p><strong>The Feasibility Test:</strong> Is the organisation capable of executing a consolidation programme given its current capacity, leadership attention, and change management maturity? A consolidation programme for a 1,000-user multi-system environment is a large programme — typically 18 to 24 months, requiring significant business engagement, a dedicated programme team, and executive sponsorship at the CTO or COO level. If the organisation is mid-way through another major programme, or if the leadership team does not have the bandwidth to sponsor a programme of this scale, the feasibility test may return a "not now" answer. "Not now" should come with a specific date: "We will initiate the consolidation programme in Q3 next year when the ERP migration is complete."</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The "Not Now" Trap</strong>
+            <p>Every deferral of a consolidation decision must be accompanied by a specific re-evaluation trigger — a date, a programme milestone, a business event — at which the decision is revisited. Deferrals without triggers become permanent deferrals. The organisation that says "we will revisit CRM consolidation when conditions are right" is not making a strategic decision. It is making a political one that normalises coexistence as the operational model. Conditions are never perfectly right for a consolidation programme. The correct discipline is to establish the conditions that are necessary and sufficient, agree when those conditions will be met, and commit to the decision process at that point.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <h2 id="s5">Executing the Sunset</h2>
+
+        <p>Once the consolidation decision is made and the target platform is identified, the decommission of the legacy CRM is the most critical and most frequently underplanned phase of the programme. Platform sunsets fail in a small number of predictable ways.</p>
+
+        <h3>The Decommission Sequencing</h3>
+
+        <p>The legacy platform cannot be decommissioned until all of its functions have been replicated in the target platform and validated by the users who depend on them. This sounds obvious, but programmes routinely attempt to decommission the legacy platform before completing the integration migration, before completing the data migration for all user populations, or before completing user training for all user groups. Each of these errors produces the same result: users who cannot perform their jobs in the new system and demand access to the old one, at which point the decommission is either reversed or the organisation runs both systems at full cost while the gaps are addressed.</p>
+
+        <p>The decommission sequencing must work backwards from the target decommission date. On that date, every user must be able to perform every required task in the target platform. The programme plan must identify each user population, each required task, and each dependency — integration, data, training — that must be resolved before that user population can operate on the target platform alone. Any dependency that is not on track becomes a decommission risk, and decommission risks must be escalated to programme governance before they become decommission blockers.</p>
+
+        <h3>The Data Retention and Archive Decision</h3>
+
+        <p>At the point of decommission, the legacy platform contains data that cannot all be deleted. Some data must be retained for regulatory compliance — typically a defined number of years for customer interaction data. Some data must be retained for contractual reasons. Some data must be retained because users will periodically need to look up historical records that were not migrated to the target system.</p>
+
+        <p>The data retention decision must be made before the decommission date, not at it. Options include: migrating all historical data to the target system (most expensive, cleanest), maintaining the legacy system in read-only archive mode (moderate cost, operationally clean), exporting data to a data warehouse or archive platform (requires archive query tooling), and applying a regulatory retention schedule with automated deletion after the retention period expires. Each option has different cost, complexity, and user experience implications. The decision should be made during the programme design phase and should have business and legal sign-off before implementation begins.</p>
+
+        <h3>The Political Closure</h3>
+
+        <p>Platform sunsets are not just technical events. They are organisational ones. The users of the legacy platform — particularly if they were the original advocates for it — need the decommission to be handled with recognition of what they are losing, not just efficiency commentary about what the new system delivers. A decommission that is executed without acknowledging the disruption to affected users, without genuine training investment for the transition, and without a support model for the adoption period will generate the adoption resistance and the escalations to senior leadership that delay the programme and damage confidence in the platform programme overall.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Coexistence is almost always the result of deferred decisions — post-acquisition paralysis, organisational politics, or risk aversion — rather than a considered strategic choice.</li>
+            <li>The full cost of coexistence includes duplicate licence cost, integration maintenance, the absence of a unified customer view, and the talent overhead of maintaining expertise in two platforms — a five-year model almost always favours consolidation.</li>
+            <li>Coexistence is genuinely appropriate only in three scenarios: permanently separated business units with no shared customer base, a bounded transition with a fixed decommission date, or a regulatory or contractual constraint with a defined end point.</li>
+            <li>The consolidation decision requires three tests: the strategic test (does a single platform serve the CRM vision better?), the TCO test (is consolidation cheaper over five years?), and the feasibility test (can the organisation execute the programme given current capacity?).</li>
+            <li>Every "not now" deferral of a consolidation decision must have a specific re-evaluation trigger — a date or milestone — or it becomes a permanent deferral that normalises coexistence as the operating model.</li>
+            <li>Platform sunset execution requires backwards planning from the decommission date, a formal data retention decision made before decommission, and a stakeholder management approach that acknowledges the disruption to affected users rather than treating the event as purely technical.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. A five-year TCO model for a two-CRM coexistence situation shows that coexistence costs £2.8 million more than consolidation over the period. The CTO argues that consolidation should still be deferred because the programme risk is high. What is the correct response to this argument?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. Accept the deferral — programme risk justifies accepting higher operational cost</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. Acknowledge the programme risk but require a specific re-evaluation trigger — a date or milestone — at which the consolidation decision is revisited; indefinite deferral is not a strategic position</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Override the deferral and commence the consolidation programme immediately to prevent further cost accumulation</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Commission a further analysis to determine whether the TCO model has been constructed correctly</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. Which of the following scenarios represents a genuinely appropriate use of long-term CRM coexistence?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. Two divisions of the same company both selling to the same enterprise accounts but using different CRM platforms</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">B. Two separately acquired businesses with completely different customer bases, different markets, and no commercial interaction — where the consolidation cost exceeds the integration benefit</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">C. A consolidation programme that has run into delivery difficulty and where both systems are being maintained while issues are resolved</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. An organisation that has not yet decided which platform to consolidate onto</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. A consolidation programme plans to decommission the legacy CRM at go-live of the new system. What is the primary risk of this approach?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Users will not be motivated to adopt the new system if the old system remains accessible</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">B. The decommission occurs before all user populations have been fully migrated, trained, and validated — users who cannot perform required tasks in the new system demand access to the legacy platform, and the decommission must be reversed or both systems run at full cost while gaps are addressed</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">C. The data from the legacy system may not have been fully migrated at the go-live date</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Regulatory requirements prevent immediate decommission of a live CRM system</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../crm-010/" class="related-card">
+              <span class="card-id">CRM-010</span>
+              <h4>The Multi-CRM Problem: When You Inherit Two Platforms</h4>
+            </a>
+            <a href="../crm-009/" class="related-card">
+              <span class="card-id">CRM-009</span>
+              <h4>Migrating from Microsoft Dynamics to Salesforce</h4>
+            </a>
+            <a href="../crm-015/" class="related-card">
+              <span class="card-id">CRM-015</span>
+              <h4>The Post-Migration Regret Study</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why Coexistence Is More Common Than It Should Be</a></li>
+            <li><a href="#s2">The Real Cost of Coexistence</a></li>
+            <li><a href="#s3">When Coexistence Is Actually the Right Answer</a></li>
+            <li><a href="#s4">The Consolidation Decision Framework</a></li>
+            <li><a href="#s5">Executing the Sunset</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-prev">
+          <h4>Previous Tutorial</h4>
+          <a href="../crm-011/" class="sidebar-next-link">
+            <span class="sidebar-next-arrow">&#8592;</span>
+            <span class="sidebar-next-id">CRM-011</span>
+            <span class="sidebar-next-title">Salesforce vs Freshworks: The Mid-Market Decision Framework</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../crm-013/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CRM-013</span>
+            <span class="sidebar-next-title">What Salesforce Does Better Than Everyone Else (And Where It Falls Short)</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) opt.classList.add('correct');
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>

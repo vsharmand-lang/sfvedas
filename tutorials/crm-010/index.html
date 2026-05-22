@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="canonical" href="https://sfvedas.com/tutorials/crm-010/"/>
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRM-010: The Multi-CRM Problem: When You Inherit Two Platforms — SFVedas</title>
+  <meta name="description" content="What to do when your organisation has ended up running two CRM platforms simultaneously — the integration option, the consolidation option, and how to decide which platform survives."/>
+  <meta property="og:title" content="CRM-010: The Multi-CRM Problem: When You Inherit Two Platforms — SFVedas"/>
+  <meta property="og:description" content="What to do when your organisation has ended up running two CRM platforms simultaneously — the integration option, the consolidation option, and how to decide which platform survives."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:url" content="https://sfvedas.com/tutorials/crm-010/"/>
+  <meta property="og:image" content="https://sfvedas.com/images/og-default.png"/>
+  <meta property="og:site_name" content="SFVedas"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="CRM-010: The Multi-CRM Problem: When You Inherit Two Platforms — SFVedas"/>
+  <meta name="twitter:description" content="What to do when your organisation has ended up running two CRM platforms simultaneously — the integration option, the consolidation option, and how to decide which platform survives."/>
+  <meta name="twitter:image" content="https://sfvedas.com/images/og-default.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin/>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Serif+Display:ital@0;1&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/></noscript>
+  <link rel="stylesheet" href="/css/main.css"/>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-99QW4K310Y"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-99QW4K310Y');
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"CRM-010: The Multi-CRM Problem: When You Inherit Two Platforms — SFVedas","description":"What to do when your organisation has ended up running two CRM platforms simultaneously — the integration option, the consolidation option, and how to decide which platform survives.","url":"https://sfvedas.com/tutorials/crm-010/","mainEntityOfPage":"https://sfvedas.com/tutorials/crm-010/","author":{"@type":"Person","name":"Vishal Sharma","url":"https://sfvedas.com/about/"},"publisher":{"@type":"Organization","name":"SFVedas","url":"https://sfvedas.com","logo":{"@type":"ImageObject","url":"https://sfvedas.com/images/logo.svg"}},"image":"https://sfvedas.com/images/og-default.png"}</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4584420180521124" crossorigin="anonymous"></script>
+</head>
+<body class="light-mode">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">Home</a></li>
+        <li><a href="/tutorials/" class="nav-link active">Tutorials</a></li>
+        <li><a href="/learning-paths/" class="nav-link">Learning Paths</a></li>
+        <li><a href="/about/" class="nav-link">About</a></li>
+        <li><a href="/advertise/" class="nav-link">Advertise</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode"><span class="theme-icon">☀</span></button>
+        <button class="nav-hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/tutorials/" class="nav-link">Tutorials</a>
+      <a href="/learning-paths/" class="nav-link">Learning Paths</a>
+      <a href="/about/" class="nav-link">About</a>
+      <a href="/advertise/" class="nav-link">Advertise</a>
+    </div>
+  </nav>
+
+  <section style="background: var(--bg-secondary); border-bottom: 1px solid var(--border); padding: 56px 0 40px;">
+    <div class="container">
+      <div style="margin-bottom: 16px;">
+        <a href="/tutorials/?tag=crm-comparison" style="font-family:var(--font-ui);font-size:0.8rem;color:var(--sage-green);text-decoration:none;">← Back to CRM Comparison</a>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">
+        <span class="card-id">CRM-010</span>
+        <span class="card-tag" style="background:rgba(232,147,10,0.08);color:var(--saffron);border-color:rgba(232,147,10,0.2);">CRM Comparison</span>
+        <span class="card-read">20 min read</span>
+        <span style="font-family:var(--font-ui);font-size:0.78rem;color:var(--text-secondary);">For: Tech Leaders</span>
+      </div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text-primary);line-height:1.2;max-width:820px;margin-bottom:16px;">
+        The Multi-CRM Problem: When You Inherit Two Platforms
+      </h1>
+      <p style="font-family:var(--font-body);font-size:1.05rem;color:var(--text-secondary);max-width:700px;line-height:1.75;margin-bottom:24px;">
+        Inheriting two CRM platforms is a symptom of organisational history, not a technology failure — and the right answer is almost never obvious from the architecture alone.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="author-avatar" style="width:40px;height:40px;font-size:0.85rem;">VS</div>
+        <div>
+          <p style="font-family:var(--font-ui);font-size:0.85rem;font-weight:600;color:var(--text-primary);margin:0;">Vishal Sharma</p>
+          <p style="font-family:var(--font-ui);font-size:0.75rem;color:var(--text-secondary);margin:0;">CRM Strategy Specialist · Updated May 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<div class="ad-unit">
+  <ins class="adsbygoogle"
+       style="display:block;text-align:center;"
+       data-ad-layout="in-article"
+       data-ad-format="fluid"
+       data-ad-client="ca-pub-4584420180521124"
+       data-ad-slot=""></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+  <div class="container">
+    <div class="tutorial-layout">
+
+      <article class="tutorial-body" id="tutorialContent">
+
+        <div class="section-summary">
+          <span class="ss-label">What you will learn in this tutorial</span>
+          <ul>
+            <li>The organisational histories that most commonly produce a two-CRM estate, and why that context shapes the solution options</li>
+            <li>When integration without consolidation is a legitimate long-term strategy, and when it is a deferral of an inevitable problem</li>
+            <li>How to evaluate full consolidation, including the factors that determine which platform survives</li>
+            <li>The political and organisational dynamics that make the platform survival decision more difficult than the technical analysis alone suggests</li>
+            <li>A structured approach to managing the transition risk during and after the consolidation programme</li>
+          </ul>
+        </div>
+
+        <!-- SECTION 1 -->
+        <h2 id="s1">Why You Have Two CRMs (And Why That Context Matters)</h2>
+
+        <p>The technology leader who inherits a two-CRM estate did not choose it. The estate is the accumulated result of organisational decisions — acquisitions, divisional autonomy, failed rationalisation attempts, procurement decisions made without central oversight — that predate the current leadership. Understanding the history of how the organisation ended up with two platforms is not an academic exercise. It is the essential context for understanding what consolidation will actually require.</p>
+
+        <p>The most common origin story for a two-CRM estate is acquisition. A company running Salesforce acquires a company running Dynamics 365, or vice versa. The acquisition thesis was built on revenue synergies, market expansion, or technology capability — not on CRM rationalisation. The integration team dealt with ERP consolidation, identity management, and the more immediately visible technology debts. CRM was deferred: both platforms continued running, both were maintained, and the "CRM rationalisation" workstream was added to the future roadmap that never quite becomes the current roadmap.</p>
+
+        <p>The second origin story is divisional autonomy. A technology organisation with strong product divisions allows each division to select its own CRM. Sales in one division chose Salesforce because the VP of Sales had used it at a previous employer. Customer service in another division chose Dynamics because the IT team was already managing a Microsoft stack. Both decisions were made in isolation, without a central platform strategy, and both were entirely rational from the divisional perspective at the time.</p>
+
+        <p>The third origin story is a failed rationalisation. The organisation attempted to consolidate onto one platform, ran a programme, encountered resistance — usually from the team whose platform was being sunset — and ended in a political compromise that left both systems in production. This is the hardest two-CRM situation to resolve, because the failed rationalisation has consumed programme budget, generated organisational scar tissue, and made stakeholders on both sides defensive about the topic.</p>
+
+        <div class="callout callout--insight">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <strong>Map the History Before the Options</strong>
+            <p>Before presenting any options to your executive team, map the history of each CRM system: when it was introduced, by whom, for what purpose, how many users depend on it, what integrations it carries, and what organisational stakeholders have an interest in its survival. The technical analysis of which platform is superior is straightforward. The political analysis of which platform can be sunset without losing organisational confidence is almost always the harder problem — and it cannot be done without the history.</p>
+          </div>
+        </div>
+
+        <!-- SECTION 2 -->
+        <h2 id="s2">The Integration-Not-Consolidation Option</h2>
+
+        <p>The integration option — connecting both CRM platforms so that data flows between them, maintaining both in production — is often presented as a pragmatic middle path. In a small number of cases, it genuinely is. In most cases, it is the path that minimises short-term political pain while maximising long-term operational cost.</p>
+
+        <p>Integration between two CRM platforms is technically achievable. Both Salesforce and Dynamics 365 have robust API surfaces. An integration layer — MuleSoft, Azure Integration Services, Boomi, or a custom middleware solution — can synchronise Account and Contact records, pass Opportunity data between systems, and maintain a consistent customer view across both platforms. Organisations have built and are running these integrations in production today.</p>
+
+        <p>The integration option is genuinely appropriate in a small number of scenarios. The clearest case is where the two platforms serve fundamentally different business processes — one manages enterprise account relationships and the other manages consumer customer service — and there is no realistic prospect of consolidating those processes onto a single platform. If the two platforms genuinely serve different populations of users who will never have overlapping needs, the integration overhead may be lower than the consolidation cost.</p>
+
+        <p>The second scenario where integration is genuinely appropriate is a short-term bridge while a consolidation programme is planned and funded. Running integration for twelve to eighteen months while the consolidation programme is scoped, approved, and resourced is a legitimate risk management strategy. The critical discipline is that the integration must be time-boxed — it must have a defined end date at which consolidation begins, not a conditional end date that depends on circumstances that may never align.</p>
+
+        <h3>The Real Cost of Integration-Not-Consolidation</h3>
+
+        <p>Integration between two CRM platforms does not replace the operational overhead of two platforms — it adds the overhead of maintaining an integration layer to the overhead of maintaining both platforms. You are now running three systems: Salesforce, Dynamics, and the integration layer that connects them. Each system has its own administration overhead, its own upgrade cycle, its own security model, and its own support contract. When a data synchronisation error occurs — and it will — diagnosing it requires expertise in all three systems simultaneously.</p>
+
+        <p>More importantly, integration does not solve the problem of conflicting master data. When an Account record is updated in Salesforce and the update does not successfully synchronise to Dynamics, you have two different versions of the same Account in two systems. Every integration model has conflict resolution rules, and every conflict resolution rule produces exceptions that require manual intervention. The exception management overhead in a two-CRM integration — even a well-designed one — is a continuous, ongoing cost that rarely appears in the initial integration business case.</p>
+
+        <!-- SECTION 3 -->
+        <h2 id="s3">The Full Consolidation Option</h2>
+
+        <p>Full consolidation — migrating all users and data to a single platform and decommissioning the other — is the correct long-term answer for most organisations with a two-CRM estate. It eliminates duplicate licence costs, reduces the operational overhead of platform administration, removes the integration layer and its associated failure modes, and creates a single authoritative customer record. These benefits are clear and uncontested. The difficulty is not in the logic of consolidation — it is in the execution.</p>
+
+        <p>A consolidation programme from a two-CRM estate is more complex than either a greenfield implementation or a single-platform migration. It has two sets of users with different training needs, two data states that must be reconciled into a single target, two sets of integrations with upstream and downstream systems, two sets of business processes that must be mapped and in most cases redesigned, and two sets of organisational stakeholders with strong opinions about the outcome.</p>
+
+        <h3>The Data Reconciliation Challenge</h3>
+
+        <p>The hardest technical problem in a two-CRM consolidation is reconciling the master data from both platforms into a single, consistent data model in the target system. The same customer — the same Account — will almost always have different records in both CRM systems. Different names (the legal entity name in one, the trading name in the other). Different address formats. Different relationship structures. Different associated Contacts. The deduplication and master data management work required to produce a clean, consolidated Account and Contact dataset from two CRM sources is a substantial programme in its own right — and it must be completed, or at least substantially completed, before the main migration can proceed.</p>
+
+        <p>Organisations that underestimate the data reconciliation phase typically discover the problem during UAT, when users review the migrated data in the new system and find duplicates, missing records, and incorrect relationships. Fixing these problems in UAT is expensive. Fixing them in production after go-live is more expensive and operationally disruptive. The data reconciliation workstream must be fully resourced and treated as a programme-critical dependency, not an afterthought to the technical build.</p>
+
+        <!-- SECTION 4 -->
+        <h2 id="s4">Deciding Which Platform Survives</h2>
+
+        <p>The platform survival decision is the most politically sensitive decision in a consolidation programme, and it is the one most likely to be made for the wrong reasons. The wrong reasons include: the CEO used this platform at their previous employer; the larger team uses this platform; the platform with the most recent implementation wins by default; the platform sold to the organisation most recently wins because the contract is newer. None of these are analytical reasons. All of them have determined platform survival decisions in real organisations.</p>
+
+        <p>The analytical framework for the platform survival decision should weight four factors. First, total cost of ownership over five years on each platform, incorporating current licence commitments, implementation cost for migration, and ongoing operational cost. Second, functional fit to the organisation's CRM requirements for the next three to five years — not the current requirements, but the expected future requirements, because the surviving platform must serve the organisation's growth ambitions, not just its current state. Third, technology estate fit: which platform integrates more naturally with the other systems in the organisation's technology stack — ERP, data platform, identity management, collaboration tools. Fourth, organisational capability: which platform can the organisation recruit for and operate sustainably, and which has the deeper existing internal expertise.</p>
+
+        <div class="callout callout--warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <strong>The Sunk Cost Trap</strong>
+            <p>The most common analytical error in platform survival decisions is weighting sunk cost — the investment already made in one platform — as a reason to choose that platform as the survivor. Sunk costs are not a reason to continue investment. The platform that receives further investment should be chosen on its merits for the future state, not on the scale of the investment already made. An organisation that has invested £2 million in a Dynamics implementation may still find that Salesforce is the correct long-term platform — and that finding should not be obscured by reluctance to acknowledge the prior investment.</p>
+          </div>
+        </div>
+
+        <h3>The Stakeholder Management Dimension</h3>
+
+        <p>Every consolidation programme has a losing side: the users whose platform is being decommissioned. Managing this stakeholder group is as important as the technical delivery, and it requires a level of attention that programme managers often do not give it until the resistance becomes a programme risk.</p>
+
+        <p>The users of the sunset platform have a legitimate grievance: their system is being taken away, their established workflows are being disrupted, and they are being asked to relearn a platform that another part of the organisation chose. Dismissing this grievance — telling them the new platform is better, that they will love it once they learn it — is both disrespectful and ineffective. Acknowledging the disruption, involving the affected users genuinely in the design of the new system, and investing in their training and support are not optional acts of kindness. They are programme-critical risk management steps.</p>
+
+        <!-- SECTION 5 -->
+        <h2 id="s5">Managing the Transition Risk</h2>
+
+        <p>The transition period — from the decision to consolidate to the point where the surviving platform is fully operational and the sunset platform is decommissioned — is the period of highest risk for a two-CRM consolidation programme. The risks are not primarily technical. They are operational, organisational, and commercial.</p>
+
+        <p>Operational risk during the transition centres on data integrity. While both systems are running in parallel during the transition, every update to a customer record in either system creates a divergence risk between the two data states. The integration that is maintaining consistency between systems is the critical path — every failure of that integration is a data integrity incident. The transition period must have a named data steward with authority to resolve conflicts, a defined incident response process for integration failures, and a monitoring framework that surfaces synchronisation failures in near-real-time rather than in the next day's data quality report.</p>
+
+        <p>Organisational risk during the transition is the regression risk: users reverting to the platform they are comfortable with, either because the new system is not yet configured to their satisfaction or because they find the transition difficult. The mitigation is a structured adoption plan that begins before go-live, includes champions in each affected team, and establishes specific workflows that are Salesforce-only from day one — pipeline reporting, forecast submission, deal approvals — so that the path of least resistance for critical workflows is the new platform, not the old one.</p>
+
+        <p>Commercial risk is the risk that the organisation is paying for both platforms for longer than planned. Dynamics licences, in particular, are typically held in Enterprise Agreements that cannot be exited mid-term without penalty. The consolidation programme timeline must be coordinated with the Microsoft EA renewal date to avoid paying for licences on a platform that has been decommissioned, or paying break fees that were not in the original business case. This coordination should begin at programme initiation, not at go-live — the EA renewal calendar is determined years in advance and cannot be moved to match a programme's convenience.</p>
+
+        <p>The organisations that execute two-CRM consolidations most successfully share a common characteristic: they treat the programme as a business change programme, not a technology migration. The technology is the mechanism. The business change — new processes, new ways of working, new data disciplines, new reporting structures — is the point. Programmes that are led by technology teams without strong business sponsorship consistently underinvest in change management and consistently deliver technically sound systems that businesses do not use effectively.</p>
+
+        <!-- KEY TAKEAWAYS -->
+        <div class="key-takeaways" id="takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>The history of how an organisation acquired two CRM platforms is the essential context for any rationalisation decision — acquisitions, divisional autonomy, and failed rationalisation attempts each produce different political and technical constraints.</li>
+            <li>Integration without consolidation adds the overhead of a third system (the integration layer) to the overhead of two platforms, and does not resolve the master data conflict problem — it manages it at ongoing operational cost.</li>
+            <li>Full consolidation is the correct long-term answer for most two-CRM estates, but it requires data reconciliation work that is almost always underestimated and must be treated as a programme-critical dependency.</li>
+            <li>The platform survival decision should be made on total cost of ownership, functional fit for future requirements, technology estate integration, and organisational capability — not on sunk costs or executive preference.</li>
+            <li>The stakeholder management of the sunset platform users is as important as the technical delivery; dismissing their disruption is both disrespectful and a programme risk.</li>
+            <li>Transition risk is primarily operational (data integrity), organisational (adoption regression), and commercial (duplicate licence cost) — all three must be actively managed from programme initiation, not from go-live.</li>
+          </ul>
+        </div>
+
+        <!-- QUIZ -->
+        <div class="quiz-section" id="quiz">
+          <h2>Checkpoint: Test Your Understanding</h2>
+
+          <div class="quiz-question" id="q1">
+            <p>1. An organisation running both Salesforce and Dynamics proposes to resolve the two-CRM problem by building an integration layer to synchronise data between the platforms. What is the primary risk of this approach as a permanent solution?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">A. The integration layer will be too expensive to build given the complexity of both platforms' APIs</div>
+              <div class="quiz-option" onclick="answer(this,'q1','right')">B. Integration adds a third system to maintain, does not resolve master data conflicts, and generates ongoing exception management overhead — it manages the two-CRM problem rather than solving it</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">C. Both platforms will resist integration attempts because vendors prefer exclusive deployments</div>
+              <div class="quiz-option" onclick="answer(this,'q1','wrong')">D. Integration is technically infeasible between Salesforce and Dynamics because they use incompatible data models</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q2">
+            <p>2. A consolidation programme must decide which of two CRM platforms will survive. The organisation has invested £3 million in Dynamics over five years. Which principle should govern the platform survival decision?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">A. The platform with the largest existing user base should survive to minimise disruption</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">B. The platform that received the most recent investment should survive to protect the sunk cost</div>
+              <div class="quiz-option" onclick="answer(this,'q2','right')">C. The platform that best meets the five-year TCO, functional fit, technology estate, and organisational capability criteria should survive — sunk cost is not a forward-looking reason</div>
+              <div class="quiz-option" onclick="answer(this,'q2','wrong')">D. The decision should be made by the executive who has the most CRM experience</div>
+            </div>
+          </div>
+
+          <div class="quiz-question" id="q3">
+            <p>3. During the transition period of a two-CRM consolidation, what is the most effective lever for preventing users from reverting to the sunset platform?</p>
+            <div class="quiz-options">
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">A. Removing access to the sunset platform immediately at go-live to force adoption of the new system</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">B. Conducting extensive retraining sessions in the month before go-live</div>
+              <div class="quiz-option" onclick="answer(this,'q3','right')">C. Making specific high-visibility workflows — pipeline reporting, forecast submission, deal approvals — Salesforce-only from day one, so that the path of least resistance for critical work is the new platform</div>
+              <div class="quiz-option" onclick="answer(this,'q3','wrong')">D. Offering financial incentives for users who complete their Salesforce training certifications before go-live</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="related-tutorials">
+          <h2>Continue Reading</h2>
+          <div class="related-grid">
+            <a href="../crm-009/" class="related-card">
+              <span class="card-id">CRM-009</span>
+              <h4>Migrating from Microsoft Dynamics to Salesforce</h4>
+            </a>
+            <a href="../crm-012/" class="related-card">
+              <span class="card-id">CRM-012</span>
+              <h4>Platform Consolidation: Sunset the Old CRM or Coexist?</h4>
+            </a>
+            <a href="../crm-015/" class="related-card">
+              <span class="card-id">CRM-015</span>
+              <h4>The Post-Migration Regret Study</h4>
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <aside class="tutorial-sidebar">
+        <div class="sidebar-toc">
+          <h4>In This Tutorial</h4>
+          <ul class="toc-list">
+            <li><a href="#s1">Why You Have Two CRMs (And Why That Context Matters)</a></li>
+            <li><a href="#s2">The Integration-Not-Consolidation Option</a></li>
+            <li><a href="#s3">The Full Consolidation Option</a></li>
+            <li><a href="#s4">Deciding Which Platform Survives</a></li>
+            <li><a href="#s5">Managing the Transition Risk</a></li>
+            <li><a href="#takeaways">Key Takeaways</a></li>
+            <li><a href="#quiz">Checkpoint: Test Your Understanding</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-progress">
+          <h4>Reading Progress</h4>
+          <div class="progress-track"><div class="progress-fill" id="sidebarProgress"></div></div>
+          <span class="progress-pct" id="progressPct">0%</span>
+        </div>
+        <div class="sidebar-prev">
+          <h4>Previous Tutorial</h4>
+          <a href="../crm-009/" class="sidebar-next-link">
+            <span class="sidebar-next-arrow">&#8592;</span>
+            <span class="sidebar-next-id">CRM-009</span>
+            <span class="sidebar-next-title">Migrating from Microsoft Dynamics to Salesforce: What Nobody Tells You</span>
+          </a>
+        </div>
+        <div class="sidebar-next">
+          <h4>Next Tutorial</h4>
+          <a href="../crm-011/" class="sidebar-next-link">
+            <span class="sidebar-next-id">CRM-011</span>
+            <span class="sidebar-next-title">Salesforce vs Freshworks: The Mid-Market Decision Framework</span>
+            <span class="sidebar-next-arrow">&#8594;</span>
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="/" class="nav-brand"><span class="brand-sf">SF</span><span class="brand-vedas">Vedas</span></a>
+          <p class="footer-tagline">Deep Salesforce Knowledge<br/>for Tech Leaders</p>
+          <p class="footer-domain">sfvedas.com</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>Learn</h4><a href="/tutorials/">All Tutorials</a><a href="/learning-paths/">Learning Paths</a></div>
+          <div class="footer-col"><h4>About</h4><a href="/about/">Our Story</a></div>
+          <div class="footer-col"><h4>Topics</h4><a href="/tutorials/">Architecture</a><a href="/tutorials/">Delivery</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 SFVedas · Vishal Sharma · sfvedas.com</p>
+        <p class="footer-philosophy">Deep knowledge. For the decisions that matter.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function updateProgress() {
+      const article = document.getElementById('tutorialContent');
+      const bar = document.getElementById('readingProgress');
+      const sidebar = document.getElementById('sidebarProgress');
+      const pct = document.getElementById('progressPct');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const scrolled = Math.max(0, -rect.top);
+      const total = article.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(100, Math.round((scrolled / total) * 100)) : 0;
+      if (bar) bar.style.width = progress + '%';
+      if (sidebar) sidebar.style.width = progress + '%';
+      if (pct) pct.textContent = progress + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+    function answer(el, questionId, result) {
+      const question = document.getElementById(questionId);
+      question.querySelectorAll('.quiz-option').forEach(opt => { opt.classList.remove('correct', 'incorrect'); opt.style.pointerEvents = 'none'; });
+      el.classList.add(result === 'right' ? 'correct' : 'incorrect');
+      if (result === 'wrong') {
+        question.querySelectorAll('.quiz-option').forEach(opt => {
+          if (opt.getAttribute('onclick') && opt.getAttribute('onclick').includes("'right'")) opt.classList.add('correct');
+        });
+      }
+    }
+  </script>
+  <script src="/js/main.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>
+</body>
+</html>
