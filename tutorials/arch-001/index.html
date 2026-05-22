@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -171,6 +171,190 @@
         <h3>How Salesforce Implements Multi-Tenancy</h3>
 
         <p>Salesforce's implementation is particularly aggressive. In a standard multi-tenant SaaS product, tenants might share application servers but have separate database instances. Salesforce goes further: <strong>all tenants share the same database</strong>. Your data sits in the same Oracle database instances as your competitor's data, separated only by an <code>OrgId</code> column in virtually every table.</p>
+
+        <p>This is reflected in Salesforce's schema design. The core metadata tables — <code>SystemField</code>, <code>Name</code>, <code>Entity</code> — don't vary by customer. What varies is the data stored in a universal object store called the Entity-Attribute-Value (EAV) pattern, where your custom objects and fields are stored as rows in a generic object table, not as actual database columns.</p>
+
+        <style>
+          .arch-comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin: 40px 0;
+          }
+          .arch-comparison-col {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.015);
+            transition: border-color 0.25s, transform 0.25s;
+          }
+          .arch-comparison-col:hover {
+            border-color: var(--saffron);
+            transform: translateY(-2px);
+          }
+          .arch-comparison-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 0 0 6px;
+            text-align: center;
+            color: var(--text-primary);
+          }
+          .arch-comparison-subtitle {
+            font-family: var(--font-ui);
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            text-align: center;
+          }
+          .arch-paradigm-svg {
+            width: 100%;
+            height: auto;
+            max-width: 340px;
+          }
+          @media (max-width: 768px) {
+            .arch-comparison-grid {
+              grid-template-columns: 1fr;
+              gap: 24px;
+            }
+          }
+        </style>
+
+        <div class="arch-comparison-grid">
+          <!-- PANEL 1: TRADITIONAL SCHEMA -->
+          <div class="arch-comparison-col">
+            <div class="arch-comparison-title">Traditional Relational Schema</div>
+            <div class="arch-comparison-subtitle">Dedicated Client-Specific Tables</div>
+            
+            <svg class="arch-paradigm-svg" viewBox="0 0 340 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#2980B9" />
+                  <stop offset="100%" stop-color="#1F4E79" />
+                </linearGradient>
+              </defs>
+              
+              <!-- Client A Database Header container -->
+              <rect x="15" y="10" width="310" height="260" rx="12" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="32" y="32" font-family="var(--font-ui)" font-size="11" font-weight="700" fill="var(--text-secondary)" letter-spacing="0.05em">CLIENT A DEDICATED DATABASE</text>
+              
+              <!-- Opportunity Table Block -->
+              <rect x="30" y="52" width="280" height="88" rx="8" fill="#1C355E" stroke="#0070D2" stroke-width="1.5"/>
+              <text x="44" y="72" font-family="var(--font-ui)" font-size="12" font-weight="700" fill="#fff">Table: client_a_opportunities</text>
+              
+              <!-- Column headers -->
+              <rect x="40" y="84" width="60" height="20" rx="3" fill="#0A1D37" />
+              <text x="70" y="98" font-family="var(--font-ui)" font-size="10" fill="#fff" text-anchor="middle">RecordId</text>
+              
+              <rect x="105" y="84" width="60" height="20" rx="3" fill="#0A1D37" />
+              <text x="135" y="98" font-family="var(--font-ui)" font-size="10" fill="#fff" text-anchor="middle">OppName</text>
+              
+              <rect x="170" y="84" width="65" height="20" rx="3" fill="#0A1D37" />
+              <text x="202" y="98" font-family="var(--font-ui)" font-size="10" fill="#fff" text-anchor="middle">CloseDate</text>
+              
+              <rect x="240" y="84" width="60" height="20" rx="3" fill="#0A1D37" />
+              <text x="270" y="98" font-family="var(--font-ui)" font-size="10" fill="#fff" text-anchor="middle">Amount</text>
+              
+              <!-- Sample Row -->
+              <text x="44" y="124" font-family="var(--font-ui)" font-size="11" fill="rgba(255,255,255,0.8)">006x00...1</text>
+              <text x="109" y="124" font-family="var(--font-ui)" font-size="11" fill="rgba(255,255,255,0.8)">Enterprise Q4</text>
+              <text x="174" y="124" font-family="var(--font-ui)" font-size="11" fill="rgba(255,255,255,0.8)">2026-06-30</text>
+              <text x="244" y="124" font-family="var(--font-ui)" font-size="11" fill="rgba(255,255,255,0.8)">$120,000</text>
+              
+              <!-- Account Table Block -->
+              <rect x="30" y="160" width="280" height="88" rx="8" fill="var(--bg-card)" stroke="var(--border)" stroke-width="1.5"/>
+              <text x="44" y="180" font-family="var(--font-ui)" font-size="12" font-weight="700" fill="var(--text-primary)">Table: client_a_accounts</text>
+              
+              <!-- Column headers -->
+              <rect x="40" y="192" width="60" height="20" rx="3" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1" />
+              <text x="70" y="206" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)" text-anchor="middle">RecordId</text>
+              
+              <rect x="105" y="192" width="95" height="20" rx="3" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1" />
+              <text x="152" y="206" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)" text-anchor="middle">AccountName</text>
+              
+              <rect x="205" y="192" width="95" height="20" rx="3" fill="var(--bg-secondary)" stroke="var(--border)" stroke-width="1" />
+              <text x="252" y="206" font-family="var(--font-ui)" font-size="10" fill="var(--text-secondary)" text-anchor="middle">Industry</text>
+              
+              <!-- Sample Row -->
+              <text x="44" y="232" font-family="var(--font-ui)" font-size="11" fill="var(--text-secondary)">001x00...2</text>
+              <text x="109" y="232" font-family="var(--font-ui)" font-size="11" fill="var(--text-secondary)">Acme Corp</text>
+              <text x="209" y="232" font-family="var(--font-ui)" font-size="11" fill="var(--text-secondary)">Technology</text>
+            </svg>
+          </div>
+
+          <!-- PANEL 2: SALESFORCE EAV ARCHITECTURE -->
+          <div class="arch-comparison-col">
+            <div class="arch-comparison-title">Salesforce EAV Store</div>
+            <div class="arch-comparison-subtitle">Universal Shared Metadata Table</div>
+            
+            <svg class="arch-paradigm-svg" viewBox="0 0 340 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="saffronGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#F39C12" />
+                  <stop offset="100%" stop-color="#D35400" />
+                </linearGradient>
+              </defs>
+              
+              <!-- Global shared database container -->
+              <rect x="15" y="10" width="310" height="260" rx="12" fill="#111E2E" stroke="var(--saffron)" stroke-width="1.5"/>
+              <text x="32" y="32" font-family="var(--font-ui)" font-size="11" font-weight="700" fill="var(--saffron)" letter-spacing="0.05em">SHARED ENTERPRISE DATABASE</text>
+              
+              <!-- Shared Object Data Table Block -->
+              <rect x="30" y="52" width="280" height="196" rx="8" fill="#0A1628" stroke="var(--saffron)" stroke-width="1"/>
+              <text x="44" y="72" font-family="var(--font-ui)" font-size="12" font-weight="700" fill="#fff">Table: sf_object_data</text>
+              
+              <!-- Column headers -->
+              <rect x="40" y="84" width="50" height="20" rx="3" fill="#1C355E" />
+              <text x="65" y="98" font-family="var(--font-ui)" font-size="10" font-weight="600" fill="var(--saffron)" text-anchor="middle">OrgId</text>
+              
+              <rect x="95" y="84" width="55" height="20" rx="3" fill="#1C355E" />
+              <text x="122.5" y="98" font-family="var(--font-ui)" font-size="10" fill="#fff" text-anchor="middle">RecordId</text>
+              
+              <rect x="155" y="84" width="60" height="20" rx="3" fill="#1C355E" />
+              <text x="185" y="98" font-family="var(--font-ui)" font-size="10" fill="#fff" text-anchor="middle">FieldId</text>
+              
+              <rect x="220" y="84" width="80" height="20" rx="3" fill="#1C355E" />
+              <text x="260" y="98" font-family="var(--font-ui)" font-size="10" fill="#fff" text-anchor="middle">Value</text>
+              
+              <!-- EAV Row 1 (Client A - Opp Name) -->
+              <text x="44" y="122" font-family="var(--font-ui)" font-size="10" fill="var(--saffron)">Org_A</text>
+              <text x="99" y="122" font-family="var(--font-ui)" font-size="10" fill="#8C9BA5">006x...01</text>
+              <text x="159" y="122" font-family="var(--font-ui)" font-size="10" fill="#8C9BA5">Fld_Name</text>
+              <text x="224" y="122" font-family="var(--font-ui)" font-size="10" fill="#fff">Enterprise Q4</text>
+              
+              <!-- EAV Row 2 (Client A - Opp Amount) -->
+              <text x="44" y="142" font-family="var(--font-ui)" font-size="10" fill="var(--saffron)">Org_A</text>
+              <text x="99" y="142" font-family="var(--font-ui)" font-size="10" fill="#8C9BA5">006x...01</text>
+              <text x="159" y="142" font-family="var(--font-ui)" font-size="10" fill="#8C9BA5">Fld_Value</text>
+              <text x="224" y="142" font-family="var(--font-ui)" font-size="10" fill="#fff">120000</text>
+              
+              <!-- Divider indicating dynamic logical boundary -->
+              <line x1="35" y1="158" x2="305" y2="158" stroke="rgba(232,147,10,0.18)" stroke-width="1" stroke-dasharray="2 2" />
+              
+              <!-- EAV Row 3 (Client B - Opp Name) -->
+              <text x="44" y="178" font-family="var(--font-ui)" font-size="10" fill="#0070D2">Org_B</text>
+              <text x="99" y="178" font-family="var(--font-ui)" font-size="10" fill="#8C9BA5">006z...99</text>
+              <text x="159" y="178" font-family="var(--font-ui)" font-size="10" fill="#8C9BA5">Fld_Name</text>
+              <text x="224" y="178" font-family="var(--font-ui)" font-size="10" fill="#fff">APAC Expansion</text>
+              
+              <!-- EAV Row 4 (Client B - Opp Amount) -->
+              <text x="44" y="198" font-family="var(--font-ui)" font-size="10" fill="#0070D2">Org_B</text>
+              <text x="99" y="198" font-family="var(--font-ui)" font-size="10" fill="#8C9BA5">006z...99</text>
+              <text x="159" y="198" font-family="var(--font-ui)" font-size="10" fill="#8C9BA5">Fld_Value</text>
+              <text x="224" y="198" font-family="var(--font-ui)" font-size="10" fill="#fff">450000</text>
+              
+              <!-- Caption/Context -->
+              <text x="170" y="234" font-family="var(--font-ui)" font-size="9" fill="rgba(255,255,255,0.5)" text-anchor="middle">Metadata maps generic columns to logical fields at runtime</text>
+            </svg>
+          </div>
+        </div>
 
         <p>This is reflected in Salesforce's schema design. The core metadata tables — <code>SystemField</code>, <code>Name</code>, <code>Entity</code> — don't vary by customer. What varies is the data stored in a universal object store called the Entity-Attribute-Value (EAV) pattern, where your custom objects and fields are stored as rows in a generic object table, not as actual database columns.</p>
 
